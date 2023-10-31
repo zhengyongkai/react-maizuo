@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  //   justify-content: center;
+  height: 48px;
+  // position: fixed;
+  line-height: 64px;
+  // text-align: center;
+  background-color: lightblue;
+  color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  // text-align: center;
+  align-items: center;
+
+  > :first-child {
+    width: 15%;
+    text-align: center;
+  }
+
+  > :nth-child(2) {
+    width: 70%;
+    text-align: center;
+  }
+}

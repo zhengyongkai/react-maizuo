@@ -1,0 +1,111 @@
+import '@/pages/css/location.scss';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { IndexBar, List } from 'antd-mobile';
+import { useEffect, useState } from 'react';
+import { setLocale } from '@/store/common/location';
+
+import type { cityStateImf } from '@/types/location';
+
+interface cityImf {
+    pinyin: string;
+    name: string;
+    cityId: number;
+}
+
+interface formatImf {
+    title: string;
+    name: string;
+    cityId: number;
+}
+
+function locationPage() {
+    const dispatch = useDispatch();
+    const cityState = useSelector((state: cityStateImf) => state.location.locale.name);
+    const locationList = useSelector((state: cityStateImf) => state.location.locationList);
+    const [city, setCity] = useState(cityState);
+    const [hotList, setHotList] = useState<Array<{ name: string }>>([]);
+    const [list, setList] = useState<Array<{ title: string; items: Array<formatImf> }>>([]);
+
+    useEffect(() => {
+        const formatList = locationList.reduce(
+            (pre: Map<string, { pinyin: string; list: Array<cityImf> }>, res: cityImf) => {
+                const chatOne = res.pinyin.charAt(0);
+                const lists = pre.get(res.pinyin.charAt(0))?.list || [];
+
+                pre.set(chatOne, {
+                    pinyin: res.pinyin,
+                    list: [...lists, { pinyin: res.pinyin, name: res.name, cityId: res.cityId }],
+                });
+
+                return pre;
+            },
+            new Map(),
+        );
+        const result: Array<{ title: string; items: Array<formatImf> }> = [...formatList.entries()]
+            .map((res) => {
+                return {
+                    title: res[0].toLocaleUpperCase(),
+                    items: res[1].list,
+                };
+            })
+            .sort((a, b) => {
+                if (a.title < b.title) {
+                    return -1;
+                }
+                if (a.title > b.title) {
+                    return 1;
+                }
+                return 0;
+            });
+        setList(result);
+        setHotList(locationList.filter((res) => res.isHot === 1));
+    }, [locationList]);
+
+    useEffect(() => {
+        setCity(cityState);
+    }, [cityState]);
+
+    function onCityClick(item: formatImf) {
+        dispatch(setLocale(item));
+    }
+    return (
+        <>
+            <div className='city-location'>当前城市 - {city} </div>
+            <div className='city-recommend'>
+                <div className='city-title'>热门城市</div>
+                <div className='city-tabs'>
+                    {hotList.map((item, index) => {
+                        return (
+                            <div className='city-tab' key={index}>
+                                {item.name}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className='city-list'>
+                <IndexBar>
+                    {list.map((group) => {
+                        const { title, items } = group;
+                        return (
+                            <IndexBar.Panel index={title} title={title} key={title}>
+                                <List>
+                                    {items.map((item, index) => {
+                                        return (
+                                            <List.Item key={index} onClick={() => onCityClick(item)}>
+                                                {item.name}
+                                            </List.Item>
+                                        );
+                                    })}
+                                </List>
+                            </IndexBar.Panel>
+                        );
+                    })}
+                </IndexBar>
+            </div>
+        </>
+    );
+}
+
+export default locationPage;

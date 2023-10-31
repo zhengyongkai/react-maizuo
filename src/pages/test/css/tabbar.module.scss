@@ -1,0 +1,20 @@
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  height: 64px;
+  display: flex;
+}
+
+.tabbar > div {
+  flex: 1;
+  line-height: 64px;
+  text-align: center;
+  cursor: pointer;
+}
+
+:global(.active) {
+  color: red;
+}
