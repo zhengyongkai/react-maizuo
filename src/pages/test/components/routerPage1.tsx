@@ -5,6 +5,7 @@ import {
   useSearchParams,
   useParams,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 
 import RouterPage2 from "./routerPage2";
@@ -20,12 +21,10 @@ import {
 import "@/pages/css/home.scss";
 
 export default function routerPage() {
-  const { id } = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
-  const ref = useRef<any>(null);
-  const [type, setType] = useState(id);
   const [visable, setVisable] = useState(false);
-  const preScrollLocation = useRef(0);
+  const [path, setPath] = useState(pathname);
 
   function useScroll() {
     const scrollTop =
@@ -40,11 +39,11 @@ export default function routerPage() {
     // console.log('dd');
   }
 
-  const scrollCallback = useScroll;
-
   useEffect(() => {
-    setType(id);
-  }, [id]);
+    setPath(pathname);
+  }, [pathname]);
+
+  const scrollCallback = useScroll;
 
   useEffect(() => {
     window.addEventListener("scroll", scrollCallback);
@@ -55,37 +54,7 @@ export default function routerPage() {
   }, []);
   return (
     <>
-      <div style={{ position: "relative", top: visable ? 48 : 0 }}>
-        <div className={visable ? "tabbar-scroll" : "tabbar"}>
-          {visable ? <Navbar></Navbar> : ""}
-          <div className="tabbar">
-            <div
-              className={type === "1" ? "active" : ""}
-              onClick={() => {
-                navigate("/name/home/1");
-              }}
-            >
-              正在上映
-            </div>
-            <div
-              className={type === "2" ? "active" : ""}
-              onClick={() => {
-                navigate("/name/home/2");
-              }}
-            >
-              即将上映
-            </div>
-          </div>
-        </div>
-        <div
-          className="main"
-          style={{
-            position: "relative",
-          }}
-        >
-          <Outlet></Outlet>
-        </div>
-      </div>
+      <Outlet></Outlet>
       <Tabbar></Tabbar>
     </>
   );

@@ -23,9 +23,12 @@ const getFakeUserData = () => {
   });
 };
 
-export const userAsync = createAsyncThunk("/user/getUserData", async () => {
-  return await getFakeUserData();
-});
+export const userAsync: any = createAsyncThunk(
+  "/user/getUserData",
+  async () => {
+    return await getFakeUserData();
+  }
+);
 
 // 创建一个 Slice
 export const counterSlice = createSlice({

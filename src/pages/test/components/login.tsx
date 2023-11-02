@@ -9,7 +9,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     await dispatch(userAsync());
-    navigate("/name/home/1");
+    navigate("/name/home/nowPlaying");
   };
   return (
     <>

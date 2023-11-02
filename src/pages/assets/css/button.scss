@@ -1,0 +1,138 @@
+.k-btn {
+  outline: none;
+  border: 0;
+  color: #fff;
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+  font-size: 14px;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 550;
+  &.k-btn-icon-only {
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.k-btn-loading {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.k-btn-dark {
+  background-color: black !important;
+  color: #fff !important;
+}
+
+.k-btn-primary {
+  background-color: #1677ff;
+  > span {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+  }
+
+  &:hover {
+    background-color: #437cff;
+  }
+  &:active {
+    background-color: #1842a2;
+  }
+}
+
+.k-btn-danger:is(.k-btn-primary) {
+  background-color: #f23c47;
+  &:hover {
+    background-color: #fd6b74;
+  }
+  &:active {
+    background-color: #d60c18;
+  }
+}
+
+.k-btn-icon-only {
+  padding: 0 !important;
+  > span {
+    line-height: 0 !important;
+    height: 0 !important;
+  }
+}
+
+.k-btn-lg {
+  font-size: 14px;
+  padding: 8px 16px;
+  > span {
+    height: 22px;
+    line-height: 22px;
+  }
+  &.k-btn-icon-only {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.k-btn-sm {
+  font-size: 12px;
+  padding: 3px 8px;
+  > span {
+    height: 18px;
+    line-height: 18px;
+  }
+  &.k-btn-icon-only {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.k-btn-icon-only {
+  span {
+    line-height: 0;
+  }
+}
+
+.k-btn-shape-circle {
+  border-radius: 50%;
+}
+
+.k-btn-disabled {
+  border: 1px solid #e7e7e7 !important;
+  background-color: #dcdcdc !important;
+  color: #b9b9b9 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.k-btn-default {
+  background-color: #ffffff;
+  border: 1px solid #3260c9;
+  color: #3260c9;
+
+  &.k-btn-disabled {
+    border: 1px solid #dcdcdc !important;
+    background-color: #ffffff !important;
+  }
+}
+
+.k-btn-tertiary {
+  background-color: #ffffff !important;
+  color: #3260c9 !important;
+  box-shadow: none !important;
+  &.k-btn-disabled {
+    border: none !important;
+    color: #b9b9b9 !important;
+  }
+}
+
+.k-btn-default:is(.k-btn-danger) {
+  border: 1px solid #f23c47;
+  color: #f23c47;
+}
+
+.k-btn-tertiary:is(.k-btn-danger) {
+  color: #f23c47 !important;
+}
+
+.k-btn:not(.k-btn-icon-only) > :not(:last-child) {
+  padding-right: 5px;
+}

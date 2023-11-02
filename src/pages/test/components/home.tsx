@@ -1,94 +1,99 @@
-import { memo, useEffect, useState } from 'react';
-import { getMoviceData, getMoviceComingData } from '@/pages/api/movice';
-import { moviceImf } from '@/pages/types/movice';
-import '@/pages/css/movice.scss';
-import { useParams } from 'react-router-dom';
-import Loading from './loading';
-import { useSelector } from 'react-redux';
+import {
+  Outlet,
+  Route,
+  Routes,
+  useSearchParams,
+  useParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
-import type { cityStateImf } from '@/types/location';
+import RouterPage2 from "./routerPage2";
+import Tabbar from "./tabbar";
+import Navbar from "./Navbar";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useCallback,
+  memo,
+} from "react";
+import "@/pages/css/home.scss";
 
 function HomePage() {
-    const [movice, setMovice] = useState<Array<moviceImf>>([]);
-    const cityId = useSelector((state: cityStateImf) => state.location.locale.cityId);
-    const { id } = useParams();
-    const [page, setPage] = useState({
-        pageNum: 1,
-        pageSize: 10,
-        total: 0,
-        cityId,
-    });
-    const [loading, showloading] = useState<Boolean>(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [visable, setVisable] = useState(false);
+  const [path, setPath] = useState(pathname);
 
-    async function getMoviceDataList(type = '1') {
-        showloading(true);
-        if (type === '1') {
-            const {
-                data: { films, total },
-            } = await getMoviceData(page);
-            console.log(page);
-            setMovice(movice.concat(films));
-            setPage({
-                ...page,
-                total,
-            });
-        } else {
-            const {
-                data: { films, total },
-            } = await getMoviceComingData(page);
-            setMovice(movice.concat(films));
-            setPage({
-                ...page,
-                total,
-            });
-        }
-        showloading(false);
+  function useScroll() {
+    const scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+    if (scrollTop > 210) {
+      setVisable(true);
+    } else {
+      setVisable(false);
     }
+    // console.log('dd');
+  }
 
-    useEffect(() => {
-        async function fn() {
-            setPage({
-                ...page,
-                cityId,
-            });
-            console.log(cityId, page);
-            await getMoviceDataList(id);
-        }
-        fn();
-    }, [cityId, id]);
-    return (
-        <>
-            <div>
-                {loading ? <Loading /> : ''}
-                {!loading &&
-                    movice.map((item, index) => {
-                        return (
-                            <div className='movice-item' key={index}>
-                                <div className='movice-poster'>
-                                    <img src={item.poster} alt='' />
-                                </div>
-                                <div className='movice-content'>
-                                    <div className='movice-name'>{item.name}</div>
-                                    <div className='movice-grade'>
-                                        观众评分 <span>{item.grade}</span>{' '}
-                                    </div>
-                                    <div className='movice-anctor'>
-                                        {item.actors.map((anctor, index) => {
-                                            return <span key={index}>{anctor.name} </span>;
-                                        })}
-                                    </div>
-                                    <div className='movice-tips'>
-                                        <span>{item.nation}</span>
-                                        <span>|</span>
-                                        <span>{item.runtime}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+  useEffect(() => {
+    setPath(pathname);
+  }, [pathname]);
+
+  const scrollCallback = useScroll;
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollCallback);
+
+    return () => {
+      window.removeEventListener("scroll", scrollCallback);
+    };
+  }, []);
+  return (
+    <>
+      <div style={{ position: "relative", top: visable ? 48 : 0 }}>
+        <div className={visable ? "tabbar-scroll" : "tabbar"}>
+          {visable ? <Navbar></Navbar> : ""}
+          <div className="tabbar">
+            <div
+              onClick={() => {
+                navigate("/name/home/nowPlaying");
+              }}
+            >
+              <span
+                className={path === "/name/home/nowPlaying" ? "active" : ""}
+              >
+                正在上映
+              </span>
             </div>
-        </>
-    );
+            <div
+              onClick={() => {
+                navigate("/name/home/comingSoon");
+              }}
+            >
+              <span
+                className={path === "/name/home/comingSoon" ? "active" : ""}
+              >
+                即将上映
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="main"
+          style={{
+            position: "relative",
+          }}
+        >
+          <Outlet></Outlet>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default memo(HomePage);

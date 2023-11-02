@@ -12,7 +12,7 @@ interface propsType {
 interface stateType {
   path: string;
   tabbarList: Array<{
-    path: string;
+    path: Array<string>;
     name: string;
   }>;
 }
@@ -25,15 +25,15 @@ class tabbar extends PureComponent<propsType, stateType> {
       path: this.props.location.pathname,
       tabbarList: [
         {
-          path: "/name/home/1",
+          path: ["/name/home/nowPlaying", "/name/home/comingSoon"],
           name: "主页",
         },
         {
-          path: "/name/news",
+          path: ["/name/news"],
           name: "新闻",
         },
         {
-          path: "/name/my",
+          path: ["/name/my"],
           name: "我的",
         },
       ],
@@ -41,9 +41,7 @@ class tabbar extends PureComponent<propsType, stateType> {
   }
 
   componentDidUpdate(prevProps: Readonly<propsType>): void {
-    if (
-      prevProps.location.pathname !== this.props.location.pathname
-    ) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({
         path: this.props.location.pathname,
       });
@@ -58,8 +56,8 @@ class tabbar extends PureComponent<propsType, stateType> {
     return this.state.tabbarList.map((item, index) => {
       return (
         <div
-          className={item.path === this.state.path ? "active" : ""}
-          onClick={this.routerChange.bind(this, item.path)}
+          className={item.path.includes(this.state.path) ? "active" : ""}
+          onClick={this.routerChange.bind(this, item.path[0])}
           key={index}
         >
           {item.name}

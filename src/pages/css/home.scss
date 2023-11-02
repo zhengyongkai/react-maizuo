@@ -1,24 +1,31 @@
 .tabbar {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+
+  background-color: #fff;
+
+  div {
+    text-align: center;
+    flex: 1;
     height: 48px;
-    background-color: #fff;
-    div {
-        text-align: center;
-        flex: 1;
-    }
-    .active {
-        color: red;
-    }
+    line-height: 48px;
+  }
+  span {
+    display: inline-block;
+  }
+  .active {
+    color: red;
+    border-bottom: 2px solid red;
+  }
 }
 .tabbar-scroll {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .main {
-    margin-bottom: 64px;
+  margin-bottom: 64px;
 }
