@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from '@/types/location';
+import type { cityStateImf, localeImf } from '@/types/location';
 
 const useLocation = () => {
-  return (fn: (locale: cityStateImf) => {}) => {
+  return (fn: (locale: localeImf) => void) => {
     const location = useSelector<cityStateImf>(
       (state: cityStateImf) => state.location.locale
-    ) as cityStateImf;
+    ) as localeImf;
     useEffect(() => {
       fn(location);
     }, [location]);

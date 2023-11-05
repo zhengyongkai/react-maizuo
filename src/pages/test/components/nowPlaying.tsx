@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from 'react';
-import { getMoviceData, getMoviceComingData } from '@/pages/api/movice';
+import { getMoviceData } from '@/pages/api/movice';
 import { moviceImf } from '@/pages/types/movice';
+// import { cityStateImf } from '@/types/location';
 
 import { useSelector } from 'react-redux';
 
@@ -44,7 +45,7 @@ function nowPlaying() {
   location((locale) => {
     setPage({
       ...page,
-      cityId: locale.city,
+      cityId: locale.cityId,
     });
   });
 
