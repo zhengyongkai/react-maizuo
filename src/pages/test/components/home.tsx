@@ -6,11 +6,11 @@ import {
   useParams,
   useNavigate,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import RouterPage2 from "./routerPage2";
-import Tabbar from "./tabbar";
-import Navbar from "./Navbar";
+import RouterPage2 from './routerPage2';
+import Tabbar from './tabbar';
+import Navbar from './Navbar';
 import {
   useEffect,
   useRef,
@@ -18,8 +18,9 @@ import {
   useLayoutEffect,
   useCallback,
   memo,
-} from "react";
-import "@/pages/css/home.scss";
+} from 'react';
+import '@/pages/css/home.scss';
+import useSroll from '@/hook/scroll';
 
 function HomePage() {
   const { pathname } = useLocation();
@@ -44,39 +45,32 @@ function HomePage() {
     setPath(pathname);
   }, [pathname]);
 
-  const scrollCallback = useScroll;
+  useSroll(useScroll);
 
-  useEffect(() => {
-    window.addEventListener("scroll", scrollCallback);
-
-    return () => {
-      window.removeEventListener("scroll", scrollCallback);
-    };
-  }, []);
   return (
     <>
-      <div style={{ position: "relative", top: visable ? 48 : 0 }}>
-        <div className={visable ? "tabbar-scroll" : "tabbar"}>
-          {visable ? <Navbar></Navbar> : ""}
+      <div style={{ position: 'relative', top: visable ? 48 : 0 }}>
+        <div className={visable ? 'tabbar-scroll' : 'tabbar'}>
+          {visable ? <Navbar></Navbar> : ''}
           <div className="tabbar">
             <div
               onClick={() => {
-                navigate("/name/home/nowPlaying");
+                navigate('/name/home/nowPlaying');
               }}
             >
               <span
-                className={path === "/name/home/nowPlaying" ? "active" : ""}
+                className={path === '/name/home/nowPlaying' ? 'active' : ''}
               >
                 正在上映
               </span>
             </div>
             <div
               onClick={() => {
-                navigate("/name/home/comingSoon");
+                navigate('/name/home/comingSoon');
               }}
             >
               <span
-                className={path === "/name/home/comingSoon" ? "active" : ""}
+                className={path === '/name/home/comingSoon' ? 'active' : ''}
               >
                 即将上映
               </span>
@@ -86,7 +80,7 @@ function HomePage() {
         <div
           className="main"
           style={{
-            position: "relative",
+            position: 'relative',
           }}
         >
           <Outlet></Outlet>

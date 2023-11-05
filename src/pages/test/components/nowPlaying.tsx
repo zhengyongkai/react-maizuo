@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 import type { cityStateImf } from '@/types/location';
 import { InfiniteScroll } from 'antd-mobile';
+
 import useLocation from '@/hook/location';
 
 import MovieItems from './movieItems';

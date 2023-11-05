@@ -52,10 +52,9 @@ export interface detailsImf {
   synopsis: string;
   timeType: number;
   videoId: string;
+  grade?: number;
 }
 
 export interface detailsResponseImf {
-  data: {
-    film: detailsImf;
-  };
+  film: detailsImf;
 }

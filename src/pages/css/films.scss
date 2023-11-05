@@ -2,13 +2,36 @@
   //   position: fixed;
   //   display: flex;
   height: 48px;
-  text-align: center;
+  // text-align: center;
   line-height: 48px;
   width: 100%;
   z-index: 2;
   font-size: 17px;
   width: 100vw;
   text-align: center;
+  position: fixed;
+  // background-color: #fff;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+  // padding: 0 15px;
+  // justify-content: center;
+  img {
+    position: absolute;
+    width: 36px;
+    top: 6px;
+    left: 5px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.film-title {
+  padding: 15px;
+  font-size: 16px;
 }
 
 .film-lazy {
@@ -58,15 +81,30 @@
     height: 24px;
     line-height: 24px;
     margin-right: 7px;
-    span {
-      font-size: 9px;
-      color: #fff;
-      background-color: #d2d6dc;
-      height: 14px;
-      line-height: 14px;
-      padding: 0 2px;
-      border-radius: 2px;
-      display: inline-block;
+    display: flex;
+    align-items: center;
+    > :first-child {
+      span {
+        font-size: 9px;
+        color: #fff;
+        background-color: #d2d6dc;
+        height: 14px;
+        line-height: 14px;
+        padding: 0 2px;
+        border-radius: 2px;
+        display: inline-block;
+      }
+    }
+
+    > :last-child {
+      flex: 1;
+      text-align: right;
+      font-size: 18px;
+      font-style: italic;
+      color: #ffb232;
+      span {
+        font-size: 10px;
+      }
     }
   }
   .film-grey {
@@ -92,9 +130,63 @@
   .film-toggle {
     text-align: center;
     display: block;
-    height: auto;
+    // height: auto;
+
     width: 20px;
     margin: auto;
-    line-height: normal;
+    margin-top: 10px;
   }
+}
+
+.film-anctors-list {
+  background-color: #fff;
+  margin-top: 8px;
+  .film-anctors {
+    padding-left: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    .film-anctor {
+      // padding:;
+      margin-right: 15px;
+      text-align: center;
+      img {
+        width: 85px;
+      }
+
+      > :last-child {
+        font-size: 10px;
+        color: #797d82;
+      }
+    }
+  }
+}
+.film-photos-list {
+  background-color: #fff;
+  margin-top: 8px;
+  padding-bottom: 15px;
+  margin-bottom: 49px;
+  .film-photo {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 15px;
+    overflow-x: auto;
+    img {
+      margin-right: 15px;
+      height: 96px;
+    }
+  }
+}
+
+.film-footer {
+  height: 49px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  background-color: #ff5f16;
+  color: #fff;
+  font-size: 16px;
+  line-height: 49px;
 }

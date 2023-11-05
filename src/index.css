@@ -7,3 +7,7 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.inner-scroll::-webkit-scrollbar {
+  display: none;
+}
