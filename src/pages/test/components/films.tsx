@@ -87,9 +87,10 @@ function FilmPage() {
               </div>
             </div>
             <div className="film-descrption">
-              <div className="film-name">
+              <div className="film-name ">
                 <div>
-                  {film.name} <span>{film.filmType.name}</span>
+                  <div className="text-ellipsis"> {film.name}</div>{' '}
+                  <span>{film.filmType.name}</span>
                 </div>
                 <div className="film-grade">
                   {film.grade} <span>分</span>

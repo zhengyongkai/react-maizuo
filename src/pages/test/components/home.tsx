@@ -49,7 +49,14 @@ function HomePage() {
 
   return (
     <>
-      <div style={{ position: 'relative', top: visable ? 48 : 0 }}>
+      <div
+        style={{
+          position: 'relative',
+          top: visable ? 48 : 0,
+          width: '100%',
+          overflow: 'hidden',
+        }}
+      >
         <div className={visable ? 'tabbar-scroll' : 'tabbar'}>
           {visable ? <Navbar></Navbar> : ''}
           <div className="tabbar">

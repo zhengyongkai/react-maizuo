@@ -14,7 +14,9 @@
   }
   .movice-content {
     background-color: #fff;
-    width: 60%;
+    overflow: hidden;
+    // width: 60%;
+    flex: 1;
     .movice-name {
       color: #191a1b;
       font-size: 16px;
@@ -52,7 +54,7 @@
 
   > :last-child {
     text-align: center;
-    flex: 1;
+    // flex: 1;
     line-height: 25px;
     height: 25px;
     width: 50px;
