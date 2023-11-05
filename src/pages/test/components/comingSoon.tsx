@@ -50,7 +50,7 @@ function comingSoon() {
 
   return (
     <>
-      <div style={{ backgroundColor: '#fff' }}>
+      <div>
         {movice.map((item, index) => {
           return <MovieItems item={item} key={index} />;
         })}

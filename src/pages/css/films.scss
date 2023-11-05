@@ -48,6 +48,7 @@
 }
 
 .film-descrption {
+  position: relative;
   padding: 15px;
   padding-top: 12px;
   background-color: #fff;
@@ -73,11 +74,21 @@
     color: #797d82;
     margin-top: 4px;
   }
+
   .film-synopsis {
-    height: 38px !important;
+    // height: 38px;
     overflow: hidden;
     margin-top: 12px;
+    font-size: 13px;
+    color: #797d82;
+    transition: height 0.5s;
   }
+
+  .film-synopsis-short {
+  }
+  .film-synopsis-more {
+  }
+
   .film-toggle {
     text-align: center;
     display: block;
