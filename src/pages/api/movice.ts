@@ -1,5 +1,12 @@
 import request from "@/pages/utils/request";
-import type { moviceParams } from "@/pages/types/movice";
+import qs from "qs";
+
+import type {
+  cinemaRequestImf,
+  detailsImf,
+  detailsParams,
+  moviceParams,
+} from "@/pages/types/movice";
 import { MAIZUO } from "@/pages/constant/baseUrl";
 
 export function getMoviceData(params: moviceParams) {
@@ -22,7 +29,7 @@ export function getMoviceComingData(params: moviceParams) {
   });
 }
 
-export function getMoviceDetail(params) {
+export function getMoviceDetail(params: detailsParams) {
   return request.get(`${MAIZUO}?k=5840910`, {
     headers: {
       "X-Host": "mall.film-ticket.film.info",
@@ -31,5 +38,28 @@ export function getMoviceDetail(params) {
         '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"340800"}',
     },
     params,
+  });
+}
+
+export function getCinemas(params: cinemaRequestImf) {
+  return request.get(`${MAIZUO}?k=1064483`, {
+    headers: {
+      "X-Host": "mall.film-ticket.cinema.film-show-cinema",
+
+      "X-Client-Info":
+        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
+    },
+    params,
+  });
+}
+
+export function getCinemasList(data) {
+  return request.post(`${MAIZUO}`, data, {
+    headers: {
+      "X-Host": "mall.film-ticket.cinema.batch-cinema",
+      "Content-Type": "application/x-www-form-urlencode",
+      "X-Client-Info":
+        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
+    },
   });
 }

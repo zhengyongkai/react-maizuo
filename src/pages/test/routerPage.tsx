@@ -8,6 +8,7 @@ import Location from "./components/location";
 import ComingSoon from "./components/comingSoon";
 import NowPlaying from "./components/nowPlaying";
 import FilmPage from "./components/films";
+import CinemasPage from "./components/cinemas";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="my" element={<MyPage />}></Route>
         </Route>
         <Route path="/films/:id" element={<FilmPage />} />
+        <Route path="/films/cinemas/:id" element={<CinemasPage />} />
       </Routes>
     </>
   );

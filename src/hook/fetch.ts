@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-export default function useFetch(api: () => any) {
+export default function useFetch(
+  api: () => any,
+  listener = [],
+  callback?: (data: any) => void
+) {
   // console.log(api);
   const [responseData, setResponseData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,9 +15,10 @@ export default function useFetch(api: () => any) {
       setResponseData(data);
       // console.log(data);
       setLoading(false);
+      callback && callback(data);
     }
     fetch();
-  }, []);
+  }, listener);
 
   return [responseData, loading];
 }

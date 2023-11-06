@@ -27,6 +27,24 @@
       -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      div {
+        // flex: 1;
+        margin-right: 7px;
+      }
+      span {
+        font-size: 9px;
+        text-align: center;
+        color: #fff;
+        background-color: #d2d6dc;
+        height: 14px;
+        line-height: 14px;
+        padding: 0 2px;
+        border-radius: 2px;
+        display: inline-block;
+        width: 20px;
+      }
     }
     .movice-grade {
       font-size: 13px;
@@ -58,6 +76,7 @@
     line-height: 25px;
     height: 25px;
     width: 50px;
+    border: 1px solid #ffb232;
     color: #ffb232;
     font-size: 13px;
     text-align: center;

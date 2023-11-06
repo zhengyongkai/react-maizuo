@@ -21,3 +21,8 @@ export interface initialStateImf {
 export interface cityStateImf {
   location: initialStateImf;
 }
+
+export interface districtImf {
+  districtId: number;
+  name: string;
+}

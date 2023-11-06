@@ -1,11 +1,12 @@
-import '@/pages/css/movice.scss';
-import { memo } from 'react';
+import "@/pages/css/movice.scss";
+import { memo } from "react";
 
-import type { moviceImf } from '@/pages/types/movice';
-import { useNavigate } from 'react-router-dom';
+import type { detailsImf } from "@/pages/types/movice";
+import { useNavigate } from "react-router-dom";
 
 interface propsImf {
-  item: moviceImf;
+  item: detailsImf;
+  type: Number;
 }
 
 function moviceItem(props: propsImf) {
@@ -16,29 +17,45 @@ function moviceItem(props: propsImf) {
     navigate(`/films/${filemId}`);
   }
 
+  function onBuyTickets(props: propsImf) {
+    navigate(`/films/cinemas/${item.filmId}`);
+  }
+
   return (
     <div className="movice-item">
       <div className="movice-poster" onClick={() => onNavigateTo(item.filmId)}>
         <img src={item.poster} alt="" />
       </div>
       <div className="movice-content">
-        <div className="movice-name">{item.name}</div>
-        <div className="movice-grade">
-          观众评分 <span>{item.grade}</span>{' '}
+        <div className="movice-name">
+          <div className="text-ellipsis">{item.name} </div>{" "}
+          <span>{item.filmType.name}</span>
         </div>
+        {item.grade ? (
+          <div className="movice-grade">
+            观众评分 <span>{item.grade}</span>{" "}
+          </div>
+        ) : undefined}
         <div className="movice-anctor text-ellipsis">
-          {item.actors.map((anctor, index) => {
-            return <span key={index}>{anctor.name} </span>;
-          })}
+          {item.actors &&
+            item.actors.map((anctor, index) => {
+              return <span key={index}>{anctor.name} </span>;
+            })}
         </div>
         <div className="movice-tips">
           <span>{item.nation}</span>
           <span>|</span>
-          <span>{item.runtime}</span>
+          <span>{item.runtime} 分钟</span>
         </div>
       </div>
       <div>
-        <span>购票</span>
+        {props.type === 1 ? (
+          <span onClick={() => onBuyTickets(props)}>购票</span>
+        ) : item.isPresale ? (
+          <span>预购</span>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { districtImf } from "@/types/location";
+
 export interface anctorImf {
   name: string;
   role: string;
@@ -57,4 +59,53 @@ export interface detailsImf {
 
 export interface detailsResponseImf {
   film: detailsImf;
+}
+
+export interface detailsParams {
+  filmId: string;
+}
+
+export interface cinemaRequestImf {
+  filmId: string;
+  cityId: number;
+}
+
+export interface cinemaResponseImf {
+  cinemaExtendList: Array<{
+    cinemaId: number;
+    lowPrice: number;
+  }>;
+  showCinemas: Array<{
+    cinemaList: Array<number>;
+    showDate: number;
+  }>;
+}
+
+export interface chinemaDetailImf {
+  Distance: number;
+  address: string;
+  businessTime: string;
+  cinemaId: number;
+  cityId: number;
+  cityName: string;
+  district: districtImf;
+  districtId: number;
+  districtName: string;
+  eTicketFlag: number;
+  gpsAddress: string;
+  isVisited: number;
+  latitude: number;
+  logoUrl: string;
+  longitude: number;
+  lowPrice: number;
+  name: string;
+  notice: string;
+  phone: string;
+  seatFlag: number;
+  telephones: Array<string>;
+  ticketTypes: number;
+}
+
+export interface cinemaListResponseImf {
+  cinemas: Array<chinemaDetailImf>;
 }
