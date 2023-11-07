@@ -22,3 +22,79 @@
     }
   }
 }
+
+.city-items {
+  // padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 10px;
+  padding-top: 10px;
+  // justify-content: space-between;
+  .city-item {
+    box-sizing: border-box;
+    line-height: 30px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    width: calc(25% - 10px);
+    color: #797d82;
+    // border: 1px solid #333;
+    text-align: center;
+    height: 30px;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+  }
+}
+
+.cinemas-items {
+  background-color: #fff;
+}
+.cinemas-item {
+  padding: 15px;
+
+  .cinemas-top {
+    display: flex;
+    align-items: center;
+    > :first-child {
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #191a1b;
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    > :last-child {
+      color: #ff5f16;
+      width: 70px;
+      text-align: right;
+      span {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .cinemas-bottom {
+    display: flex;
+    font-size: 13px;
+    color: #797d82;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    > :first-child {
+      flex: 1;
+    }
+    > :last-child {
+      // color: #ff5f16;
+      width: 70px;
+      text-align: right;
+    }
+  }
+}
+
+.cinemas-dates-active {
+  color: #ff5f16;
+}

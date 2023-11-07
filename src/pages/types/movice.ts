@@ -107,5 +107,7 @@ export interface chinemaDetailImf {
 }
 
 export interface cinemaListResponseImf {
-  cinemas: Array<chinemaDetailImf>;
+  data: {
+    cinemas: Array<chinemaDetailImf>;
+  };
 }
