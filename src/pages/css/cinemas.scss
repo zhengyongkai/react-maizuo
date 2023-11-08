@@ -69,7 +69,10 @@
       color: #ff5f16;
       width: 70px;
       text-align: right;
-      span {
+      :first-child {
+        font-size: 15px;
+      }
+      :last-child {
         font-size: 10px;
       }
     }

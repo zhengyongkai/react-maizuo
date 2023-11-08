@@ -1,58 +1,58 @@
 // import useFetch from "@/hook/fetch";
-import useLocation from "@/hook/location";
-import dayjs from "dayjs";
+import useLocation from '@/hook/location';
+import dayjs from 'dayjs';
 import {
   getCinemas,
   getCinemasList,
   getMoviceDetail,
-} from "@/pages/api/movice";
+} from '@/pages/api/movice';
 import {
   cinemaListResponseImf,
   cinemaResponseImf,
   moviceImf,
   chinemaDetailImf,
-} from "@/pages/types/movice";
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+} from '@/pages/types/movice';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import "@/pages/css/cinemas.scss";
+import '@/pages/css/cinemas.scss';
 
-import NavTitle from "./navTitle";
-import { Dropdown, List } from "antd-mobile";
-import Loading from "./loading";
-import { useSelector } from "react-redux";
-import { tudeStateImf } from "@/types/location";
-import { getBetweenDistance } from "@/pages/utils/location";
+import NavTitle from './navTitle';
+import { Dropdown, List } from 'antd-mobile';
+import Loading from './loading';
+import { useSelector } from 'react-redux';
+import { tudeStateImf } from '@/types/location';
+import { getBetweenDistance } from '@/pages/utils/location';
 
 export default function cinemas() {
   const menuRef = useRef<any>();
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
   );
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState('');
   const [date, setDate] = useState(0);
 
   const [params, setParams] = useState({
-    filmId: "",
+    filmId: '',
     cityId: 0,
-    cinemaIds: "",
+    cinemaIds: '',
 
     // cityName: "",
   });
 
   const [film, setFilm] = useState<moviceImf>({
     filmId: 0,
-    name: "",
-    category: "",
-    synopsis: "",
-    poster: "",
-    grade: "",
+    name: '',
+    category: '',
+    synopsis: '',
+    poster: '',
+    grade: '',
     actors: [],
     runtime: 0,
-    nation: "",
+    nation: '',
   });
 
   const [cinema, setCinemas] = useState<cinemaResponseImf>({
@@ -69,9 +69,10 @@ export default function cinemas() {
   });
 
   function getDistance(longitude: number, latitude: number) {
+    console.log(locationAttr, latitude, longitude);
     return getBetweenDistance(
-      39.97459072201368,
-      116.40801844170197,
+      locationAttr.latitude,
+      locationAttr.longitude,
       latitude,
       longitude
     );
@@ -80,8 +81,8 @@ export default function cinemas() {
   location((locale) => {
     setParams({
       filmId: id,
-      cityId: 110100,
-      cinemaIds: "",
+      cityId: 440300,
+      cinemaIds: '',
       // cityName: params.cityName,
     });
   });
@@ -120,12 +121,12 @@ export default function cinemas() {
 
       const cinemaIds = params.cinemaIds
         ? params.cinemaIds
-        : cinema.showCinemas[0].cinemaList.join(",");
+        : cinema.showCinemas[0].cinemaList.join(',');
       async function fn() {
         const {
           data: { cinemas },
         } = (await getCinemasList({
-          cityId: 110100,
+          cityId: 440300,
           cinemaIds,
         })) as cinemaListResponseImf;
         const moviceMap = new Map<string, Array<chinemaDetailImf>>();
@@ -178,17 +179,17 @@ export default function cinemas() {
           {cinema.showCinemas.map((item, index) => {
             return (
               <div
-                className={item.showDate === date ? "cinemas-dates-active" : ""}
+                className={item.showDate === date ? 'cinemas-dates-active' : ''}
                 key={index}
                 onClick={() => {
                   setParams({
                     ...params,
-                    cinemaIds: item.cinemaList.join(","),
+                    cinemaIds: item.cinemaList.join(','),
                   });
                   setDate(item.showDate);
                 }}
               >
-                <span>{dayjs.unix(item.showDate).format("MM月D日")}</span>
+                <span>{dayjs.unix(item.showDate).format('MM月D日')}</span>
               </div>
             );
           })}
@@ -203,7 +204,7 @@ export default function cinemas() {
                     onClick={() => cityItemsChange(res)}
                     style={
                       cityName === res
-                        ? { border: "1px solid #ff5f16", color: "#ff5f16" }
+                        ? { border: '1px solid #ff5f16', color: '#ff5f16' }
                         : {}
                     }
                   >
@@ -229,7 +230,11 @@ export default function cinemas() {
                   <div className="cinemas-top">
                     <div>{item.name}</div>
                     <div>
-                      {formatPrice(item.lowPrice)} <span>起</span>{" "}
+                      <span>
+                        <i>￥</i>
+                        {formatPrice(item.lowPrice)}
+                      </span>{' '}
+                      <span>起</span>{' '}
                     </div>
                   </div>
                   <div className="cinemas-bottom">

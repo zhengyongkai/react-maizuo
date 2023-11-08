@@ -1,21 +1,21 @@
-import { Routes, Route } from "react-router-dom";
-import RouterPage1 from "./components/routerPage1";
-import HomePage from "./components/home";
-import NewsPage from "./components/news";
-import MyPage from "./components/my";
-import Login from "./components/login";
-import Location from "./components/location";
-import ComingSoon from "./components/comingSoon";
-import NowPlaying from "./components/nowPlaying";
-import FilmPage from "./components/films";
-import CinemasPage from "./components/cinemas";
+import { Routes, Route } from 'react-router-dom';
+import RouterPage1 from './components/routerPage1';
+import HomePage from './components/home';
+import NewsPage from './components/news';
+import MyPage from './components/my';
+import Login from './components/login';
+import Location from './components/location';
+import ComingSoon from './components/comingSoon';
+import NowPlaying from './components/nowPlaying';
+import FilmPage from './components/films';
+import CinemasPage from './components/cinemas';
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from "@/store/common/location";
+} from '@/store/common/location';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function App() {
     };
     fn();
   }, []);
-
+  ``;
   return (
     <>
       <Routes>
