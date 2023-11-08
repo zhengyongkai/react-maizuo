@@ -1,6 +1,6 @@
 // @ts-nocheck
 export const getAddress = function (latitude: number, longitude: number) {
-  var myGeo = new BMapGL.Geocoder();
+  let myGeo = new BMapGL.Geocoder();
   // 根据坐标得到地址描述
   return new Promise((resolve) => {
     myGeo.getLocation(new BMapGL.Point(latitude, longitude), function (result) {
@@ -11,29 +11,27 @@ export const getAddress = function (latitude: number, longitude: number) {
   });
 };
 
-function Rad(d: number) {
-  return (d * Math.PI) / 180.0;
-}
+const RADIUS = 6371;
 
-export function getBetweenDistance(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
+const toRad = function (n: number) {
+  return (n * Math.PI) / 180;
+};
+
+export const getBetweenDistance = function (
+  lat: number,
+  lot: number,
+  lats: number,
+  lots: number
 ) {
-  var radLat1 = Rad(lat1);
-  var radLat2 = Rad(lat2);
-  var a = radLat1 - radLat2;
-  var b = Rad(lng1) - Rad(lng2);
-  var s =
-    2 *
-    Math.asin(
-      Math.sqrt(
-        Math.pow(Math.sin(a / 2), 2) +
-          Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)
-      )
-    );
-  s = s * 6378.137; // EARTH_RADIUS;
-  s = Math.round(s * 10000) / 10000; //输出为公里
-  return s;
-}
+  let dLat = toRad(lats - lat);
+  let dLon = toRad(lots - lot);
+  let fromLat = toRad(lat);
+  let toLat = toRad(lats);
+
+  let a =
+    Math.pow(Math.sin(dLat / 2), 2) +
+    Math.pow(Math.sin(dLon / 2), 2) * Math.cos(fromLat) * Math.cos(toLat);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return RADIUS * c;
+};

@@ -1,6 +1,7 @@
 // import useFetch from "@/hook/fetch";
 import useLocation from '@/hook/location';
 import dayjs from 'dayjs';
+
 import {
   getCinemas,
   getCinemasList,
@@ -23,6 +24,7 @@ import Loading from './loading';
 import { useSelector } from 'react-redux';
 import { tudeStateImf } from '@/types/location';
 import { getBetweenDistance } from '@/pages/utils/location';
+import { getDay, getDaysNameFn } from '@/pages/utils/day';
 
 export default function cinemas() {
   const menuRef = useRef<any>();
@@ -69,19 +71,27 @@ export default function cinemas() {
   });
 
   function getDistance(longitude: number, latitude: number) {
-    console.log(locationAttr, latitude, longitude);
-    return getBetweenDistance(
-      locationAttr.latitude,
-      locationAttr.longitude,
+    console.log(
       latitude,
-      longitude
+      longitude,
+
+      locationAttr.longitude,
+      locationAttr.latitude
+    );
+    return (
+      getBetweenDistance(
+        locationAttr.longitude,
+        locationAttr.latitude,
+        longitude,
+        latitude
+      ).toFixed(1) + 'km'
     );
   }
 
   location((locale) => {
     setParams({
       filmId: id,
-      cityId: 440300,
+      cityId: locale.cityId,
       cinemaIds: '',
       // cityName: params.cityName,
     });
@@ -103,6 +113,7 @@ export default function cinemas() {
         data: cinemaResponseImf;
       };
 
+      showCinemas.sort((a, b) => a.showDate - b.showDate);
       setCinemas({
         cinemaExtendList,
         showCinemas: showCinemas,
@@ -110,10 +121,10 @@ export default function cinemas() {
 
       setDate(showCinemas[0].showDate);
     }
-    if (params.filmId) {
+    if (params.filmId && params.cityId !== -1) {
       getList();
     }
-  }, [params.filmId]);
+  }, [params.filmId, params.cityId]);
 
   useEffect(() => {
     if (cinema.showCinemas.length && film.filmId) {
@@ -126,7 +137,7 @@ export default function cinemas() {
         const {
           data: { cinemas },
         } = (await getCinemasList({
-          cityId: 440300,
+          cityId: 110100,
           cinemaIds,
         })) as cinemaListResponseImf;
         const moviceMap = new Map<string, Array<chinemaDetailImf>>();
@@ -152,16 +163,18 @@ export default function cinemas() {
   }, [cinema, film, params.cinemaIds]);
 
   function cityItemsChange(res: string) {
+    const cinemas = cinemaList.cinemas.get(res) || [];
+
     setCinemasList({
       cinemas: cinemaList.cinemas,
-      cinemasList: cinemaList.cinemas.get(res) || [],
+      cinemasList: cinemas,
     });
     menuRef.current.close();
     setCityName(res);
   }
 
   function formatPrice(price: number) {
-    const pre = String(price).slice(0, 2);
+    const pre = '￥' + String(price).slice(0, 2);
     // const sub = String(price).slice(2);
     // return String(price).
     return pre;
@@ -189,7 +202,7 @@ export default function cinemas() {
                   setDate(item.showDate);
                 }}
               >
-                <span>{dayjs.unix(item.showDate).format('MM月D日')}</span>
+                <span>{getDaysNameFn(item.showDate)}</span>
               </div>
             );
           })}
@@ -197,9 +210,10 @@ export default function cinemas() {
         <Dropdown ref={menuRef}>
           <Dropdown.Item key="location" title={cityName}>
             <div className="city-items">
-              {[...cinemaList.cinemas.keys()].map((res, item) => {
+              {[...cinemaList.cinemas.keys()].map((res, index) => {
                 return (
                   <div
+                    key={index}
                     className="city-item"
                     onClick={() => cityItemsChange(res)}
                     style={
@@ -224,22 +238,18 @@ export default function cinemas() {
           <Loading></Loading>
         ) : (
           <div className="cinemas-items">
-            {cinemaList.cinemasList.map((item) => {
+            {cinemaList.cinemasList.map((item, index) => {
               return (
-                <div className="cinemas-item">
+                <div className="cinemas-item" key={index}>
                   <div className="cinemas-top">
                     <div>{item.name}</div>
                     <div>
-                      <span>
-                        <i>￥</i>
-                        {formatPrice(item.lowPrice)}
-                      </span>{' '}
-                      <span>起</span>{' '}
+                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
                     </div>
                   </div>
                   <div className="cinemas-bottom">
                     <div className="text-ellipsis">{item.address}</div>
-                    <div>{getDistance(item.latitude, item.longitude)}</div>
+                    <div>{getDistance(item.longitude, item.latitude)}</div>
                   </div>
                 </div>
               );
