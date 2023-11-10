@@ -1,12 +1,19 @@
-import LoadingIcon from '@/assets/img/loading.gif';
+import { Loading } from "antd-mobile";
 
-const Loading = () => {
-    return (
-        <>
-            <div style={{ margin: '0 auto', textAlign: 'center' }}>
-                <img style={{ height: 48 }} src={LoadingIcon}></img>
-            </div>
-        </>
-    );
+const LoadingIcon = () => {
+  return (
+    <>
+      <div
+        style={{
+          margin: "0 auto",
+          textAlign: "center",
+          fontSize: 16,
+          height: "100%",
+        }}
+      >
+        <Loading />
+      </div>
+    </>
+  );
 };
-export default Loading;
+export default LoadingIcon;

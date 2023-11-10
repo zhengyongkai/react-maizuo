@@ -55,6 +55,7 @@ export interface detailsImf {
   timeType: number;
   videoId: string;
   grade?: number;
+  showDate?: Array<string>;
 }
 
 export interface detailsResponseImf {

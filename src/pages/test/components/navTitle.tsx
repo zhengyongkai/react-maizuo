@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 interface props {
   back?: boolean;
-  title: string;
+  title?: string;
   children?: any;
 }
 

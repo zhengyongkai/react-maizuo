@@ -1,0 +1,23 @@
+.swiper-slide {
+  // width: 72px !important;
+  padding-top: 26px;
+  img {
+    width: 72px !important;
+    height: 104px !important;
+  }
+}
+
+.swiper-slide-active {
+  // transform: scale(1) !important;
+  padding-top: 0 !important;
+  min-width: 90px !important;
+  // width: 90px !important;
+  height: 130px !important;
+  img {
+    width: 100% !important;
+    height: 130px !important;
+  }
+}
+
+.cinema-swiper {
+}
