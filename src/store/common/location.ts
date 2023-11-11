@@ -32,15 +32,15 @@ function getGPSPosition() {
             position.coords.longitude,
             position.coords.latitude
           )) as locationResultImf;
-          // const a = await getLocation({
-          //     longitude: position.coords.longitude,
-          //     latitude: position.coords.latitude,
-          // });
-          // console.log(a);
+          const { data: locale } = await getLocation({
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude,
+          });
+          console.log(locale);
           res({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
-            locale: result.addressComponents.city.slice(0, -1),
+            locale: locale.city,
           });
         },
         (error: GeolocationPositionError) => {
@@ -94,7 +94,8 @@ export const location = createSlice({
     builder.addCase(getLocationAsync.fulfilled, (state, { payload }: any) => {
       state.tude.latitude = payload.latitude as number;
       state.tude.longitude = payload.longitude as number;
-      state.locale.name = payload.locale;
+      state.locale.name = payload.locale.name;
+      state.locale.cityId = payload.locale.cityId;
     });
     builder.addCase(
       getLocationListsAsyc.fulfilled,
