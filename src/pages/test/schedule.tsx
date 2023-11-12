@@ -5,7 +5,9 @@ import {
   getCinemasShowInfo,
   getCinemasSchedule,
 } from '../api/cinema';
-import { cinemasInfoResponseInfo, cinemasInfoImf } from '../types/cinema';
+import type { cinemasInfoImf } from '../types/cinema';
+import type { scheduleImf } from '../types/schedule';
+
 import NavTitle from './components/navTitle';
 import locationImg from '@/assets/img/location.png';
 import phoneImg from '@/assets/img/phone.png';
@@ -13,16 +15,14 @@ import triggleImg from '@/assets/img/triggle.png';
 import rightImg from '@/assets/img/right.png';
 
 import CinemaSwiper from './components/swiper';
-import '@/pages/css/cinemasInfo.scss';
+import '@/pages/css/schedule.scss';
 
 // import { Swiper } from "antd-mobile";
-import { anctorImf, detailsImf } from '../types/movice';
+import { anctorImf, detailsImf, moviceDetailsImf } from '../types/movice';
 
 import Tab from './components/dateTab';
-
-type moviceDetailsImf = {
-  showDate: Array<string>;
-} & detailsImf;
+import { getTime } from '../utils/day';
+import { formatPrice } from '../utils/price';
 
 export default function cinemasInfo() {
   const { cinemaId = '', filmId = '' } = useParams();
@@ -100,21 +100,17 @@ export default function cinemasInfo() {
 
   const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
+  const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
+
   useEffect(() => {
     async function fn() {
       const {
         data: { cinema },
-      } = (await getCinemasInfo({ cinemaId })) as {
-        data: cinemasInfoResponseInfo;
-      };
+      } = await getCinemasInfo({ cinemaId });
       setCinemaInfo(cinema);
       const {
         data: { films },
-      } = (await getCinemasShowInfo({ cinemaId })) as {
-        data: {
-          films: Array<moviceDetailsImf>;
-        };
-      };
+      } = await getCinemasShowInfo({ cinemaId });
       setFilms(films);
 
       const current = films.filter((res) => res.filmId === Number(filmId))[0];
@@ -136,11 +132,14 @@ export default function cinemasInfo() {
 
   useEffect(() => {
     async function fn() {
-      await getCinemasSchedule({
+      const {
+        data: { schedules },
+      } = await getCinemasSchedule({
         filmId: filmId,
         cinemaId: params.cinemaId,
         date: params.date,
       });
+      setSchedules(schedules);
     }
 
     if (params.date && filmId) {
@@ -236,7 +235,28 @@ export default function cinemasInfo() {
             ></Tab>
           )}
         </div>
-        <div></div>
+        <div className="schedule-items">
+          {schedules.map((item, index) => {
+            return (
+              <div className="schedule-item">
+                <div className="schedule-at">
+                  <div>{getTime(item.showAt)}</div>
+                  <div>{getTime(item.endAt)}</div>
+                </div>
+                <div className="schedule-info">
+                  <div>
+                    {item.filmLanguage} {item.imagery}
+                  </div>
+                  <div>{item.hallName}</div>
+                </div>
+                <div className="schedule-price">
+                  {formatPrice(item.salePrice)}
+                </div>
+                <div>购票</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );

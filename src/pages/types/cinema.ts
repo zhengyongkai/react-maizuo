@@ -1,11 +1,13 @@
-import type { district, tude } from "./location";
+import type { district, tude } from './location';
 
 export interface cinemasInfoRequestInfo {
   cinemaId: string;
 }
 
 export interface cinemasInfoResponseInfo {
-  cinema: cinemasInfoImf;
+  data: {
+    cinema: cinemasInfoImf;
+  };
 }
 
 export interface servicesImf {
@@ -35,3 +37,9 @@ export type cinemasInfoImf = {
   services: Array<servicesImf>;
 } & tude &
   district;
+
+export interface cinemasInfoResponseImf {
+  data: {
+    cinema: cinemasInfoImf;
+  };
+}

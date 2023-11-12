@@ -141,4 +141,67 @@
       width: 6px;
     }
   }
+
+  .schedule-items {
+    position: relative;
+    background: #fff;
+
+    .schedule-item {
+      height: 74px;
+      padding: 15px 15px;
+      box-sizing: border-box;
+      > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      display: flex;
+      align-items: center;
+      .schedule-at {
+        width: 60px;
+        > :first-child {
+          font-size: 15px;
+          color: #191a1b;
+        }
+
+        > :last-child {
+          font-size: 13px;
+          margin-top: 2px;
+          color: #797d82;
+          margin-top: 2px;
+        }
+      }
+      .schedule-info {
+        flex: 1;
+        > :first-child {
+          font-size: 15px;
+          color: #191a1b;
+        }
+
+        > :last-child {
+          font-size: 13px;
+          color: #797d82;
+          margin-top: 2px;
+        }
+      }
+      .schedule-price {
+        // padding: 10px 0;
+        padding-right: 20px;
+        line-height: 25px;
+        color: #ff5f16;
+        font-size: 15px;
+      }
+
+      > :last-child {
+        height: 25px;
+        width: 50px;
+        border-radius: 2px;
+        position: relative;
+        text-align: center;
+        border: 1px solid #ff5f16;
+        line-height: 25px;
+        color: #ff5f16;
+      }
+    }
+  }
 }

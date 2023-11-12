@@ -112,3 +112,13 @@ export interface cinemaListResponseImf {
     cinemas: Array<chinemaDetailImf>;
   };
 }
+
+export type moviceDetailsImf = {
+  showDate: Array<string>;
+} & detailsImf;
+
+export interface moviceDetailsResponseImf {
+  data: {
+    films: Array<moviceDetailsImf>;
+  };
+}
