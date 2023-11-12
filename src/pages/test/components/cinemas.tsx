@@ -24,6 +24,7 @@ import { useSelector } from 'react-redux';
 import { tudeStateImf } from '@/types/location';
 import { getBetweenDistance } from '@/pages/utils/location';
 import { getDay, getDaysNameFn } from '@/pages/utils/day';
+import Tab from './dateTab';
 
 export default function cinemas() {
   const menuRef = useRef<any>();
@@ -178,8 +179,8 @@ export default function cinemas() {
   return (
     <>
       <NavTitle title={film.name} back={true} />
-      <div>
-        <div className="cinemas-dates  inner-scroll">
+      <div style={{ paddingTop: 48 }}>
+        {/* <div className="cinemas-dates  inner-scroll">
           {cinema.showCinemas.map((item, index) => {
             return (
               <div
@@ -197,7 +198,19 @@ export default function cinemas() {
               </div>
             );
           })}
-        </div>
+        </div> */}
+        <Tab
+          tabList={cinema.showCinemas}
+          dataKey="showDate"
+          defaultActive={0}
+          onChange={(key, item) => {
+            setParams({
+              ...params,
+              cinemaIds: item.cinemaList.join(','),
+            });
+            setDate(item.showDate);
+          }}
+        />
         <Dropdown ref={menuRef}>
           <Dropdown.Item key="location" title={cityName}>
             <div className="city-items">

@@ -1,4 +1,4 @@
-import { districtImf } from "@/types/location";
+import { districtImf } from '@/types/location';
 
 export interface anctorImf {
   name: string;

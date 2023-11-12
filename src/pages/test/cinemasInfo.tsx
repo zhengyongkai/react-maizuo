@@ -1,45 +1,56 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { getCinemasInfo, getCinemasShowInfo } from "../api/cinema";
-import { cinemasInfoResponseInfo, cinemasInfoImf } from "../types/cinema";
-import NavTitle from "./components/navTitle";
-import locationImg from "@/assets/img/location.png";
-import phoneImg from "@/assets/img/phone.png";
-import triggleImg from "@/assets/img/triggle.png";
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import {
+  getCinemasInfo,
+  getCinemasShowInfo,
+  getCinemasSchedule,
+} from '../api/cinema';
+import { cinemasInfoResponseInfo, cinemasInfoImf } from '../types/cinema';
+import NavTitle from './components/navTitle';
+import locationImg from '@/assets/img/location.png';
+import phoneImg from '@/assets/img/phone.png';
+import triggleImg from '@/assets/img/triggle.png';
+import rightImg from '@/assets/img/right.png';
 
-import CinemaSwiper from "./components/swiper";
-import "@/pages/css/cinemasInfo.scss";
+import CinemaSwiper from './components/swiper';
+import '@/pages/css/cinemasInfo.scss';
 
-import { Swiper } from "antd-mobile";
-import { anctorImf, detailsImf } from "../types/movice";
+// import { Swiper } from "antd-mobile";
+import { anctorImf, detailsImf } from '../types/movice';
+
+import Tab from './components/dateTab';
+
+type moviceDetailsImf = {
+  showDate: Array<string>;
+} & detailsImf;
 
 export default function cinemasInfo() {
-  const { cinemaId = "", filmId = "" } = useParams();
+  const { cinemaId = '', filmId = '' } = useParams();
   const swiperRef = useRef<any>(null);
 
   const cinemasInfo = {
     Distance: 0,
-    address: "",
-    businessTime: "",
+    address: '',
+    businessTime: '',
     cinemaId: 0,
     cityId: -1,
-    cityName: "",
+    cityName: '',
     district: {
-      districtName: "",
+      districtName: '',
       districtId: 0,
     },
     districtId: 0,
-    districtName: "",
+    districtName: '',
     eTicketFlag: 0,
-    gpsAddress: "",
+    gpsAddress: '',
     isVisited: 0,
     latitude: 0,
-    logoUrl: "",
+    logoUrl: '',
     longitude: 0,
     lowPrice: 0,
-    name: "",
-    notice: "",
-    phone: "",
+    name: '',
+    notice: '',
+    phone: '',
     seatFlag: 1,
     services: [],
     telephones: [],
@@ -48,29 +59,29 @@ export default function cinemasInfo() {
 
   const defaultDetails = {
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
   };
@@ -78,18 +89,16 @@ export default function cinemasInfo() {
   const [params, setParams] = useState<{
     cinemaId: string;
     date: string;
-    filmId: number;
-    details: detailsImf;
+    details: moviceDetailsImf;
   }>({
     cinemaId,
-    date: "",
-    filmId: 0,
+    date: '',
     details: defaultDetails,
   });
 
   const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoImf>(cinemasInfo);
 
-  const [films, setFilms] = useState<Array<detailsImf>>([]);
+  const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
   useEffect(() => {
     async function fn() {
@@ -103,18 +112,21 @@ export default function cinemasInfo() {
         data: { films },
       } = (await getCinemasShowInfo({ cinemaId })) as {
         data: {
-          films: Array<detailsImf>;
+          films: Array<moviceDetailsImf>;
         };
       };
       setFilms(films);
 
-      // const currentIndex = films.indexOf((res) => res.filmId === Number(filmId))
+      const current = films.filter((res) => res.filmId === Number(filmId))[0];
       const index = films.findIndex((res) => res.filmId === Number(filmId));
-      console.log(films.filter((res) => res.filmId === Number(filmId))[0]);
-      setParams({
-        ...params,
-        details: films.filter((res) => res.filmId === Number(filmId))[0],
-      });
+      // console.log(films.filter((res) => res.filmId === Number(filmId))[0]);
+      if (current.showDate && current.showDate[0]) {
+        setParams({
+          ...params,
+          details: current,
+          date: current.showDate[0],
+        });
+      }
       setTimeout(() => {
         swiperRef.current.swiper.slideTo(index, 1000);
       });
@@ -122,13 +134,26 @@ export default function cinemasInfo() {
     fn();
   }, [cinemaId, filmId]);
 
+  useEffect(() => {
+    async function fn() {
+      await getCinemasSchedule({
+        filmId: filmId,
+        cinemaId: params.cinemaId,
+        date: params.date,
+      });
+    }
+
+    if (params.date && filmId) {
+      fn();
+    }
+  }, [cinemaId, filmId, params.date]);
+
   function onSlideChange(e: number) {
-    console.log(films[e]);
     setParams({
       ...params,
       details: films[e],
+      date: films[e].showDate[0],
     });
-    console.log(films[e]);
   }
 
   function getAnctorsString(actors: Array<anctorImf>) {
@@ -136,7 +161,7 @@ export default function cinemasInfo() {
       .reduce((pre, item) => {
         return pre.concat(item.name);
       }, [] as Array<string>)
-      .join(" ");
+      .join(' ');
   }
 
   return (
@@ -157,7 +182,7 @@ export default function cinemasInfo() {
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>
-            <a href={"tel:" + cinemaInfo.phone}>
+            <a href={'tel:' + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
@@ -179,16 +204,39 @@ export default function cinemasInfo() {
             <img src={triggleImg} />
           </div>
         </div>
-        <div>
+        <div className="film-info">
           <div>
-            {params.details.name} <span>{params.details.grade} 分</span>
+            <div className="film-info-name">
+              {params.details.name}{' '}
+              <span>
+                <i>{params.details.grade}</i> 分
+              </span>
+            </div>
+            <div className="film-info-desc">
+              {params.details.category} | {params.details.runtime}分钟 |{' '}
+              {params.details.director} |{' '}
+              {getAnctorsString(params.details.actors)}
+            </div>
           </div>
           <div>
-            {params.details.category} | {params.details.runtime}分钟 |{" "}
-            {params.details.director} |{" "}
-            {getAnctorsString(params.details.actors)}
+            <img src={rightImg} alt="" />
           </div>
         </div>
+        <div>
+          {params.details.showDate && (
+            <Tab
+              tabList={params.details.showDate}
+              defaultActive={0}
+              onChange={(index, item) => {
+                setParams({
+                  ...params,
+                  date: item,
+                });
+              }}
+            ></Tab>
+          )}
+        </div>
+        <div></div>
       </div>
     </>
   );
