@@ -96,11 +96,17 @@ export default function cinemasInfo() {
     details: defaultDetails,
   });
 
+  const [id, setFilmId] = useState<number>(0);
+
   const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoImf>(cinemasInfo);
 
   const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
   const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
+
+  useEffect(() => {
+    setFilmId(filmId);
+  }, [filmId]);
 
   useEffect(() => {
     async function fn() {
@@ -127,7 +133,9 @@ export default function cinemasInfo() {
         swiperRef.current.swiper.slideTo(index, 1000);
       });
     }
-    fn();
+    if (cinemaId && filmId) {
+      fn();
+    }
   }, [cinemaId, filmId]);
 
   useEffect(() => {
@@ -135,17 +143,17 @@ export default function cinemasInfo() {
       const {
         data: { schedules },
       } = await getCinemasSchedule({
-        filmId: filmId,
+        filmId: id,
         cinemaId: params.cinemaId,
         date: params.date,
       });
       setSchedules(schedules);
     }
 
-    if (params.date && filmId) {
+    if (params.date && id && cinemaId) {
       fn();
     }
-  }, [cinemaId, filmId, params.date]);
+  }, [cinemaId, id, params.date]);
 
   function onSlideChange(e: number) {
     setParams({
@@ -153,6 +161,7 @@ export default function cinemasInfo() {
       details: films[e],
       date: films[e].showDate[0],
     });
+    setFilmId(films[e].filmId);
   }
 
   function getAnctorsString(actors: Array<anctorImf>) {
@@ -238,7 +247,7 @@ export default function cinemasInfo() {
         <div className="schedule-items">
           {schedules.map((item, index) => {
             return (
-              <div className="schedule-item">
+              <div className="schedule-item" key={item.scheduleId}>
                 <div className="schedule-at">
                   <div>{getTime(item.showAt)}</div>
                   <div>{getTime(item.endAt)}</div>
