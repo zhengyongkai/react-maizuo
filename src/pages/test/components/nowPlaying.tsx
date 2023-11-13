@@ -1,16 +1,16 @@
-import { memo, useEffect, useState } from "react";
-import { getMoviceData } from "@/pages/api/movice";
-import { detailsImf, moviceImf } from "@/pages/types/movice";
+import { memo, useEffect, useState } from 'react';
+import { getMoviceData } from '@/pages/api/movice';
+import { detailsImf, moviceImf } from '@/pages/types/movice';
 // import { cityStateImf } from '@/types/location';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from "@/types/location";
-import { InfiniteScroll } from "antd-mobile";
+import type { cityStateImf } from '@/types/location';
+import { InfiniteScroll } from 'antd-mobile';
 
-import useLocation from "@/hook/location";
+import useLocation from '@/hook/location';
 
-import MovieItems from "./movieItems";
+import MovieItems from './movieItems';
 
 function nowPlaying() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);
@@ -27,19 +27,21 @@ function nowPlaying() {
   });
 
   async function getMoviceDataList() {
-    const api = getMoviceData;
-    const {
-      data: { films, total },
-    } = await api(page);
-    if (films.length === 0) {
-      return setHasMore(false);
+    if (page.cityId) {
+      const api = getMoviceData;
+      const {
+        data: { films, total },
+      } = await api(page);
+      if (films.length === 0) {
+        return setHasMore(false);
+      }
+      const list = movice.concat(films);
+      setMovice(list);
+      setPage({
+        ...page,
+        total,
+      });
     }
-    const list = movice.concat(films);
-    setMovice(list);
-    setPage({
-      ...page,
-      total,
-    });
   }
 
   location((locale) => {
@@ -47,6 +49,7 @@ function nowPlaying() {
       ...page,
       cityId: locale.cityId,
     });
+    getMoviceDataList();
   });
 
   async function loadMore() {
@@ -60,7 +63,7 @@ function nowPlaying() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
+      <div style={{ backgroundColor: '#fff' }}>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={1} key={index}></MovieItems>;
         })}

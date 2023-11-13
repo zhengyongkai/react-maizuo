@@ -14,7 +14,7 @@ export default function RouterLocation(props: propsImf): any {
     (locale) => locale.location.locale.cityId
   ) as number;
 
-  if (cityId === -1) {
+  if (!cityId) {
     return <Navigate to="/location"></Navigate>;
   } else {
     return children;

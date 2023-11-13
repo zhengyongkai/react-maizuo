@@ -11,11 +11,12 @@ import { getAddress } from '@/pages/utils/location';
 
 import type { locationResultImf, initialStateImf } from '@/types/location';
 import cookie from '@/pages/utils/cookie';
+import { Dialog, Modal } from 'antd-mobile';
 
 const initialState: initialStateImf = {
   locale: {
     name: cookie.getCookie('name'),
-    cityId: cookie.getCookie('cityId') || -1,
+    cityId: cookie.getCookie('cityId'),
   },
   tude: {
     longitude: 0,
@@ -88,7 +89,6 @@ export const location = createSlice({
   reducers: {
     // 设置地区
     setLocale(state, { payload }) {
-      console.log(payload);
       state.locale = payload;
     },
     getGeoLocale() {},
@@ -99,6 +99,7 @@ export const location = createSlice({
       state.tude.longitude = payload.longitude as number;
       state.locale.name = payload.locale.name;
       state.locale.cityId = payload.locale.cityId;
+
       cookie.setCookie('name', state.locale.name);
       cookie.setCookie('cityId', state.locale.cityId);
     });

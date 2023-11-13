@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const getMovice = () => {
   return new Promise((resolve) => {
@@ -9,19 +9,17 @@ const getMovice = () => {
 };
 
 export const asyncActionRequest: any = createAsyncThunk(
-  "user/getAsync",
+  'user/getAsync',
   async () => {
     const data = await getMovice();
-    console.log(data);
     return data;
   }
 );
 
 export const slice = createSlice({
-  name: "user",
+  name: 'user',
   reducers: {
     setName: (state, { payload }) => {
-      console.log(payload);
       state.name = payload.value;
     },
     setList: (state, { payload }) => {
@@ -30,7 +28,7 @@ export const slice = createSlice({
     },
   },
   initialState: {
-    name: "",
+    name: '',
     list: [],
     loading: false,
   },
@@ -39,7 +37,6 @@ export const slice = createSlice({
       state.loading = true;
     });
     builder.addCase(asyncActionRequest.fulfilled, (state, { payload }) => {
-      console.log("payload", payload);
       state.loading = false;
       state.list = payload as [];
     });
