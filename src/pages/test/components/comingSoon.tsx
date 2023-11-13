@@ -44,7 +44,7 @@ function comingSoon() {
       ...page,
       pageNum: (page.pageNum += 1),
     });
-    console.log(page);
+    // console.log(page);
     await getMoviceDataList();
   }
 

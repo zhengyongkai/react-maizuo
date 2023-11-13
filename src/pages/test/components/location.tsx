@@ -1,6 +1,8 @@
 import "@/pages/css/location.scss";
 import { useSelector, useDispatch } from "react-redux";
 
+import Cookie from "@/pages/utils/cookie";
+
 import { IndexBar, List } from "antd-mobile";
 import { useEffect, useState } from "react";
 import { setLocale } from "@/store/common/location";
@@ -22,6 +24,7 @@ interface formatImf {
 
 function locationPage() {
   const dispatch = useDispatch();
+
   const cityState = useSelector(
     (state: cityStateImf) => state.location.locale.name
   );
@@ -29,9 +32,7 @@ function locationPage() {
     (state: cityStateImf) => state.location.locationList
   );
   const [city, setCity] = useState(cityState);
-  const [hotList, setHotList] = useState<
-    Array<{ name: string; cityId: string }>
-  >([]);
+  const [hotList, setHotList] = useState<Array<formatImf>>([]);
   const [list, setList] = useState<
     Array<{ title: string; items: Array<formatImf> }>
   >([]);
@@ -86,6 +87,9 @@ function locationPage() {
 
   function onCityClick(item: formatImf) {
     dispatch(setLocale(item));
+    console.log(Cookie);
+    Cookie.setCookie("cityId", item.cityId);
+    Cookie.setCookie("name", item.name);
     navigator(-1);
   }
   return (

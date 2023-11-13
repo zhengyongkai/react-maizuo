@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
 export default function useFetch<T>(
-  api: () => T,
+  api: () => Promise<AxiosResponse<T>>,
   listener = [],
   callback?: (data: any) => void
-) {
+): [T, boolean] {
   // console.log(api);
-  const [responseData, setResponseData] = useState<Array<T>>([]);
+  const [responseData, setResponseData] = useState<T>();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
     async function fetch() {
-      const { data } = (await api()) as { data: Array<T> };
+      const { data } = (await api()) as { data: T };
       setResponseData(data);
       // console.log(data);
       setLoading(false);
@@ -20,5 +21,5 @@ export default function useFetch<T>(
     fetch();
   }, listener);
 
-  return [responseData, loading];
+  return [responseData, loading] as [T, boolean];
 }

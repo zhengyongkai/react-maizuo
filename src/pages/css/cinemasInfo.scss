@@ -1,0 +1,98 @@
+.cinemas-warpper {
+  background: #fff;
+  .cinemas-title {
+    padding-top: 48px;
+    text-align: center;
+    position: relative;
+    text-align: center;
+    font-size: 17px;
+    color: #191a1b;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    //   padding: 0 15px;
+  }
+
+  .cinemas-tags {
+    margin: 0 auto;
+    display: flex;
+    width: fit-content;
+    padding: 5px 0 15px;
+    span {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      border: 1px solid #ffb232;
+      -ms-flex-pack: center;
+      justify-content: center;
+      font-size: 15px;
+      padding: 0 6px;
+      margin: 0 2.5px;
+      font-size: 10px;
+      color: #ffb232;
+      overflow: hidden;
+      position: relative;
+
+      //   padding: 5px 0 15px;
+    }
+  }
+
+  .cinemas-info {
+    display: flex;
+    align-items: center;
+    padding: 0 17px;
+    height: 50px;
+    // line-height: 50px;
+    img {
+      width: 14px;
+    }
+
+    > :nth-child(2) {
+      flex: 1;
+      overflow: hidden;
+      padding: 0 12px;
+    }
+
+    > :last-child {
+      img {
+        width: 17px;
+      }
+    }
+  }
+
+  .cinemas-film-list {
+    height: 160px;
+    padding: 15px 0;
+    position: relative;
+    .cinemas-film-cover {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      // padding: 15px 0;
+      height: 160px;
+      overflow: hidden;
+      > div {
+        height: 100%;
+        width: 100%;
+        filter: blur(30px);
+        -webkit-filter: blur(30px);
+      }
+    }
+  }
+  .film-triggle {
+    position: relative;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+  }
+}

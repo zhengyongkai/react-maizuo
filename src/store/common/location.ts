@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { showDialog } from '@/pages/utils/dialog';
 import { getLocationList, getLocation } from '@/pages/api/location';
+
 import {
   PERMISSION_DENIED,
   POSITION_UNAVAILABLE,
@@ -9,11 +10,12 @@ import {
 import { getAddress } from '@/pages/utils/location';
 
 import type { locationResultImf, initialStateImf } from '@/types/location';
+import cookie from '@/pages/utils/cookie';
 
 const initialState: initialStateImf = {
   locale: {
-    name: '',
-    cityId: -1,
+    name: cookie.getCookie('name'),
+    cityId: cookie.getCookie('cityId') || -1,
   },
   tude: {
     longitude: 0,
@@ -36,7 +38,7 @@ function getGPSPosition() {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
           });
-          console.log(locale);
+          // console.log(locale);
           res({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
@@ -55,6 +57,7 @@ function getGPSPosition() {
             case TIMEOUT:
               content = '地理位置获取超时';
           }
+
           rej(error);
           // showDialog.show({
           //   content,
@@ -96,6 +99,8 @@ export const location = createSlice({
       state.tude.longitude = payload.longitude as number;
       state.locale.name = payload.locale.name;
       state.locale.cityId = payload.locale.cityId;
+      cookie.setCookie('name', state.locale.name);
+      cookie.setCookie('cityId', state.locale.cityId);
     });
     builder.addCase(
       getLocationListsAsyc.fulfilled,

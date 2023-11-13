@@ -1,4 +1,4 @@
-import type { district, tude } from './location';
+import type { district, tude } from "./location";
 
 export interface cinemasInfoRequestInfo {
   cinemaId: string;
@@ -34,7 +34,7 @@ export type cinemasInfoImf = {
   telephones: Array<string>;
   ticketTypes?: string;
   district: district;
-  services: Array<servicesImf>;
+  services?: Array<servicesImf>;
 } & tude &
   district;
 
