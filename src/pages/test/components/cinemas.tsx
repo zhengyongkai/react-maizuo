@@ -1,59 +1,59 @@
 // import useFetch from "@/hook/fetch";
-import useLocation from '@/hook/location';
+import useLocation from "@/hook/location";
 
 import {
   getCinemas,
   getCinemasList,
   getMoviceDetail,
-} from '@/pages/api/movice';
+} from "@/pages/api/movice";
 import {
   cinemaListResponseImf,
   cinemaResponseImf,
   moviceImf,
   chinemaDetailImf,
-} from '@/pages/types/movice';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "@/pages/types/movice";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import '@/pages/css/cinemas.scss';
+import "@/pages/css/cinemas.scss";
 
-import NavTitle from './navTitle';
-import { Dropdown, List } from 'antd-mobile';
-import Loading from './loading';
-import { useSelector } from 'react-redux';
-import { tudeStateImf } from '@/types/location';
-import { getBetweenDistance } from '@/pages/utils/location';
-import { getDay, getDaysNameFn } from '@/pages/utils/day';
-import Tab from './dateTab';
+import NavTitle from "./navTitle";
+import { Dropdown, List } from "antd-mobile";
+import Loading from "./loading";
+import { useSelector } from "react-redux";
+import { tudeStateImf } from "@/types/location";
+import { getBetweenDistance } from "@/pages/utils/location";
+import { getDay, getDaysNameFn } from "@/pages/utils/day";
+import Tab from "./dateTab";
 
 export default function cinemas() {
   const menuRef = useRef<any>();
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
   );
-  const { id = '' } = useParams();
+  const { id = "" } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [cityName, setCityName] = useState('');
+  const [cityName, setCityName] = useState("");
   const [date, setDate] = useState(0);
   const navigator = useNavigate();
 
   const [params, setParams] = useState({
-    filmId: '',
+    filmId: "",
     cityId: 0,
-    cinemaIds: '',
+    cinemaIds: "",
   });
 
   const [film, setFilm] = useState<moviceImf>({
     filmId: 0,
-    name: '',
-    category: '',
-    synopsis: '',
-    poster: '',
-    grade: '',
+    name: "",
+    category: "",
+    synopsis: "",
+    poster: "",
+    grade: "",
     actors: [],
     runtime: 0,
-    nation: '',
+    nation: "",
   });
 
   const [cinema, setCinemas] = useState<cinemaResponseImf>({
@@ -80,7 +80,7 @@ export default function cinemas() {
         locationAttr.latitude,
         longitude,
         latitude
-      ).toFixed(1) + 'km'
+      ).toFixed(1) + "km"
     );
   }
 
@@ -88,7 +88,7 @@ export default function cinemas() {
     setParams({
       filmId: id,
       cityId: locale.cityId,
-      cinemaIds: '',
+      cinemaIds: "",
       // cityName: params.cityName,
     });
   });
@@ -124,12 +124,12 @@ export default function cinemas() {
   }, [params.filmId, params.cityId]);
 
   useEffect(() => {
-    if (cinema.showCinemas.length && film.filmId) {
+    if (cinema.showCinemas.length) {
       setLoading(true);
 
       const cinemaIds = params.cinemaIds
         ? params.cinemaIds
-        : cinema.showCinemas[0].cinemaList.join(',');
+        : cinema.showCinemas[0].cinemaList.join(",");
       async function fn() {
         const {
           data: { cinemas },
@@ -157,7 +157,7 @@ export default function cinemas() {
       }
       fn();
     }
-  }, [cinema, film, params.cinemaIds, params.cityId]);
+  }, [cinema.showCinemas, params.cinemaIds, params.cityId]);
 
   function cityItemsChange(res: string) {
     const cinemas = cinemaList.cinemas.get(res) || [];
@@ -171,7 +171,7 @@ export default function cinemas() {
   }
 
   function formatPrice(price: number) {
-    const pre = '￥' + String(price).slice(0, 2);
+    const pre = "￥" + String(price).slice(0, 2);
 
     return pre;
   }
@@ -206,7 +206,7 @@ export default function cinemas() {
           onChange={(key, item) => {
             setParams({
               ...params,
-              cinemaIds: item.cinemaList.join(','),
+              cinemaIds: item.cinemaList.join(","),
             });
             setDate(item.showDate);
           }}
@@ -222,7 +222,7 @@ export default function cinemas() {
                     onClick={() => cityItemsChange(res)}
                     style={
                       cityName === res
-                        ? { border: '1px solid #ff5f16', color: '#ff5f16' }
+                        ? { border: "1px solid #ff5f16", color: "#ff5f16" }
                         : {}
                     }
                   >
@@ -254,7 +254,7 @@ export default function cinemas() {
                   <div className="cinemas-top">
                     <div>{item.name}</div>
                     <div>
-                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
+                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{" "}
                     </div>
                   </div>
                   <div className="cinemas-bottom">

@@ -1,12 +1,9 @@
 import Cookies from "universal-cookie";
 
 class Simgleton {
-  static _instance: any = null;
+  static _instance: any = new Cookies();
 
   static getInstance() {
-    if (!Simgleton._instance) {
-      Simgleton._instance = new Cookies();
-    }
     return Simgleton;
   }
 
@@ -16,6 +13,9 @@ class Simgleton {
   }
   static getCookie(key: string) {
     return Simgleton._instance.get(key);
+  }
+  static removeCookie(key: string) {
+    return Simgleton._instance.remove(key);
   }
 }
 

@@ -62,7 +62,7 @@ export function getDaysNameFn(num: number): string {
 
 // 判断电影是否过时间
 export const isStopSelling = (stopAt: number, beforeStopMins: number) => {
-  let v = +stopAt * 1000 - +dayjs().unix();
+  let v = +stopAt * 1000 - +dayjs().valueOf();
   let re = +beforeStopMins * 60 * 1000;
   return v < re;
 };

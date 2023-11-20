@@ -11,15 +11,21 @@ import FilmPage from "./components/films";
 import CinemasPage from "./components/cinemas";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getLocationAsync,
   getLocationListsAsyc,
 } from "@/store/common/location";
 import CinemasInfo from "./schedule";
 import RouterLocation from "@/components/Route/routeFc";
+import AuthHoc from "@/components/Auth/authFc";
+import { getUserDataThunk } from "@/store/common/user";
+import { user, userState } from "../types/user";
+
+
 
 export default function App() {
+  const token = useSelector<userState, string>((state) => state.user.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,14 +33,26 @@ export default function App() {
       // do something
       await dispatch(getLocationAsync());
       await dispatch(getLocationListsAsyc());
+
     };
     fn();
   }, []);
-  ``;
+
+
+  useEffect(() => {
+    const fn = async () => {
+      await dispatch(getUserDataThunk());
+    }
+    if (token) {
+      fn()
+    }
+  }, [token])
+
   return (
     <>
       <Routes>
         <Route path="/login" element={<Login></Login>} />
+
         <Route path="/location" element={<Location />} />
         <Route
           path="/name/*"
@@ -77,9 +95,11 @@ export default function App() {
         <Route
           path="/films/chinemasInfo/:cinemaId/:filmId"
           element={
-            <RouterLocation>
-              <CinemasInfo />
-            </RouterLocation>
+            <AuthHoc>
+              <RouterLocation>
+                <CinemasInfo />
+              </RouterLocation>
+            </AuthHoc>
           }
         ></Route>
       </Routes>

@@ -10,11 +10,14 @@
 
 .tabbar > div {
   flex: 1;
-  line-height: 64px;
+  // line-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   cursor: pointer;
 }
 
 :global(.active) {
-  color: red;
+  color: #ff8751;
 }

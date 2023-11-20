@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   getCinemasInfo,
   getCinemasShowInfo,
@@ -29,6 +29,7 @@ import LoadingIcon from "./components/loading";
 export default function cinemasInfo() {
   const { cinemaId = "", filmId = "" } = useParams();
   const swiperRef = useRef<any>(null);
+  const navigator = useNavigate();
 
   const cinemasInfo = {
     Distance: 0,
@@ -110,7 +111,9 @@ export default function cinemasInfo() {
   const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
 
   useEffect(() => {
-    setFilmId(Number(filmId));
+    if (filmId) {
+      setFilmId(Number(filmId));
+    }
   }, [filmId]);
 
   useEffect(() => {
@@ -196,7 +199,7 @@ export default function cinemasInfo() {
       <NavTitle back title={fixed ? cinemaInfo.name : ""}></NavTitle>
       <div className="cinemas-warpper">
         <div>
-          <div className="cinemas-title">{cinemaInfo.name}</div>
+          <div className="cinemas-title  ">{cinemaInfo.name}</div>
         </div>
         <div className="cinemas-tags">
           {cinemaInfo.services &&
@@ -247,7 +250,13 @@ export default function cinemasInfo() {
             </div>
           </div>
           <div>
-            <img src={rightImg} alt="" />
+            <img
+              src={rightImg}
+              alt=""
+              onClick={() => {
+                navigator("/films/" + params.details.filmId);
+              }}
+            />
           </div>
         </div>
         <div>
@@ -271,8 +280,8 @@ export default function cinemasInfo() {
                 <div
                   className={
                     isStopSelling(item.showAt, item.advanceStopMins)
-                      ? "schedule-item"
-                      : "schedule-item disabled"
+                      ? "schedule-item disabled"
+                      : "schedule-item"
                   }
                   key={item.scheduleId}
                 >

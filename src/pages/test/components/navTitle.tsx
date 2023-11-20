@@ -20,7 +20,7 @@ export default function navTitle(props: props) {
             <img src={BackImg} alt="" onClick={() => navigate(-1)} />
           ) : undefined}
         </div>
-        <div className="navTitle">{title}</div>
+        <div className="navTitle text-ellipsis">{title}</div>
         <div className="navSlots">{children && children[0]}</div>
       </div>
     </>

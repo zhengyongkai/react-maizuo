@@ -156,6 +156,14 @@
       height: 74px;
       padding: 15px 15px;
       box-sizing: border-box;
+      &.disabled {
+        * {
+          color: #d2d6dc !important;
+        }
+        > :last-child {
+          border-color: #d2d6dc !important;
+        }
+      }
       > div {
         display: flex;
         flex-direction: column;

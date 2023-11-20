@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import type { cityStateImf, localeImf } from '@/types/location';
+import type { cityStateImf, localeImf } from "@/types/location";
 
 const useLocation = () => {
   return (fn: (locale: localeImf) => void) => {
@@ -9,7 +9,7 @@ const useLocation = () => {
       (state) => state.location.locale
     ) as localeImf;
     useEffect(() => {
-      console.log(location);
+      // console.log(location);
       fn(location);
     }, [location]);
   };
