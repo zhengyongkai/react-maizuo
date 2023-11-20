@@ -209,7 +209,7 @@ export default function cinemasInfo() {
         </div>
         <div className="cinemas-info">
           <div>
-            <img src={locationImg} alt="" />
+            <img src={locationImg} alt="" onClick={() => navigator('/map')} />
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>

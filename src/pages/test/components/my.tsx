@@ -69,10 +69,17 @@ export default function myPage() {
   return (
     <>
       <div className="user-bg">
-        <div>
-          <img src={userData.headIcon} alt="" />
-        </div>
-        <div>{userData.nickName}</div>
+        {
+          userData.userId ? (
+            <>
+              <div>
+                <img src={userData.headIcon} alt="" />
+              </div>
+              <div>{userData.nickName}</div>
+            </>
+          )
+            : "请先登录"
+        }
       </div>
       <div className="user-card">
         <div>

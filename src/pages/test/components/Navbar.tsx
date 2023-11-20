@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Style from "../css/navbar.module.scss";
 
 import type { cityStateImf } from "@/types/location";
+import { DownOutline } from "antd-mobile-icons";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Navbar() {
             navigate("/location");
           }}
         >
-          {city}市
+          {city} <DownOutline></DownOutline>
         </div>
         <div>电影</div>
       </div>

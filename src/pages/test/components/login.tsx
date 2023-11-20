@@ -19,7 +19,7 @@ export default function Login() {
       smsCode: '759802',
     });
     await dispatch(setUserData(data));
-    navigate(cookie.getCookie(REDIRECTURL));
+    navigate('/login');
   };
   return (
     <>

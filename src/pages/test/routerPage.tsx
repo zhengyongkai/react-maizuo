@@ -19,6 +19,7 @@ import {
 import CinemasInfo from "./schedule";
 import RouterLocation from "@/components/Route/routeFc";
 import AuthHoc from "@/components/Auth/authFc";
+import Map from "./components/map";
 import { getUserDataThunk } from "@/store/common/user";
 import { user, userState } from "../types/user";
 
@@ -75,6 +76,7 @@ export default function App() {
           </Route>
           <Route path="news" element={<NewsPage />}></Route>
           <Route path="my" element={<MyPage />}></Route>
+
         </Route>
         <Route
           path="/films/:id"
@@ -84,6 +86,7 @@ export default function App() {
             </RouterLocation>
           }
         />
+
         <Route
           path="/films/cinemas/:id"
           element={
@@ -102,6 +105,7 @@ export default function App() {
             </AuthHoc>
           }
         ></Route>
+        <Route path="map" element={<Map />}></Route>
       </Routes>
     </>
   );
