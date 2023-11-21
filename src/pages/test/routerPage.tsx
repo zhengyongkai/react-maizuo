@@ -98,14 +98,14 @@ export default function App() {
         <Route
           path="/films/chinemasInfo/:cinemaId/:filmId"
           element={
-            <AuthHoc>
-              <RouterLocation>
-                <CinemasInfo />
-              </RouterLocation>
-            </AuthHoc>
+
+            <RouterLocation>
+              <CinemasInfo />
+            </RouterLocation>
+
           }
         ></Route>
-        <Route path="map" element={<Map />}></Route>
+        <Route path="map/:lng/:lat" element={<Map />}></Route>
       </Routes>
     </>
   );

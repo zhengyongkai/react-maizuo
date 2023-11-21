@@ -16,7 +16,7 @@ import { Dialog, Modal } from 'antd-mobile';
 const initialState: initialStateImf = {
   locale: {
     name: cookie.getCookie('name'),
-    cityId: cookie.getCookie('cityId'),
+    cityId: cookie.getCookie('cityId') || -1,
   },
   tude: {
     longitude: 0,
@@ -39,7 +39,7 @@ function getGPSPosition() {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
           });
-          // console.log(locale);
+          console.log(position.coords);
           res({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,

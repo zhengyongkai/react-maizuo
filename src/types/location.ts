@@ -22,6 +22,10 @@ export interface initialStateImf {
   locationList: Array<any>;
 }
 
+export interface localeState {
+  location: initialStateImf;
+}
+
 export interface cityStateImf {
   location: initialStateImf;
 }

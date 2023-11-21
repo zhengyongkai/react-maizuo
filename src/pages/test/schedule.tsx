@@ -31,7 +31,7 @@ export default function cinemasInfo() {
   const swiperRef = useRef<any>(null);
   const navigator = useNavigate();
 
-  const cinemasInfo = {
+  const cinemasInfoState = {
     Distance: 0,
     address: "",
     businessTime: "",
@@ -104,7 +104,7 @@ export default function cinemasInfo() {
 
   const [id, setFilmId] = useState<number>(0);
 
-  const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoImf>(cinemasInfo);
+  const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoImf>(cinemasInfoState);
 
   const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
@@ -204,12 +204,12 @@ export default function cinemasInfo() {
         <div className="cinemas-tags">
           {cinemaInfo.services &&
             cinemaInfo.services.slice(0, 4).map((item, key) => {
-              return <span key={key}>{item.name}</span>;
+              return <span key={key}> {item.name} </span>;
             })}
         </div>
         <div className="cinemas-info">
           <div>
-            <img src={locationImg} alt="" onClick={() => navigator('/map')} />
+            <img src={locationImg} alt="" onClick={() => navigator('/map/' + cinemaInfo.longitude + '/' + cinemaInfo.latitude)} />
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>

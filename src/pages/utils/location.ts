@@ -1,4 +1,7 @@
 // @ts-nocheck
+
+const BMap = BMapGL;
+
 export const getAddress = function (latitude: number, longitude: number) {
   let myGeo = new BMapGL.Geocoder();
   // 根据坐标得到地址描述
@@ -35,3 +38,5 @@ export const getBetweenDistance = function (
 
   return RADIUS * c;
 };
+
+export default BMap;
