@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import RouterPage1 from "./components/routerPage1";
 import HomePage from "./components/home";
 import NewsPage from "./components/news";
@@ -23,8 +23,6 @@ import Map from "./components/map";
 import { getUserDataThunk } from "@/store/common/user";
 import { user, userState } from "../types/user";
 
-
-
 export default function App() {
   const token = useSelector<userState, string>((state) => state.user.token);
   const dispatch = useDispatch();
@@ -34,24 +32,26 @@ export default function App() {
       // do something
       await dispatch(getLocationAsync());
       await dispatch(getLocationListsAsyc());
-
     };
     fn();
   }, []);
 
-
   useEffect(() => {
     const fn = async () => {
       await dispatch(getUserDataThunk());
-    }
+    };
     if (token) {
-      fn()
+      fn();
     }
-  }, [token])
+  }, [token]);
 
   return (
     <>
       <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="/name/home/nowPlaying" />}
+        ></Route>
         <Route path="/login" element={<Login></Login>} />
 
         <Route path="/location" element={<Location />} />
@@ -76,7 +76,6 @@ export default function App() {
           </Route>
           <Route path="news" element={<NewsPage />}></Route>
           <Route path="my" element={<MyPage />}></Route>
-
         </Route>
         <Route
           path="/films/:id"
@@ -98,14 +97,13 @@ export default function App() {
         <Route
           path="/films/chinemasInfo/:cinemaId/:filmId"
           element={
-
             <RouterLocation>
               <CinemasInfo />
             </RouterLocation>
-
           }
         ></Route>
         <Route path="map/:lng/:lat" element={<Map />}></Route>
+        <Route path="seat/:scheduleId/"></Route>
       </Routes>
     </>
   );

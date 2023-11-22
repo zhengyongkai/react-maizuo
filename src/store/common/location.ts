@@ -16,7 +16,7 @@ import { Dialog, Modal } from 'antd-mobile';
 const initialState: initialStateImf = {
   locale: {
     name: cookie.getCookie('name'),
-    cityId: cookie.getCookie('cityId') || -1,
+    cityId: cookie.getCookie('cityId'),
   },
   tude: {
     longitude: 0,
@@ -31,6 +31,7 @@ function getGPSPosition() {
       console.log('获取当前地点 ==');
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
+          // console.log(position);
           const result: locationResultImf = (await getAddress(
             position.coords.longitude,
             position.coords.latitude
@@ -39,7 +40,7 @@ function getGPSPosition() {
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
           });
-          console.log(position.coords);
+          // console.log(position.coords);
           res({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
@@ -58,7 +59,6 @@ function getGPSPosition() {
             case TIMEOUT:
               content = '地理位置获取超时';
           }
-
           rej(error);
           // showDialog.show({
           //   content,

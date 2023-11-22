@@ -25,9 +25,7 @@ interface formatImf {
 function locationPage() {
   const dispatch = useDispatch();
 
-  const cityState = useSelector(
-    (state: cityStateImf) => state.location.locale.name
-  );
+  const cityState = useSelector((state: cityStateImf) => state.location.locale);
   const locationList = useSelector(
     (state: cityStateImf) => state.location.locationList
   );
@@ -86,6 +84,9 @@ function locationPage() {
   }, [cityState]);
 
   function onCityClick(item: formatImf) {
+    if (!item.cityId) {
+      return false;
+    }
     dispatch(setLocale(item));
     console.log(Cookie);
     Cookie.setCookie("cityId", item.cityId);
@@ -94,8 +95,23 @@ function locationPage() {
   }
   return (
     <>
-      <div className="city-location">当前城市 - {city} </div>
+      <div className="city-location">当前城市 - {city.name} </div>
       <div className="city-recommend">
+        <div className="city-title">GPS定位你所在的城市</div>
+        <div className="city-gps">
+          <div
+            className="city-tab"
+            onClick={() =>
+              onCityClick({
+                cityId: city.cityId,
+                name: city.name,
+                title: city.name,
+              })
+            }
+          >
+            {city.name ? city.name : "定位失败"}
+          </div>
+        </div>
         <div className="city-title">热门城市</div>
         <div className="city-tabs">
           {hotList.map((item, index) => {

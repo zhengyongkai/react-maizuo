@@ -6,10 +6,7 @@ import { Map, Marker, NavigationControl, InfoWindow } from 'react-bmapgl';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 
-interface MapsProps {
-  lng: number,
-  lat: number
-}
+
 
 export default function Maps() {
   const mapRef = useRef<any>()
@@ -68,7 +65,7 @@ export default function Maps() {
   }
 
   function onCarLine() {
-    console.log(map.current);
+    
     const driving = BMap.DrivingRoute(map.current, { renderOptions: { map: map.current, autoViewport: true } });
     driving.search(start.current, end.current);
   }

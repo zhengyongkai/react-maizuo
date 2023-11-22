@@ -9,14 +9,19 @@ interface propsImf {
 
 export default function RouterLocation(props: propsImf): any {
   let { children } = props;
+
   // console.log(children);
-  const cityId = useSelector<cityStateImf>(
+  const cityId = useSelector<cityStateImf, number>(
     (locale) => locale.location.locale.cityId
   );
 
+  const [city, setCity] = useState(cityId);
 
+  useEffect(() => {
+    setCity(cityId);
+  }, [cityId]);
 
-  if (!cityId && cityId !== -1) {
+  if (!city) {
     return <Navigate to="/location"></Navigate>;
   } else {
     return children;
