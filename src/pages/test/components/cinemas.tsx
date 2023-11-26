@@ -23,10 +23,19 @@ import Loading from "./loading";
 import { useSelector } from "react-redux";
 import { tudeStateImf } from "@/types/location";
 import { getBetweenDistance } from "@/pages/utils/location";
-import { getDay, getDaysNameFn } from "@/pages/utils/day";
 import Tab from "./dateTab";
 
+interface sortTitleInf {
+  title: string;
+  key: number;
+}
+
 export default function cinemas() {
+  const initSortTitle = {
+    key: 1,
+    title: "离我最近",
+  };
+
   const menuRef = useRef<any>();
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
@@ -69,20 +78,7 @@ export default function cinemas() {
     cinemasList: [],
   });
 
-  function to(path: string) {
-    navigator(path);
-  }
-
-  function getDistance(longitude: number, latitude: number) {
-    return (
-      getBetweenDistance(
-        locationAttr.longitude,
-        locationAttr.latitude,
-        longitude,
-        latitude
-      ).toFixed(1) + "km"
-    );
-  }
+  const [sortTitle, setSortTitle] = useState<sortTitleInf>(initSortTitle);
 
   location((locale) => {
     setParams({
@@ -102,6 +98,7 @@ export default function cinemas() {
     }
     fn();
   }, []);
+
   useEffect(() => {
     async function getList() {
       const {
@@ -124,6 +121,7 @@ export default function cinemas() {
   }, [params.filmId, params.cityId]);
 
   useEffect(() => {
+    const defaultTitle = "全城";
     if (cinema.showCinemas.length) {
       setLoading(true);
 
@@ -138,21 +136,24 @@ export default function cinemas() {
           cinemaIds,
         })) as cinemaListResponseImf;
         const moviceMap = new Map<string, Array<chinemaDetailImf>>();
-        cinemas.forEach((element) => {
-          // console.log(element);
-          const key = moviceMap.get(element.districtName);
+        moviceMap.set(defaultTitle, cinemas);
 
-          if (key) {
-            moviceMap.set(element.districtName, [...key, element]);
-          } else {
-            moviceMap.set(element.districtName, [element]);
-          }
-        });
+        cinemas
+          .sort((pre, next) => pre.Distance - next.Distance)
+          .forEach((element) => {
+            const key = moviceMap.get(element.districtName);
+
+            if (key) {
+              moviceMap.set(element.districtName, [...key, element]);
+            } else {
+              moviceMap.set(element.districtName, [element]);
+            }
+          });
         setCinemasList({
           cinemas: moviceMap,
           cinemasList: [...moviceMap.values()][0],
         });
-        setCityName([...moviceMap.values()][0][0].districtName);
+        setCityName(defaultTitle);
         setLoading(false);
       }
       fn();
@@ -166,39 +167,85 @@ export default function cinemas() {
       cinemas: cinemaList.cinemas,
       cinemasList: cinemas,
     });
+
     menuRef.current.close();
     setCityName(res);
   }
 
+  function to(path: string) {
+    navigator(path);
+  }
+
+  function getDistance(longitude: number, latitude: number) {
+    return (
+      getBetweenDistance(
+        locationAttr.longitude,
+        locationAttr.latitude,
+        longitude,
+        latitude
+      ).toFixed(1) + "km"
+    );
+  }
+
   function formatPrice(price: number) {
     const pre = "￥" + String(price).slice(0, 2);
-
     return pre;
+  }
+
+  function sortItems() {
+    const sortItem = [
+      {
+        key: 1,
+        title: "离我最近",
+      },
+      { key: 2, title: "价格最低" },
+    ];
+
+    return sortItem.map((res) => {
+      return (
+        <List.Item
+          key={res.key}
+          className={sortTitle.key === res.key ? "cinemas-sort-active" : ""}
+          arrow={false}
+          onClick={() => onSortFn(res)}
+        >
+          {res.title}
+        </List.Item>
+      );
+    });
+  }
+
+  function onSortFn(type: sortTitleInf) {
+    let sortParams: "Distance" | "lowPrice" = "Distance";
+    switch (type.key) {
+      case -1:
+        break;
+      case 1:
+        sortParams = "Distance";
+        break;
+      case 2:
+        sortParams = "lowPrice";
+        break;
+      default:
+        break;
+    }
+    if (sortParams) {
+      let result = cinemaList.cinemasList.sort((pre, next) => {
+        return pre[sortParams] - next[sortParams];
+      });
+      setSortTitle(type);
+      setCinemasList({
+        cinemas: cinemaList.cinemas,
+        cinemasList: result,
+      });
+      menuRef.current.close();
+    }
   }
 
   return (
     <>
       <NavTitle title={film.name} back={true} />
       <div style={{ paddingTop: 48 }}>
-        {/* <div className="cinemas-dates  inner-scroll">
-          {cinema.showCinemas.map((item, index) => {
-            return (
-              <div
-                className={item.showDate === date ? 'cinemas-dates-active' : ''}
-                key={index}
-                onClick={() => {
-                  setParams({
-                    ...params,
-                    cinemaIds: item.cinemaList.join(','),
-                  });
-                  setDate(item.showDate);
-                }}
-              >
-                <span>{getDaysNameFn(item.showDate)}</span>
-              </div>
-            );
-          })}
-        </div> */}
         <Tab
           tabList={cinema.showCinemas}
           dataKey="showDate"
@@ -218,13 +265,11 @@ export default function cinemas() {
                 return (
                   <div
                     key={index}
-                    className="city-item"
+                    className={[
+                      "city-item",
+                      cityName === res ? "cinemas-tabs-active" : "",
+                    ].join(" ")}
                     onClick={() => cityItemsChange(res)}
-                    style={
-                      cityName === res
-                        ? { border: "1px solid #ff5f16", color: "#ff5f16" }
-                        : {}
-                    }
                   >
                     {res}
                   </div>
@@ -232,10 +277,8 @@ export default function cinemas() {
               })}
             </div>
           </Dropdown.Item>
-          <Dropdown.Item key="recent" title="离我最近">
-            <List>
-              <List.Item>离我最近</List.Item>
-            </List>
+          <Dropdown.Item key="recent" title={sortTitle.title}>
+            <List>{sortItems()}</List>
           </Dropdown.Item>
         </Dropdown>
         {loading ? (

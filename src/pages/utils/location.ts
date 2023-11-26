@@ -1,8 +1,13 @@
 // @ts-nocheck
 
+import type { locationResultImf } from "@/types/location";
+
 const BMap = BMapGL;
 
-export const getAddress = function (latitude: number, longitude: number) {
+export const getAddress = function (
+  latitude: number,
+  longitude: number
+): Promise<locationResultImf> {
   let myGeo = new BMapGL.Geocoder();
   // 根据坐标得到地址描述
   return new Promise((resolve) => {
