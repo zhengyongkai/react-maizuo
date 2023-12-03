@@ -12,7 +12,7 @@ import SvgIcon from "@/components/SvgIcon";
 import { getDaysNameFn, getTime } from "../utils/day";
 
 import dayjs from "dayjs";
-import { getCinemasSchedule } from "../api/cinema";
+import { getCinemasSchedule, getCinemasSeat } from "../api/cinema";
 import { scheduleImf } from "../types/schedule";
 import { formatPrice } from "../utils/price";
 
@@ -110,7 +110,12 @@ export default function SeatPage() {
         date: showDate,
       });
       setScheduleList(schedules);
+      const { data } = await getCinemasSeat({
+        scheduleId: schedules[0].scheduleId
+      })
+      console.log(data);
     }
+
     if (schedule.film.filmId && schedule.cinema.cinemaId && showDate) {
       fn();
     }

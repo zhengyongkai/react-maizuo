@@ -1,16 +1,16 @@
-import request from "@/pages/utils/request";
-import { MAIZUO } from "../constant/baseUrl";
-import { scheduleResponseImf } from "../types/schedule";
-import { cinemasInfoImf, cinemasInfoResponseImf } from "../types/cinema";
-import { moviceDetailsResponseImf } from "../types/movice";
-import { AxiosResponse } from "axios";
+import request from '@/pages/utils/request';
+import { MAIZUO } from '../constant/baseUrl';
+import { scheduleResponseImf } from '../types/schedule';
+import { cinemasInfoImf, cinemasInfoResponseImf } from '../types/cinema';
+import { moviceDetailsResponseImf } from '../types/movice';
+import { AxiosResponse } from 'axios';
 
 export function getCinemasInfo(
   params
 ): Promise<AxiosResponse<cinemasInfoResponseImf>> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
-      "X-Host": "mall.film-ticket.cinema.info",
+      'X-Host': 'mall.film-ticket.cinema.info',
     },
     params,
   });
@@ -21,7 +21,7 @@ export function getCinemasShowInfo(
 ): Promise<AxiosResponse<moviceDetailsResponseImf>> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
-      "X-Host": "mall.film-ticket.film.cinema-show-film",
+      'X-Host': 'mall.film-ticket.film.cinema-show-film',
     },
     params,
   });
@@ -32,7 +32,18 @@ export function getCinemasSchedule(
 ): Promise<AxiosResponse<scheduleResponseImf>> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
-      "X-Host": "mall.film-ticket.schedule.list",
+      'X-Host': 'mall.film-ticket.schedule.list',
+    },
+    params,
+  });
+}
+
+export function getCinemasSeat(
+  params
+): Promise<AxiosResponse<scheduleResponseImf>> {
+  return request.get(`${MAIZUO}?k=564058`, {
+    headers: {
+      'X-Host': 'mall.film-ticket.seat.list',
     },
     params,
   });

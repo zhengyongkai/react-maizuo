@@ -72,18 +72,19 @@
     display: flex;
     margin-top: 5px;
     > div {
-      background-color: #fffbfb;
+      // background-color: #fffbfb;
       min-width: 70px;
       height: 60px;
       -ms-flex-negative: 0;
       flex-shrink: 0;
       margin-right: 10px;
       padding: 6px 0;
-      // background-color: hsla(0, 0%, 95.7%, 0.6);
+      background-color: hsla(0, 0%, 95.7%, 0.6);
       border-radius: 2px;
       text-align: center;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
+
       > :first-child {
         font-size: 14px;
         color: #191a1b;
