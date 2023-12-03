@@ -27,7 +27,7 @@ import useSroll from "@/hook/scroll";
 import LoadingIcon from "./components/loading";
 
 export default function cinemasInfo() {
-  const { cinemaId = "", filmId = "" } = useParams();
+  const { cinemaId = "", filmId = "", showDate = "" } = useParams();
   const swiperRef = useRef<any>(null);
   const navigator = useNavigate();
 
@@ -104,7 +104,8 @@ export default function cinemasInfo() {
 
   const [id, setFilmId] = useState<number>(0);
 
-  const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoImf>(cinemasInfoState);
+  const [cinemaInfo, setCinemaInfo] =
+    useState<cinemasInfoImf>(cinemasInfoState);
 
   const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
@@ -209,7 +210,15 @@ export default function cinemasInfo() {
         </div>
         <div className="cinemas-info">
           <div>
-            <img src={locationImg} alt="" onClick={() => navigator('/map/' + cinemaInfo.longitude + '/' + cinemaInfo.latitude)} />
+            <img
+              src={locationImg}
+              alt=""
+              onClick={() =>
+                navigator(
+                  "/map/" + cinemaInfo.longitude + "/" + cinemaInfo.latitude
+                )
+              }
+            />
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>
@@ -284,6 +293,9 @@ export default function cinemasInfo() {
                       : "schedule-item"
                   }
                   key={item.scheduleId}
+                  onClick={() =>
+                    navigator(`/seat/${item.scheduleId}/${showDate}`)
+                  }
                 >
                   <div className="schedule-at">
                     <div>{getTime(item.showAt)}</div>

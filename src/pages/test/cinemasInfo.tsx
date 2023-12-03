@@ -95,7 +95,7 @@ export default function cinemasInfo() {
     async function fn() {
       const {
         data: { cinema },
-      } = await getCinemasInfo({ cinemaId })
+      } = await getCinemasInfo({ cinemaId });
       setCinemaInfo(cinema);
       const {
         data: { films },
@@ -144,13 +144,15 @@ export default function cinemasInfo() {
         <div>
           <div className="cinemas-title">{cinemaInfo.name}</div>
         </div>
-        {
-          cinemaInfo.services ? <div className="cinemas-tags">
+        {cinemaInfo.services ? (
+          <div className="cinemas-tags">
             {cinemaInfo.services.slice(0, 4).map((item, key) => {
               return <span key={key}>{item.name}</span>;
             })}
-          </div> : <></>
-        }
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="cinemas-info">
           <div>
             <img src={locationImg} alt="" />

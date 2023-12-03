@@ -14,7 +14,5 @@ export interface scheduleImf {
 }
 
 export interface scheduleResponseImf {
-  data: {
-    schedules: Array<scheduleImf>;
-  };
+  schedules: Array<scheduleImf>;
 }

@@ -39,7 +39,5 @@ export type cinemasInfoImf = {
   district;
 
 export interface cinemasInfoResponseImf {
-  data: {
-    cinema: cinemasInfoImf;
-  };
+  cinema: cinemasInfoImf;
 }

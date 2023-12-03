@@ -1,4 +1,4 @@
-import { districtImf } from '@/types/location';
+import { districtImf } from "@/types/location";
 
 export interface anctorImf {
   name: string;
@@ -16,6 +16,7 @@ export interface moviceImf {
   actors: Array<anctorImf>;
   runtime: number;
   nation: string;
+  language?: string;
 }
 
 export interface moviceParams {
@@ -118,7 +119,5 @@ export type moviceDetailsImf = {
 } & detailsImf;
 
 export interface moviceDetailsResponseImf {
-  data: {
-    films: Array<moviceDetailsImf>;
-  };
+  films: Array<moviceDetailsImf>;
 }

@@ -1,0 +1,4 @@
+export interface hallInf {
+  hallId: string;
+  name: string;
+}

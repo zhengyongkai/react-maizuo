@@ -22,6 +22,7 @@ import AuthHoc from "@/components/Auth/authFc";
 import Map from "./components/map";
 import { getUserDataThunk } from "@/store/common/user";
 import { user, userState } from "../types/user";
+import SeatPage from "./seat";
 
 export default function App() {
   const token = useSelector<userState, string>((state) => state.user.token);
@@ -95,7 +96,7 @@ export default function App() {
           }
         />
         <Route
-          path="/films/chinemasInfo/:cinemaId/:filmId"
+          path="/films/chinemasInfo/:cinemaId/:filmId/:showDate"
           element={
             <RouterLocation>
               <CinemasInfo />
@@ -103,7 +104,7 @@ export default function App() {
           }
         ></Route>
         <Route path="map/:lng/:lat" element={<Map />}></Route>
-        <Route path="seat/:scheduleId/"></Route>
+        <Route path="seat/:scheduleId/:showDate" element={<SeatPage />}></Route>
       </Routes>
     </>
   );

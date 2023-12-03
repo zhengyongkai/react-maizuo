@@ -291,7 +291,9 @@ export default function cinemas() {
                   className="cinemas-item"
                   key={index}
                   onClick={() =>
-                    to(`/films/chinemasInfo/${item.cinemaId}/${film.filmId}`)
+                    to(
+                      `/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`
+                    )
                   }
                 >
                   <div className="cinemas-top">

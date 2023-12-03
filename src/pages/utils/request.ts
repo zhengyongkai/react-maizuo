@@ -26,7 +26,8 @@ axios.interceptors.request.use((requestConfig) => {
 
 axios.interceptors.response.use((response) => {
   //   location.href = "/#/login";
-  return response;
+
+  return response.data;
 });
 
 export default axios;

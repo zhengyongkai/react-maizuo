@@ -1,5 +1,5 @@
-import { AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
 export default function useFetch<T>(
   api: () => Promise<AxiosResponse<T>>,

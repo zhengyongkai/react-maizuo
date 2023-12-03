@@ -45,8 +45,13 @@ export function getDay(num: number) {
   }
 }
 
-export function getDaysNameFn(num: number): string {
-  const day = dayjs.unix(num).format("MM月D日");
+export function getDaysNameFn(num: number, showTime: boolean = false): string {
+  let day = null;
+  if (!showTime) {
+    day = dayjs.unix(num).format("MM月D日");
+  } else {
+    day = dayjs.unix(num).format("MM月D日 HH:mm");
+  }
   let pre = "";
   if (isTodayFn(num)) {
     pre = "今日";
