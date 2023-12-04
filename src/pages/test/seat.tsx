@@ -132,7 +132,7 @@ export default function SeatPage() {
   const axionY = useRef(null);
   const zoomInstance = useRef<d3Zoom.ZoomBehavior<Element, any>>();
   const map = useRef(null);
-  const axionMiddle = useRef(null);
+  const axionMiddle = useRef<HTMLDivElement>(null);
   const seatingChartContextWrapRef = useRef(null)
 
   let [{ schedule }, loading] = useFetch<seatResponseInf>(
@@ -173,7 +173,8 @@ export default function SeatPage() {
         });
         // console.log(schedules);
         setScheduleList(schedules);
-
+        setScheduleId(schedule.scheduleId)
+        console.log(schedule.scheduleId);
         // console.log(data);
       } catch {
         showDialog.show({ content: "该场次已经结束" });
@@ -204,21 +205,23 @@ export default function SeatPage() {
 
     var domArr = axionMiddle.current
     setTimeout(() => {
-      let x = 0
-      x = domArr.getBoundingClientRect().x || domArr.getBoundingClientRect().left
+      if (domArr) {
+        let x = 0
+        x = domArr.getBoundingClientRect().x || domArr.getBoundingClientRect().left
 
-      setScreenStyle({
-        left: x - ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) * AXION_MIDDLE_WIDTH) / 2 + 'px',
-      })
+        setScreenStyle({
+          left: x - ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) * AXION_MIDDLE_WIDTH) / 2 + 'px',
+        })
 
-      const scaleX = event.transform.k
-      const targetEls = axionYCtx._groups[0][0].children || []
-      for (let index = 0; index < targetEls.length; index++) {
-        const element = targetEls[index]
-        if (scaleX > 1) {
-          element.style.transform = `scale(1, 0.5)`
-        } else {
-          element.style.transform = `scale(${scaleX})`
+        const scaleX = event.transform.k
+        const targetEls = axionYCtx._groups[0][0].children || []
+        for (let index = 0; index < targetEls.length; index++) {
+          const element = targetEls[index]
+          if (scaleX > 1) {
+            element.style.transform = `scale(1, 0.5)`
+          } else {
+            element.style.transform = `scale(${scaleX})`
+          }
         }
       }
     }, 0)
@@ -302,7 +305,7 @@ export default function SeatPage() {
             <div className="axion-y" ref={axionY}>
               {[...new Array(rowNum)].map(
                 (res, index) => {
-                  return <div className="rowName">{index + 1}</div>;
+                  return <div className="rowName" key={index}>{index + 1}</div>;
                 }
               )}
             </div>
@@ -310,8 +313,8 @@ export default function SeatPage() {
               <div className="axion-middle" style={{ height: rowNum * 25 }} ref={axionMiddle}></div>
               <div className="seats">
                 {
-                  seatsList.seats.map((item) => {
-                    return <div className="seat" style={getSeatPosition(item)}>
+                  seatsList.seats.map((item, index) => {
+                    return <div className="seat" style={getSeatPosition(item)} key={index}>
                       <SvgIcon size={24} name="seat"></SvgIcon>
                     </div>
                   })
@@ -364,11 +367,12 @@ export default function SeatPage() {
                     className={scheduleId === item.scheduleId ? "active" : ""}
                     onClick={() => setScheduleId(item.scheduleId)}
                   >
+
                     <div>{getTime(item.showAt)}</div>
                     <div>
                       {item.filmLanguage} {item.imagery}
                     </div>
-                    <div>{formatPrice(item.salePrice)}</div>
+                    <div>{formatPrice(item.maxSalePrice)}</div>
                   </div>
                 );
               })

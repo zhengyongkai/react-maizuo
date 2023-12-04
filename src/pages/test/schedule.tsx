@@ -294,7 +294,7 @@ export default function cinemasInfo() {
                   }
                   key={item.scheduleId}
                   onClick={() =>
-                    navigator(`/seat/${item.scheduleId}/${showDate}`)
+                    navigator(`/seat/${item.scheduleId}/${params.date}`)
                   }
                 >
                   <div className="schedule-at">
