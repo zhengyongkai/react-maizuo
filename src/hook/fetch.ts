@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 export default function useFetch<T>(
   api: () => Promise<AxiosResponse<T>>,
-
   initData: T,
   listener: Array<any>,
   callback?: (data: any) => void
@@ -14,7 +13,8 @@ export default function useFetch<T>(
     setLoading(true);
     async function fetch() {
       const { data } = (await api()) as { data: T };
-      console.log(data);
+
+      // console.log(data);
       setResponseData(data);
       // console.log(data);
       setLoading(false);

@@ -104,7 +104,7 @@ export default function App() {
           }
         ></Route>
         <Route path="map/:lng/:lat" element={<Map />}></Route>
-        <Route path="seat/:scheduleId/:showDate" element={<SeatPage />}></Route>
+        <Route path="seat/:id/:showDate" element={<SeatPage />}></Route>
       </Routes>
     </>
   );

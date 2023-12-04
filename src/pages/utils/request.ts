@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { createHashHistory } from "history";
+// import { createHashHistory } from "history";
 import cookie from "./cookie";
 
 // const customHistory = createHashHistory();
