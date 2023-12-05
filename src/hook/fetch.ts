@@ -1,24 +1,28 @@
+import { Toast } from "antd-mobile";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
 export default function useFetch<T>(
-  api: () => Promise<AxiosResponse<T>>,
+  api: () => Promise<{ data: T; msg: string }>,
   initData: T,
-  listener: Array<any>,
-  callback?: (data: any) => void
+  listener: Array<unknown>,
+  callback?: (status: Boolean, data: T) => void
 ) {
   const [responseData, setResponseData] = useState<T>(initData);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
     async function fetch() {
-      const { data } = (await api()) as { data: T };
-
-      // console.log(data);
-      setResponseData(data);
+      const { data, msg } = await api();
+      if (data) {
+        setResponseData(data);
+        callback && callback(true, data);
+      } else {
+        setResponseData(initData);
+        Toast.show(msg);
+      }
       // console.log(data);
       setLoading(false);
-      callback && callback(data);
     }
     fetch();
   }, listener);

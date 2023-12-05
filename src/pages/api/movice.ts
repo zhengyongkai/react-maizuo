@@ -10,6 +10,7 @@ import type {
 } from "@/pages/types/movice";
 import { MAIZUO } from "@/pages/constant/baseUrl";
 import { AxiosResponse } from "axios";
+import { Response } from "../types";
 
 export function getMoviceData(params: moviceParams) {
   const cityId = params.cityId === -1 ? 110100 : params.cityId;
@@ -33,7 +34,7 @@ export function getMoviceComingData(params: moviceParams) {
 
 export function getMoviceDetail(
   params: detailsParams
-): Promise<AxiosResponse<detailsResponseImf>> {
+): Response<detailsResponseImf> {
   return request.get(`${MAIZUO}?k=5840910`, {
     headers: {
       "X-Host": "mall.film-ticket.film.info",

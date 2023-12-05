@@ -5,10 +5,9 @@ import { cinemasInfoImf, cinemasInfoResponseImf } from "../types/cinema";
 import { moviceDetailsResponseImf } from "../types/movice";
 import { AxiosResponse } from "axios";
 import { seatingChartInf, seatListInf } from "../types/seat";
+import { Response } from "../types";
 
-export function getCinemasInfo(
-  params
-): Promise<AxiosResponse<cinemasInfoResponseImf>> {
+export function getCinemasInfo(params): Response<cinemasInfoResponseImf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
       "X-Host": "mall.film-ticket.cinema.info",
@@ -17,9 +16,7 @@ export function getCinemasInfo(
   });
 }
 
-export function getCinemasShowInfo(
-  params
-): Promise<AxiosResponse<moviceDetailsResponseImf>> {
+export function getCinemasShowInfo(params): Response<moviceDetailsResponseImf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
       "X-Host": "mall.film-ticket.film.cinema-show-film",
@@ -28,9 +25,7 @@ export function getCinemasShowInfo(
   });
 }
 
-export function getCinemasSchedule(
-  params
-): Promise<AxiosResponse<scheduleResponseImf>> {
+export function getCinemasSchedule(params): Response<scheduleResponseImf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
       "X-Host": "mall.film-ticket.schedule.list",
@@ -39,7 +34,7 @@ export function getCinemasSchedule(
   });
 }
 
-export function getCinemasSeat(params): Promise<AxiosResponse<seatListInf>> {
+export function getCinemasSeat(params): Response<seatListInf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
       "X-Host": "mall.film-ticket.seat.list",

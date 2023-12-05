@@ -1,9 +1,14 @@
 import useFetch from "@/hook/fetch";
-import { NoticeBar } from "antd-mobile";
+import { NoticeBar, Toast } from "antd-mobile";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSeatDetails } from "../api/seat";
-import { seatingChartInf, seatListInf, seatResponseInf, seatsInf } from "../types/seat";
+import {
+  seatingChartInf,
+  seatListInf,
+  seatResponseInf,
+  seatsInf,
+} from "../types/seat";
 import LoadingIcon from "./components/loading";
 import NavTitle from "./components/navTitle";
 
@@ -16,7 +21,13 @@ import { getCinemasSchedule, getCinemasSeat } from "../api/cinema";
 import { scheduleImf } from "../types/schedule";
 import { formatPrice } from "../utils/price";
 import { showDialog } from "../utils/dialog";
-import { AXION_MIDDLE_WIDTH, COUPLE_SEAT_IS_RIGHT, MAXSCALE, SEAT_DEFAULT_HEIGHT, SEAT_DEFAULT_WIDTH } from "@/store/constants";
+import {
+  AXION_MIDDLE_WIDTH,
+  COUPLE_SEAT_IS_RIGHT,
+  MAXSCALE,
+  SEAT_DEFAULT_HEIGHT,
+  SEAT_DEFAULT_WIDTH,
+} from "@/store/constants";
 import * as d3 from "d3";
 import * as d3Select from "d3-selection";
 import * as d3Zoom from "d3-zoom";
@@ -110,7 +121,7 @@ export default function SeatPage() {
   let screenCtx: any = null;
   let axionYCtx: any = null;
   let seatingChartContext: any = null;
-  let seatingChartContextWrap: any = null
+  let seatingChartContextWrap: any = null;
   // let zoomInstance = null;
 
   const { id = 0, showDate } = useParams();
@@ -125,7 +136,7 @@ export default function SeatPage() {
   });
 
   const [screenStyle, setScreenStyle] = useState({
-    left: '0px'
+    left: "0px",
   });
 
   const screen = useRef(null);
@@ -133,7 +144,7 @@ export default function SeatPage() {
   const zoomInstance = useRef<d3Zoom.ZoomBehavior<Element, any>>();
   const map = useRef(null);
   const axionMiddle = useRef<HTMLDivElement>(null);
-  const seatingChartContextWrapRef = useRef(null)
+  const seatingChartContextWrapRef = useRef(null);
 
   let [{ schedule }, loading] = useFetch<seatResponseInf>(
     () => {
@@ -173,7 +184,7 @@ export default function SeatPage() {
         });
         // console.log(schedules);
         setScheduleList(schedules);
-        setScheduleId(schedule.scheduleId)
+        setScheduleId(schedule.scheduleId);
         console.log(schedule.scheduleId);
         // console.log(data);
       } catch {
@@ -187,44 +198,72 @@ export default function SeatPage() {
 
   function zoom(event: any) {
     // console.log(event);
-    seatingChartContext.style('transform', 'translate(' + event.transform.x + 'px,' + event.transform.y + 'px) scale(' + event.transform.k + ')')
     seatingChartContext.style(
-      '-webkit-transform',
-      'translate(' + event.transform.x + 'px,' + event.transform.y + 'px) scale(' + event.transform.k + ')',
-    )
+      "transform",
+      "translate(" +
+        event.transform.x +
+        "px," +
+        event.transform.y +
+        "px) scale(" +
+        event.transform.k +
+        ")"
+    );
+    seatingChartContext.style(
+      "-webkit-transform",
+      "translate(" +
+        event.transform.x +
+        "px," +
+        event.transform.y +
+        "px) scale(" +
+        event.transform.k +
+        ")"
+    );
 
     if (event.transform.k > MAXSCALE) {
-      screenCtx.style('transform', `scale(${MAXSCALE})`)
-      screenCtx.style('-webkit-transform', `scale(${MAXSCALE})`)
+      screenCtx.style("transform", `scale(${MAXSCALE})`);
+      screenCtx.style("-webkit-transform", `scale(${MAXSCALE})`);
     } else {
-      screenCtx.style('transform', `scale(${event.transform.k})`)
-      screenCtx.style('-webkit-transform', `scale(${event.transform.k})`)
+      screenCtx.style("transform", `scale(${event.transform.k})`);
+      screenCtx.style("-webkit-transform", `scale(${event.transform.k})`);
     }
-    axionYCtx.style('transform', `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`)
-    axionYCtx.style('-webkit-transform', `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`)
+    axionYCtx.style(
+      "transform",
+      `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
+    );
+    axionYCtx.style(
+      "-webkit-transform",
+      `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
+    );
 
-    var domArr = axionMiddle.current
+    var domArr = axionMiddle.current;
     setTimeout(() => {
       if (domArr) {
-        let x = 0
-        x = domArr.getBoundingClientRect().x || domArr.getBoundingClientRect().left
+        let x = 0;
+        x =
+          domArr.getBoundingClientRect().x ||
+          domArr.getBoundingClientRect().left;
 
         setScreenStyle({
-          left: x - ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) * AXION_MIDDLE_WIDTH) / 2 + 'px',
-        })
+          left:
+            x -
+            ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) *
+              AXION_MIDDLE_WIDTH) /
+              2 +
+            "px",
+        });
 
-        const scaleX = event.transform.k
-        const targetEls = axionYCtx._groups[0][0].children || []
+        const scaleX = event.transform.k;
+        const targetEls = axionYCtx._groups[0][0].children || [];
         for (let index = 0; index < targetEls.length; index++) {
-          const element = targetEls[index]
+          const element = targetEls[index];
           if (scaleX > 1) {
-            element.style.transform = `scale(1, 0.5)`
+            element.style.transform = `scale(1, 0.5)`;
           } else {
-            element.style.transform = `scale(${scaleX})`
+            element.style.transform = `scale(${scaleX})`;
           }
         }
       }
-    }, 0)
+    }, 0);
   }
 
   function initSeatComposition() {
@@ -236,10 +275,11 @@ export default function SeatPage() {
     screenCtx = d3Select.select(screen.current);
     axionYCtx = d3Select.select(axionY.current);
 
-    seatingChartContextWrap = d3Select.select(seatingChartContextWrapRef.current)
-    seatingChartContext = d3Select.select(map.current)
-    seatingChartContextWrap.call(zoomInstance.current)
-
+    seatingChartContextWrap = d3Select.select(
+      seatingChartContextWrapRef.current
+    );
+    seatingChartContext = d3Select.select(map.current);
+    seatingChartContextWrap.call(zoomInstance.current);
 
     const chartWidth = seatsList.width * SEAT_DEFAULT_WIDTH;
     const chartHeight = seatsList.height * SEAT_DEFAULT_HEIGHT;
@@ -249,8 +289,8 @@ export default function SeatPage() {
     });
     const currentK = window.innerWidth / chartWidth;
     let t = d3.zoomIdentity.scale(currentK);
-    zoomInstance.current.scaleExtent([currentK, 2])
-    zoomInstance.current.transform(seatingChartContextWrap, t)
+    zoomInstance.current.scaleExtent([currentK, 2]);
+    zoomInstance.current.transform(seatingChartContextWrap, t);
   }
 
   function getSeatingRowsAndColumnsNum() {
@@ -273,20 +313,20 @@ export default function SeatPage() {
     return rcObjs;
   }
 
-  const rowNum = getSeatingRowsAndColumnsNum().rowNum
+  const rowNum = getSeatingRowsAndColumnsNum().rowNum;
 
   function getSeatPosition(s: seatsInf) {
-    const column = s.columnNum
-    const row = s.rowNum
+    const column = s.columnNum;
+    const row = s.rowNum;
     if (s.coupleType === COUPLE_SEAT_IS_RIGHT) {
       return {
-        display: 'none',
-      }
+        display: "none",
+      };
     }
     return {
-      left: (Number(column) - 1) * SEAT_DEFAULT_WIDTH + 'px',
-      top: (Number(row) - 1) * SEAT_DEFAULT_HEIGHT + 'px',
-    }
+      left: (Number(column) - 1) * SEAT_DEFAULT_WIDTH + "px",
+      top: (Number(row) - 1) * SEAT_DEFAULT_HEIGHT + "px",
+    };
   }
   return (
     <>
@@ -299,26 +339,40 @@ export default function SeatPage() {
       <div style={{ height: 420 }}>
         <div ref={seatingChartContextWrapRef} className="seating-chart-wrap">
           <div style={{ ...seatingChartStyle }}>
-            <div className="seating-screen" ref={screen} style={{ ...screenStyle }}>
+            <div
+              className="seating-screen"
+              ref={screen}
+              style={{ ...screenStyle }}
+            >
               {schedule.hall.name}
             </div>
             <div className="axion-y" ref={axionY}>
-              {[...new Array(rowNum)].map(
-                (res, index) => {
-                  return <div className="rowName" key={index}>{index + 1}</div>;
-                }
-              )}
+              {[...new Array(rowNum)].map((res, index) => {
+                return (
+                  <div className="rowName" key={index}>
+                    {index + 1}
+                  </div>
+                );
+              })}
             </div>
             <div className="map" ref={map}>
-              <div className="axion-middle" style={{ height: rowNum * 25 }} ref={axionMiddle}></div>
+              <div
+                className="axion-middle"
+                style={{ height: rowNum * 25 }}
+                ref={axionMiddle}
+              ></div>
               <div className="seats">
-                {
-                  seatsList.seats.map((item, index) => {
-                    return <div className="seat" style={getSeatPosition(item)} key={index}>
+                {seatsList.seats.map((item, index) => {
+                  return (
+                    <div
+                      className="seat"
+                      style={getSeatPosition(item)}
+                      key={index}
+                    >
                       <SvgIcon size={24} name="seat"></SvgIcon>
                     </div>
-                  })
-                }
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -361,21 +415,20 @@ export default function SeatPage() {
           <div className="seating-schedule  inner-scroll">
             {showSchedule
               ? scheduleList.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={scheduleId === item.scheduleId ? "active" : ""}
-                    onClick={() => setScheduleId(item.scheduleId)}
-                  >
-
-                    <div>{getTime(item.showAt)}</div>
-                    <div>
-                      {item.filmLanguage} {item.imagery}
+                  return (
+                    <div
+                      key={index}
+                      className={scheduleId === item.scheduleId ? "active" : ""}
+                      onClick={() => setScheduleId(item.scheduleId)}
+                    >
+                      <div>{getTime(item.showAt)}</div>
+                      <div>
+                        {item.filmLanguage} {item.imagery}
+                      </div>
+                      <div>{formatPrice(item.maxSalePrice)}</div>
                     </div>
-                    <div>{formatPrice(item.maxSalePrice)}</div>
-                  </div>
-                );
-              })
+                  );
+                })
               : null}
           </div>
         </div>

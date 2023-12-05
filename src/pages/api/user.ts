@@ -1,4 +1,5 @@
 import { MAIZUO } from "../constant/baseUrl";
+import { Response } from "../types";
 import {
   amountResponseInf,
   cardResponseInf,
@@ -30,7 +31,7 @@ export const login = (data: loginRequestInf) => {
   });
 };
 
-export const getCardList = (): Promise<cardResponseInf> => {
+export const getCardList = (): Response<cardResponseInf> => {
   return request.get(`${MAIZUO}?k=5840910`, {
     headers: {
       "X-Host": "mall.user.page.data",
@@ -40,7 +41,7 @@ export const getCardList = (): Promise<cardResponseInf> => {
   });
 };
 
-export const getCardAmount = (): Promise<amountResponseInf> => {
+export const getCardAmount = (): Response<amountResponseInf> => {
   return request.get(`${MAIZUO}?k=5840910`, {
     headers: {
       "X-Host": "mall.asset.balance.info",
