@@ -22,7 +22,7 @@ import AuthHoc from "@/components/Auth/authFc";
 import Map from "./components/map";
 import { getUserDataThunk } from "@/store/common/user";
 import { user, userState } from "../types/user";
-import SeatPage from "./seat";
+import SeatPage from "./seats";
 
 export default function App() {
   const token = useSelector<userState, string>((state) => state.user.token);

@@ -66,3 +66,15 @@ export interface seatingChartInf {
 export interface seatListInf {
   seatingChart: seatingChartInf;
 }
+
+export interface selectSeatsInf {
+  columnId: string;
+  columNum: string;
+  rowId: string;
+  rowNum: string;
+  sectionId: string;
+  sectionName: string;
+  scheduleId: number;
+  date: number;
+  cinemaId: number;
+}

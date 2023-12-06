@@ -1,3 +1,8 @@
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content
+ */
 import { memo, useEffect, useState } from "react";
 import { getMoviceData, getMoviceComingData } from "@/pages/api/movice";
 import { detailsImf, moviceImf } from "@/pages/types/movice";
@@ -50,7 +55,7 @@ function comingSoon() {
 
   return (
     <>
-      <div>
+      <div style={{ backgroundColor: "#fff" }}>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={2} key={index} />;
         })}
