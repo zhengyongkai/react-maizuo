@@ -18,7 +18,7 @@ export default function RouterLocation(props: propsImf): any {
   const [city, setCity] = useState(cityId);
 
   useEffect(() => {
-    console.log(city);
+    // console.log(city);
     setCity(cityId);
   }, [cityId]);
 

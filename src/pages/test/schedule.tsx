@@ -112,7 +112,9 @@ export default function cinemasInfo() {
 
   const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
 
-  useActivate(() => {});
+  useActivate(() => {
+    getCinemasScheduleList()
+  });
 
   useEffect(() => {
     if (filmId) {
@@ -150,22 +152,25 @@ export default function cinemasInfo() {
     }
   }, [cinemaId, filmId]);
 
+  async function getCinemasScheduleList() {
+    setLoading(true);
+    const {
+      data: { schedules },
+    } = await getCinemasSchedule({
+      filmId: id,
+      cinemaId: params.cinemaId,
+      date: params.date,
+    });
+    setSchedules(schedules);
+    setLoading(false);
+
+  }
+
   useEffect(() => {
-    async function fn() {
-      setLoading(true);
-      const {
-        data: { schedules },
-      } = await getCinemasSchedule({
-        filmId: id,
-        cinemaId: params.cinemaId,
-        date: params.date,
-      });
-      setSchedules(schedules);
-      setLoading(false);
-    }
+
 
     if (params.date && id && cinemaId) {
-      fn();
+      getCinemasScheduleList()
     }
   }, [cinemaId, id, params.date]);
 
