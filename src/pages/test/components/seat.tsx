@@ -4,19 +4,12 @@ import { memo } from "react";
 
 interface seatProps {
   data: seatsInf;
-  onSelect: (args: seatsInf) => void;
+  onSelect: (args: seatsInf, event: React.MouseEvent<any, MouseEvent>) => void;
   selecteds: Boolean;
 }
 
-const BROKEN_SEAT = "BROKEN_SEAT";
-const OCCUPIED_SEAT = "OCCUPIED_SEAT";
-const SELECTABLE_SEAT = "SELECTABLE_SEAT";
-const SELECTED_SEAT = "SELECTED_SEAT";
-
 const seat = (item: seatProps) => {
   const { data, onSelect, selecteds } = item;
-  // console.log("goods", selecteds);
-
   function getSeat() {
     if (data.isBroken) {
       return <SvgIcon size={24} name="lock"></SvgIcon>;
@@ -29,12 +22,16 @@ const seat = (item: seatProps) => {
         <SvgIcon
           size={24}
           name="choose"
-          onClick={() => onSelect(data)}
+          onClick={(e) => onSelect(data, e)}
         ></SvgIcon>
       );
     }
     return (
-      <SvgIcon size={24} name="seat" onClick={() => onSelect(data)}></SvgIcon>
+      <SvgIcon
+        size={24}
+        name="seat"
+        onClick={(e) => onSelect(data, e)}
+      ></SvgIcon>
     );
   }
   return getSeat();

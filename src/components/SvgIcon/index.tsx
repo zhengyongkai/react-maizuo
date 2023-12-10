@@ -1,7 +1,7 @@
 /*
  * @Author: 郑永楷
  * @LastEditors: 郑永楷
- * @Description: file content
+ * @Description: svg Conponents
  */
 import { useMemo } from "react";
 
@@ -10,7 +10,7 @@ type SvgIconProps = {
   name: string;
   color?: string;
   size?: number | string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<any, MouseEvent>) => void;
 };
 
 const SvgIcon = (props: SvgIconProps) => {
@@ -22,7 +22,7 @@ const SvgIcon = (props: SvgIconProps) => {
       width={size}
       height={size}
       fill={color}
-      onClick={() => (onClick ? onClick() : {})}
+      onClick={(e) => (onClick ? onClick(e) : {})}
     >
       <use href={symbolId} fill={color} />
     </svg>

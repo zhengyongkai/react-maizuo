@@ -127,7 +127,7 @@ export default function SeatPage() {
   let screenCtx: any = null;
   let axionYCtx: any = null;
   let seatingChartContext: any = null;
-  let seatingChartContextWrap: any = null;
+  // let seatingChartContextWrap: any = null;
   // let zoomInstance = null;
 
   const { id = 0, showDate } = useParams();
@@ -151,6 +151,8 @@ export default function SeatPage() {
   const map = useRef(null);
   const axionMiddle = useRef<HTMLDivElement>(null);
   const seatingChartContextWrapRef = useRef(null);
+  const seatingChartContextWrap = useRef<any>();
+
   const [selectSeats, setSelectSeats] = useState<Array<selectSeatsInf>>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -261,22 +263,13 @@ export default function SeatPage() {
               2 +
             "px",
         });
-
-        const scaleX = event.transform.k;
-        const targetEls = axionYCtx._groups[0][0].children || [];
-        for (let index = 0; index < targetEls.length; index++) {
-          const element = targetEls[index];
-          if (scaleX > 1) {
-            element.style.transform = `scale(1, 0.5)`;
-          } else {
-            element.style.transform = `scale(${scaleX})`;
-          }
-        }
       }
     }, 0);
   }
 
+  // 重新渲染
   function initSeatComposition() {
+    // console.log("重新渲染");
     zoomInstance.current = d3Zoom
       .zoom()
       .scaleExtent([1 / 2, 2])
@@ -285,11 +278,11 @@ export default function SeatPage() {
     screenCtx = d3Select.select(screen.current);
     axionYCtx = d3Select.select(axionY.current);
 
-    seatingChartContextWrap = d3Select.select(
+    seatingChartContextWrap.current = d3Select.select(
       seatingChartContextWrapRef.current
     );
     seatingChartContext = d3Select.select(map.current);
-    seatingChartContextWrap.call(zoomInstance.current);
+    seatingChartContextWrap.current.call(zoomInstance.current);
 
     const chartWidth = seatsList.width * SEAT_DEFAULT_WIDTH;
     const chartHeight = seatsList.height * SEAT_DEFAULT_HEIGHT;
@@ -300,9 +293,10 @@ export default function SeatPage() {
     const currentK = window.innerWidth / chartWidth;
     let t = d3.zoomIdentity.scale(currentK);
     zoomInstance.current.scaleExtent([currentK, 2]);
-    zoomInstance.current.transform(seatingChartContextWrap, t);
+    zoomInstance.current.transform(seatingChartContextWrap.current, t);
   }
 
+  // 计算得到行数
   function getSeatingRowsAndColumnsNum() {
     const columnNumMap = new Map();
     const rowNumMap = new Map();
@@ -339,36 +333,63 @@ export default function SeatPage() {
     };
   }
 
-  const onSelectSeats = (item: seatsInf) => {
-    let selected: selectSeatsInf = {
-      columnId: item.columnId,
-      columNum: item.columnNum,
-      rowId: item.rowId,
-      rowNum: item.rowNum,
-      sectionId: item.sectionId,
-      sectionName: item.sectionName,
-      scheduleId: schedule.scheduleId,
-      date: schedule.showAt,
-      cinemaId: schedule.cinema.cinemaId,
-    };
-    let result = [];
-    let isSelect = selectSeats.filter(
-      (res) => res.columnId === item.columnId && res.rowId === item.rowId
-    );
-    if (isSelect[0]) {
-      result = selectSeats.filter((res) => {
-        // console.log(res, item);
-        return res.columnId !== item.columnId || res.rowId !== item.rowId;
-      });
-    } else {
-      if (selectSeats.length === 5) {
-        return Toast.show("不能选择超过五个座位哦~");
-      }
-      result = [...selectSeats, selected];
+  const onSelectZoom = (ev: React.MouseEvent<any, MouseEvent>) => {
+    const transform = d3.zoomTransform(seatingChartContextWrap.current.node());
+    if (transform.k >= 2) {
+      return;
     }
-
-    setSelectSeats(result);
+    const event = new MouseEvent("dblclick", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+      clientX: ev.pageX,
+      clientY: ev.pageY,
+    });
+    setTimeout(() => {
+      ev.target.dispatchEvent(event);
+      d3.zoomTransform(seatingChartContextWrap.current.node());
+    }, 10);
   };
+
+  // 优化函数重新渲染问题
+  // 防止 zoom 和 移动时出现子组件不断渲染的问题
+
+  const onSelectSeats = useCallback(
+    (item: seatsInf, ev: React.MouseEvent<any, MouseEvent>) => {
+      onSelectZoom(ev);
+
+      // 选中以及反选
+      let selected: selectSeatsInf = {
+        columnId: item.columnId,
+        columNum: item.columnNum,
+        rowId: item.rowId,
+        rowNum: item.rowNum,
+        sectionId: item.sectionId,
+        sectionName: item.sectionName,
+        scheduleId: schedule.scheduleId,
+        date: schedule.showAt,
+        cinemaId: schedule.cinema.cinemaId,
+      };
+      let result = [];
+      let isSelect = selectSeats.filter(
+        (res) => res.columnId === item.columnId && res.rowId === item.rowId
+      );
+      if (isSelect[0]) {
+        result = selectSeats.filter((res) => {
+          // console.log(res, item);
+          return res.columnId !== item.columnId || res.rowId !== item.rowId;
+        });
+      } else {
+        if (selectSeats.length === 5) {
+          return Toast.show("不能选择超过五个座位哦~");
+        }
+        result = [...selectSeats, selected];
+      }
+
+      setSelectSeats(result);
+    },
+    [selectSeats]
+  );
 
   const isSelect = useMemo(
     () => (item: seatsInf) => {
@@ -391,13 +412,12 @@ export default function SeatPage() {
   function removeSeats(index: number) {
     let result = [...selectSeats];
     result.splice(index, 1);
-    console.log(result, index, selectSeats);
     setSelectSeats(result);
   }
 
   const totalPrice = useMemo(() => {
     // console.log(selectSeats.length * schedule.price.sale);
-    return selectSeats.length * schedule.price.sale;
+    return formatPrice(selectSeats.length * schedule.price.sale);
   }, [selectSeats]);
 
   return (
@@ -534,11 +554,7 @@ export default function SeatPage() {
           selectSeats.length ? "" : "disabled",
         ].join(" ")}
       >
-        {selectSeats.length ? (
-          <>共{formatPrice(totalPrice)},确认选座</>
-        ) : (
-          <>请先选座</>
-        )}
+        {selectSeats.length ? <>共{totalPrice},确认选座</> : <>请先选座</>}
       </div>
     </>
   );

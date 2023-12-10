@@ -22,7 +22,10 @@ import AuthHoc from "@/components/Auth/authFc";
 import Map from "./components/map";
 import { getUserDataThunk } from "@/store/common/user";
 import { user, userState } from "../types/user";
+
 import SeatPage from "./seats";
+import Seat from "./components/seat";
+import KeepAlive from "react-activation";
 
 export default function App() {
   const token = useSelector<userState, string>((state) => state.user.token);
@@ -99,12 +102,17 @@ export default function App() {
           path="/films/chinemasInfo/:cinemaId/:filmId/:showDate"
           element={
             <RouterLocation>
-              <CinemasInfo />
+              <KeepAlive>
+                <CinemasInfo />
+              </KeepAlive>
             </RouterLocation>
           }
         ></Route>
         <Route path="map/:lng/:lat" element={<Map />}></Route>
-        <Route path="seat/:id/:showDate" element={<SeatPage />}></Route>
+        <Route
+          path="seat/:id/:showDate"
+          element={<SeatPage></SeatPage>}
+        ></Route>
       </Routes>
     </>
   );

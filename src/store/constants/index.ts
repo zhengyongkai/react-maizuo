@@ -1,8 +1,8 @@
-export const INCREMENT = 'increment';
-export const DECREMENT = 'decrement';
+export const INCREMENT = "increment";
+export const DECREMENT = "decrement";
 
-export const TOKEN = 'x-Token';
-export const REDIRECTURL = 'redirectURL';
+export const TOKEN = "x-Token";
+export const REDIRECTURL = "redirectURL";
 
 export const SEAT_DEFAULT_WIDTH = 25;
 export const SEAT_DEFAULT_HEIGHT = 25;

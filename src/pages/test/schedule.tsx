@@ -25,6 +25,7 @@ import { getTime, isStopSelling } from "../utils/day";
 import { formatPrice } from "../utils/price";
 import useSroll from "@/hook/scroll";
 import LoadingIcon from "./components/loading";
+import { useActivate } from "react-activation";
 
 export default function cinemasInfo() {
   const { cinemaId = "", filmId = "", showDate = "" } = useParams();
@@ -110,6 +111,8 @@ export default function cinemasInfo() {
   const [films, setFilms] = useState<Array<moviceDetailsImf>>([]);
 
   const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
+
+  useActivate(() => {});
 
   useEffect(() => {
     if (filmId) {
