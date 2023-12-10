@@ -16,7 +16,6 @@ import { RightOutline } from "antd-mobile-icons";
 
 export default function myPage() {
   const userData = useSelector<userState, user>((state) => state.user.userData);
-
   const [card, setCard] = useState<cardInf & amountInf>({
     availableBalance: 0,
     cardsCount: 0,
@@ -33,6 +32,7 @@ export default function myPage() {
     async function fn() {
       let { data } = await getCardList();
       let { data: cardMount } = await getCardAmount();
+      console.log(data, cardMount);
       setCard({
         ...data,
         ...cardMount,

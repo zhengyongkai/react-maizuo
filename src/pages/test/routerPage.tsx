@@ -45,6 +45,7 @@ export default function App() {
       await dispatch(getUserDataThunk());
     };
     if (token) {
+      console.log('dasd', token);
       fn();
     }
   }, [token]);
