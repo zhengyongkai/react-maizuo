@@ -36,6 +36,7 @@ export default function Maps() {
   ];
 
   useEffect(() => {
+    console.log(locale.longitude, locale.latitude);
     if (locale) {
       start.current = new BMap.Point(locale.longitude, locale.latitude);
     }

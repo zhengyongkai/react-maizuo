@@ -5,13 +5,20 @@ import App from "./App";
 import "./index.css";
 // import socket from 'kevins-websocket';
 
+import KeepAlive, { AliveScope } from "react-activation";
+
 import "virtual:svg-icons-register";
+import { Provider } from "react-redux";
+import store from "./store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <HashRouter>
-    <App />
-  </HashRouter>
-
+  <Provider store={store}>
+    <AliveScope>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </AliveScope>
+  </Provider>
   //   <React.StrictMode>
   //   <BrowserRouter>
   //     <App />
