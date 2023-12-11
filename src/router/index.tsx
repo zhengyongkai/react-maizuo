@@ -37,7 +37,7 @@ import RatePage from '@/pages/test/rate';
 import CinemasInfo from '@/pages/test//schedule';
 import { Navigate } from 'react-router-dom';
 
-export type RouteObjectImf = {
+export interface RouteObjectImf {
   path: string;
   element: React.ReactNode;
   meta?: {
@@ -46,9 +46,13 @@ export type RouteObjectImf = {
     locate?: boolean;
   };
   children?: RouteObjectImf[];
-};
+}
 
 const Router: RouteObjectImf[] = [
+  {
+    path: '*',
+    element: <Navigate to={'/name/home/nowPlaying'}></Navigate>,
+  },
   {
     path: '/location',
     element: <Location />,
@@ -59,9 +63,7 @@ const Router: RouteObjectImf[] = [
     children: [
       {
         path: '/name/home',
-
         element: <HomePage />,
-
         children: [
           {
             path: '/name/home/nowPlaying',
