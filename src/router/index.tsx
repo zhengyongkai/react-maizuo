@@ -32,86 +32,87 @@ import RouterLocation from '@/components/Route/routeFc';
 import KeepAlive from 'react-activation';
 import Map from '@/pages/test/components/map';
 import SeatPage from '@/pages/test/seats';
+import RatePage from '@/pages/test/rate';
 
 import CinemasInfo from '@/pages/test//schedule';
+import { Navigate } from 'react-router-dom';
 
-const Router: RouteObject[] = [
-  {
-    path: '/',
-    element: <Login />,
-    // children: [
-    //   {
-    //     path: "/todo",
-    //     element: <Todo />,
-    //   },
-    // ],
-  },
+export type RouteObjectImf = {
+  path: string;
+  element: React.ReactNode;
+  meta?: {
+    login?: boolean;
+    keepAlive?: boolean;
+    locate?: boolean;
+  };
+  children?: RouteObjectImf[];
+};
+
+const Router: RouteObjectImf[] = [
   {
     path: '/location',
     element: <Location />,
   },
   {
     path: '/name/',
-    element: (
-      <RouterLocation>
-        <RouterPage1 />
-      </RouterLocation>
-    ),
+    element: <RouterPage1 />,
     children: [
       {
         path: '/name/home',
-        element: (
-          <RouterLocation>
-            <HomePage />
-          </RouterLocation>
-        ),
+
+        element: <HomePage />,
+
         children: [
           {
             path: '/name/home/nowPlaying',
             element: <NowPlaying />,
+            meta: {
+              keepAlive: true,
+            },
           },
           {
             path: '/name/home/comingSoon',
             element: <ComingSoon />,
+            meta: {
+              keepAlive: true,
+            },
           },
         ],
       },
       {
         path: 'news',
         element: <NewsPage />,
+        meta: {
+          keepAlive: true,
+        },
       },
       {
         path: 'my',
         element: <MyPage />,
+        meta: {
+          keepAlive: true,
+        },
       },
     ],
   },
 
   {
     path: '/films/:id',
-    element: (
-      <RouterLocation>
-        <FilmPage />
-      </RouterLocation>
-    ),
+    element: <FilmPage />,
   },
   {
     path: '/films/cinemas/:id',
-    element: (
-      <RouterLocation>
-        <CinemasPage />
-      </RouterLocation>
-    ),
+    element: <CinemasPage />,
+    meta: {
+      locate: true,
+    },
   },
   {
     path: '/films/chinemasInfo/:cinemaId/:filmId/:showDate',
-    element: (
-      <RouterLocation>
-        <KeepAlive>
-          <CinemasInfo />
-        </KeepAlive>
-      </RouterLocation>
-    ),
+    element: <CinemasInfo />,
+    meta: {
+      locate: true,
+    },
   },
   {
     path: 'map/:lng/:lat',
@@ -119,13 +120,12 @@ const Router: RouteObject[] = [
   },
   {
     path: 'seat/:id/:showDate',
-    element: (
-      <RouterLocation>
-        <KeepAlive>
-          <SeatPage></SeatPage>
-        </KeepAlive>
-      </RouterLocation>
-    ),
+    element: <SeatPage></SeatPage>,
+  },
+  {
+    path: 'rate',
+
+    element: <RatePage />,
   },
 ];
 

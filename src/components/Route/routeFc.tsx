@@ -1,7 +1,7 @@
-import { cityStateImf, locationResultImf } from "@/types/location";
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { cityStateImf, locationResultImf } from '@/types/location';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface propsImf {
   children: React.ReactElement;
@@ -10,7 +10,8 @@ interface propsImf {
 export default function RouterLocation(props: propsImf): any {
   let { children } = props;
 
-  let pathname = useLocation().pathname;
+  let pathname = useLocation();
+  console.log(pathname);
   const cityId = useSelector<cityStateImf, number>(
     (locale) => locale.location.locale.cityId
   );

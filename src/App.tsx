@@ -1,42 +1,46 @@
-/*
- * @Author: 郑永楷
- * @LastEditors: 郑永楷
- * @Description: file content
- */
-import { Provider } from 'react-redux';
-import store from '@/store/index';
-import routes from '@/router';
-import './App.css';
-import RouterPage from '@/pages/test/routerPage';
-import {
-  HashRouter,
-  useRoutes,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
-// import { Routes, Route, Navigate } from "react-router-dom";
-import { AliveScope } from 'react-activation'; //引入，需要结合使用
+import { Suspense, useEffect } from 'react';
 
-import { applyMiddleware, createStore } from 'redux';
-
-import { Fragment, useEffect } from 'react';
+import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
+import Router, { RouteObjectImf } from './router';
+import KeepAlive from 'react-activation';
+import RouterLocation from './components/Route/routeFc';
 import { useDispatch, useSelector } from 'react-redux';
+import { userState } from './pages/types/user';
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from '@/store/common/location';
-// import CinemasInfo from "./schedule";
-import RouterLocation from '@/components/Route/routeFc';
-import AuthHoc from '@/components/Auth/authFc';
-// import Map from "./components/map";
-import { getUserDataThunk } from '@/store/common/user';
-import { user, userState } from '@/pages/types/user';
+} from './store/common/location';
+import { getUserDataThunk } from './store/common/user';
 
-// import SeatPage from "./seats";
-// import Seat from "./components/seat";
+//懒加载处理
+const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
+  let mRouteTable: RouteObjectImf[] = [];
+  routes.forEach((route) => {
+    mRouteTable.push({
+      path: route.path,
+      element: <RequireAuth route={route}>{route.element}</RequireAuth>,
+      children: route.children && syncRouter(route.children),
+    });
+  });
+  return mRouteTable;
+};
+//路由拦截
+const RequireAuth = (props: { route: RouteObjectImf; children: any }) => {
+  let router = props.route;
+  let children = props.children;
+  children = (
+    <KeepAlive id={props.route.path} when={false}>
+      {props.children}
+    </KeepAlive>
+  );
 
-function App() {
+  if (router.meta?.locate) {
+    children = <RouterLocation>{children}</RouterLocation>;
+  }
+  return children;
+};
+
+export default () => {
   const token = useSelector<userState, string>((state) => state.user.token);
   const dispatch = useDispatch();
 
@@ -54,11 +58,10 @@ function App() {
       await dispatch(getUserDataThunk());
     };
     if (token) {
+      console.log('dasd', token);
       fn();
     }
   }, [token]);
-  // return <Provider store={store}>{useRoutes(routes)}</Provider>;
-  return <Fragment>{useRoutes(routes)}</Fragment>;
-}
 
-export default App;
+  return useRoutes(syncRouter(Router));
+}; //暴露为一个函数
