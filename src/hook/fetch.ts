@@ -6,8 +6,8 @@ export default function useFetch<T>(
   api: () => Promise<{ data: T; msg: string }>,
   initData: T,
   listener: Array<unknown>,
-  callback?: (status: Boolean, data: T) => void
-) {
+  callback?: (data: T) => void
+): [T, boolean] {
   const [responseData, setResponseData] = useState<T>(initData);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function useFetch<T>(
       const { data, msg } = await api();
       if (data) {
         setResponseData(data);
-        callback && callback(true, data);
+        callback && callback(data);
       } else {
         setResponseData(initData);
         Toast.show(msg);
@@ -27,5 +27,5 @@ export default function useFetch<T>(
     fetch();
   }, listener);
 
-  return [responseData, loading] as [T, boolean];
+  return [responseData, loading];
 }

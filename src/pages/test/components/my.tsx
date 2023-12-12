@@ -7,11 +7,11 @@ import { formatPrice } from "@/pages/utils/price";
 
 import "@/pages/css/user.scss";
 
-import orderImg from '@/assets/img/order.png'
-import packetImg from '@/assets/img/packet.png'
-import historyImg from '@/assets/img/history.png'
-import customImg from '@/assets/img/custom.png'
-import settingImg from '@/assets/img/setting.png'
+import orderImg from "@/assets/img/order.png";
+import packetImg from "@/assets/img/packet.png";
+import historyImg from "@/assets/img/history.png";
+import customImg from "@/assets/img/custom.png";
+import settingImg from "@/assets/img/setting.png";
 import { RightOutline } from "antd-mobile-icons";
 
 export default function myPage() {
@@ -46,40 +46,39 @@ export default function myPage() {
   const menus = [
     {
       img: orderImg,
-      title: '电影订单'
+      title: "电影订单",
     },
     {
       img: packetImg,
-      title: '组合红包'
+      title: "组合红包",
     },
     {
       img: historyImg,
-      title: '历史记录'
+      title: "历史记录",
     },
     {
       img: customImg,
-      title: '帮助与客服'
+      title: "帮助与客服",
     },
     {
       img: settingImg,
-      title: '设置'
-    }
-  ]
+      title: "设置",
+    },
+  ];
 
   return (
     <>
       <div className="user-bg">
-        {
-          userData.userId ? (
-            <>
-              <div>
-                <img src={userData.headIcon} alt="" />
-              </div>
-              <div>{userData.nickName}</div>
-            </>
-          )
-            : "请先登录"
-        }
+        {userData.userId ? (
+          <>
+            <div>
+              <img src={userData.headIcon} alt="" />
+            </div>
+            <div>{userData.nickName}</div>
+          </>
+        ) : (
+          "请先登录"
+        )}
       </div>
       <div className="user-card">
         <div>
@@ -92,17 +91,15 @@ export default function myPage() {
         </div>
       </div>
       <div className="user-menu-items">
-
-        {
-          menus.map((item) => {
-            return <div className="user-menu-item">
+        {menus.map((item, key) => {
+          return (
+            <div className="user-menu-item" key={key}>
               <img src={item.img} alt="" />
               <div>{item.title}</div>
               <RightOutline></RightOutline>
             </div>
-          })
-        }
-
+          );
+        })}
       </div>
     </>
   );

@@ -1,60 +1,60 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   getCinemasInfo,
   getCinemasShowInfo,
   getCinemasSchedule,
-} from '../api/cinema';
-import type { cinemasInfoImf } from '../types/cinema';
-import type { scheduleImf } from '../types/schedule';
+} from "../api/cinema";
+import type { cinemasInfoImf } from "../types/cinema";
+import type { scheduleImf } from "../types/schedule";
 
-import NavTitle from './components/navTitle';
-import locationImg from '@/assets/img/location.png';
-import phoneImg from '@/assets/img/phone.png';
-import triggleImg from '@/assets/img/triggle.png';
-import rightImg from '@/assets/img/right.png';
+import NavTitle from "./components/navTitle";
+import locationImg from "@/assets/img/location.png";
+import phoneImg from "@/assets/img/phone.png";
+import triggleImg from "@/assets/img/triggle.png";
+import rightImg from "@/assets/img/right.png";
 
-import CinemaSwiper from './components/swiper';
-import '@/pages/css/schedule.scss';
+import CinemaSwiper from "./components/swiper";
+import "@/pages/css/schedule.scss";
 
 // import { Swiper } from "antd-mobile";
-import { anctorImf, detailsImf, moviceDetailsImf } from '../types/movice';
+import { anctorImf, detailsImf, moviceDetailsImf } from "../types/movice";
 
-import Tab from './components/dateTab';
-import { getTime, isStopSelling } from '../utils/day';
-import { formatPrice } from '../utils/price';
-import useSroll from '@/hook/scroll';
-import LoadingIcon from './components/loading';
-import { useActivate } from 'react-activation';
+import Tab from "./components/dateTab";
+import { getTime, isStopSelling } from "../utils/day";
+import { formatPrice } from "../utils/price";
+import useSroll from "@/hook/scroll";
+import LoadingIcon from "./components/loading";
+import { useActivate } from "react-activation";
 
 export default function cinemasInfo() {
-  const { cinemaId = '', filmId = '', showDate = '' } = useParams();
+  const { cinemaId = "", filmId = "", showDate = "" } = useParams();
   const swiperRef = useRef<any>(null);
   const navigator = useNavigate();
 
   const cinemasInfoState = {
     Distance: 0,
-    address: '',
-    businessTime: '',
+    address: "",
+    businessTime: "",
     cinemaId: 0,
     cityId: -1,
-    cityName: '',
+    cityName: "",
     district: {
-      districtName: '',
+      districtName: "",
       districtId: 0,
     },
     districtId: 0,
-    districtName: '',
+    districtName: "",
     eTicketFlag: 0,
-    gpsAddress: '',
+    gpsAddress: "",
     isVisited: 0,
     latitude: 0,
-    logoUrl: '',
+    logoUrl: "",
     longitude: 0,
     lowPrice: 0,
-    name: '',
-    notice: '',
-    phone: '',
+    name: "",
+    notice: "",
+    phone: "",
     seatFlag: 1,
     services: [],
     telephones: [],
@@ -63,29 +63,29 @@ export default function cinemasInfo() {
 
   const defaultDetails = {
     actors: [],
-    category: '',
-    director: '',
+    category: "",
+    director: "",
     filmId: 0,
     filmType: {
-      name: '',
+      name: "",
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: '',
+      name: "",
       type: 0,
     },
-    language: '',
-    name: '',
-    nation: '',
+    language: "",
+    name: "",
+    nation: "",
     photos: [],
-    poster: '',
+    poster: "",
     premiereAt: 0,
     runtime: 0,
-    synopsis: '',
+    synopsis: "",
     timeType: 0,
-    videoId: '',
+    videoId: "",
     grade: 0,
     showDate: [],
   };
@@ -99,7 +99,7 @@ export default function cinemasInfo() {
     details: moviceDetailsImf;
   }>({
     cinemaId,
-    date: '',
+    date: "",
     details: defaultDetails,
   });
 
@@ -112,9 +112,9 @@ export default function cinemasInfo() {
 
   const [schedules, setSchedules] = useState<Array<scheduleImf>>([]);
 
-  useActivate(() => {
-    getCinemasScheduleList();
-  });
+  // useActivate(() => {
+  //   getCinemasScheduleList();
+  // });
 
   useEffect(() => {
     if (filmId) {
@@ -185,7 +185,7 @@ export default function cinemasInfo() {
       .reduce((pre, item) => {
         return pre.concat(item.name);
       }, [] as Array<string>)
-      .join(' ');
+      .join(" ");
   }
 
   useSroll(() => {
@@ -202,7 +202,7 @@ export default function cinemasInfo() {
 
   return (
     <>
-      <NavTitle back title={fixed ? cinemaInfo.name : ''}></NavTitle>
+      <NavTitle back title={fixed ? cinemaInfo.name : ""}></NavTitle>
       <div className="cinemas-warpper">
         <div>
           <div className="cinemas-title  ">{cinemaInfo.name}</div>
@@ -220,14 +220,14 @@ export default function cinemasInfo() {
               alt=""
               onClick={() =>
                 navigator(
-                  '/map/' + cinemaInfo.longitude + '/' + cinemaInfo.latitude
+                  "/map/" + cinemaInfo.longitude + "/" + cinemaInfo.latitude
                 )
               }
             />
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>
-            <a href={'tel:' + cinemaInfo.phone}>
+            <a href={"tel:" + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
@@ -252,14 +252,14 @@ export default function cinemasInfo() {
         <div className="film-info">
           <div>
             <div className="film-info-name">
-              {params.details.name}{' '}
+              {params.details.name}{" "}
               <span>
                 <i>{params.details.grade}</i> 分
               </span>
             </div>
             <div className="film-info-desc">
-              {params.details.category} | {params.details.runtime}分钟 |{' '}
-              {params.details.director} |{' '}
+              {params.details.category} | {params.details.runtime}分钟 |{" "}
+              {params.details.director} |{" "}
               {getAnctorsString(params.details.actors)}
             </div>
           </div>
@@ -268,7 +268,7 @@ export default function cinemasInfo() {
               src={rightImg}
               alt=""
               onClick={() => {
-                navigator('/films/' + params.details.filmId);
+                navigator("/films/" + params.details.filmId);
               }}
             />
           </div>
@@ -294,8 +294,8 @@ export default function cinemasInfo() {
                 <div
                   className={
                     isStopSelling(item.showAt, item.advanceStopMins)
-                      ? 'schedule-item disabled'
-                      : 'schedule-item'
+                      ? "schedule-item disabled"
+                      : "schedule-item"
                   }
                   key={item.scheduleId}
                   onClick={() =>
