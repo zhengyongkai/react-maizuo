@@ -3,21 +3,23 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { memo, useEffect, useState } from "react";
-import { getMoviceData, getMoviceComingData } from "@/pages/api/movice";
-import { detailsImf, moviceImf } from "@/pages/types/movice";
-import "@/pages/css/movice.scss";
-import { useParams } from "react-router-dom";
-import Loading from "./loading";
-import { useSelector } from "react-redux";
+import { memo, useEffect, useState } from 'react';
+import { getMoviceData, getMoviceComingData } from '@/pages/api/movice';
+import { detailsImf, moviceImf } from '@/pages/types/movice';
+import '@/pages/css/movice.scss';
+import { useParams } from 'react-router-dom';
+import useLocation from '@/hook/location';
+import Loading from './loading';
+import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from "@/types/location";
-import { InfiniteScroll } from "antd-mobile";
-import MovieItems from "./movieItems";
+import type { cityStateImf } from '@/types/location';
+import { InfiniteScroll } from 'antd-mobile';
+import MovieItems from './movieItems';
 
 function comingSoon() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const location = useLocation();
   const cityId = useSelector(
     (state: cityStateImf) => state.location.locale.cityId
   );
@@ -44,6 +46,14 @@ function comingSoon() {
     });
   }
 
+  location((locale) => {
+    setPage({
+      ...page,
+      cityId: locale.cityId,
+    });
+    getMoviceDataList();
+  });
+
   async function loadMore() {
     setPage({
       ...page,
@@ -55,7 +65,7 @@ function comingSoon() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
+      <div style={{ backgroundColor: '#fff' }}>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={2} key={index} />;
         })}

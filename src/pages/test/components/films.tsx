@@ -1,54 +1,61 @@
-import { DOMElement, memo, useEffect, useRef, useState } from "react";
-import { getMoviceDetail } from "@/pages/api/movice";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  DOMElement,
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import { getMoviceDetail } from '@/pages/api/movice';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import "@/pages/css/films.scss";
+import '@/pages/css/films.scss';
 
-import type { detailsResponseImf, detailsImf } from "@/pages/types/movice";
-import moreImg from "@/assets/img/more.png";
-import backImg from "@/assets/img/back.png";
-import Loading from "./loading";
+import type { detailsResponseImf, detailsImf } from '@/pages/types/movice';
+import moreImg from '@/assets/img/more.png';
+import backImg from '@/assets/img/back.png';
+import Loading from './loading';
 
-import useSroll from "@/hook/scroll";
-import useFetch from "@/hook/fetch";
+import useSroll from '@/hook/scroll';
+import useFetch from '@/hook/fetch';
 // import usePath from '@/hook/back';
 
-import dayjs from "dayjs";
-import PartLoading from "./partLoading";
+import dayjs from 'dayjs';
+import PartLoading from './partLoading';
 
 const detailsInitData: detailsResponseImf = {
   film: {
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
   },
 };
 
 function FilmPage() {
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
 
   // const [film, setfilm] = useState<filmImf>();
   const synopsisRef = useRef<HTMLDivElement>(null);
@@ -79,7 +86,7 @@ function FilmPage() {
     return (
       <div
         className="film-tabbar"
-        style={tabbarVisble ? { backgroundColor: "#fff" } : {}}
+        style={tabbarVisble ? { backgroundColor: '#fff' } : {}}
       >
         <div>
           <img src={backImg} alt="" onClick={() => navigate(-1)} />
@@ -99,8 +106,10 @@ function FilmPage() {
 
   useEffect(() => {
     if (synopsisRef.current) {
-      let { height } = synopsisRef.current?.getBoundingClientRect();
-      synopsisHeight.current = height;
+      setTimeout(function () {
+        synopsisHeight.current =
+          synopsisRef.current?.getBoundingClientRect().height || 0;
+      }, 500);
     }
   }, [synopsisRef.current]);
 
@@ -128,16 +137,16 @@ function FilmPage() {
 
                 <div
                   className="film-grade"
-                  style={!film.grade ? { display: "none" } : {}}
+                  style={!film.grade ? { display: 'none' } : {}}
                 >
                   {film.grade} <span>分</span>
                 </div>
               </div>
               <div className="film-grey">
-                {film.category.split("|").join(" | ")}
+                {film.category.split('|').join(' | ')}
               </div>
               <div className="film-grey">
-                {dayjs.unix(film.premiereAt).format("YYYY-MM-DD")}上映
+                {dayjs.unix(film.premiereAt).format('YYYY-MM-DD')}上映
               </div>
               <div className="film-grey">
                 {film.nation} | {film.runtime} 分钟
@@ -145,8 +154,8 @@ function FilmPage() {
               <div
                 ref={synopsisRef}
                 style={{
-                  position: "absolute",
-                  top: "-30px",
+                  position: 'absolute',
+                  top: '-30px',
                   // marginLeft: -1000,
                   opacity: 0,
                 }}
@@ -155,15 +164,15 @@ function FilmPage() {
               </div>
               <div
                 className={`film-synopsis ${
-                  more ? "film-synopsis-more" : "film-synopsis-short"
+                  more ? 'film-synopsis-more' : 'film-synopsis-short'
                 }`}
-                style={{ height: heights + "px" }}
+                style={{ height: heights + 'px' }}
               >
                 {film.synopsis}
               </div>
               <div
                 className="film-toggle"
-                style={more ? { transform: "rotate(180deg)" } : {}}
+                style={more ? { transform: 'rotate(180deg)' } : {}}
               >
                 <img src={moreImg} alt="" onClick={() => onMoreSynopsis()} />
               </div>
