@@ -1,17 +1,17 @@
-import { Loading } from "antd-mobile";
+// import { Loading } from "antd-mobile";
+import LoadingIcons from '@/assets/img/loading.gif';
+import '@/pages/css/loading.scss';
 
 const LoadingIcon = () => {
   return (
     <>
-      <div
-        style={{
-          margin: "0 auto",
-          textAlign: "center",
-          fontSize: 16,
-          height: "100%",
-        }}
-      >
-        <Loading />
+      <div>
+        <div className="parentBox">
+          <div>
+            <div className="contantBox"></div>
+            <div>加载中...</div>
+          </div>
+        </div>
       </div>
     </>
   );

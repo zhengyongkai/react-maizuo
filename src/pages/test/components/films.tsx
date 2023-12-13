@@ -22,6 +22,7 @@ import useFetch from '@/hook/fetch';
 
 import dayjs from 'dayjs';
 import PartLoading from './partLoading';
+import LoadingIcon from './loading';
 
 const detailsInitData: detailsResponseImf = {
   film: {
@@ -119,7 +120,9 @@ function FilmPage() {
 
   return (
     <>
-      <PartLoading loading={loading}>
+      {loading ? (
+        <LoadingIcon />
+      ) : (
         <>
           <div>
             {showTabbar(film)}
@@ -211,7 +214,7 @@ function FilmPage() {
             <div onClick={() => navigate(`/rate/${id}`)}>评论</div>
           </div>
         </>
-      </PartLoading>
+      )}
     </>
   );
 }
