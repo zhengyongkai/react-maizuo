@@ -14,11 +14,9 @@ export default function Loading(props: LoadingPropsImf) {
       {loading ? (
         <div
           style={{
-            position: "absolute",
+            position: "fixed",
             inset: "0",
-            background: "#666",
             zIndex: "10",
-            opacity: "0.6",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

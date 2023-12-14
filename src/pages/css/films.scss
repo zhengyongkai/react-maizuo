@@ -205,10 +205,10 @@
     flex: 1;
   }
 
-  > :first-child {
+  .choose {
     background-color: #ff5f16;
   }
-  > :last-child {
+  .estimation {
     background-color: red;
   }
 }

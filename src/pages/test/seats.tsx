@@ -11,7 +11,7 @@ import {
   selectSeatsInf,
 } from "../types/seat";
 
-import LoadingIcon from "./components/loading";
+import LoadingWrap from "./components/loading";
 import Unselect from "@/assets/img/unselect.png";
 import NavTitle from "./components/navTitle";
 

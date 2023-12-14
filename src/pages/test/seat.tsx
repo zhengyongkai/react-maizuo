@@ -9,7 +9,7 @@ import {
   seatResponseInf,
   seatsInf,
 } from "../types/seat";
-import LoadingIcon from "./components/loading";
+import LoadingWrap from "./components/loading";
 import NavTitle from "./components/navTitle";
 
 import "@/pages/css/seat.scss";

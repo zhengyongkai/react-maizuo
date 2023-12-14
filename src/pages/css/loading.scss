@@ -1,6 +1,7 @@
 .parentBox {
   position: fixed;
   inset: 0;
+  z-index: 10;
   // background: #fff;
   /* padding: 100px; */
   margin: 0 auto;
@@ -14,8 +15,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background:
-      radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #ff5f16 80%)
+    background: radial-gradient(
+          var(--r1) var(--r2) at top,
+          #0000 79.5%,
+          #ff5f16 80%
+        )
         center left,
       radial-gradient(var(--r1) var(--r2) at bottom, #ff5f16 79.5%, #0000 80%)
         center center,
@@ -23,33 +27,21 @@
         center right,
       #ccc;
     background-size: 50.5% 220%;
-    background-position:
-      -100% 0%,
-      0% 0%,
-      100% 0%;
+    background-position: -100% 0%, 0% 0%, 100% 0%;
     background-repeat: no-repeat;
     animation: cartoon 2s infinite linear;
   }
   @keyframes cartoon {
     33% {
-      background-position:
-        0% 33%,
-        100% 33%,
-        200% 33%;
+      background-position: 0% 33%, 100% 33%, 200% 33%;
     }
 
     66% {
-      background-position:
-        -100% 66%,
-        0% 66%,
-        100% 66%;
+      background-position: -100% 66%, 0% 66%, 100% 66%;
     }
 
     100% {
-      background-position:
-        0% 100%,
-        100% 100%,
-        200% 100%;
+      background-position: 0% 100%, 100% 100%, 200% 100%;
     }
   }
 
@@ -59,4 +51,8 @@
       margin-top: 8px;
     }
   }
+}
+
+.loading {
+  opacity: 0.2;
 }

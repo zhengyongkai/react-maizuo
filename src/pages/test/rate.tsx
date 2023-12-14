@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 
 import "@/pages/css/rate.scss";
 import PartLoading from "./components/partLoading";
+import LoadingWrap from "./components/loading";
 
 const RatePage = () => {
   const detailsInitData = {
@@ -73,7 +74,8 @@ const RatePage = () => {
   return (
     <>
       <NavTitle back title={film.name}></NavTitle>
-      <PartLoading loading={loading}>
+
+      <LoadingWrap loading={loading}>
         <div className="films-wrapper">
           <div className="films-info">
             <div className="film-descrption">
@@ -112,7 +114,7 @@ const RatePage = () => {
             <div className="film-title">总体评价</div>
           </div>
         </div>
-      </PartLoading>
+      </LoadingWrap>
     </>
   );
 };

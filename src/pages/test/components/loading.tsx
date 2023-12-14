@@ -1,19 +1,33 @@
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content
+ */
 // import { Loading } from "antd-mobile";
-import LoadingIcons from '@/assets/img/loading.gif';
-import '@/pages/css/loading.scss';
+import "@/pages/css/loading.scss";
+import { ReactNode } from "react";
 
-const LoadingIcon = () => {
+interface propsImf {
+  children: ReactNode;
+  loading: boolean;
+}
+
+const loadingWrap = (props: propsImf) => {
+  let { children, loading } = props;
   return (
     <>
-      <div>
-        <div className="parentBox">
-          <div>
-            <div className="contantBox"></div>
-            <div>加载中...</div>
+      {loading ? (
+        <div>
+          <div className="parentBox">
+            <div>
+              <div className="contantBox"></div>
+              <div>加载中...</div>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
+      <div className={[loading ? "loading" : ""].join(",")}>{children}</div>
     </>
   );
 };
-export default LoadingIcon;
+export default loadingWrap;
