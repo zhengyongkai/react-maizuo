@@ -1,9 +1,9 @@
-import * as echarts from "echarts";
-import { useEffect, useRef } from "react";
+import * as echarts from 'echarts';
+import { useEffect, useRef } from 'react';
 
 const useEcharts = function (): [
   any,
-  (options: echarts.EChartsCoreOption) => void
+  (options: echarts.EChartsOption) => void,
 ] {
   const myChart = useRef<echarts.ECharts>();
   const echart = useRef<HTMLElement>();
@@ -11,9 +11,9 @@ const useEcharts = function (): [
     function resize() {
       myChart.current?.resize();
     }
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
@@ -23,7 +23,7 @@ const useEcharts = function (): [
     });
   }, []);
 
-  function setOptions(options: echarts.EChartsCoreOption) {
+  function setOptions(options: echarts.EChartsOption) {
     setTimeout(() => {
       myChart.current?.setOption(options);
     }, 200);

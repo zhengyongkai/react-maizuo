@@ -4,38 +4,44 @@
  * @Description: file content
  */
 
-import useEcharts from "@/hook/echarts";
-import { BarEchartsImf, BaseBarSeries } from "@/pages/types/echarts";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import useEcharts from '@/hook/echarts';
+import {
+  BarEchartsImf,
+  BaseBarOptionsImf,
+  BaseBarSeries,
+} from '@/pages/types/echarts';
+import { forwardRef, useImperativeHandle } from 'react';
 
-const BaseBarOptions = {
-  color: ["#ff5f16"],
+const BaseBarOptions: BaseBarOptionsImf = {
+  color: ['#ff5f16'],
   tooltip: {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "shadow",
+      type: 'shadow',
     },
   },
   legend: {},
   grid: {
-    left: "8px",
-    right: "8%",
-    bottom: "1%",
-    top: "0",
+    left: '8px',
+    right: '8%',
+    bottom: '4%',
+    top: '0',
     containLabel: true,
   },
   xAxis: {
-    type: "value",
-    boundaryGap: [0, 0.01],
+    type: 'category',
+    data: [],
   },
   yAxis: {
-    type: "category",
-    data: [] as Array<unknown>,
+    type: 'category',
   },
+  series: [],
 };
 
 const BarEcharts = forwardRef<
-  { setData: (series: Array<BaseBarSeries>, yData: Array<unknown>) => void },
+  {
+    setData: (series: Array<BaseBarSeries>, xAxis: Array<string>) => void;
+  },
   BarEchartsImf
 >((props, ref) => {
   const { height } = props;
@@ -45,15 +51,15 @@ const BarEcharts = forwardRef<
     setData,
   }));
 
-  function setData(series: Array<BaseBarSeries>, yData: Array<unknown>) {
-    BaseBarOptions.yAxis.data = yData;
+  function setData<T>(series: Array<BaseBarSeries>, xAxis: Array<string>) {
+    BaseBarOptions.xAxis.data = xAxis;
     setOptions({
       ...BaseBarOptions,
       series,
     });
   }
 
-  return <div ref={echartsRef} style={{ width: "100%", height }}></div>;
+  return <div ref={echartsRef} style={{ width: '100%', height }}></div>;
 });
 
 export default BarEcharts;
