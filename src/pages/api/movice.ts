@@ -7,6 +7,7 @@ import type {
   detailsParams,
   detailsResponseImf,
   moviceParams,
+  rateDetailsResponseImg,
 } from '@/pages/types/movice';
 import { MAIZUO } from '@/pages/constant/baseUrl';
 import { AxiosResponse } from 'axios';
@@ -67,4 +68,8 @@ export function getCinemasList(data) {
         '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
     },
   });
+}
+
+export function getRateForChinema(params): Response<rateDetailsResponseImg> {
+  return request.get('/api/test', params);
 }

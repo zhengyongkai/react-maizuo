@@ -12,7 +12,7 @@ export interface BarEchartsImf {
 
 export type BaseBarOptionsImf = {
   xAxis: {
-    type: string;
-    data: Array<string>;
+    type?: string;
+    data: Array<number>;
   };
 } & EChartsOption;

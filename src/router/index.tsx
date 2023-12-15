@@ -1,5 +1,5 @@
-import React, { lazy } from "react";
-import { RouteObject } from "react-router-dom";
+import React, { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 // const Todo = lazy(() => import(".@/pages/test/pages/todo/index"));
 // const Index = lazy(() => import(".@/pages/test/pages/index"));
 // const Test1 = lazy(() => import(".@/pages/test/pages/test/components"));
@@ -18,24 +18,24 @@ import { RouteObject } from "react-router-dom";
 // const Reducer = lazy(() => import(".@/pages/test/pages/test/03Reducer"));
 
 // const ReduxComponents = lazy(() => import(".@/pages/test/pages/test/07redux"));
-import RouterPage1 from "@/pages/test/components/routerPage1";
-import Login from "@/pages/test/components/login";
-import Location from "@/pages/test/components/location";
-import HomePage from "@/pages/test/components/home";
-import NewsPage from "@/pages/test/components/news";
-import MyPage from "@/pages/test/components/my";
-import ComingSoon from "@/pages/test/components/comingSoon";
-import NowPlaying from "@/pages/test/components/nowPlaying";
-import FilmPage from "@/pages/test/components/films";
-import CinemasPage from "@/pages/test/components/cinemas";
-import RouterLocation from "@/components/Route/routeFc";
-import KeepAlive from "react-activation";
-import Map from "@/pages/test/components/map";
-import SeatPage from "@/pages/test/seats";
-import RatePage from "@/pages/test/rate";
+import RouterPage1 from '@/pages/test/components/routerPage1';
+import Login from '@/pages/test/components/login';
+import Location from '@/pages/test/components/location';
+import HomePage from '@/pages/test/components/home';
+import NewsPage from '@/pages/test/components/news';
+import MyPage from '@/pages/test/components/my';
+import ComingSoon from '@/pages/test/components/comingSoon';
+import NowPlaying from '@/pages/test/components/nowPlaying';
+import FilmPage from '@/pages/test/components/films';
+import CinemasPage from '@/pages/test/components/cinemas';
+import RouterLocation from '@/components/Route/routeFc';
+import KeepAlive from 'react-activation';
+import Map from '@/pages/test/components/map';
+import SeatPage from '@/pages/test/seats';
+import RatePage from '@/pages/test/rate';
 
-import CinemasInfo from "@/pages/test//schedule";
-import { Navigate } from "react-router-dom";
+import CinemasInfo from '@/pages/test//schedule';
+import { Navigate } from 'react-router-dom';
 
 export interface RouteObjectImf {
   path: string;
@@ -50,30 +50,30 @@ export interface RouteObjectImf {
 
 const Router: RouteObjectImf[] = [
   {
-    path: "*",
-    element: <Navigate to={"/name/home/nowPlaying"}></Navigate>,
+    path: '*',
+    element: <Navigate to={'/name/home/nowPlaying'}></Navigate>,
   },
   {
-    path: "/location",
+    path: '/location',
     element: <Location />,
   },
   {
-    path: "/name/",
+    path: '/name/',
     element: <RouterPage1 />,
     children: [
       {
-        path: "/name/home",
+        path: '/name/home',
         element: <HomePage />,
         children: [
           {
-            path: "/name/home/nowPlaying",
+            path: '/name/home/nowPlaying',
             element: <NowPlaying />,
             meta: {
               keepAlive: true,
             },
           },
           {
-            path: "/name/home/comingSoon",
+            path: '/name/home/comingSoon',
             element: <ComingSoon />,
             meta: {
               keepAlive: true,
@@ -82,14 +82,14 @@ const Router: RouteObjectImf[] = [
         ],
       },
       {
-        path: "news",
+        path: 'news',
         element: <NewsPage />,
         meta: {
           keepAlive: true,
         },
       },
       {
-        path: "my",
+        path: 'my',
         element: <MyPage />,
         meta: {
           keepAlive: true,
@@ -99,33 +99,33 @@ const Router: RouteObjectImf[] = [
   },
 
   {
-    path: "/films/:id",
+    path: '/films/:id',
     element: <FilmPage />,
   },
   {
-    path: "/films/cinemas/:id",
+    path: '/films/cinemas/:id',
     element: <CinemasPage />,
     meta: {
       locate: true,
     },
   },
   {
-    path: "/films/chinemasInfo/:cinemaId/:filmId/:showDate",
+    path: '/films/chinemasInfo/:cinemaId/:filmId/:showDate',
     element: <CinemasInfo />,
     meta: {
       locate: true,
     },
   },
   {
-    path: "map/:lng/:lat",
+    path: 'map/:lng/:lat',
     element: <Map />,
   },
   {
-    path: "seat/:id/:showDate",
+    path: 'seat/:id/:showDate',
     element: <SeatPage></SeatPage>,
   },
   {
-    path: "rate/:cinemaId",
+    path: 'rate/:filmId',
 
     element: <RatePage />,
   },

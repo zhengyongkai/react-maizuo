@@ -1,4 +1,4 @@
-import { districtImf } from "@/types/location";
+import { districtImf } from '@/types/location';
 
 export interface anctorImf {
   name: string;
@@ -121,3 +121,6 @@ export type moviceDetailsImf = {
 export interface moviceDetailsResponseImf {
   films: Array<moviceDetailsImf>;
 }
+
+// 评分
+export type rateDetailsResponseImg = Array<number>;

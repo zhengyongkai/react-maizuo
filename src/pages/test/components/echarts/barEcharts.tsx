@@ -24,12 +24,12 @@ const BaseBarOptions: BaseBarOptionsImf = {
   grid: {
     left: '8px',
     right: '8%',
-    bottom: '4%',
+    bottom: '1%',
     top: '0',
     containLabel: true,
   },
   xAxis: {
-    type: 'category',
+    type: 'value',
     data: [],
   },
   yAxis: {
@@ -40,7 +40,7 @@ const BaseBarOptions: BaseBarOptionsImf = {
 
 const BarEcharts = forwardRef<
   {
-    setData: (series: Array<BaseBarSeries>, xAxis: Array<string>) => void;
+    setData: (series: Array<BaseBarSeries>, xAxis: Array<number>) => void;
   },
   BarEchartsImf
 >((props, ref) => {
@@ -51,7 +51,7 @@ const BarEcharts = forwardRef<
     setData,
   }));
 
-  function setData<T>(series: Array<BaseBarSeries>, xAxis: Array<string>) {
+  function setData(series: Array<BaseBarSeries>, xAxis: Array<number>) {
     BaseBarOptions.xAxis.data = xAxis;
     setOptions({
       ...BaseBarOptions,

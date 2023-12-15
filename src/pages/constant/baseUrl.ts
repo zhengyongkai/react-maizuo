@@ -1,1 +1,1 @@
-export const MAIZUO = "https://m.maizuo.com/gateway";
+export const MAIZUO = 'https://m.maizuo.com/gateway';

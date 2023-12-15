@@ -7,7 +7,7 @@ import useEcharts from '@/hook/echarts';
 import useFetch from '@/hook/fetch';
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMoviceDetail } from '../api/movice';
+import { getMoviceDetail, getRateForChinema } from '../api/movice';
 import { BaseBarSeries } from '../types/echarts';
 import { detailsResponseImf } from '../types/movice';
 import BarEcharts from './components/echarts/barEcharts';
@@ -53,23 +53,26 @@ const RatePage = () => {
   };
 
   const ref = useRef<{
-    setData: (series: BaseBarSeries[]) => void;
+    setData: (series: BaseBarSeries[], xAxis: Array<number>) => void;
   }>(null);
 
-  const { cinemaId = '' } = useParams();
+  const { filmId = '' } = useParams();
 
   const [{ film }, loading] = useFetch<detailsResponseImf>(
-    () => getMoviceDetail({ filmId: cinemaId }),
+    () => getMoviceDetail({ filmId: filmId }),
     detailsInitData,
-    [cinemaId],
-    () => {
+    [filmId],
+    async () => {
       const data: Array<BaseBarSeries> = [
         {
           type: 'bar',
           data: [0, 5, 200, 500, 2545],
         },
       ];
-      ref.current?.setData(data);
+
+      let { data: rateList } = await getRateForChinema({ filmId: filmId });
+      data[0].data = rateList;
+      ref.current?.setData(data, [1, 2, 3, 4, 5]);
     }
   );
   return (
