@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --mode dev",
+    "build": "vite build --mode production",
+    "build-test": "vite build --mode test",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "echarts": "^5.4.3",
     "fast-glob": "^3.3.2",
     "gps-distance": "^0.0.4",
+    "mockjs": "^1.1.0",
     "prop-types": "^15.8.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",
@@ -36,6 +38,7 @@
     "sass": "^1.67.0",
     "swiper": "^11.0.3",
     "universal-cookie": "^6.1.1",
+    "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1"
   },
   "devDependencies": {
