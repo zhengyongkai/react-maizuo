@@ -1,6 +1,4 @@
 import request from '@/pages/utils/request';
-import qs from 'qs';
-
 import type {
   cinemaRequestImf,
   detailsImf,
@@ -9,7 +7,7 @@ import type {
   moviceParams,
   rateDetailsResponseImg,
 } from '@/pages/types/movice';
-import { MAIZUO } from '@/pages/constant/baseUrl';
+import { MAIZUO, MOCK } from '@/pages/constant/baseUrl';
 import { AxiosResponse } from 'axios';
 import { Response } from '../types';
 
@@ -71,5 +69,5 @@ export function getCinemasList(data) {
 }
 
 export function getRateForChinema(params): Response<rateDetailsResponseImg> {
-  return request.get('/api/test', params);
+  return request.get(`${MOCK}/api/getRate`, params);
 }
