@@ -1,3 +1,8 @@
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content
+ */
 export interface user {
   accountName: string;
   birthday: string;
@@ -49,4 +54,10 @@ export interface amountInf {
 
 export interface amountResponseInf {
   data: amountInf;
+}
+
+export interface userSimpleImf {
+  userId: number;
+  nickName: string;
+  headIcon: string;
 }
