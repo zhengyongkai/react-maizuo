@@ -7,10 +7,12 @@
     display: flex;
     align-items: center;
     > :first-child {
-      flex: 1;
+      // flex: 1;
+      width: calc(100% - 100px);
     }
 
     > :last-child {
+      width: fit-content;
       img {
         width: 60px;
       }
@@ -35,9 +37,9 @@
         display: flex;
         align-items: center;
         overflow: hidden;
-        // div {
-        //   width: 80%;
-        // }
+        div {
+          width: 20%;
+        }
         span {
           margin-left: 8px;
           font-size: 9px;

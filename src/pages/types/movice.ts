@@ -1,5 +1,5 @@
-import { districtImf } from "@/types/location";
-import { userSimpleImf } from "./user";
+import { districtImf } from '@/types/location';
+import { userSimpleImf } from './user';
 
 export interface anctorImf {
   name: string;
@@ -125,6 +125,12 @@ export interface moviceDetailsResponseImf {
 
 // 评分
 export type rateDetailsResponseImg = Array<number>;
+
+export type rateListDetailsPaginImf = {
+  pageSize: number;
+  pageNo: number;
+  list: Array<rateListDetailsResponseImg>;
+};
 
 export type rateListDetailsResponseImg = {
   userInfo: userSimpleImf;

@@ -3,7 +3,7 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import request from "@/pages/utils/request";
+import request from '@/pages/utils/request';
 import type {
   cinemaRequestImf,
   detailsImf,
@@ -11,11 +11,12 @@ import type {
   detailsResponseImf,
   moviceParams,
   rateDetailsResponseImg,
+  rateListDetailsPaginImf,
   rateListDetailsResponseImg,
-} from "@/pages/types/movice";
-import { MAIZUO, MOCK } from "@/pages/constant/baseUrl";
-import { AxiosResponse } from "axios";
-import { Response } from "../types";
+} from '@/pages/types/movice';
+import { MAIZUO, MOCK } from '@/pages/constant/baseUrl';
+import { AxiosResponse } from 'axios';
+import { Response, ResponsePageSize } from '../types';
 
 export function getMoviceData(params: moviceParams) {
   const cityId = params.cityId === -1 ? 110100 : params.cityId;
@@ -42,9 +43,9 @@ export function getMoviceDetail(
 ): Response<detailsResponseImf> {
   return request.get(`${MAIZUO}?k=5840910`, {
     headers: {
-      "X-Host": "mall.film-ticket.film.info",
+      'X-Host': 'mall.film-ticket.film.info',
 
-      "X-Client-Info":
+      'X-Client-Info':
         '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"340800"}',
     },
     params,
@@ -54,9 +55,9 @@ export function getMoviceDetail(
 export function getCinemas(params: cinemaRequestImf) {
   return request.get(`${MAIZUO}?k=1064483`, {
     headers: {
-      "X-Host": "mall.film-ticket.cinema.film-show-cinema",
+      'X-Host': 'mall.film-ticket.cinema.film-show-cinema',
 
-      "X-Client-Info":
+      'X-Client-Info':
         '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
     },
     params,
@@ -66,9 +67,9 @@ export function getCinemas(params: cinemaRequestImf) {
 export function getCinemasList(data) {
   return request.post(`${MAIZUO}`, data, {
     headers: {
-      "X-Host": "mall.film-ticket.cinema.batch-cinema",
-      "Content-Type": "application/x-www-form-urlencode",
-      "X-Client-Info":
+      'X-Host': 'mall.film-ticket.cinema.batch-cinema',
+      'Content-Type': 'application/x-www-form-urlencode',
+      'X-Client-Info':
         '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
     },
   });
@@ -78,6 +79,9 @@ export function getRateForChinema(params): Response<rateDetailsResponseImg> {
   return request.get(`${MOCK}/api/getRate`, params);
 }
 
-export function getRateListForCinema(): Response<rateListDetailsResponseImg> {
-  return request.get(`${MOCK}/api/getRateList`);
+export function getRateListForCinema(
+  params
+): ResponsePageSize<rateListDetailsResponseImg> {
+  console.log(params);
+  return request.get(`${MOCK}/api/getRateList`, { params });
 }
