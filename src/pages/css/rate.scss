@@ -38,7 +38,7 @@
         align-items: center;
         overflow: hidden;
         div {
-          width: 20%;
+          // width: 20%;
         }
         span {
           margin-left: 8px;
@@ -101,5 +101,52 @@
   .film-rate {
     margin-top: 16px;
     background-color: #fff;
+  }
+
+  .esimate-wrapper {
+    padding: 10px 16px;
+    background-color: #fff;
+    display: flex;
+    // align-items: center;
+    > :first-child {
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 14px;
+        border-radius: 50%;
+      }
+    }
+
+    > :last-child {
+      flex: 1;
+    }
+    .esimate-header {
+      display: flex;
+      align-items: center;
+      > :first-child {
+        > :last-child {
+          > :first-child {
+            font-size: 12px;
+          }
+        }
+      }
+      > :last-child {
+        margin-left: auto;
+        display: flex;
+        border: 1px solid #ccc;
+        padding: 4px;
+        border-radius: 12px;
+        color: #999;
+        font-size: 12px;
+        img {
+          width: 16px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .esimate-estimation {
+    margin-top: 4px;
   }
 }

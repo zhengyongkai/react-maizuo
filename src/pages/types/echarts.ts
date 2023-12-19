@@ -1,8 +1,8 @@
-import { EChartsOption } from 'echarts';
+import { EChartsOption } from "echarts";
 
 export interface BaseBarSeries {
   name?: string;
-  type: 'bar';
+  type: "bar";
   data: Array<number>;
 }
 
@@ -11,7 +11,7 @@ export interface BarEchartsImf {
 }
 
 export type BaseBarOptionsImf = {
-  xAxis: {
+  yAxis: {
     type?: string;
     data: Array<number>;
   };

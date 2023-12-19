@@ -41,10 +41,10 @@ const BaseBarOptions: BaseBarOptionsImf = {
   },
   xAxis: {
     type: "value",
-    data: [],
   },
   yAxis: {
     type: "category",
+    data: [],
   },
   series: [],
 };
@@ -68,7 +68,8 @@ const BarEcharts = forwardRef<BaseBarChartImf, BarEchartsImf>((props, ref) => {
     xAxis: Array<number>,
     baseBarOptions: BaseBarOptionsImf = BaseBarOptions
   ) {
-    baseBarOptions.xAxis.data = xAxis;
+    console.log(xAxis);
+    baseBarOptions.yAxis.data = xAxis;
     setOptions({
       ...baseBarOptions,
       series,
