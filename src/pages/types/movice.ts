@@ -1,10 +1,10 @@
-import { districtImf } from '@/types/location';
-import { userSimpleImf } from './user';
+import { districtImf } from "@/types/location";
+import { userSimpleImf } from "./user";
 
 export interface anctorImf {
   name: string;
   role: string;
-  avatarAddress?: string;
+  avatarAddress: string;
 }
 
 export interface moviceImf {

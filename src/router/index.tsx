@@ -1,3 +1,8 @@
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content:
+ */
 import React, { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 // const Todo = lazy(() => import(".@/pages/test/pages/todo/index"));
@@ -33,6 +38,7 @@ import KeepAlive from "react-activation";
 import Map from "@/pages/test/components/map";
 import SeatPage from "@/pages/test/seats";
 import RatePage from "@/pages/test/rate";
+import OrderPage from "@/pages/test/components/order";
 
 import CinemasInfo from "@/pages/test//schedule";
 import { Navigate } from "react-router-dom";
@@ -128,6 +134,10 @@ const Router: RouteObjectImf[] = [
     path: "rate/:filmId",
 
     element: <RatePage />,
+  },
+  {
+    path: "order",
+    element: <OrderPage />,
   },
 ];
 
