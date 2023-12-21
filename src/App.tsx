@@ -1,16 +1,22 @@
-import { Suspense, useEffect } from 'react';
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content
+ */
+import { Suspense, useEffect } from "react";
 
-import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
-import Router, { RouteObjectImf } from './router';
-import KeepAlive from 'react-activation';
-import RouterLocation from './components/Route/routeFc';
-import { useDispatch, useSelector } from 'react-redux';
-import { userState } from './pages/types/user';
+import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
+import Router, { RouteObjectImf } from "./router";
+import KeepAlive from "react-activation";
+import RouterLocation from "./components/Route/routeFc";
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "./pages/types/user";
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from './store/common/location';
-import { getUserDataThunk } from './store/common/user';
+} from "./store/common/location";
+import { getUserDataThunk } from "./store/common/user";
+import AuthHoc from "./components/Auth/authFc";
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
@@ -37,6 +43,10 @@ const RequireAuth = (props: { route: RouteObjectImf; children: any }) => {
   if (router.meta?.locate) {
     children = <RouterLocation>{children}</RouterLocation>;
   }
+  console.log(router.meta);
+  if (router.meta?.login) {
+    children = <AuthHoc>{children}</AuthHoc>;
+  }
   return children;
 };
 
@@ -58,7 +68,6 @@ export default () => {
       await dispatch(getUserDataThunk());
     };
     if (token) {
-      console.log('dasd', token);
       fn();
     }
   }, [token]);

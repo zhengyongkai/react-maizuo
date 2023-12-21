@@ -1,5 +1,5 @@
 import request from "@/pages/utils/request";
-import { MAIZUO } from "../constant/baseUrl";
+import { MAIZUO, BASE_URL } from "../constant/baseUrl";
 import { scheduleResponseImf } from "../types/schedule";
 import { cinemasInfoImf, cinemasInfoResponseImf } from "../types/cinema";
 import { moviceDetailsResponseImf } from "../types/movice";

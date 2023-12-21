@@ -13,8 +13,11 @@ import historyImg from "@/assets/img/history.png";
 import customImg from "@/assets/img/custom.png";
 import settingImg from "@/assets/img/setting.png";
 import { RightOutline } from "antd-mobile-icons";
+import { useNavigate } from "react-router-dom";
 
 export default function myPage() {
+  const navigate = useNavigate();
+
   const userData = useSelector<userState, user>((state) => state.user.userData);
   const [card, setCard] = useState<cardInf & amountInf>({
     availableBalance: 0,
@@ -30,14 +33,14 @@ export default function myPage() {
 
   useEffect(() => {
     async function fn() {
-      let { data } = await getCardList();
-      let { data: cardMount } = await getCardAmount();
-      console.log(data, cardMount);
-      setCard({
-        ...data,
-        ...cardMount,
-      });
+      // let { data } = await getCardList();
+      // let { data: cardMount } = await getCardAmount();
+      // setCard({
+      //   ...data,
+      //   ...cardMount,
+      // });
     }
+    // console.log("dd", userData);
     if (userData.userId) {
       fn();
     }
@@ -47,22 +50,27 @@ export default function myPage() {
     {
       img: orderImg,
       title: "电影订单",
+      url: "/order",
     },
     {
       img: packetImg,
       title: "组合红包",
+      url: "/order",
     },
     {
       img: historyImg,
       title: "历史记录",
+      url: "/order",
     },
     {
       img: customImg,
       title: "帮助与客服",
+      url: "/order",
     },
     {
       img: settingImg,
       title: "设置",
+      url: "/order",
     },
   ];
 
@@ -93,7 +101,11 @@ export default function myPage() {
       <div className="user-menu-items">
         {menus.map((item, key) => {
           return (
-            <div className="user-menu-item" key={key}>
+            <div
+              className="user-menu-item"
+              key={key}
+              onClick={() => navigate(item.url)}
+            >
               <img src={item.img} alt="" />
               <div>{item.title}</div>
               <RightOutline></RightOutline>

@@ -26,11 +26,13 @@ export interface userState {
 }
 
 export interface loginRequestInf {
-  extra: {};
-  imgCode: string;
-  imgKey: string;
-  mobile: string;
-  smsCode: string;
+  // extra: {};
+  // imgCode: string;
+  // imgKey: string;
+  // mobile: string;
+  // smsCode: string;
+  userId: number;
+  password: string;
 }
 
 export interface cardInf {

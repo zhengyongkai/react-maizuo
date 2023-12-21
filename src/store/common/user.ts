@@ -1,8 +1,13 @@
-import { getUserData } from '@/pages/api/user';
-import { user } from '@/pages/types/user';
-import cookie from '@/pages/utils/cookie';
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOKEN } from '../constants';
+/*
+ * @Author: 郑永楷
+ * @LastEditors: 郑永楷
+ * @Description: file content
+ */
+import { getUserData } from "@/pages/api/user";
+import { user } from "@/pages/types/user";
+import cookie from "@/pages/utils/cookie";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { TOKEN } from "../constants";
 
 export interface initUserStoreInf {
   userData: user;
@@ -13,7 +18,7 @@ export interface initUserStoreInf {
 // export function getUserData() {}
 
 export const getUserDataThunk: any = createAsyncThunk(
-  '/user/getData',
+  "/user/getData",
   async () => {
     return await getUserData();
   }
@@ -21,16 +26,16 @@ export const getUserDataThunk: any = createAsyncThunk(
 
 const initUserStore: initUserStoreInf = {
   userData: {
-    accountName: '',
-    birthday: '',
+    accountName: "",
+    birthday: "",
     gender: 0,
     hasDefaultAddr: 0,
     hasPassword: 0,
     hasPayPwd: 0,
-    headIcon: '',
-    mail: '',
-    mobile: '',
-    nickName: '',
+    headIcon: "",
+    mail: "",
+    mobile: "",
+    nickName: "",
     thirdAccount: [],
     userId: 0,
   },
@@ -39,23 +44,28 @@ const initUserStore: initUserStoreInf = {
 };
 
 export const userStore = createSlice({
-  name: 'user',
+  name: "user",
   initialState: initUserStore,
   reducers: {
     setUserData(state, payload) {
+      console.log(payload);
       state.userData = payload.payload;
       state.token = payload.payload.token;
       cookie.setCookie(TOKEN, payload.payload.token);
       // console.log(state.userData, state.token);
     },
-    clearUserData(state) {
+    clearUserData(state): any {
+      console.log("dasdsss");
       state.logged = false;
       state.userData.userId = 0;
+      state.token = "";
+      console.log(state);
       cookie.removeCookie(TOKEN);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserDataThunk.fulfilled, (state, { payload }) => {
+      console.log(payload.data);
       state.userData = payload.data;
       state.logged = true;
       // console.log(state.userData);

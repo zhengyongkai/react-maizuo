@@ -60,6 +60,10 @@ const Router: RouteObjectImf[] = [
     element: <Navigate to={"/name/home/nowPlaying"}></Navigate>,
   },
   {
+    path: "login",
+    element: <Login></Login>,
+  },
+  {
     path: "/location",
     element: <Location />,
   },
@@ -138,6 +142,9 @@ const Router: RouteObjectImf[] = [
   {
     path: "order",
     element: <OrderPage />,
+    meta: {
+      login: true,
+    },
   },
 ];
 
