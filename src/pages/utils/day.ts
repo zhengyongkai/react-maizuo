@@ -5,6 +5,10 @@ import isTomorrow from "dayjs/plugin/isTomorrow";
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
+export function getDate(time: number) {
+  return dayjs.unix(time).format("YYYY-MM-DD");
+}
+
 export function getTime(time: number) {
   return dayjs.unix(time).format("HH:mm");
 }

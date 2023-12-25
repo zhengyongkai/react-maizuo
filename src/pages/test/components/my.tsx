@@ -1,8 +1,13 @@
-import { amountInf, cardInf, user, userState } from "@/pages/types/user";
+import {
+  amountInf,
+  cardInf,
+  cardListInf,
+  user,
+  userState,
+} from "@/pages/types/user";
 import { useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
-import { getCardAmount, getCardList } from "@/pages/api/user";
 import { formatPrice } from "@/pages/utils/price";
 
 import "@/pages/css/user.scss";
@@ -19,32 +24,15 @@ export default function myPage() {
   const navigate = useNavigate();
 
   const userData = useSelector<userState, user>((state) => state.user.userData);
+  const userCouponData = useSelector<userState, cardListInf[]>(
+    (state) => state.user.couponList
+  );
   const [card, setCard] = useState<cardInf & amountInf>({
-    availableBalance: 0,
-    cardsCount: 0,
-    couponCount: 0,
-    deliveryOrderCount: 0,
-    payOrderCount: 0,
-    receiveGoodsCount: 0,
+    cardList: userCouponData,
     availableAmount: 0,
     frozenAmount: 0,
     totalAmount: 0,
   });
-
-  useEffect(() => {
-    async function fn() {
-      // let { data } = await getCardList();
-      // let { data: cardMount } = await getCardAmount();
-      // setCard({
-      //   ...data,
-      //   ...cardMount,
-      // });
-    }
-    // console.log("dd", userData);
-    if (userData.userId) {
-      fn();
-    }
-  }, [userData.userId]);
 
   const menus = [
     {
@@ -74,6 +62,12 @@ export default function myPage() {
     },
   ];
 
+  useEffect(() => {
+    setCard({
+      ...card,
+      cardList: userCouponData,
+    });
+  }, [userCouponData]);
   return (
     <>
       <div className="user-bg">
@@ -89,9 +83,9 @@ export default function myPage() {
         )}
       </div>
       <div className="user-card">
-        <div>
-          <div>{card.cardsCount}张</div>
-          <div>卖座卷</div>
+        <div onClick={() => navigate("/coupon")}>
+          <div>{card.cardList.length}张</div>
+          <div>优惠卷</div>
         </div>
         <div>
           <div>{formatPrice(card.availableAmount)}</div>

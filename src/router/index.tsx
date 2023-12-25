@@ -39,6 +39,7 @@ import Map from "@/pages/test/components/map";
 import SeatPage from "@/pages/test/seats";
 import RatePage from "@/pages/test/rate";
 import OrderPage from "@/pages/test/components/order";
+import CouponPage from "@/pages/test/components/coupon";
 
 import CinemasInfo from "@/pages/test//schedule";
 import { Navigate } from "react-router-dom";
@@ -138,6 +139,13 @@ const Router: RouteObjectImf[] = [
     path: "rate/:filmId",
 
     element: <RatePage />,
+  },
+  {
+    path: "coupon",
+    element: <CouponPage />,
+    meta: {
+      login: true,
+    },
   },
   {
     path: "order",

@@ -22,6 +22,7 @@ export interface userState {
   user: {
     userData: user;
     token: string;
+    couponList: Array<cardListInf>;
   };
 }
 
@@ -35,13 +36,19 @@ export interface loginRequestInf {
   password: string;
 }
 
+export interface cardListInf {
+  couponId: number;
+  couponName: string;
+  expiration: number;
+  remission: number;
+  remissions: string;
+  descption: string;
+  tag: string;
+  isExpia: boolean;
+}
+
 export interface cardInf {
-  availableBalance: number;
-  cardsCount: number;
-  couponCount: number;
-  deliveryOrderCount: number;
-  payOrderCount: number;
-  receiveGoodsCount: number;
+  cardList: Array<cardListInf>;
 }
 
 export interface cardResponseInf {

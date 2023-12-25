@@ -39,13 +39,7 @@ export const login = (data: loginRequestInf) => {
 };
 
 export const getCardList = (): Response<cardInf> => {
-  return request.get(`${MAIZUO}?k=5840910`, {
-    headers: {
-      "X-Host": "mall.user.page.data",
-      "X-Client-Info":
-        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"340800"}',
-    },
-  });
+  return request.get(`${BASE_URL}/user-coupon/getInfo?k=5840910`);
 };
 
 export const getCardAmount = (): Response<amountInf> => {

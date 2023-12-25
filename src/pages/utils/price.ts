@@ -1,10 +1,12 @@
-export function formatPrice(price: number) {
+export function formatPrice(price: number, setPrefix: boolean = true) {
   const decimal = String(price).slice(-2);
   // console.log(price, decimal);
   const interger = String(price).slice(0, -2);
+  let prefix = setPrefix ? '￥' : '';
+
   if (price) {
-    return "￥" + interger + "." + decimal;
+    return prefix + interger + '.' + decimal;
   } else {
-    return "￥" + 0;
+    return prefix + 0;
   }
 }

@@ -15,7 +15,7 @@ import {
   getLocationAsync,
   getLocationListsAsyc,
 } from "./store/common/location";
-import { getUserDataThunk } from "./store/common/user";
+import { getUserCouponThunk, getUserDataThunk } from "./store/common/user";
 import AuthHoc from "./components/Auth/authFc";
 
 //懒加载处理
@@ -43,7 +43,6 @@ const RequireAuth = (props: { route: RouteObjectImf; children: any }) => {
   if (router.meta?.locate) {
     children = <RouterLocation>{children}</RouterLocation>;
   }
-  console.log(router.meta);
   if (router.meta?.login) {
     children = <AuthHoc>{children}</AuthHoc>;
   }
@@ -66,6 +65,7 @@ export default () => {
   useEffect(() => {
     const fn = async () => {
       await dispatch(getUserDataThunk());
+      await dispatch(getUserCouponThunk());
     };
     if (token) {
       fn();

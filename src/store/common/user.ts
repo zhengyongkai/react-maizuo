@@ -3,8 +3,8 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { getUserData } from "@/pages/api/user";
-import { user } from "@/pages/types/user";
+import { getCardList, getUserData } from "@/pages/api/user";
+import { cardListInf, user } from "@/pages/types/user";
 import cookie from "@/pages/utils/cookie";
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOKEN } from "../constants";
@@ -13,14 +13,22 @@ export interface initUserStoreInf {
   userData: user;
   logged: boolean;
   token: string;
+  couponList: cardListInf[];
 }
 
 // export function getUserData() {}
-
+// 获取用户信息
 export const getUserDataThunk: any = createAsyncThunk(
   "/user/getData",
   async () => {
     return await getUserData();
+  }
+);
+// 获取优惠券信息
+export const getUserCouponThunk: any = createAsyncThunk(
+  "/user/getCoupon",
+  async () => {
+    return await getCardList();
   }
 );
 
@@ -39,6 +47,7 @@ const initUserStore: initUserStoreInf = {
     thirdAccount: [],
     userId: 0,
   },
+  couponList: [],
   logged: false,
   token: cookie.getCookie(TOKEN),
 };
@@ -55,20 +64,25 @@ export const userStore = createSlice({
       // console.log(state.userData, state.token);
     },
     clearUserData(state): any {
-      console.log("dasdsss");
       state.logged = false;
       state.userData.userId = 0;
       state.token = "";
-      console.log(state);
+
       cookie.removeCookie(TOKEN);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserDataThunk.fulfilled, (state, { payload }) => {
-      console.log(payload.data);
-      state.userData = payload.data;
-      state.logged = true;
-      // console.log(state.userData);
+      if (payload.data) {
+        state.userData = payload.data;
+        state.logged = true;
+      }
+    });
+    builder.addCase(getUserCouponThunk.fulfilled, (state, { payload }) => {
+      if (payload.data) {
+        console.log(payload.data);
+        state.couponList = payload.data;
+      }
     });
   },
 });

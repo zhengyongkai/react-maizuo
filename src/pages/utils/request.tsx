@@ -1,15 +1,7 @@
-/*
- * @Author: 郑永楷
- * @LastEditors: 郑永楷
- * @Description: file content
- */
-import { Toast } from "antd-mobile";
 import axios from "axios";
-import { clearUserData } from "@/store/common/user";
 
-// import { createHashHistory } from "history";
+import { createHashHistory } from "history";
 import cookie from "./cookie";
-import store from "@/store/index";
 
 // const customHistory = createHashHistory();
 
@@ -34,14 +26,7 @@ axios.interceptors.request.use((requestConfig) => {
 
 axios.interceptors.response.use((response) => {
   //   location.href = "/#/login";
-  switch (response.data.status) {
-    case 500:
-      return Promise.reject(response.data.msg);
-    case 401:
-      store.dispatch(clearUserData());
-      return Promise.reject(response.data.msg);
-  }
-  return response.data;
+  return response;
 });
 
 export default axios;
