@@ -5,9 +5,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { viteMockServe } from 'vite-plugin-mock';
 
 export default defineConfig(({ command, mode }) => {
-  const config = loadEnv(mode, './');
   return {
-    base: config.VITE_BASE_URL,
     plugins: [
       react(),
       viteMockServe({
