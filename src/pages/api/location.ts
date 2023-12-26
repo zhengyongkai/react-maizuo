@@ -9,7 +9,7 @@ export function getLocationList() {
   });
 }
 
-export function getLocation(params) {
+export function getLocation(params: { longitude: number; latitude: number }) {
   return request.get(`${MAIZUO}?k=3592252`, {
     headers: {
       'X-Host': 'mall.film-ticket.city.locate',

@@ -5,7 +5,7 @@ import NavTitle from './navTitle';
 
 import '@/pages/css/coupon.scss';
 import { formatPrice } from '@/pages/utils/price';
-import { getDate, getDaysNameFn } from '@/pages/utils/day';
+import { getDate } from '@/pages/utils/day';
 
 function couponPage() {
   const [couponList, setCouponList] = useState<cardListInf[]>([]);
@@ -28,6 +28,7 @@ function couponPage() {
           {couponList.map((item) => {
             return (
               <div
+                key={item.couponId}
                 className={[
                   'coupon_ticket',
                   item.isExpia ? 'coupon_isExpia' : '',
