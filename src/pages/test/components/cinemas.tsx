@@ -20,7 +20,7 @@ import '@/pages/css/cinemas.scss';
 
 import NavTitle from './navTitle';
 import { Dropdown, List } from 'antd-mobile';
-import Loading from './loading';
+import Loading from './partLoading';
 import { useSelector } from 'react-redux';
 import { tudeStateImf } from '@/types/location';
 import { getBetweenDistance } from '@/pages/utils/location';
@@ -299,9 +299,8 @@ export default function cinemas() {
             <List>{sortItems()}</List>
           </Dropdown.Item>
         </Dropdown>
-        {loading ? (
-          <Loading></Loading>
-        ) : (
+
+        <Loading loading={loading}>
           <div className="cinemas-items">
             {cinemaList.cinemasList.map((item, index) => {
               return (
@@ -328,7 +327,7 @@ export default function cinemas() {
               );
             })}
           </div>
-        )}
+        </Loading>
       </div>
     </>
   );
