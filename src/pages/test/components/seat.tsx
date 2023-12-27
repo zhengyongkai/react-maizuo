@@ -1,6 +1,6 @@
-import SvgIcon from "@/components/SvgIcon";
-import { seatsInf, selectSeatsInf } from "@/pages/types/seat";
-import { memo } from "react";
+import SvgIcon from '@/components/SvgIcon';
+import { seatsInf } from '@/pages/types/seat';
+import { memo } from 'react';
 
 interface seatProps {
   data: seatsInf;

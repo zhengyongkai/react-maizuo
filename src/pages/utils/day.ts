@@ -1,16 +1,16 @@
-import dayjs from "dayjs";
-import isToday from "dayjs/plugin/isToday";
-import isTomorrow from "dayjs/plugin/isTomorrow";
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
 export function getDate(time: number) {
-  return dayjs.unix(time).format("YYYY-MM-DD");
+  return dayjs.unix(time).format('YYYY-MM-DD');
 }
 
 export function getTime(time: number) {
-  return dayjs.unix(time).format("HH:mm");
+  return dayjs.unix(time).format('HH:mm');
 }
 
 export function isTodayFn(num: number) {
@@ -24,45 +24,45 @@ export function isTomorrowFn(num: number) {
 export function isAfter(num: number) {
   const after = dayjs.unix(num);
   const now = dayjs(new Date());
-  return after.diff(now, "day") == 1;
+  return after.diff(now, 'day') == 1;
 }
 
 export function getDay(num: number) {
   const day = dayjs.unix(num).day();
   switch (day) {
     case 0:
-      return "周日";
+      return '周日';
     case 1:
-      return "周一";
+      return '周一';
     case 2:
-      return "周二";
+      return '周二';
     case 3:
-      return "周三";
+      return '周三';
     case 4:
-      return "周四";
+      return '周四';
     case 5:
-      return "周五";
+      return '周五';
     case 6:
-      return "周六";
+      return '周六';
     default:
-      return "";
+      return '';
   }
 }
 
 export function getDaysNameFn(num: number, showTime: boolean = false): string {
   let day = null;
   if (!showTime) {
-    day = dayjs.unix(num).format("MM月D日");
+    day = dayjs.unix(num).format('MM月D日');
   } else {
-    day = dayjs.unix(num).format("MM月D日 HH:mm");
+    day = dayjs.unix(num).format('MM月D日 HH:mm');
   }
-  let pre = "";
+  let pre = '';
   if (isTodayFn(num)) {
-    pre = "今日";
+    pre = '今日';
   } else if (isTomorrowFn(num)) {
-    pre = "明天";
+    pre = '明天';
   } else if (isAfter(num)) {
-    pre = "后天";
+    pre = '后天';
   } else {
     pre = getDay(num);
   }
@@ -74,4 +74,19 @@ export const isStopSelling = (stopAt: number, beforeStopMins: number) => {
   let v = +stopAt * 1000 - +dayjs().valueOf();
   let re = +beforeStopMins * 60 * 1000;
   return v < re;
+};
+
+// 秒转时分
+
+export const secondToMMSS = (seconds: number) => {
+  var minutes = Math.floor((seconds % 3600) / 60);
+  var remainingSeconds = seconds % 60;
+
+  return (
+    (minutes < 10 ? '0' : '') +
+    minutes +
+    ':' +
+    (remainingSeconds < 10 ? '0' : '') +
+    remainingSeconds
+  );
 };

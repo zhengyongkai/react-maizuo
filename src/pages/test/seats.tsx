@@ -436,7 +436,7 @@ export default function SeatPage() {
       // 选中以及反选
       let selected: selectSeatsInf = {
         columnId: item.columnId,
-        columNum: item.columnNum,
+        columnNum: item.columnNum,
         rowId: item.rowId,
         rowNum: item.rowNum,
         sectionId: item.sectionId,
@@ -638,7 +638,7 @@ export default function SeatPage() {
               return (
                 <div className="selects-wraps-item" key={index}>
                   <div>
-                    {res.rowNum}排{res.columNum}座
+                    {res.rowNum}排{res.columnNum}座
                   </div>
                   <div>
                     <div>{formatPrice(schedule.price.sale)} </div>

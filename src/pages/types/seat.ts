@@ -1,8 +1,8 @@
-import { realNameAuthInf } from "./auth";
-import { cinemasInfoImf } from "./cinema";
-import { hallInf } from "./hall";
-import { moviceImf } from "./movice";
-import priceInf, { sectionPricesInf } from "./price";
+import { realNameAuthInf } from './auth';
+import { cinemasInfoImf } from './cinema';
+import { hallInf } from './hall';
+import { moviceImf } from './movice';
+import priceInf, { sectionPricesInf } from './price';
 
 export interface lockSeatRulesInf {
   ruleCheckType: number;
@@ -74,7 +74,7 @@ export interface seatListInf {
 
 export interface selectSeatsInf {
   columnId: string;
-  columNum: string;
+  columnNum: string;
   rowId: string;
   rowNum: string;
   sectionId: string;

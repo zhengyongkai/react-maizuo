@@ -1,9 +1,16 @@
+.order-remainder {
+  color: #ff5f16;
+  font-size: 14px;
+  text-align: right;
+  width: 100%;
+}
+
 .order-wrapper {
   padding-top: 48px;
   .order-decoration {
-    background: url("@/assets/img/decorator.png");
+    background: url('@/assets/img/decorator.png');
     height: 2px;
-    content: " ";
+    content: ' ';
   }
   .order-contact {
     background-color: #fff;
@@ -26,6 +33,50 @@
         font-size: 12px;
         color: #a77924;
       }
+    }
+  }
+  .order-info-wrapper {
+    display: flex;
+    // align-items: center;
+    padding: 16px;
+    margin-top: 8px;
+    background-color: #fff;
+    .order-poster {
+      margin-right: 12px;
+      img {
+        width: 80px;
+      }
+    }
+    .order-info {
+      > * {
+        margin-bottom: 6px;
+      }
+      > :first-child {
+        font-size: 16px;
+      }
+
+      > :not(:first-child) {
+        font-size: 13px;
+        color: #797d82;
+        span {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+  .order-price {
+    display: flex;
+    padding: 16px;
+    background-color: #fff;
+
+    > :first-child {
+      color: #797d82;
+      flex: 1;
+    }
+
+    > :last-child {
+      font-size: 15px;
+      color: #ff5f16;
     }
   }
 }

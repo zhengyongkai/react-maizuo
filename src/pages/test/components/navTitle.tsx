@@ -1,6 +1,6 @@
-import BackImg from "@/assets/img/back.png";
-import "@/pages/css/navTitle.scss";
-import { useNavigate } from "react-router-dom";
+import BackImg from '@/assets/img/back.png';
+import '@/pages/css/navTitle.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface props {
   back?: boolean;
@@ -21,7 +21,8 @@ export default function navTitle(props: props) {
           ) : undefined}
         </div>
         <div className="navTitle text-ellipsis">{title}</div>
-        <div className="navSlots">{children && children[0]}</div>
+
+        <div className="navSlots">{children ? children : <></>}</div>
       </div>
     </>
   );
