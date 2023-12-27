@@ -1,27 +1,29 @@
-import useFetch from "@/hook/fetch";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getOrderById } from "../api/order";
-import NavTitle from "./components/navTitle";
-import decorator from "@/assets/img/decorator.png";
-import "@/pages/css/preOrder.scss";
-import Loading from "./components/loading";
-import SvgIcon from "@/components/SvgIcon";
-import { useSelector } from "react-redux";
-import { user, userState } from "../types/user";
+import useFetch from '@/hook/fetch';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getOrderById } from '../api/order';
+import NavTitle from './components/navTitle';
+import decorator from '@/assets/img/decorator.png';
+import '@/pages/css/preOrder.scss';
+import Loading from './components/loading';
+import SvgIcon from '@/components/SvgIcon';
+import { useSelector } from 'react-redux';
+import { user, userState } from '../types/user';
 
 const initData = {
   cinemaId: 0,
-  cinemaName: "",
+  cinemaName: '',
   showAt: 0,
   endAt: 0,
   hallId: 0,
-  hallName: "",
+  hallName: '',
   filmId: 0,
-  filmName: "",
+  filmName: '',
   scheduleId: 0,
   seatList: [],
   price: 0,
+  districtName: '',
+  poster: '',
 };
 
 export default function preOrder() {

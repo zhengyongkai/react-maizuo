@@ -49,7 +49,7 @@ export default function cinemas() {
   const navigator = useNavigate();
 
   const [params, setParams] = useState({
-    filmId: '',
+    filmId: 0,
     cityId: 0,
     cinemaIds: '',
   });
@@ -100,7 +100,7 @@ export default function cinemas() {
 
   location((locale) => {
     setParams({
-      filmId: id,
+      filmId: Number(id),
       cityId: locale.cityId,
       cinemaIds: '',
       // cityName: params.cityName,
@@ -111,7 +111,7 @@ export default function cinemas() {
     async function fn() {
       const {
         data: { film },
-      } = await getMoviceDetail({ filmId: id });
+      } = await getMoviceDetail({ filmId: Number(id) });
       setFilm(film);
     }
     fn();

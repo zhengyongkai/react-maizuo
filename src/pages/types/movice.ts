@@ -65,11 +65,11 @@ export interface detailsResponseImf {
 }
 
 export interface detailsParams {
-  filmId: string;
+  filmId: number;
 }
 
 export interface cinemaRequestImf {
-  filmId: string;
+  filmId: number;
   cityId: number;
 }
 

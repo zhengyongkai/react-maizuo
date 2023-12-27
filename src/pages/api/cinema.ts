@@ -8,7 +8,7 @@ import { seatingChartInf, seatListInf } from '../types/seat';
 import { Response } from '../types';
 
 export function getCinemasInfo(params: {
-  cinemaId: string;
+  cinemaId: number;
 }): Response<cinemasInfoResponseImf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {
@@ -19,7 +19,7 @@ export function getCinemasInfo(params: {
 }
 
 export function getCinemasShowInfo(params: {
-  cinemaId: string;
+  cinemaId: number;
 }): Response<moviceDetailsResponseImf> {
   return request.get(`${MAIZUO}?k=564058`, {
     headers: {

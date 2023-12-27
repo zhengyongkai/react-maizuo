@@ -1,4 +1,4 @@
-import { seatsInf, selectSeatsInf } from "./seat";
+import { seatsInf, selectSeatsInf } from './seat';
 
 export interface preOrderParams {
   cinemaId: number;
@@ -12,4 +12,6 @@ export interface preOrderParams {
   scheduleId: number;
   seatList: selectSeatsInf[];
   price: number;
+  address: string;
+  poster: string;
 }

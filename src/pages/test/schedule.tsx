@@ -127,11 +127,11 @@ export default function cinemasInfo() {
     async function fn() {
       const {
         data: { cinema },
-      } = await getCinemasInfo({ cinemaId });
+      } = await getCinemasInfo({ cinemaId: Number(cinemaId) });
       setCinemaInfo(cinema);
       const {
         data: { films },
-      } = await getCinemasShowInfo({ cinemaId });
+      } = await getCinemasShowInfo({ cinemaId: Number(cinemaId) });
       setFilms(films);
 
       const current = films.filter((res) => res.filmId === Number(filmId))[0];
