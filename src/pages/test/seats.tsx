@@ -1,7 +1,11 @@
 import useFetch from "@/hook/fetch";
 import { NoticeBar, Toast } from "antd-mobile";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import * as d3 from "d3";
+import * as d3Select from "d3-selection";
+import * as d3Zoom from "d3-zoom";
+
 import { getSeatDetails } from "../api/seat";
 import {
   seatingChartInf,
@@ -33,10 +37,9 @@ import {
   SEAT_DEFAULT_HEIGHT,
   SEAT_DEFAULT_WIDTH,
 } from "@/store/constants";
-import * as d3 from "d3";
-import * as d3Select from "d3-selection";
-import * as d3Zoom from "d3-zoom";
+
 import Loading from "./components/partLoading";
+import { generatePreOrder } from "../api/order";
 
 const initSeat = {
   schedule: {
@@ -79,9 +82,9 @@ const initSeat = {
       language: "",
     },
     advanceStopMins: 0,
-    endAT: 0,
+    endAt: 0,
     hall: {
-      hallId: "",
+      hallId: 0,
       name: "",
     },
     imagery: "",
@@ -113,7 +116,7 @@ const initSeat = {
 
 const initSeats = {
   hall: {
-    hallId: "",
+    hallId: 0,
     name: "",
     limit: "",
   },
@@ -129,7 +132,7 @@ export default function SeatPage() {
   let seatingChartContext: any = null;
   // let seatingChartContextWrap: any = null;
   // let zoomInstance = null;
-
+  const navigator = useNavigate();
   const { id = 0, showDate } = useParams();
   const [scheduleList, setScheduleList] = useState<Array<scheduleImf>>([]);
   const [showSchedule, setShowSchedule] = useState(false);
@@ -269,7 +272,6 @@ export default function SeatPage() {
 
   // 重新渲染
   function initSeatComposition() {
-    // console.log("重新渲染");
     zoomInstance.current = d3Zoom
       .zoom()
       .scaleExtent([1 / 2, 2])
@@ -357,7 +359,6 @@ export default function SeatPage() {
   const onSelectSeats = useCallback(
     (item: seatsInf, ev: React.MouseEvent<any, MouseEvent>) => {
       onSelectZoom(ev);
-
       // 选中以及反选
       let selected: selectSeatsInf = {
         columnId: item.columnId,
@@ -369,6 +370,7 @@ export default function SeatPage() {
         scheduleId: schedule.scheduleId,
         date: schedule.showAt,
         cinemaId: schedule.cinema.cinemaId,
+        // price:item.
       };
       let result = [];
       let isSelect = selectSeats.filter(
@@ -415,9 +417,33 @@ export default function SeatPage() {
     setSelectSeats(result);
   }
 
+  // 生成预支订单
+  async function onGeneratePreOrder() {
+    if (!selectSeats.length) {
+      return;
+    }
+    setLoading(true);
+    let { data } = await generatePreOrder({
+      cinemaId: schedule.cinema.cinemaId,
+      cinemaName: schedule.cinema.name,
+      showAt: schedule.showAt,
+      endAt: schedule.endAt,
+      hallId: schedule.hall.hallId,
+      hallName: schedule.hall.name,
+      filmId: schedule.film.filmId,
+      filmName: schedule.film.name,
+      seatList: selectSeats,
+      scheduleId: scheduleId,
+      price: Number(totalPrice) * 100,
+    });
+    setLoading(false);
+    Toast.show("订单生成成功，请尽快确认");
+    navigator(`/preorder/${data}`);
+  }
+
   const totalPrice = useMemo(() => {
     // console.log(selectSeats.length * schedule.price.sale);
-    return formatPrice(selectSeats.length * schedule.price.sale);
+    return formatPrice(selectSeats.length * schedule.price.sale, false);
   }, [selectSeats]);
 
   return (
@@ -553,8 +579,9 @@ export default function SeatPage() {
           "seating-choose",
           selectSeats.length ? "" : "disabled",
         ].join(" ")}
+        onClick={onGeneratePreOrder}
       >
-        {selectSeats.length ? <>共{totalPrice},确认选座</> : <>请先选座</>}
+        {selectSeats.length ? <>共￥{totalPrice},确认选座</> : <>请先选座</>}
       </div>
     </>
   );

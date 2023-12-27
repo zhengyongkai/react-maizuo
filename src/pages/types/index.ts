@@ -12,3 +12,6 @@ export type ResponsePageSize<T> = Promise<{
 }>;
 
 export type Response<T> = Promise<{ data: T; msg: string }>;
+
+// 操作类型 返回的是 ID 或者 其他
+export type OReseponse = Response<number>;

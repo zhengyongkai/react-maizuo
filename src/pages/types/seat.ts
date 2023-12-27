@@ -18,7 +18,7 @@ export interface seatInf {
   cinema: cinemasInfoImf;
   film: moviceImf;
   advanceStopMins: number;
-  endAT: number;
+  endAt: number;
   hall: hallInf;
   imagery: string;
   isMobileRequiredForLocking: boolean;
@@ -42,18 +42,23 @@ export interface seatRequestParamsInf {
   scheduleId: number;
 }
 
-export interface seatsInf {
+// 座位简短信息
+export interface seatsPosInf {
   columnId: string;
   columnNum: string;
-  coupleType: number;
-  isBroken: boolean;
-  isOccupied: boolean;
-  offerSeatId: string;
   rowId: string;
   rowNum: string;
   sectionId: string;
   sectionName: string;
 }
+
+// 座位详细信息
+export type seatsInf = {
+  coupleType: number;
+  isBroken: boolean;
+  isOccupied: boolean;
+  offerSeatId: string;
+} & seatsPosInf;
 
 export interface seatingChartInf {
   hall: hallInf;

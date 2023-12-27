@@ -1,0 +1,31 @@
+.order-wrapper {
+  padding-top: 48px;
+  .order-decoration {
+    background: url("@/assets/img/decorator.png");
+    height: 2px;
+    content: " ";
+  }
+  .order-contact {
+    background-color: #fff;
+    padding: 16px 8px;
+    display: flex;
+    align-items: center;
+
+    > :first-child {
+      fill: rgb(189, 192, 197);
+    }
+
+    > :last-child {
+      // margin-left: 0;
+      > :first-child {
+        font-size: 18px;
+        margin-bottom: 4px;
+      }
+
+      > :last-child {
+        font-size: 12px;
+        color: #a77924;
+      }
+    }
+  }
+}
