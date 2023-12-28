@@ -1,17 +1,18 @@
-import BackImg from '@/assets/img/back.png';
-import '@/pages/css/navTitle.scss';
-import { useNavigate } from 'react-router-dom';
+import BackImg from "@/assets/img/back.png";
+import "@/pages/css/navTitle.scss";
+import { useNavigate } from "react-router-dom";
 
 interface props {
   back?: boolean;
   title?: string;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 export default function navTitle(props: props) {
   let { back, title, children } = props;
 
   const navigate = useNavigate();
+
   return (
     <>
       <div className="navbar">

@@ -13,3 +13,5 @@ export const MAXSCALE = 1.5;
 export const AXION_MIDDLE_WIDTH = 194;
 
 export const COUPLE_SEAT_IS_RIGHT = 2;
+
+export const REMAINER = "COOKIE-REMAINER";
