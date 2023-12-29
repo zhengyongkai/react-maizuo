@@ -5,7 +5,7 @@ export interface preOrderParams {
   cinemaName: string;
   showAt: number;
   endAt: number;
-  hallId: number;
+  hallId: string;
   hallName: string;
   filmId: number;
   filmName: string;

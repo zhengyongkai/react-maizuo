@@ -1,36 +1,36 @@
-import useFetch from "@/hook/fetch";
-import { NoticeBar, Toast } from "antd-mobile";
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getSeatDetails } from "../api/seat";
+import useFetch from '@/hook/fetch';
+import { NoticeBar, Toast } from 'antd-mobile';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getSeatDetails } from '../api/seat';
 import {
   seatingChartInf,
   seatListInf,
   seatResponseInf,
   seatsInf,
-} from "../types/seat";
-import LoadingWrap from "./components/loading";
-import NavTitle from "./components/navTitle";
+} from '../types/seat';
+import LoadingWrap from './components/loading';
+import NavTitle from './components/navTitle';
 
-import "@/pages/css/seat.scss";
-import SvgIcon from "@/components/SvgIcon";
-import { getDaysNameFn, getTime } from "../utils/day";
+import '@/pages/css/seat.scss';
+import SvgIcon from '@/components/SvgIcon';
+import { getDaysNameFn, getTime } from '../utils/day';
 
 // import dayjs from "dayjs";
-import { getCinemasSchedule, getCinemasSeat } from "../api/cinema";
-import { scheduleImf } from "../types/schedule";
-import { formatPrice } from "../utils/price";
-import { showDialog } from "../utils/dialog";
+import { getCinemasSchedule, getCinemasSeat } from '../api/cinema';
+import { scheduleImf } from '../types/schedule';
+import { formatPrice } from '../utils/price';
+import { showDialog } from '../utils/dialog';
 import {
   AXION_MIDDLE_WIDTH,
   COUPLE_SEAT_IS_RIGHT,
   MAXSCALE,
   SEAT_DEFAULT_HEIGHT,
   SEAT_DEFAULT_WIDTH,
-} from "@/store/constants";
-import * as d3 from "d3";
-import * as d3Select from "d3-selection";
-import * as d3Zoom from "d3-zoom";
+} from '@/store/constants';
+import * as d3 from 'd3';
+import * as d3Select from 'd3-selection';
+import * as d3Zoom from 'd3-zoom';
 
 const initSeat = {
   schedule: {
@@ -38,47 +38,47 @@ const initSeat = {
       latitude: 0,
       longitude: 0,
       districtId: 0,
-      districtName: "",
+      districtName: '',
       Distance: 0,
-      address: "",
-      businessTime: "",
+      address: '',
+      businessTime: '',
       cinemaId: 0,
       cityId: 0,
-      cityName: "",
+      cityName: '',
       eTicketFlag: 0,
-      gpsAddress: "",
+      gpsAddress: '',
       isVisited: 0,
-      logoUrl: "",
+      logoUrl: '',
       lowPrice: 0,
-      name: "",
-      notice: "",
-      phone: "",
+      name: '',
+      notice: '',
+      phone: '',
       seatFlag: 0,
       telephones: [],
       district: {
         districtId: 0,
-        districtName: "",
+        districtName: '',
       },
     },
     film: {
       filmId: 0,
-      name: "",
-      category: "",
-      synopsis: "",
-      poster: "",
-      grade: "",
+      name: '',
+      category: '',
+      synopsis: '',
+      poster: '',
+      grade: '',
       actors: [],
       runtime: 0,
-      nation: "",
-      language: "",
+      nation: '',
+      language: '',
     },
     advanceStopMins: 0,
     endAt: 0,
     hall: {
-      hallId: 0,
-      name: "",
+      hallId: '',
+      name: '',
     },
-    imagery: "",
+    imagery: '',
     isMobileRequiredForLocking: false,
     isOnsell: false,
     lockSeatRulesInf: {
@@ -86,7 +86,7 @@ const initSeat = {
       rules: [],
     },
     maxSeatsCount: 0,
-    noticeMsg: "",
+    noticeMsg: '',
     price: {
       market: 0,
       premium: 0,
@@ -94,7 +94,7 @@ const initSeat = {
     },
     provider: {
       providerId: 0,
-      scheduleId: "",
+      scheduleId: '',
     },
     readNameAuth: {
       authType: 0,
@@ -107,9 +107,9 @@ const initSeat = {
 
 const initSeats = {
   hall: {
-    hallId: 0,
-    name: "",
-    limit: "",
+    hallId: '',
+    name: '',
+    limit: '',
   },
   height: 0,
   width: 0,
@@ -131,12 +131,12 @@ export default function SeatPage() {
   const [scheduleId, setScheduleId] = useState<number>(+id);
 
   const [seatingChartStyle, setSeatingChartStyle] = useState({
-    height: "275px",
-    width: "650px",
+    height: '275px',
+    width: '650px',
   });
 
   const [screenStyle, setScreenStyle] = useState({
-    left: "0px",
+    left: '0px',
   });
 
   const screen = useRef(null);
@@ -188,7 +188,7 @@ export default function SeatPage() {
         console.log(schedule.scheduleId);
         // console.log(data);
       } catch {
-        showDialog.show({ content: "该场次已经结束" });
+        showDialog.show({ content: '该场次已经结束' });
       }
     }
     if (schedule.film.filmId && schedule.cinema.cinemaId && showDate) {
@@ -199,39 +199,39 @@ export default function SeatPage() {
   function zoom(event: any) {
     // console.log(event);
     seatingChartContext.style(
-      "transform",
-      "translate(" +
+      'transform',
+      'translate(' +
         event.transform.x +
-        "px," +
+        'px,' +
         event.transform.y +
-        "px) scale(" +
+        'px) scale(' +
         event.transform.k +
-        ")"
+        ')'
     );
     seatingChartContext.style(
-      "-webkit-transform",
-      "translate(" +
+      '-webkit-transform',
+      'translate(' +
         event.transform.x +
-        "px," +
+        'px,' +
         event.transform.y +
-        "px) scale(" +
+        'px) scale(' +
         event.transform.k +
-        ")"
+        ')'
     );
 
     if (event.transform.k > MAXSCALE) {
-      screenCtx.style("transform", `scale(${MAXSCALE})`);
-      screenCtx.style("-webkit-transform", `scale(${MAXSCALE})`);
+      screenCtx.style('transform', `scale(${MAXSCALE})`);
+      screenCtx.style('-webkit-transform', `scale(${MAXSCALE})`);
     } else {
-      screenCtx.style("transform", `scale(${event.transform.k})`);
-      screenCtx.style("-webkit-transform", `scale(${event.transform.k})`);
+      screenCtx.style('transform', `scale(${event.transform.k})`);
+      screenCtx.style('-webkit-transform', `scale(${event.transform.k})`);
     }
     axionYCtx.style(
-      "transform",
+      'transform',
       `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
     );
     axionYCtx.style(
-      "-webkit-transform",
+      '-webkit-transform',
       `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
     );
 
@@ -249,7 +249,7 @@ export default function SeatPage() {
             ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) *
               AXION_MIDDLE_WIDTH) /
               2 +
-            "px",
+            'px',
         });
 
         const scaleX = event.transform.k;
@@ -270,7 +270,7 @@ export default function SeatPage() {
     zoomInstance.current = d3Zoom
       .zoom()
       .scaleExtent([1 / 2, 2])
-      .on("zoom", zoom);
+      .on('zoom', zoom);
 
     screenCtx = d3Select.select(screen.current);
     axionYCtx = d3Select.select(axionY.current);
@@ -284,8 +284,8 @@ export default function SeatPage() {
     const chartWidth = seatsList.width * SEAT_DEFAULT_WIDTH;
     const chartHeight = seatsList.height * SEAT_DEFAULT_HEIGHT;
     setSeatingChartStyle({
-      width: chartWidth + "px",
-      height: chartHeight + "px",
+      width: chartWidth + 'px',
+      height: chartHeight + 'px',
     });
     const currentK = window.innerWidth / chartWidth;
     let t = d3.zoomIdentity.scale(currentK);
@@ -320,12 +320,12 @@ export default function SeatPage() {
     const row = s.rowNum;
     if (s.coupleType === COUPLE_SEAT_IS_RIGHT) {
       return {
-        display: "none",
+        display: 'none',
       };
     }
     return {
-      left: (+column - 1) * SEAT_DEFAULT_WIDTH + "px",
-      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + "px",
+      left: (+column - 1) * SEAT_DEFAULT_WIDTH + 'px',
+      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + 'px',
     };
   }
   return (
@@ -403,11 +403,11 @@ export default function SeatPage() {
             <div className="seating-name">
               <div>{schedule.film.name}</div>
               <div onClick={() => setShowSchedule(!showSchedule)}>
-                {showSchedule ? "收起场次" : "展开场次"}
+                {showSchedule ? '收起场次' : '展开场次'}
               </div>
             </div>
             <div className="seating-info">
-              {getDaysNameFn(schedule.showAt, true)} {schedule.film.language}{" "}
+              {getDaysNameFn(schedule.showAt, true)} {schedule.film.language}{' '}
               {schedule.imagery}
             </div>
           </div>
@@ -418,7 +418,7 @@ export default function SeatPage() {
                   return (
                     <div
                       key={index}
-                      className={scheduleId === item.scheduleId ? "active" : ""}
+                      className={scheduleId === item.scheduleId ? 'active' : ''}
                       onClick={() => setScheduleId(item.scheduleId)}
                     >
                       <div>{getTime(item.showAt)}</div>

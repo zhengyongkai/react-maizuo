@@ -1,5 +1,5 @@
 export interface hallInf {
-  hallId: number;
+  hallId: string;
   name: string;
   limit?: string;
 }

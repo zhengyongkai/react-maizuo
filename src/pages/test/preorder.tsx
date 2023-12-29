@@ -1,37 +1,37 @@
-import useFetch from "@/hook/fetch";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getOrderById } from "../api/order";
-import NavTitle from "./components/navTitle";
-import decorator from "@/assets/img/decorator.png";
-import "@/pages/css/preOrder.scss";
-import Loading from "./components/loading";
-import SvgIcon from "@/components/SvgIcon";
-import { useSelector } from "react-redux";
-import { cardInf, cardListInf, user, userState } from "../types/user";
-import { getDate, getDaysNameFn, secondToMMSS } from "../utils/day";
-import { formatPrice } from "../utils/price";
-import { Checkbox, Dialog, Popup } from "antd-mobile";
-import { REMAINER } from "@/store/constants";
-import cookie from "@/pages/utils/cookie";
-import couponImg from "@/assets/img/coupon.png";
-import invoiceImg from "@/assets/img/invoice.png";
-import { QuestionCircleOutline, RightOutline } from "antd-mobile-icons";
+import useFetch from '@/hook/fetch';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOrderById } from '../api/order';
+import NavTitle from './components/navTitle';
+import decorator from '@/assets/img/decorator.png';
+import '@/pages/css/preOrder.scss';
+import Loading from './components/loading';
+import SvgIcon from '@/components/SvgIcon';
+import { useSelector } from 'react-redux';
+import { cardInf, cardListInf, user, userState } from '../types/user';
+import { getDate, getDaysNameFn, secondToMMSS } from '../utils/day';
+import { formatPrice } from '../utils/price';
+import { Checkbox, Dialog, Popup } from 'antd-mobile';
+import { REMAINER } from '@/store/constants';
+import cookie from '@/pages/utils/cookie';
+import couponImg from '@/assets/img/coupon.png';
+import invoiceImg from '@/assets/img/invoice.png';
+import { QuestionCircleOutline, RightOutline } from 'antd-mobile-icons';
 
 const initData = {
   cinemaId: 0,
-  cinemaName: "",
+  cinemaName: '',
   showAt: 0,
   endAt: 0,
-  hallId: 0,
-  hallName: "",
+  hallId: '',
+  hallName: '',
   filmId: 0,
-  filmName: "",
+  filmName: '',
   scheduleId: 0,
   seatList: [],
   price: 0,
-  address: "",
-  poster: "",
+  address: '',
+  poster: '',
 };
 
 export default function preOrder() {
@@ -39,7 +39,7 @@ export default function preOrder() {
   const seconds = useRef(cookie.getCookie(REMAINER) || 10 * 60);
   const [remainder, setRemainder] = useState(seconds.current);
   const time = useRef<NodeJS.Timeout>();
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const [showCard, setShowCard] = useState(false);
 
   const userCouponData = useSelector<userState, cardListInf[]>(
@@ -75,7 +75,7 @@ export default function preOrder() {
       if (seconds.current === 0) {
         clearInterval(time.current);
         Dialog.alert({
-          content: "订单已过期，请重新下单",
+          content: '订单已过期，请重新下单',
           onConfirm: () => {
             navigator(-1);
           },
@@ -129,7 +129,7 @@ export default function preOrder() {
                 {preOrderInfo.seatList.map((item, index) => {
                   return (
                     <span key={index}>
-                      {item.rowNum + "排" + (item.columnNum + "") + "座 "}
+                      {item.rowNum + '排' + (item.columnNum + '') + '座 '}
                     </span>
                   );
                 })}
