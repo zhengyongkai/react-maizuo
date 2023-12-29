@@ -1,45 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { getCinemasInfo, getCinemasShowInfo } from '../api/cinema';
-import { cinemasInfoResponseInfo, cinemasInfoImf } from '../types/cinema';
-import NavTitle from './components/navTitle';
-import locationImg from '@/assets/img/location.png';
-import phoneImg from '@/assets/img/phone.png';
-import triggleImg from '@/assets/img/triggle.png';
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { getCinemasInfo, getCinemasShowInfo } from "../api/cinema";
+import { cinemasInfoResponseInfo, cinemasInfoImf } from "../types/cinema";
+import NavTitle from "./components/navTitle";
+import locationImg from "@/assets/img/location.png";
+import phoneImg from "@/assets/img/phone.png";
+import triggleImg from "@/assets/img/triggle.png";
 
-import CinemaSwiper from './components/swiper';
-import '@/pages/css/cinemasInfo.scss';
+import CinemaSwiper from "./components/swiper";
+import "@/pages/css/cinemasInfo.scss";
 
-import { Swiper } from 'antd-mobile';
-import { anctorImf, detailsImf } from '../types/movice';
+import { Swiper } from "antd-mobile";
+import { anctorImf, detailsImf } from "../types/movice";
 
 export default function cinemasInfo() {
-  const { cinemaId = 0, filmId = '' } = useParams();
+  const { cinemaId = 0, filmId = "" } = useParams();
   const swiperRef = useRef<any>(null);
 
   const cinemasInfo = {
     Distance: 0,
-    address: '',
-    businessTime: '',
+    address: "",
+    businessTime: "",
     cinemaId: 0,
     cityId: -1,
-    cityName: '',
+    cityName: "",
     district: {
-      districtName: '',
+      districtName: "",
       districtId: 0,
     },
     districtId: 0,
-    districtName: '',
+    districtName: "",
     eTicketFlag: 0,
-    gpsAddress: '',
+    gpsAddress: "",
     isVisited: 0,
     latitude: 0,
-    logoUrl: '',
+    logoUrl: "",
     longitude: 0,
     lowPrice: 0,
-    name: '',
-    notice: '',
-    phone: '',
+    name: "",
+    notice: "",
+    phone: "",
     seatFlag: 1,
     services: [],
     telephones: [],
@@ -48,29 +48,29 @@ export default function cinemasInfo() {
 
   const defaultDetails = {
     actors: [],
-    category: '',
-    director: '',
+    category: "",
+    director: "",
     filmId: 0,
     filmType: {
-      name: '',
+      name: "",
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: '',
+      name: "",
       type: 0,
     },
-    language: '',
-    name: '',
-    nation: '',
+    language: "",
+    name: "",
+    nation: "",
     photos: [],
-    poster: '',
+    poster: "",
     premiereAt: 0,
     runtime: 0,
-    synopsis: '',
+    synopsis: "",
     timeType: 0,
-    videoId: '',
+    videoId: "",
     grade: 0,
     showDate: [],
   };
@@ -81,8 +81,8 @@ export default function cinemasInfo() {
     filmId: number;
     details: detailsImf;
   }>({
-    cinemaId: Number(cinemaId),
-    date: '',
+    cinemaId: +cinemaId,
+    date: "",
     filmId: 0,
     details: defaultDetails,
   });
@@ -95,23 +95,17 @@ export default function cinemasInfo() {
     async function fn() {
       const {
         data: { cinema },
-      } = await getCinemasInfo({ cinemaId: Number(cinemaId) });
+      } = await getCinemasInfo({ cinemaId: +cinemaId });
       setCinemaInfo(cinema);
       const {
         data: { films },
-      } = (await getCinemasShowInfo({ cinemaId: Number(cinemaId) })) as {
-        data: {
-          films: Array<detailsImf>;
-        };
-      };
+      } = await getCinemasShowInfo({ cinemaId: +cinemaId });
       setFilms(films);
-
-      // const currentIndex = films.indexOf((res) => res.filmId === Number(filmId))
-      const index = films.findIndex((res) => res.filmId === Number(filmId));
-      console.log(films.filter((res) => res.filmId === Number(filmId))[0]);
+      const index = films.findIndex((res) => res.filmId === +filmId);
+      console.log(films.filter((res) => res.filmId === +filmId)[0]);
       setParams({
         ...params,
-        details: films.filter((res) => res.filmId === Number(filmId))[0],
+        details: films.filter((res) => res.filmId === +filmId)[0],
       });
       setTimeout(() => {
         swiperRef.current.swiper.slideTo(index, 1000);
@@ -134,7 +128,7 @@ export default function cinemasInfo() {
       .reduce((pre, item) => {
         return pre.concat(item.name);
       }, [] as Array<string>)
-      .join(' ');
+      .join(" ");
   }
 
   return (
@@ -159,7 +153,7 @@ export default function cinemasInfo() {
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>
-            <a href={'tel:' + cinemaInfo.phone}>
+            <a href={"tel:" + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
@@ -186,8 +180,8 @@ export default function cinemasInfo() {
             {params.details.name} <span>{params.details.grade} 分</span>
           </div>
           <div>
-            {params.details.category} | {params.details.runtime}分钟 |{' '}
-            {params.details.director} |{' '}
+            {params.details.category} | {params.details.runtime}分钟 |{" "}
+            {params.details.director} |{" "}
             {getAnctorsString(params.details.actors)}
           </div>
         </div>

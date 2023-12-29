@@ -73,9 +73,9 @@ const initSeat = {
       language: "",
     },
     advanceStopMins: 0,
-    endAT: 0,
+    endAt: 0,
     hall: {
-      hallId: "",
+      hallId: 0,
       name: "",
     },
     imagery: "",
@@ -107,7 +107,7 @@ const initSeat = {
 
 const initSeats = {
   hall: {
-    hallId: "",
+    hallId: 0,
     name: "",
     limit: "",
   },
@@ -128,7 +128,7 @@ export default function SeatPage() {
   const [scheduleList, setScheduleList] = useState<Array<scheduleImf>>([]);
   const [showSchedule, setShowSchedule] = useState(false);
   const [seatsList, setSeatsList] = useState<seatingChartInf>(initSeats);
-  const [scheduleId, setScheduleId] = useState<number>(Number(id));
+  const [scheduleId, setScheduleId] = useState<number>(+id);
 
   const [seatingChartStyle, setSeatingChartStyle] = useState({
     height: "275px",
@@ -148,7 +148,7 @@ export default function SeatPage() {
 
   let [{ schedule }, loading] = useFetch<seatResponseInf>(
     () => {
-      return getSeatDetails({ scheduleId: Number(scheduleId) });
+      return getSeatDetails({ scheduleId: +scheduleId });
     },
     initSeat,
     [scheduleId]
@@ -324,8 +324,8 @@ export default function SeatPage() {
       };
     }
     return {
-      left: (Number(column) - 1) * SEAT_DEFAULT_WIDTH + "px",
-      top: (Number(row) - 1) * SEAT_DEFAULT_HEIGHT + "px",
+      left: (+column - 1) * SEAT_DEFAULT_WIDTH + "px",
+      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + "px",
     };
   }
   return (

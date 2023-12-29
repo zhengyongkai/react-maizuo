@@ -10,3 +10,7 @@ export function generatePreOrder(data: preOrderParams): OReseponse {
 export function getOrderById(orderId: number): Response<preOrderParams> {
   return request.get(`${BASE_URL}/order/getOrderById?orderId=${orderId}`);
 }
+
+export function getOrderByUser(): Response<preOrderParams[]> {
+  return request.get(`${BASE_URL}/order/getOrderByUserId`);
+}

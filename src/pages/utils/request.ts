@@ -4,22 +4,25 @@ import { clearUserData } from "@/store/common/user";
 
 import cookie from "./cookie";
 import store from "@/store/index";
+import {
+  X_CLIENT_INFO,
+  X_HOST,
+  X_Requested_With,
+} from "@/store/constants/header";
+import { TOKEN } from "@/store/constants";
 
 axios.interceptors.request.use((requestConfig) => {
   requestConfig.headers["X-Client-Info"] =
-    requestConfig.headers["X-Client-Info"] ??
-    '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}';
-  requestConfig.headers["X-Host"] =
-    requestConfig.headers["X-Host"] ?? "mall.film-ticket.film.list";
+    requestConfig.headers["X-Client-Info"] ?? X_CLIENT_INFO;
+  requestConfig.headers["X-Host"] = requestConfig.headers["X-Host"] ?? X_HOST;
   requestConfig.headers["X-Requested-With"] =
-    requestConfig.headers["X-Requested-With"] ?? "XMLHttpRequest";
-  requestConfig.headers["X-Token"] = cookie.getCookie("x-Token");
+    requestConfig.headers["X-Requested-With"] ?? X_Requested_With;
+  requestConfig.headers["X-Token"] = cookie.getCookie(TOKEN);
   return requestConfig;
 });
 
 axios.interceptors.response.use(
   (response) => {
-    //   location.href = "/#/login";
     switch (response.data.status) {
       case 500:
         Toast.show(response.data.msg);

@@ -41,24 +41,18 @@ export function getMoviceComingData(params: moviceParams) {
 export function getMoviceDetail(
   params: detailsParams
 ): Response<detailsResponseImf> {
-  return request.get(`${MAIZUO}?k=5840910`, {
+  return request.get(`${MAIZUO}`, {
     headers: {
       "X-Host": "mall.film-ticket.film.info",
-
-      "X-Client-Info":
-        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"340800"}',
     },
     params,
   });
 }
 
 export function getCinemas(params: cinemaRequestImf) {
-  return request.get(`${MAIZUO}?k=1064483`, {
+  return request.get(`${MAIZUO}`, {
     headers: {
       "X-Host": "mall.film-ticket.cinema.film-show-cinema",
-
-      "X-Client-Info":
-        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
     },
     params,
   });
@@ -69,8 +63,6 @@ export function getCinemasList(data: { cityId: number; cinemaIds: string }) {
     headers: {
       "X-Host": "mall.film-ticket.cinema.batch-cinema",
       "Content-Type": "application/x-www-form-urlencode",
-      "X-Client-Info":
-        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481","bc":"110100"}',
     },
   });
 }

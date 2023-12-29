@@ -1,21 +1,18 @@
-import request from '@/pages/utils/request';
-import { MAIZUO } from '../constant/baseUrl';
+import request from "@/pages/utils/request";
+import { MAIZUO } from "../constant/baseUrl";
 
 export function getLocationList() {
-  return request.get(`${MAIZUO}?k=564058`, {
+  return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.city.list',
+      "X-Host": "mall.film-ticket.city.list",
     },
   });
 }
 
 export function getLocation(params: { longitude: number; latitude: number }) {
-  return request.get(`${MAIZUO}?k=3592252`, {
+  return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.city.locate',
-
-      'X-Client-Info':
-        '{"a":"3000","ch":"1002","v":"5.2.1","e":"16986321061049067236884481"}',
+      "X-Host": "mall.film-ticket.city.locate",
     },
     params,
   });

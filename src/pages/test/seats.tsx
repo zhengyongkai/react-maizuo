@@ -146,7 +146,7 @@ export default function SeatPage() {
   const [scheduleList, setScheduleList] = useState<Array<scheduleImf>>([]);
   const [showSchedule, setShowSchedule] = useState(false);
   const [seatsList, setSeatsList] = useState<seatingChartInf>(initSeats);
-  const [scheduleId, setScheduleId] = useState<number>(Number(id));
+  const [scheduleId, setScheduleId] = useState<number>(+id);
 
   const [seatingChartStyle, setSeatingChartStyle] = useState({
     height: "275px",
@@ -170,7 +170,7 @@ export default function SeatPage() {
 
   let [{ schedule }] = useFetch<seatResponseInf>(
     () => {
-      return getSeatDetails({ scheduleId: Number(scheduleId) });
+      return getSeatDetails({ scheduleId: scheduleId });
     },
     initSeat,
     [scheduleId]
@@ -406,8 +406,8 @@ export default function SeatPage() {
       };
     }
     return {
-      left: (Number(column) - 1) * SEAT_DEFAULT_WIDTH + "px",
-      top: (Number(row) - 1) * SEAT_DEFAULT_HEIGHT + "px",
+      left: (+column - 1) * SEAT_DEFAULT_WIDTH + "px",
+      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + "px",
     };
   }
 
@@ -513,7 +513,7 @@ export default function SeatPage() {
       filmName: schedule.film.name,
       seatList: selectSeats,
       scheduleId: scheduleId,
-      price: Number(totalPrice) * 100,
+      price: +totalPrice * 100,
       address: filmsDetails.address,
       poster: filmsDetails.poster,
     });

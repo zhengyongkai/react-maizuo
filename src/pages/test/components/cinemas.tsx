@@ -1,30 +1,30 @@
 // import useFetch from "@/hook/fetch";
-import useLocation from '@/hook/location';
+import useLocation from "@/hook/location";
 
 import {
   getCinemas,
   getCinemasList,
   getMoviceDetail,
-} from '@/pages/api/movice';
+} from "@/pages/api/movice";
 import {
   cinemaListResponseImf,
   cinemaResponseImf,
   moviceImf,
   chinemaDetailImf,
   detailsImf,
-} from '@/pages/types/movice';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "@/pages/types/movice";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import '@/pages/css/cinemas.scss';
+import "@/pages/css/cinemas.scss";
 
-import NavTitle from './navTitle';
-import { Dropdown, List } from 'antd-mobile';
-import Loading from './partLoading';
-import { useSelector } from 'react-redux';
-import { tudeStateImf } from '@/types/location';
-import { getBetweenDistance } from '@/pages/utils/location';
-import Tab from './dateTab';
+import NavTitle from "./navTitle";
+import { Dropdown, List } from "antd-mobile";
+import Loading from "./partLoading";
+import { useSelector } from "react-redux";
+import { tudeStateImf } from "@/types/location";
+import { getBetweenDistance } from "@/pages/utils/location";
+import Tab from "./dateTab";
 
 interface sortTitleInf {
   title: string;
@@ -34,51 +34,51 @@ interface sortTitleInf {
 export default function cinemas() {
   const initSortTitle = {
     key: 1,
-    title: '离我最近',
+    title: "离我最近",
   };
 
   const menuRef = useRef<any>();
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
   );
-  const { id = '' } = useParams();
+  const { id = "" } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [cityName, setCityName] = useState('');
+  const [cityName, setCityName] = useState("");
   const [date, setDate] = useState(0);
   const navigator = useNavigate();
 
   const [params, setParams] = useState({
     filmId: 0,
     cityId: 0,
-    cinemaIds: '',
+    cinemaIds: "",
   });
 
   const [film, setFilm] = useState<detailsImf>({
     actors: [],
-    category: '',
-    director: '',
+    category: "",
+    director: "",
     filmId: 0,
     filmType: {
-      name: '',
+      name: "",
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: '',
+      name: "",
       type: 0,
     },
-    language: '',
-    name: '',
-    nation: '',
+    language: "",
+    name: "",
+    nation: "",
     photos: [],
-    poster: '',
+    poster: "",
     premiereAt: 0,
     runtime: 0,
-    synopsis: '',
+    synopsis: "",
     timeType: 0,
-    videoId: '',
+    videoId: "",
     grade: 0,
     showDate: [],
   });
@@ -100,9 +100,9 @@ export default function cinemas() {
 
   location((locale) => {
     setParams({
-      filmId: Number(id),
+      filmId: +id,
       cityId: locale.cityId,
-      cinemaIds: '',
+      cinemaIds: "",
       // cityName: params.cityName,
     });
   });
@@ -111,7 +111,7 @@ export default function cinemas() {
     async function fn() {
       const {
         data: { film },
-      } = await getMoviceDetail({ filmId: Number(id) });
+      } = await getMoviceDetail({ filmId: +id });
       setFilm(film);
     }
     fn();
@@ -139,13 +139,13 @@ export default function cinemas() {
   }, [params.filmId, params.cityId]);
 
   useEffect(() => {
-    const defaultTitle = '全城';
+    const defaultTitle = "全城";
     if (cinema.showCinemas.length) {
       setLoading(true);
 
       const cinemaIds = params.cinemaIds
         ? params.cinemaIds
-        : cinema.showCinemas[0].cinemaList.join(',');
+        : cinema.showCinemas[0].cinemaList.join(",");
       async function fn() {
         const {
           data: { cinemas },
@@ -201,12 +201,12 @@ export default function cinemas() {
         locationAttr.latitude,
         longitude,
         latitude
-      ).toFixed(1) + 'km'
+      ).toFixed(1) + "km"
     );
   }
 
   function formatPrice(price: number) {
-    const pre = '￥' + String(price).slice(0, 2);
+    const pre = "￥" + String(price).slice(0, 2);
     return pre;
   }
 
@@ -214,16 +214,16 @@ export default function cinemas() {
     const sortItem = [
       {
         key: 1,
-        title: '离我最近',
+        title: "离我最近",
       },
-      { key: 2, title: '价格最低' },
+      { key: 2, title: "价格最低" },
     ];
 
     return sortItem.map((res) => {
       return (
         <List.Item
           key={res.key}
-          className={sortTitle.key === res.key ? 'cinemas-sort-active' : ''}
+          className={sortTitle.key === res.key ? "cinemas-sort-active" : ""}
           arrow={false}
           onClick={() => onSortFn(res)}
         >
@@ -234,15 +234,15 @@ export default function cinemas() {
   }
 
   function onSortFn(type: sortTitleInf) {
-    let sortParams: 'Distance' | 'lowPrice' = 'Distance';
+    let sortParams: "Distance" | "lowPrice" = "Distance";
     switch (type.key) {
       case -1:
         break;
       case 1:
-        sortParams = 'Distance';
+        sortParams = "Distance";
         break;
       case 2:
-        sortParams = 'lowPrice';
+        sortParams = "lowPrice";
         break;
       default:
         break;
@@ -271,7 +271,7 @@ export default function cinemas() {
           onChange={(key, item) => {
             setParams({
               ...params,
-              cinemaIds: item.cinemaList.join(','),
+              cinemaIds: item.cinemaList.join(","),
             });
             setDate(item.showDate);
           }}
@@ -284,9 +284,9 @@ export default function cinemas() {
                   <div
                     key={index}
                     className={[
-                      'city-item',
-                      cityName === res ? 'cinemas-tabs-active' : '',
-                    ].join(' ')}
+                      "city-item",
+                      cityName === res ? "cinemas-tabs-active" : "",
+                    ].join(" ")}
                     onClick={() => cityItemsChange(res)}
                   >
                     {res}
@@ -316,7 +316,7 @@ export default function cinemas() {
                   <div className="cinemas-top">
                     <div>{item.name}</div>
                     <div>
-                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
+                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{" "}
                     </div>
                   </div>
                   <div className="cinemas-bottom">
