@@ -35,7 +35,7 @@ const orderPage = () => {
                 </div>
               </div>
               <div className="order-item-bottom">
-                <div>出票成功</div>
+                <div>{item.statusName}</div>
                 <div>再次购买</div>
               </div>
             </div>

@@ -15,3 +15,9 @@ export interface preOrderParams {
   address: string;
   poster: string;
 }
+
+export type preOrderEntity = preOrderParams & {
+  oNum: string;
+  statusName: string;
+  status: number;
+};
