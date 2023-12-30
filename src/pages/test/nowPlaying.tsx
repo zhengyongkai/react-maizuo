@@ -1,22 +1,18 @@
-/*
- * @Author: 郑永楷
- * @LastEditors: 郑永楷
- * @Description: file content
- */
 import { memo, useEffect, useState } from 'react';
-import { getMoviceData, getMoviceComingData } from '@/pages/api/movice';
+import { getMoviceData } from '@/pages/api/movice';
 import { detailsImf, moviceImf } from '@/pages/types/movice';
-import '@/pages/css/movice.scss';
-import { useParams } from 'react-router-dom';
-import useLocation from '@/hook/location';
-import Loading from './loading';
+// import { cityStateImf } from '@/types/location';
+
 import { useSelector } from 'react-redux';
 
 import type { cityStateImf } from '@/types/location';
 import { InfiniteScroll } from 'antd-mobile';
-import MovieItems from './movieItems';
 
-function comingSoon() {
+import useLocation from '@/hook/location';
+
+import MovieItems from './components/movieItems';
+
+function nowPlaying() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const location = useLocation();
@@ -31,19 +27,21 @@ function comingSoon() {
   });
 
   async function getMoviceDataList() {
-    const api = getMoviceComingData;
-    const {
-      data: { films, total },
-    } = await api(page);
-    if (films.length === 0) {
-      return setHasMore(false);
+    if (page.cityId) {
+      const api = getMoviceData;
+      const {
+        data: { films, total },
+      } = await api(page);
+      if (films.length === 0) {
+        return setHasMore(false);
+      }
+      const list = movice.concat(films);
+      setMovice(list);
+      setPage({
+        ...page,
+        total,
+      });
     }
-    const list = movice.concat(films);
-    setMovice(list);
-    setPage({
-      ...page,
-      total,
-    });
   }
 
   location((locale) => {
@@ -67,7 +65,7 @@ function comingSoon() {
     <>
       <div style={{ backgroundColor: '#fff' }}>
         {movice.map((item, index) => {
-          return <MovieItems item={item} type={2} key={index} />;
+          return <MovieItems item={item} type={1} key={index}></MovieItems>;
         })}
         <InfiniteScroll loadMore={loadMore} hasMore={hasMore}></InfiniteScroll>
       </div>
@@ -75,4 +73,4 @@ function comingSoon() {
   );
 }
 
-export default memo(comingSoon);
+export default memo(nowPlaying);

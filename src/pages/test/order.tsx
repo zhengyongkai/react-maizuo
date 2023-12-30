@@ -1,7 +1,7 @@
 import useFetch from '@/hook/fetch';
 import { getOrderByUser } from '@/pages/api/order';
-import NavTitle from './navTitle';
-import Loading from './partLoading';
+import NavTitle from './components/navTitle';
+import Loading from './components/partLoading';
 import '@/pages/css/order.scss';
 import { getDaysNameFn } from '@/pages/utils/day';
 import { formatPrice } from '@/pages/utils/price';
