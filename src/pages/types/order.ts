@@ -14,10 +14,12 @@ export interface preOrderParams {
   price: number;
   address: string;
   poster: string;
+  cinemaPhone: string;
 }
 
 export type preOrderEntity = preOrderParams & {
   oNum: string;
   statusName: string;
   status: number;
+  orderId: number;
 };

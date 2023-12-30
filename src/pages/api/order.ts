@@ -7,7 +7,7 @@ export function generatePreOrder(data: preOrderParams): OReseponse {
   return request.post(`${BASE_URL}/order/addOrder`, data);
 }
 
-export function getOrderById(orderId: number): Response<preOrderParams> {
+export function getOrderById(orderId: number): Response<preOrderEntity> {
   return request.get(`${BASE_URL}/order/getOrderById?orderId=${orderId}`);
 }
 

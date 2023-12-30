@@ -516,6 +516,7 @@ export default function SeatPage() {
       price: +totalPrice * 100,
       address: filmsDetails.address,
       poster: filmsDetails.poster,
+      cinemaPhone: filmsDetails.phone,
     });
     setLoading(false);
     Toast.show('订单生成成功，请尽快确认');

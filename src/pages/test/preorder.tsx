@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOrderById } from '../api/order';
 import NavTitle from './components/navTitle';
-import decorator from '@/assets/img/decorator.png';
 import '@/pages/css/preOrder.scss';
 import Loading from './components/loading';
 import SvgIcon from '@/components/SvgIcon';
@@ -13,10 +12,10 @@ import { getDate, getDaysNameFn, secondToMMSS } from '../utils/day';
 import { formatPrice } from '../utils/price';
 import { Checkbox, Dialog, Popup } from 'antd-mobile';
 import { REMAINER } from '@/store/constants';
-import cookie from '@/pages/utils/cookie';
 import couponImg from '@/assets/img/coupon.png';
 import invoiceImg from '@/assets/img/invoice.png';
 import { QuestionCircleOutline, RightOutline } from 'antd-mobile-icons';
+import useCountDown from '@/hook/countdown';
 
 const initData = {
   cinemaId: 0,
@@ -32,12 +31,16 @@ const initData = {
   price: 0,
   address: '',
   poster: '',
+  cinemaPhone: '',
+  orderId: 0,
+  status: 0,
+  statusName: '',
+  oNum: '',
 };
 
 export default function preOrder() {
   const navigator = useNavigate();
-  const seconds = useRef(cookie.getCookie(REMAINER) || 10 * 60);
-  const [remainder, setRemainder] = useState(seconds.current);
+
   const time = useRef<NodeJS.Timeout>();
   const { id = '' } = useParams();
   const [showCard, setShowCard] = useState(false);
@@ -70,27 +73,14 @@ export default function preOrder() {
 
   const [coupon, setCoupon] = useState<Array<number>>([]);
 
-  useEffect(() => {
-    time.current = setInterval(() => {
-      if (seconds.current === 0) {
-        clearInterval(time.current);
-        Dialog.alert({
-          content: '订单已过期，请重新下单',
-          onConfirm: () => {
-            navigator(-1);
-          },
-        });
-        return;
-      }
-      seconds.current--;
-      setRemainder(seconds.current);
-      cookie.setCookie(REMAINER, seconds.current);
-    }, 1000);
-    return () => {
-      clearInterval(time.current);
-      // cookie.removeCookie(REMAINER);
-    };
-  }, []);
+  const [remainder] = useCountDown(10 * 60, REMAINER, () => {
+    Dialog.alert({
+      content: '订单已过期，请重新下单',
+      onConfirm: () => {
+        navigator(-1);
+      },
+    });
+  });
 
   const price = useMemo(() => {
     const result = coupon.reduce((pre, item) => {
@@ -192,7 +182,9 @@ export default function preOrder() {
             <span>实付</span>
             {price}
           </div>
-          <div>提交订单</div>
+          <div onClick={() => navigator(`/orderInfo/${preOrderInfo.orderId}`)}>
+            提交订单
+          </div>
         </div>
       </Loading>
       <Popup
