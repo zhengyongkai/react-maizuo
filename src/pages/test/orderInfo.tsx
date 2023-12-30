@@ -15,7 +15,7 @@ import { formatPrice } from '../utils/price';
 import phoneImg from '@/assets/img/phone.png';
 import CopyText from './components/copyText';
 import { Checkbox, Radio } from 'antd-mobile';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const initData = {
   cinemaId: 0,
@@ -56,8 +56,10 @@ function OrderInfoPage() {
 
   async function pay() {
     const { data } = await payOrder();
-    console.log(data);
-    window.location.href = data;
+    if (payRef.current) {
+      payRef.current.innerHTML = data;
+      document.getElementsByTagName('form')[0].submit();
+    }
   }
 
   return (
@@ -148,6 +150,7 @@ function OrderInfoPage() {
           <div onClick={pay}>立即支付</div>
         </div>
       </div>
+      <div ref={payRef}></div>
     </Loading>
   );
 }

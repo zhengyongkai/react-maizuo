@@ -45,6 +45,7 @@ import CouponPage from '@/pages/test/components/coupon';
 import CinemasInfo from '@/pages/test//schedule';
 import { Navigate } from 'react-router-dom';
 import OrderInfoPage from '@/pages/test/orderInfo';
+import OrderQuery from '@/pages/test/orderquery';
 
 export interface RouteObjectImf {
   path: string;
@@ -166,6 +167,13 @@ const Router: RouteObjectImf[] = [
   {
     path: 'orderInfo/:id',
     element: <OrderInfoPage />,
+    meta: {
+      login: true,
+    },
+  },
+  {
+    path: 'orderquery',
+    element: <OrderQuery />,
     meta: {
       login: true,
     },
