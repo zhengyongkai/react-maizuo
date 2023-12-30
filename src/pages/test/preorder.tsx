@@ -36,6 +36,7 @@ const initData = {
   status: 0,
   statusName: '',
   oNum: '',
+  createDate: '',
 };
 
 export default function preOrder() {

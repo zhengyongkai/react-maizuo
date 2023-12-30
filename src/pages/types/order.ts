@@ -22,4 +22,5 @@ export type preOrderEntity = preOrderParams & {
   statusName: string;
   status: number;
   orderId: number;
+  createDate: string;
 };
