@@ -1,6 +1,6 @@
 import useFetch from '@/hook/fetch';
 import NavTitle from './components/navTitle';
-import { getOrderById } from '../api/order';
+import { getOrderById, payOrder } from '../api/order';
 import { useParams } from 'react-router-dom';
 import Loading from './components/partLoading';
 import orderBg from '@/assets/img/order_bg.png';
@@ -15,6 +15,7 @@ import { formatPrice } from '../utils/price';
 import phoneImg from '@/assets/img/phone.png';
 import CopyText from './components/copyText';
 import { Checkbox, Radio } from 'antd-mobile';
+import { useRef } from 'react';
 
 const initData = {
   cinemaId: 0,
@@ -39,6 +40,7 @@ const initData = {
 };
 
 function OrderInfoPage() {
+  const payRef = useRef<HTMLDivElement>(null);
   const { id = '' } = useParams();
   const [orderInfo, loading] = useFetch(
     () => {
@@ -51,6 +53,12 @@ function OrderInfoPage() {
   const [remainer] = useCountDown(60 * 15);
 
   const userData = useSelector<userState, user>((state) => state.user.userData);
+
+  async function pay() {
+    const { data } = await payOrder();
+    console.log(data);
+    window.location.href = data;
+  }
 
   return (
     <Loading loading={loading}>
@@ -137,7 +145,7 @@ function OrderInfoPage() {
           <div>
             <SvgIcon name="custom" size={30}></SvgIcon>
           </div>
-          <div>立即支付</div>
+          <div onClick={pay}>立即支付</div>
         </div>
       </div>
     </Loading>

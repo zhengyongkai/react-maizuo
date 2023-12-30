@@ -6,6 +6,9 @@ import { viteMockServe } from 'vite-plugin-mock';
 
 export default defineConfig(({ command, mode }) => {
   return {
+    server: {
+      host: '0.0.0.0',
+    },
     plugins: [
       react(),
       viteMockServe({

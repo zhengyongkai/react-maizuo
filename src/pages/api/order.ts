@@ -14,3 +14,7 @@ export function getOrderById(orderId: number): Response<preOrderEntity> {
 export function getOrderByUser(): Response<preOrderEntity[]> {
   return request.get(`${BASE_URL}/order/getOrderByUserId`);
 }
+
+export function payOrder(): Response<string> {
+  return request.post(`${BASE_URL}/order/payOrder`);
+}

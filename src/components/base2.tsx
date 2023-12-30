@@ -1,12 +1,12 @@
-import React, { createRef } from "react";
+import React, { createRef } from 'react';
 
 class Children extends React.Component {
   state = {
-    data: "我是儿子的名字",
+    data: '我是儿子的名字',
   };
   changeData() {
     this.setState({
-      data: "我是改了名的儿子",
+      data: '我是改了名的儿子',
     });
   }
   render() {
@@ -15,7 +15,7 @@ class Children extends React.Component {
 }
 
 export default class Parent extends React.Component {
-  ref = createRef<HTMLDivElement | null>();
+  ref = createRef<HTMLDivElement | null>(null);
   render() {
     return (
       <>
