@@ -15,8 +15,13 @@ export function getOrderByUser(): Response<preOrderEntity[]> {
   return request.get(`${BASE_URL}/order/getOrderByUserId`);
 }
 
-export function payOrder(): Response<string> {
-  return request.post(`${BASE_URL}/order/payOrder`);
+export function payOrder(data: {
+  oNum: string;
+  price: number;
+  subject: string;
+  orderId: number;
+}): Response<string> {
+  return request.post(`${BASE_URL}/order/payOrder`, data);
 }
 export function queryOrder(data: {
   out_trade_no: string;

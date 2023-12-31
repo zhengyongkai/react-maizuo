@@ -45,7 +45,7 @@ import CouponPage from '@/pages/test/components/coupon';
 import CinemasInfo from '@/pages/test//schedule';
 import { Navigate } from 'react-router-dom';
 import OrderInfoPage from '@/pages/test/orderInfo';
-import OrderQuery from '@/pages/test/orderquery';
+import OrderQuery from '@/pages/test/orderQuery';
 
 export interface RouteObjectImf {
   path: string;

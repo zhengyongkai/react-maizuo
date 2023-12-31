@@ -37,6 +37,7 @@ const initData = {
   statusName: '',
   oNum: '',
   createDate: '',
+  tradeNo: '',
 };
 
 function OrderInfoPage() {
@@ -55,11 +56,21 @@ function OrderInfoPage() {
   const userData = useSelector<userState, user>((state) => state.user.userData);
 
   async function pay() {
-    const { data } = await payOrder();
-    if (payRef.current) {
-      payRef.current.innerHTML = data;
-      document.getElementsByTagName('form')[0].submit();
-    }
+    const { data } = await payOrder({
+      oNum: orderInfo.oNum,
+      price: +formatPrice(orderInfo.price, false),
+      subject: orderInfo.filmName + '(' + orderInfo.seatList.length + '张)',
+      orderId: orderInfo.orderId,
+    });
+
+    // return;
+
+    setTimeout(() => {
+      if (payRef.current) {
+        payRef.current.innerHTML = data;
+        document.getElementsByTagName('form')[0].submit();
+      }
+    }, 500);
   }
 
   return (
