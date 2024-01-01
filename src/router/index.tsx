@@ -137,6 +137,9 @@ const Router: RouteObjectImf[] = [
   {
     path: 'seat/:id/:showDate',
     element: <SeatPage></SeatPage>,
+    meta: {
+      login: true,
+    },
   },
   {
     path: 'rate/:filmId',

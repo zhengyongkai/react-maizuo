@@ -37,6 +37,8 @@ const initData = {
   statusName: '',
   oNum: '',
   createDate: '',
+  tradeNo: '',
+  tradeTime: '',
 };
 
 export default function preOrder() {

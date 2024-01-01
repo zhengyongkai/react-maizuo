@@ -27,7 +27,6 @@ export default function useCountDown(
     }, 1000);
     return () => {
       clearInterval(time.current);
-      // cookie.removeCookie(REMAINER);
     };
   }, []);
 

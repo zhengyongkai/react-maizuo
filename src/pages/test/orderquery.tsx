@@ -42,7 +42,7 @@ export default function Orderquery() {
                   title="支付成功"
                   description="请前往我的订单页查看"
                 />
-                <Button onClick={() => navigator('/name//my')}>返回我的</Button>
+                <Button onClick={() => navigator('/order')}>返回订单页</Button>
               </div>
             </>
           ) : (

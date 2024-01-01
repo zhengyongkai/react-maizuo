@@ -5,19 +5,27 @@ import Loading from './components/partLoading';
 import '@/pages/css/order.scss';
 import { getDaysNameFn } from '@/pages/utils/day';
 import { formatPrice } from '@/pages/utils/price';
+import { useNavigate } from 'react-router-dom';
 
 const orderPage = () => {
   const [orderList, loading] = useFetch(async () => getOrderByUser(), [], []);
-
+  const navigate = useNavigate();
   return (
     <Loading loading={loading}>
       <div>
-        <NavTitle back title={'电影订单'}></NavTitle>
+        <NavTitle
+          backFn={() => navigate('/name/my')}
+          back
+          title={'电影订单'}
+        ></NavTitle>
       </div>
       <div className="order-wrapper">
         {orderList.map((item) => {
           return (
-            <div className="order-item">
+            <div
+              className="order-item"
+              onClick={() => navigate(`/orderInfo/${item.orderId}`)}
+            >
               <div className="order-item-top">
                 <div className="order-item-poster">
                   <img src={item.poster} alt="" />

@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import NavTitle from './navTitle';
 
 import '@/pages/css/coupon.scss';
-import { formatPrice } from '@/pages/utils/price';
-import { getDate } from '@/pages/utils/day';
+
 import CouponItem from '@/pages/components/Conmon/couponItem';
 
 function couponPage() {
