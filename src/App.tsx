@@ -3,20 +3,20 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from 'react';
 
-import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
-import Router, { RouteObjectImf } from "./router";
-import KeepAlive from "react-activation";
-import RouterLocation from "./components/Route/routeFc";
-import { useDispatch, useSelector } from "react-redux";
-import { userState } from "./pages/types/user";
+import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
+import Router, { RouteObjectImf } from './router';
+import KeepAlive from 'react-activation';
+import RouterLocation from './components/Route/routeFc';
+import { useDispatch, useSelector } from 'react-redux';
+import { userState } from './pages/types/user';
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from "./store/common/location";
-import { getUserCouponThunk, getUserDataThunk } from "./store/common/user";
-import AuthHoc from "./components/Auth/authFc";
+} from './store/common/location';
+import { getUserCouponThunk, getUserDataThunk } from './store/common/user';
+import AuthHoc from './components/Auth/authFc';
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {

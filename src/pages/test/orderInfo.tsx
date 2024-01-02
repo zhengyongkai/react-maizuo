@@ -1,51 +1,52 @@
-import useFetch from '@/hook/fetch';
-import NavTitle from './components/navTitle';
-import { getOrderById, payOrder } from '../api/order';
-import { useParams } from 'react-router-dom';
-import Loading from './components/partLoading';
-import '@/pages/css/order_info.scss';
-import SvgIcon from '@/components/SvgIcon';
-import OrderCardImg from '@/assets/img/order_card.png';
-import OrderCompleteImg from '@/assets/img/order_complete.png';
-import useCountDown from '@/hook/countdown';
-import { getDate, getDaysNameFn, secondToMMSS } from '../utils/day';
-import { useSelector } from 'react-redux';
-import { user, userState } from '../types/user';
-import { formatPrice } from '../utils/price';
-import phoneImg from '@/assets/img/phone.png';
-import CopyText from './components/copyText';
-import { Checkbox, Radio, Toast } from 'antd-mobile';
-import { useRef, useState } from 'react';
-import QRCode from 'qrcode.react';
-import html2canvas from 'html2canvas';
+import useFetch from "@/hook/fetch";
+import NavTitle from "./components/navTitle";
+import { getOrderById, payOrder } from "../api/order";
+import { useParams } from "react-router-dom";
+import Loading from "./components/partLoading";
+import "@/pages/css/order_info.scss";
+import SvgIcon from "@/components/SvgIcon";
+import OrderCardImg from "@/assets/img/order_card.png";
+import OrderCompleteImg from "@/assets/img/order_complete.png";
+import useCountDown from "@/hook/countdown";
+import { getDate, getDaysNameFn, secondToMMSS } from "../utils/day";
+import { useSelector } from "react-redux";
+import { user, userState } from "../types/user";
+import { formatPrice } from "../utils/price";
+import phoneImg from "@/assets/img/phone.png";
+import CopyText from "./components/copyText";
+import { Checkbox, Radio, Toast } from "antd-mobile";
+import { useRef, useState } from "react";
+import QRCode from "qrcode.react";
+import html2canvas from "html2canvas";
+import { changeToCanvas } from "../utils";
 
 const initData = {
   cinemaId: 0,
-  cinemaName: '',
+  cinemaName: "",
   showAt: 0,
   endAt: 0,
-  hallId: '',
-  hallName: '',
+  hallId: "",
+  hallName: "",
   filmId: 0,
-  filmName: '',
+  filmName: "",
   scheduleId: 0,
   seatList: [],
   price: 0,
-  address: '',
-  poster: '',
-  cinemaPhone: '',
+  address: "",
+  poster: "",
+  cinemaPhone: "",
   orderId: 0,
   status: 0,
-  statusName: '',
-  oNum: '',
+  statusName: "",
+  oNum: "",
   createDate: 0,
-  tradeNo: '',
+  tradeNo: "",
   tradeTime: 0,
 };
 
 function OrderInfoPage() {
   const payRef = useRef<HTMLDivElement>(null);
-  const { id = '' } = useParams();
+  const { id = "" } = useParams();
   const orderRef = useRef<HTMLDivElement>(null);
   const [orderInfo, loading] = useFetch(
     () => {
@@ -63,7 +64,7 @@ function OrderInfoPage() {
     const { data } = await payOrder({
       oNum: orderInfo.oNum,
       price: +formatPrice(orderInfo.price, false),
-      subject: orderInfo.filmName + '(' + orderInfo.seatList.length + '张)',
+      subject: orderInfo.filmName + "(" + orderInfo.seatList.length + "张)",
       orderId: orderInfo.orderId,
     });
 
@@ -72,13 +73,13 @@ function OrderInfoPage() {
     setTimeout(() => {
       if (payRef.current) {
         payRef.current.innerHTML = data;
-        document.getElementsByTagName('form')[0].submit();
+        document.getElementsByTagName("form")[0].submit();
       }
     }, 500);
   }
 
   const orderStatusRender = () => {
-    console.log(orderInfo.status);
+    // console.log(orderInfo.status);
     if (orderInfo.status === 0) {
       return (
         <>
@@ -135,14 +136,17 @@ function OrderInfoPage() {
 
   function generateImg() {
     if (orderRef.current) {
+      changeToCanvas(orderRef.current);
+
       html2canvas(orderRef.current, {
         useCORS: true,
+        allowTaint: true, //开启跨域
       }).then((canvas) => {
-        Toast.show('生成图片成功');
-        const link = document.createElement('a');
+        Toast.show("生成图片成功");
+        const link = document.createElement("a");
         link.href = canvas.toDataURL();
-        link.setAttribute('download', '订单详情.png');
-        link.style.display = 'none';
+        link.setAttribute("download", "订单详情.png");
+        link.style.display = "none";
         document.body.appendChild(link);
         link.click();
       });
@@ -175,7 +179,7 @@ function OrderInfoPage() {
               {orderInfo.seatList.map((item, index) => {
                 return (
                   <span key={index}>
-                    {item.rowNum + '排' + (item.columnNum + '') + '座 '}
+                    {item.rowNum + "排" + (item.columnNum + "") + "座 "}
                   </span>
                 );
               })}
@@ -200,7 +204,7 @@ function OrderInfoPage() {
             <div>{orderInfo.address}</div>
           </div>
           <div className="order-tel">
-            <a href={'tel:' + orderInfo.cinemaPhone}>
+            <a href={"tel:" + orderInfo.cinemaPhone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
@@ -225,22 +229,27 @@ function OrderInfoPage() {
           )}
         </div>
         {orderInfo.status === 0 ? (
+          <div className="order-pay">
+            <div>支付方式</div>
+            <Radio.Group value={"1"} disabled>
+              <Radio value={"1"}>支付宝</Radio>
+            </Radio.Group>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+
+      <div className="order-info-bottom">
+        {orderInfo.status === 0 ? (
           <>
-            <div className="order-pay">
-              <div>支付方式</div>
-              <Radio.Group>
-                <Radio value={'1'}>支付宝</Radio>
-              </Radio.Group>
+            <div>
+              <SvgIcon name="custom" size={30}></SvgIcon>
             </div>
-            <div className="order-info-bottom">
-              <div>
-                <SvgIcon name="custom" size={30}></SvgIcon>
-              </div>
-              <div onClick={pay}>立即支付</div>
-            </div>
+            <div onClick={pay}>立即支付</div>
           </>
         ) : (
-          <div className="order-info-bottom">
+          <>
             <div>
               <SvgIcon
                 name="order_img"
@@ -249,7 +258,7 @@ function OrderInfoPage() {
               ></SvgIcon>
             </div>
             <div onClick={pay}>重新购买</div>
-          </div>
+          </>
         )}
       </div>
     </Loading>

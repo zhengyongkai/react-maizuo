@@ -1,11 +1,12 @@
-import useFetch from '@/hook/fetch';
-import { getOrderByUser } from '@/pages/api/order';
-import NavTitle from './components/navTitle';
-import Loading from './components/partLoading';
-import '@/pages/css/order.scss';
-import { getDaysNameFn } from '@/pages/utils/day';
-import { formatPrice } from '@/pages/utils/price';
-import { useNavigate } from 'react-router-dom';
+import useFetch from "@/hook/fetch";
+import { getOrderByUser } from "@/pages/api/order";
+import NavTitle from "./components/navTitle";
+import Loading from "./components/partLoading";
+import "@/pages/css/order.scss";
+import { getDaysNameFn } from "@/pages/utils/day";
+import { formatPrice } from "@/pages/utils/price";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const orderPage = () => {
   const [orderList, loading] = useFetch(async () => getOrderByUser(), [], []);
@@ -14,15 +15,16 @@ const orderPage = () => {
     <Loading loading={loading}>
       <div>
         <NavTitle
-          backFn={() => navigate('/name/my')}
+          backFn={() => navigate("/name/my")}
           back
-          title={'电影订单'}
+          title={"电影订单"}
         ></NavTitle>
       </div>
       <div className="order-wrapper">
         {orderList.map((item) => {
           return (
             <div
+              key={item.cinemaId}
               className="order-item"
               onClick={() => navigate(`/orderInfo/${item.orderId}`)}
             >
