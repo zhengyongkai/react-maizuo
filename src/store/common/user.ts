@@ -3,9 +3,9 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { getCardList, getUserData } from "@/pages/api/user";
-import { cardListInf, user } from "@/pages/types/user";
-import cookie from "@/pages/utils/cookie";
+import { getCardList, getUserData } from "@/api/user";
+import { cardListInf, user } from "@/types/user";
+import cookie from "@/utils/cookie";
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOKEN } from "../constants";
 

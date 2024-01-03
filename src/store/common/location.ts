@@ -1,17 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { showDialog } from "@/pages/utils/dialog";
-import { getLocationList, getLocation } from "@/pages/api/location";
+
+import { getLocationList, getLocation } from "@/api/location";
 
 import {
   PERMISSION_DENIED,
   POSITION_UNAVAILABLE,
   TIMEOUT,
-} from "@/pages/constant/geolocation";
-import { getAddress } from "@/pages/utils/location";
+} from "@/constant/geolocation";
+import { getAddress } from "@/utils/location";
 
 import type { locationResultImf, initialStateImf } from "@/types/location";
-import cookie from "@/pages/utils/cookie";
-import { Dialog, Modal } from "antd-mobile";
+import cookie from "@/utils/cookie";
 
 const initialState: initialStateImf = {
   locale: {

@@ -1,5 +1,5 @@
-import Login from "@/pages/test/components/login";
-import { userState } from "@/pages/types/user";
+import Login from "@/page/login/login";
+import { userState } from "@/types/user";
 import React from "react";
 import { useSelector } from "react-redux";
 

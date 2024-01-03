@@ -1,5 +1,5 @@
-import cookie from '@/pages/utils/cookie';
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import cookie from "@/utils/cookie";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 
 export default function useCountDown(
   second: number,

@@ -3,7 +3,7 @@
  * @LastEditors: 郑永楷
  * @Description: 用户选择座位 reducers
  */
-import { seatsInf } from "@/pages/types/seat";
+import { seatsInf } from "@/types/seat";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateProps {
