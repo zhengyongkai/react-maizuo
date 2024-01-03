@@ -21,7 +21,7 @@ export function changeToCanvas(element: HTMLDivElement) {
     // 除去 # 这个属性 拿到对应值
     const id = childNodes.href.baseVal.slice(1);
     // 拿到 Symbol 标签
-    let symbol: any = document.getElementById(id);
+    let symbol: any = document.getElementById(id)?.cloneNode(true);
     // 获取填充颜色
     let fill = window.getComputedStyle(node)['fill'];
     // 填充颜色
