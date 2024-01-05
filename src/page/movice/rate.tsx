@@ -177,47 +177,45 @@ const RatePage = () => {
           <div>
             {esimateList.list.map((item, key) => {
               return (
-                <>
-                  <div key={key} className={Styles['esimate-wrapper']}>
-                    <div>
-                      <img src={item.userInfo.headIcon} alt="" />
-                    </div>
-                    <div>
-                      <div className={Styles['esimate-header']}>
+                <div key={key} className={Styles['esimate-wrapper']}>
+                  <div>
+                    <img src={item.userInfo.headIcon} alt="" />
+                  </div>
+                  <div>
+                    <div className={Styles['esimate-header']}>
+                      <div>
+                        <div>{item.userInfo.nickName}</div>
                         <div>
-                          <div>{item.userInfo.nickName}</div>
-                          <div>
-                            <Rate
-                              readOnly
-                              value={item.rate}
-                              count={5}
-                              style={{
-                                '--star-size': '10px',
-                              }}
-                            />
-                            <span
-                              style={{
-                                marginLeft: 10,
-                                fontSize: 10,
-                                color: '#faaf00',
-                              }}
-                            >
-                              {item.rate}分
-                            </span>
-                          </div>
-                        </div>
-                        <div className={Styles['esimate-like']}>
-                          <img src={like} alt="" />
-                          <span> {item.like}</span>
+                          <Rate
+                            readOnly
+                            value={item.rate}
+                            count={5}
+                            style={{
+                              '--star-size': '10px',
+                            }}
+                          />
+                          <span
+                            style={{
+                              marginLeft: 10,
+                              fontSize: 10,
+                              color: '#faaf00',
+                            }}
+                          >
+                            {item.rate}分
+                          </span>
                         </div>
                       </div>
+                      <div className={Styles['esimate-like']}>
+                        <img src={like} alt="" />
+                        <span> {item.like}</span>
+                      </div>
+                    </div>
 
-                      <div className={Styles['esimate-estimation']}>
-                        {item.estimation}
-                      </div>
+                    <div className={Styles['esimate-estimation']}>
+                      {item.estimation}
                     </div>
                   </div>
-                </>
+                </div>
               );
             })}
             <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />

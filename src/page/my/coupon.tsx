@@ -26,7 +26,7 @@ function couponPage() {
       <div className={Styles['coupon_tickets']}>
         <div>
           {couponList.map((item) => {
-            return <CouponItem item={item}></CouponItem>;
+            return <CouponItem item={item} key={item.couponId}></CouponItem>;
           })}
         </div>
       </div>
