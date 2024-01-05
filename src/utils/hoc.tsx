@@ -1,6 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { JSXElementConstructor, ReactElement } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export function withRouter(Child) {
+export function withRouter<T>(Child: JSXElementConstructor<T>) {
   return (props: any) => {
     const location = useLocation();
     const navigate = useNavigate();
