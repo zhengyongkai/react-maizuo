@@ -1,44 +1,44 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { getCinemasInfo, getCinemasShowInfo } from "@/api/cinema";
-import { cinemasInfoResponseInfo, cinemasInfoImf } from "@/types/cinema";
-import NavTitle from "@/components/Common/navTitle";
-import locationImg from "@/assets/img/location.png";
-import phoneImg from "@/assets/img/phone.png";
-import triggleImg from "@/assets/img/triggle.png";
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { getCinemasInfo, getCinemasShowInfo } from '@/api/cinema';
+import { cinemasInfoResponseInfo, cinemasInfoImf } from '@/types/cinema';
+import NavTitle from '@/components/Common/navTitle';
+import locationImg from '@/assets/img/location.png';
+import phoneImg from '@/assets/img/phone.png';
+import triggleImg from '@/assets/img/triggle.png';
 
-import CinemaSwiper from "@/components/Common/swiper";
-import "@/assets/css/cinemasInfo.scss";
+import CinemaSwiper from '@/components/Common/swiper';
+import Styles from '@/assets/css/cinemasInfo.module.scss';
 
-import { anctorImf, detailsImf } from "@/types/movice";
+import { anctorImf, detailsImf } from '@/types/movice';
 
 export default function cinemasInfo() {
-  const { cinemaId = 0, filmId = "" } = useParams();
+  const { cinemaId = 0, filmId = '' } = useParams();
   const swiperRef = useRef<any>(null);
 
   const cinemasInfo = {
     Distance: 0,
-    address: "",
-    businessTime: "",
+    address: '',
+    businessTime: '',
     cinemaId: 0,
     cityId: -1,
-    cityName: "",
+    cityName: '',
     district: {
-      districtName: "",
+      districtName: '',
       districtId: 0,
     },
     districtId: 0,
-    districtName: "",
+    districtName: '',
     eTicketFlag: 0,
-    gpsAddress: "",
+    gpsAddress: '',
     isVisited: 0,
     latitude: 0,
-    logoUrl: "",
+    logoUrl: '',
     longitude: 0,
     lowPrice: 0,
-    name: "",
-    notice: "",
-    phone: "",
+    name: '',
+    notice: '',
+    phone: '',
     seatFlag: 1,
     services: [],
     telephones: [],
@@ -47,29 +47,29 @@ export default function cinemasInfo() {
 
   const defaultDetails = {
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
   };
@@ -81,7 +81,7 @@ export default function cinemasInfo() {
     details: detailsImf;
   }>({
     cinemaId: +cinemaId,
-    date: "",
+    date: '',
     filmId: 0,
     details: defaultDetails,
   });
@@ -127,18 +127,18 @@ export default function cinemasInfo() {
       .reduce((pre, item) => {
         return pre.concat(item.name);
       }, [] as Array<string>)
-      .join(" ");
+      .join(' ');
   }
 
   return (
     <>
       <NavTitle back></NavTitle>
-      <div className="cinemas-warpper">
+      <div className={Styles['cinemas-warpper']}>
         <div>
-          <div className="cinemas-title">{cinemaInfo.name}</div>
+          <div className={Styles['cinemas-title']}>{cinemaInfo.name}</div>
         </div>
         {cinemaInfo.services ? (
-          <div className="cinemas-tags">
+          <div className={Styles['cinemas-tags']}>
             {cinemaInfo.services.slice(0, 4).map((item, key) => {
               return <span key={key}>{item.name}</span>;
             })}
@@ -146,19 +146,19 @@ export default function cinemasInfo() {
         ) : (
           <></>
         )}
-        <div className="cinemas-info">
+        <div className={Styles['cinemas-info']}>
           <div>
             <img src={locationImg} alt="" />
           </div>
           <div className="text-ellipsis">{cinemaInfo.address}</div>
           <div>
-            <a href={"tel:" + cinemaInfo.phone}>
+            <a href={'tel:' + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
         </div>
-        <div className="cinemas-film-list">
-          <div className="cinemas-film-cover">
+        <div className={Styles['cinemas-film-list']}>
+          <div className={Styles['cinemas-film-cover']}>
             <div
               style={{
                 backgroundImage: `url('${params.details.poster}')`,
@@ -170,7 +170,7 @@ export default function cinemasInfo() {
             change={(e) => onSlideChange(e)}
             ref={swiperRef}
           />
-          <div className="film-triggle">
+          <div className={Styles['film-triggle']}>
             <img src={triggleImg} />
           </div>
         </div>
@@ -179,8 +179,8 @@ export default function cinemasInfo() {
             {params.details.name} <span>{params.details.grade} 分</span>
           </div>
           <div>
-            {params.details.category} | {params.details.runtime}分钟 |{" "}
-            {params.details.director} |{" "}
+            {params.details.category} | {params.details.runtime}分钟 |{' '}
+            {params.details.director} |{' '}
             {getAnctorsString(params.details.actors)}
           </div>
         </div>

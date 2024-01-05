@@ -3,16 +3,10 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { BASE_URL, MAIZUO } from "@/constant/baseUrl";
-import { Response } from "@/types";
-import {
-  amountInf,
-  amountResponseInf,
-  cardInf,
-  cardResponseInf,
-  loginRequestInf,
-} from "@/types/user";
-import request from "@/utils/request";
+import { BASE_URL, MAIZUO } from '@/constant/baseUrl';
+import { Response } from '@/types';
+import { amountInf, cardInf, loginRequestInf } from '@/types/user';
+import request from '@/utils/request';
 
 // export const getUserData = () => {
 //   return request.get("/user.json");
@@ -21,7 +15,7 @@ import request from "@/utils/request";
 export const getUserData = () => {
   return request.get(`${BASE_URL}/user/getInfo`, {
     headers: {
-      "X-Host": "mall.user.info.get",
+      'X-Host': 'mall.user.info.get',
     },
   });
 };
@@ -29,7 +23,7 @@ export const getUserData = () => {
 export const login = (data: loginRequestInf) => {
   return request.post(`${BASE_URL}/user/login`, data, {
     headers: {
-      "X-Host": "mall.user.sms-code-login",
+      'X-Host': 'mall.user.sms-code-login',
     },
   });
 };
@@ -41,7 +35,7 @@ export const getCardList = (): Response<cardInf> => {
 export const getCardAmount = (): Response<amountInf> => {
   return request.get(`${MAIZUO}`, {
     headers: {
-      "X-Host": "mall.asset.balance.info",
+      'X-Host': 'mall.asset.balance.info',
     },
   });
 };

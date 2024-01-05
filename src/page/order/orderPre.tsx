@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOrderById } from '@/api/order';
 import NavTitle from '@/components/Common/navTitle';
-import '@/assets/css/preOrder.scss';
+import Styles from '@/assets/css/preOrder.module.scss';
 import Loading from '@/components/Common/partLoading';
 import SvgIcon from '@/components/SvgIcon';
 import { useSelector } from 'react-redux';
@@ -95,12 +95,14 @@ export default function preOrder() {
   return (
     <>
       <NavTitle back title={preOrderInfo.filmName}>
-        <div className="order-remainder">{secondToMMSS(remainder)}</div>
+        <div className={Styles['order-remainder']}>
+          {secondToMMSS(remainder)}
+        </div>
       </NavTitle>
       <Loading loading={loading}>
-        <div className="order-wrapper">
-          <div className="order-decoration"></div>
-          <div className="order-contact">
+        <div className={Styles['order-wrapper']}>
+          <div className={Styles['order-decoration']}></div>
+          <div className={Styles['order-contact']}>
             <div>
               <SvgIcon size={36} name="contact"></SvgIcon>
             </div>
@@ -109,11 +111,11 @@ export default function preOrder() {
               <div>温馨提醒：购票信息请查看订单详情，不再发送短信</div>
             </div>
           </div>
-          <div className="order-info-wrapper">
-            <div className="order-poster">
+          <div className={Styles['order-info-wrapper']}>
+            <div className={Styles['order-poster']}>
               <img src={preOrderInfo.poster} alt="" />
             </div>
-            <div className="order-info">
+            <div className={Styles['order-info']}>
               <div>{preOrderInfo.filmName}</div>
               <div>{getDaysNameFn(preOrderInfo.showAt)}</div>
               <div>{preOrderInfo.cinemaName}</div>
@@ -129,15 +131,15 @@ export default function preOrder() {
               </div>
             </div>
           </div>
-          <div className="order-price">
+          <div className={Styles['order-price']}>
             <div>商品金额</div>
             <div>{formatPrice(preOrderInfo.price)}</div>
           </div>
 
-          <div className="order-menu-items">
+          <div className={Styles['order-menu-items']}>
             <div>
               <div
-                className="order-menu-item"
+                className={Styles['order-menu-item']}
                 onClick={() => setShowCard(true)}
               >
                 <img src={couponImg} alt="" />
@@ -146,7 +148,7 @@ export default function preOrder() {
                   {card.cardList.length}张卷可用<RightOutline></RightOutline>
                 </div>
               </div>
-              <div className="order-menu-item">
+              <div className={Styles['order-menu-item']}>
                 <img src={invoiceImg} alt="" />
                 <div>发票</div>
                 <div>
@@ -156,7 +158,7 @@ export default function preOrder() {
             </div>
           </div>
 
-          <div className="order-tips">
+          <div className={Styles['order-tips']}>
             <div>注意事项</div>
             <div>
               <li>
@@ -180,7 +182,7 @@ export default function preOrder() {
             </div>
           </div>
         </div>
-        <div className="order-bottom">
+        <div className={Styles['order-bottom']}>
           <div>
             <span>实付</span>
             {price}
@@ -203,8 +205,9 @@ export default function preOrder() {
         >
           {card.cardList.map((item, index) => {
             return (
-              <div key={index} className="order-coupon-item">
+              <div key={index} className={Styles['order-coupon-item']}>
                 <Checkbox
+                  className="adm-checkboxs"
                   onChange={(e) => {
                     if (e) {
                       setCoupon([...coupon, item.remission]);

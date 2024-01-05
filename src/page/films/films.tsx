@@ -5,57 +5,58 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-} from "react";
-import { getMoviceDetail } from "@/api/movice";
-import { useNavigate, useParams } from "react-router-dom";
+} from 'react';
+import { getMoviceDetail } from '@/api/movice';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import "@/assets/css/films.scss";
+import Styles from '@/assets/css/films.module.scss';
 
-import type { detailsResponseImf, detailsImf } from "@/types/movice";
-import moreImg from "@/assets/img/more.png";
-import backImg from "@/assets/img/back.png";
+import type { detailsResponseImf, detailsImf } from '@/types/movice';
+import moreImg from '@/assets/img/more.png';
+import backImg from '@/assets/img/back.png';
 
-import useSroll from "@/hook/scroll";
-import useFetch from "@/hook/fetch";
+import useSroll from '@/hook/scroll';
+import useFetch from '@/hook/fetch';
 // import usePath from '@/hook/back';
 
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-import LoadingWrap from "@/components/Common/partLoading";
+import LoadingWrap from '@/components/Common/partLoading';
+import { combineCss } from '@/utils/css';
 
 const detailsInitData: detailsResponseImf = {
   film: {
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
   },
 };
 
 function FilmPage() {
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
 
   // const [film, setfilm] = useState<filmImf>();
   const synopsisRef = useRef<HTMLDivElement>(null);
@@ -85,13 +86,15 @@ function FilmPage() {
   function showTabbar(film: detailsImf) {
     return (
       <div
-        className="film-tabbar"
-        style={tabbarVisble ? { backgroundColor: "#fff" } : {}}
+        className={Styles['film-tabbar']}
+        style={tabbarVisble ? { backgroundColor: '#fff' } : {}}
       >
         <div>
           <img src={backImg} alt="" onClick={() => navigate(-1)} />
         </div>
-        {tabbarVisble ? <div className="title">{film.name}</div> : undefined}
+        {tabbarVisble ? (
+          <div className={Styles['title']}>{film.name}</div>
+        ) : undefined}
       </div>
     );
   }
@@ -123,39 +126,39 @@ function FilmPage() {
         <>
           <div>
             {showTabbar(film)}
-            <div className="film-lazy">
-              <div className="film-poster">
+            <div className={Styles['film-lazy']}>
+              <div className={Styles['film-poster']}>
                 <img src={film.poster}></img>
               </div>
             </div>
-            <div className="film-descrption">
-              <div className="film-name ">
+            <div className={Styles['film-descrption']}>
+              <div className={Styles['film-name']}>
                 <div>
                   <div className="text-ellipsis"> {film.name}</div>
                   <span>{film.filmType.name}</span>
                 </div>
 
                 <div
-                  className="film-grade"
-                  style={!film.grade ? { display: "none" } : {}}
+                  className={Styles['film-grade']}
+                  style={!film.grade ? { display: 'none' } : {}}
                 >
                   {film.grade} <span>分</span>
                 </div>
               </div>
-              <div className="film-grey">
-                {film.category.split("|").join(" | ")}
+              <div className={Styles['film-grey']}>
+                {film.category.split('|').join(' | ')}
               </div>
-              <div className="film-grey">
-                {dayjs.unix(film.premiereAt).format("YYYY-MM-DD")}上映
+              <div className={Styles['film-grey']}>
+                {dayjs.unix(film.premiereAt).format('YYYY-MM-DD')}上映
               </div>
-              <div className="film-grey">
+              <div className={Styles['film-grey']}>
                 {film.nation} | {film.runtime} 分钟
               </div>
               <div
                 ref={synopsisRef}
                 style={{
-                  position: "absolute",
-                  top: "-30px",
+                  position: 'absolute',
+                  top: '-30px',
                   // marginLeft: -1000,
                   opacity: 0,
                 }}
@@ -163,26 +166,31 @@ function FilmPage() {
                 {film.synopsis}
               </div>
               <div
-                className={`film-synopsis ${
-                  more ? "film-synopsis-more" : "film-synopsis-short"
+                className={`${Styles['film-synopsis']} ${
+                  more
+                    ? Styles['film-synopsis-more']
+                    : Styles['film-synopsis-short']
+                }
                 }`}
-                style={{ height: heights + "px" }}
+                style={{ height: heights + 'px' }}
               >
                 {film.synopsis}
               </div>
               <div
-                className="film-toggle"
-                style={more ? { transform: "rotate(180deg)" } : {}}
+                className={Styles['film-toggle']}
+                style={more ? { transform: 'rotate(180deg)' } : {}}
               >
                 <img src={moreImg} alt="" onClick={() => onMoreSynopsis()} />
               </div>
             </div>
-            <div className="film-anctors-list">
-              <div className="film-title">演职列表</div>
-              <div className="film-anctors inner-scroll">
+            <div className={Styles['film-anctors-list']}>
+              <div className={Styles['film-title']}>演职列表</div>
+              <div
+                className={combineCss([Styles['film-anctors'], 'inner-scroll'])}
+              >
                 {film.actors.map((item, index) => {
                   return (
-                    <div className="film-anctor" key={index}>
+                    <div className={Styles['film-anctor']} key={index}>
                       <div>
                         <img src={item.avatarAddress} alt="" />
                       </div>
@@ -193,9 +201,11 @@ function FilmPage() {
                 })}
               </div>
             </div>
-            <div className="film-photos-list">
-              <div className="film-title">剧照</div>
-              <div className="film-photo inner-scroll">
+            <div className={Styles['film-photos-list']}>
+              <div className={Styles['film-title']}>剧照</div>
+              <div
+                className={combineCss([Styles['film-photo'], 'inner-scroll'])}
+              >
                 {film.photos.map((item, index) => {
                   return (
                     <div key={index}>
@@ -206,16 +216,16 @@ function FilmPage() {
               </div>
             </div>
           </div>
-          <div className="film-footer">
+          <div className={Styles['film-footer']}>
             <div
-              className="choose"
+              className={Styles['choose']}
               onClick={() => navigate(`/films/cinemas/${id}`)}
             >
               选座购票
             </div>
             {film.grade ? (
               <div
-                className="estimation"
+                className={Styles['estimation']}
                 onClick={() => navigate(`/rate/${id}`)}
               >
                 评论

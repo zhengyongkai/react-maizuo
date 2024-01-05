@@ -1,37 +1,37 @@
-import useFetch from "@/hook/fetch";
-import { NoticeBar, Toast } from "antd-mobile";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import * as d3 from "d3";
-import * as d3Select from "d3-selection";
-import * as d3Zoom from "d3-zoom";
+import useFetch from '@/hook/fetch';
+import { NoticeBar, Toast } from 'antd-mobile';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import * as d3 from 'd3';
+import * as d3Select from 'd3-selection';
+import * as d3Zoom from 'd3-zoom';
 
-import { getSeatDetails } from "@/api/seat";
+import { getSeatDetails } from '@/api/seat';
 import {
   seatingChartInf,
   seatListInf,
   seatResponseInf,
   seatsInf,
   selectSeatsInf,
-} from "@/types/seat";
+} from '@/types/seat';
 
-import Unselect from "@/assets/img/unselect.png";
-import NavTitle from "@/components/Common/navTitle";
+import Unselect from '@/assets/img/unselect.png';
+import NavTitle from '@/components/Common/navTitle';
 
-import "@/assets/css/seat.scss";
-import SvgIcon from "@/components/SvgIcon";
-import Seat from "@/components/Common/seat";
-import { getDaysNameFn, getTime } from "@/utils/day";
+import Styles from '@/assets/css/seat.module.scss';
+import SvgIcon from '@/components/SvgIcon';
+import Seat from '@/components/Common/seat';
+import { getDaysNameFn, getTime } from '@/utils/day';
 
 // import dayjs from "dayjs";
 import {
   getCinemasInfo,
   getCinemasSchedule,
   getCinemasSeat,
-} from "@/api/cinema";
-import { scheduleImf } from "@/types/schedule";
-import { formatPrice } from "@/utils/price";
-import { showDialog } from "@/utils/dialog";
+} from '@/api/cinema';
+import { scheduleImf } from '@/types/schedule';
+import { formatPrice } from '@/utils/price';
+import { showDialog } from '@/utils/dialog';
 
 import {
   AXION_MIDDLE_WIDTH,
@@ -40,14 +40,15 @@ import {
   REMAINER,
   SEAT_DEFAULT_HEIGHT,
   SEAT_DEFAULT_WIDTH,
-} from "@/store/constants";
+} from '@/store/constants';
 
-import Loading from "@/components/Common/partLoading";
-import { generatePreOrder } from "@/api/order";
-import { getMoviceDetail } from "@/api/movice";
-import { detailsImf } from "@/types/movice";
-import { cinemasInfoImf } from "@/types/cinema";
-import cookie from "@/utils/cookie";
+import Loading from '@/components/Common/partLoading';
+import { generatePreOrder } from '@/api/order';
+import { getMoviceDetail } from '@/api/movice';
+import { detailsImf } from '@/types/movice';
+import { cinemasInfoImf } from '@/types/cinema';
+import cookie from '@/utils/cookie';
+import { combineCss } from '@/utils/css';
 
 const initSeat = {
   schedule: {
@@ -55,47 +56,47 @@ const initSeat = {
       latitude: 0,
       longitude: 0,
       districtId: 0,
-      districtName: "",
+      districtName: '',
       Distance: 0,
-      address: "",
-      businessTime: "",
+      address: '',
+      businessTime: '',
       cinemaId: 0,
       cityId: 0,
-      cityName: "",
+      cityName: '',
       eTicketFlag: 0,
-      gpsAddress: "",
+      gpsAddress: '',
       isVisited: 0,
-      logoUrl: "",
+      logoUrl: '',
       lowPrice: 0,
-      name: "",
-      notice: "",
-      phone: "",
+      name: '',
+      notice: '',
+      phone: '',
       seatFlag: 0,
       telephones: [],
       district: {
         districtId: 0,
-        districtName: "",
+        districtName: '',
       },
     },
     film: {
       filmId: 0,
-      name: "",
-      category: "",
-      synopsis: "",
-      poster: "",
-      grade: "",
+      name: '',
+      category: '',
+      synopsis: '',
+      poster: '',
+      grade: '',
       actors: [],
       runtime: 0,
-      nation: "",
-      language: "",
+      nation: '',
+      language: '',
     },
     advanceStopMins: 0,
     endAt: 0,
     hall: {
-      hallId: "",
-      name: "",
+      hallId: '',
+      name: '',
     },
-    imagery: "",
+    imagery: '',
     isMobileRequiredForLocking: false,
     isOnsell: false,
     lockSeatRulesInf: {
@@ -103,7 +104,7 @@ const initSeat = {
       rules: [],
     },
     maxSeatsCount: 0,
-    noticeMsg: "",
+    noticeMsg: '',
     price: {
       market: 0,
       premium: 0,
@@ -111,7 +112,7 @@ const initSeat = {
     },
     provider: {
       providerId: 0,
-      scheduleId: "",
+      scheduleId: '',
     },
     readNameAuth: {
       authType: 0,
@@ -124,9 +125,9 @@ const initSeat = {
 
 const initSeats = {
   hall: {
-    hallId: "",
-    name: "",
-    limit: "",
+    hallId: '',
+    name: '',
+    limit: '',
   },
   height: 0,
   width: 0,
@@ -148,12 +149,12 @@ export default function SeatPage() {
   const [scheduleId, setScheduleId] = useState<number>(+id);
 
   const [seatingChartStyle, setSeatingChartStyle] = useState({
-    height: "275px",
-    width: "650px",
+    height: '275px',
+    width: '650px',
   });
 
   const [screenStyle, setScreenStyle] = useState({
-    left: "0px",
+    left: '0px',
   });
 
   const screen = useRef(null);
@@ -177,52 +178,52 @@ export default function SeatPage() {
 
   let [filmsDetails, setFilmDetails] = useState<detailsImf & cinemasInfoImf>({
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
     Distance: 0,
-    address: "",
-    businessTime: "",
+    address: '',
+    businessTime: '',
     cinemaId: 0,
     cityId: -1,
-    cityName: "",
+    cityName: '',
     district: {
-      districtName: "",
+      districtName: '',
       districtId: 0,
     },
     districtId: 0,
-    districtName: "",
+    districtName: '',
     eTicketFlag: 0,
-    gpsAddress: "",
+    gpsAddress: '',
     isVisited: 0,
     latitude: 0,
-    logoUrl: "",
+    logoUrl: '',
     longitude: 0,
     lowPrice: 0,
-    notice: "",
-    phone: "",
+    notice: '',
+    phone: '',
     seatFlag: 1,
     services: [],
     telephones: [],
@@ -278,7 +279,7 @@ export default function SeatPage() {
 
         // console.log(data);
       } catch {
-        showDialog.show({ content: "该场次已经结束" });
+        showDialog.show({ content: '该场次已经结束' });
       }
     }
     if (schedule.film.filmId && schedule.cinema.cinemaId && showDate) {
@@ -289,39 +290,39 @@ export default function SeatPage() {
   function zoom(event: any) {
     // console.log(event);
     seatingChartContext.style(
-      "transform",
-      "translate(" +
+      'transform',
+      'translate(' +
         event.transform.x +
-        "px," +
+        'px,' +
         event.transform.y +
-        "px) scale(" +
+        'px) scale(' +
         event.transform.k +
-        ")"
+        ')'
     );
     seatingChartContext.style(
-      "-webkit-transform",
-      "translate(" +
+      '-webkit-transform',
+      'translate(' +
         event.transform.x +
-        "px," +
+        'px,' +
         event.transform.y +
-        "px) scale(" +
+        'px) scale(' +
         event.transform.k +
-        ")"
+        ')'
     );
 
     if (event.transform.k > MAXSCALE) {
-      screenCtx.style("transform", `scale(${MAXSCALE})`);
-      screenCtx.style("-webkit-transform", `scale(${MAXSCALE})`);
+      screenCtx.style('transform', `scale(${MAXSCALE})`);
+      screenCtx.style('-webkit-transform', `scale(${MAXSCALE})`);
     } else {
-      screenCtx.style("transform", `scale(${event.transform.k})`);
-      screenCtx.style("-webkit-transform", `scale(${event.transform.k})`);
+      screenCtx.style('transform', `scale(${event.transform.k})`);
+      screenCtx.style('-webkit-transform', `scale(${event.transform.k})`);
     }
     axionYCtx.style(
-      "transform",
+      'transform',
       `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
     );
     axionYCtx.style(
-      "-webkit-transform",
+      '-webkit-transform',
       `translateY(${event.transform.y}px) scale(1, ${event.transform.k})`
     );
 
@@ -339,7 +340,7 @@ export default function SeatPage() {
             ((event.transform.k > MAXSCALE ? MAXSCALE : event.transform.k) *
               AXION_MIDDLE_WIDTH) /
               2 +
-            "px",
+            'px',
         });
       }
     }, 0);
@@ -350,7 +351,7 @@ export default function SeatPage() {
     zoomInstance.current = d3Zoom
       .zoom()
       .scaleExtent([1 / 2, 2])
-      .on("zoom", zoom);
+      .on('zoom', zoom);
 
     screenCtx = d3Select.select(screen.current);
     axionYCtx = d3Select.select(axionY.current);
@@ -364,8 +365,8 @@ export default function SeatPage() {
     const chartWidth = seatsList.width * SEAT_DEFAULT_WIDTH;
     const chartHeight = seatsList.height * SEAT_DEFAULT_HEIGHT;
     setSeatingChartStyle({
-      width: chartWidth + "px",
-      height: chartHeight + "px",
+      width: chartWidth + 'px',
+      height: chartHeight + 'px',
     });
     const currentK = window.innerWidth / chartWidth;
     let t = d3.zoomIdentity.scale(currentK);
@@ -401,12 +402,12 @@ export default function SeatPage() {
     const row = s.rowNum;
     if (s.coupleType === COUPLE_SEAT_IS_RIGHT) {
       return {
-        display: "none",
+        display: 'none',
       };
     }
     return {
-      left: (+column - 1) * SEAT_DEFAULT_WIDTH + "px",
-      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + "px",
+      left: (+column - 1) * SEAT_DEFAULT_WIDTH + 'px',
+      top: (+row - 1) * SEAT_DEFAULT_HEIGHT + 'px',
     };
   }
 
@@ -415,7 +416,7 @@ export default function SeatPage() {
     if (transform.k >= 2) {
       return;
     }
-    const event = new MouseEvent("dblclick", {
+    const event = new MouseEvent('dblclick', {
       view: window,
       bubbles: true,
       cancelable: true,
@@ -458,7 +459,7 @@ export default function SeatPage() {
         });
       } else {
         if (selectSeats.length === 5) {
-          return Toast.show("不能选择超过五个座位哦~");
+          return Toast.show('不能选择超过五个座位哦~');
         }
         result = [...selectSeats, selected];
       }
@@ -518,7 +519,7 @@ export default function SeatPage() {
       cinemaPhone: filmsDetails.phone,
     });
     setLoading(false);
-    Toast.show("订单生成成功，请尽快确认");
+    Toast.show('订单生成成功，请尽快确认');
     navigator(`/preorder/${data}`);
   }
 
@@ -532,40 +533,43 @@ export default function SeatPage() {
       <div>
         <NavTitle title={schedule.cinema.name} back></NavTitle>
       </div>
-      <div className="seating-chair">
+      <div className={Styles['seating-chair']}>
         <NoticeBar content={schedule.noticeMsg} color="alert"></NoticeBar>
       </div>
       <Loading loading={loading}>
         <div>
-          <div ref={seatingChartContextWrapRef} className="seating-chart-wrap">
+          <div
+            ref={seatingChartContextWrapRef}
+            className={Styles['seating-chart-wrap']}
+          >
             <div style={{ ...seatingChartStyle }}>
               <div
-                className="seating-screen"
+                className={Styles['seating-screen']}
                 ref={screen}
                 style={{ ...screenStyle }}
               >
                 {schedule.hall.name}
               </div>
-              <div className="axion-y" ref={axionY}>
+              <div className={Styles['axion-y']} ref={axionY}>
                 {[...new Array(rowNum)].map((res, index) => {
                   return (
-                    <div className="rowName" key={index}>
+                    <div className={Styles['rowName']} key={index}>
                       {index + 1}
                     </div>
                   );
                 })}
               </div>
-              <div className="map" ref={map}>
+              <div className={Styles['map']} ref={map}>
                 <div
-                  className="axion-middle"
+                  className={Styles['axion-middle']}
                   style={{ height: rowNum * 25 }}
                   ref={axionMiddle}
                 ></div>
-                <div className="seats">
+                <div className={Styles['seats']}>
                   {seatsList.seats.map((item, index) => {
                     return (
                       <div
-                        className="seat"
+                        className={Styles['seat']}
                         style={getSeatPosition(item)}
                         key={index}
                       >
@@ -584,7 +588,7 @@ export default function SeatPage() {
         </div>
       </Loading>
       <div>
-        <div className="seating-tips">
+        <div className={Styles['seating-tips']}>
           <div>
             <SvgIcon size={24} name="lock"></SvgIcon>
             <span>不可选</span>
@@ -603,27 +607,31 @@ export default function SeatPage() {
           </div>
         </div>
 
-        <div className="seating-chosing">
+        <div className={Styles['seating-chosing']}>
           <div>
-            <div className="seating-name">
+            <div className={Styles['seating-name']}>
               <div>{schedule.film.name}</div>
               <div onClick={() => setShowSchedule(!showSchedule)}>
-                {showSchedule ? "收起场次" : "展开场次"}
+                {showSchedule ? '收起场次' : '展开场次'}
               </div>
             </div>
-            <div className="seating-info">
-              {getDaysNameFn(schedule.showAt, true)} {schedule.film.language}{" "}
+            <div className={Styles['seating-info']}>
+              {getDaysNameFn(schedule.showAt, true)} {schedule.film.language}{' '}
               {schedule.imagery}
             </div>
           </div>
 
-          <div className="seating-schedule  inner-scroll">
+          <div
+            className={combineCss([Styles['seating-schedule'], 'inner-scroll'])}
+          >
             {showSchedule
               ? scheduleList.map((item, index) => {
                   return (
                     <div
                       key={index}
-                      className={scheduleId === item.scheduleId ? "active" : ""}
+                      className={
+                        scheduleId === item.scheduleId ? Styles['active'] : ''
+                      }
                       onClick={() => setSchedule(item.scheduleId)}
                     >
                       <div>{getTime(item.showAt)}</div>
@@ -636,10 +644,12 @@ export default function SeatPage() {
                 })
               : null}
           </div>
-          <div className="selects-wraps  inner-scroll">
+          <div
+            className={combineCss([Styles['selects-wraps'], 'inner-scroll'])}
+          >
             {selectSeats.map((res, index) => {
               return (
-                <div className="selects-wraps-item" key={index}>
+                <div className={Styles['selects-wraps-item']} key={index}>
                   <div>
                     {res.rowNum}排{res.columnNum}座
                   </div>
@@ -656,10 +666,10 @@ export default function SeatPage() {
         </div>
       </div>
       <div
-        className={[
-          "seating-choose",
-          selectSeats.length ? "" : "disabled",
-        ].join(" ")}
+        className={combineCss([
+          Styles['seating-choose'],
+          selectSeats.length ? '' : Styles['disabled'],
+        ])}
         onClick={onGeneratePreOrder}
       >
         {selectSeats.length ? <>共￥{totalPrice},确认选座</> : <>请先选座</>}

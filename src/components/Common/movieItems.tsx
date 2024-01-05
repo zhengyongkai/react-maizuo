@@ -1,8 +1,8 @@
-import "@/assets/css/movice.scss";
-import { memo } from "react";
+import Styles from '@/assets/css/movice.module.scss';
+import { memo } from 'react';
 
-import type { detailsImf } from "@/types/movice";
-import { useNavigate } from "react-router-dom";
+import type { detailsImf } from '@/types/movice';
+import { useNavigate } from 'react-router-dom';
 
 interface propsImf {
   item: detailsImf;
@@ -22,27 +22,30 @@ function moviceItem(props: propsImf) {
   }
 
   return (
-    <div className="movice-item">
-      <div className="movice-poster" onClick={() => onNavigateTo(item.filmId)}>
+    <div className={Styles['movice-item']}>
+      <div
+        className={Styles['movice-poster']}
+        onClick={() => onNavigateTo(item.filmId)}
+      >
         <img src={item.poster} alt="" />
       </div>
-      <div className="movice-content">
-        <div className="movice-name">
-          <div className="text-ellipsis">{item.name} </div>{" "}
+      <div className={Styles['movice-content']}>
+        <div className={Styles['movice-name']}>
+          <div className="text-ellipsis">{item.name} </div>{' '}
           <span>{item.filmType.name}</span>
         </div>
         {item.grade ? (
-          <div className="movice-grade">
-            观众评分 <span>{item.grade}</span>{" "}
+          <div className={Styles['movice-grade']}>
+            观众评分 <span>{item.grade}</span>{' '}
           </div>
         ) : undefined}
-        <div className="movice-anctor text-ellipsis">
+        <div className={[Styles['movice-anctor'], 'text-ellipsis'].join(' ')}>
           {item.actors &&
             item.actors.map((anctor, index) => {
               return <span key={index}>{anctor.name} </span>;
             })}
         </div>
-        <div className="movice-tips">
+        <div className={Styles['movice-tips']}>
           <span>{item.nation}</span>
           <span>|</span>
           <span>{item.runtime} 分钟</span>
@@ -54,7 +57,7 @@ function moviceItem(props: propsImf) {
         ) : item.isPresale ? (
           <span>预购</span>
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>

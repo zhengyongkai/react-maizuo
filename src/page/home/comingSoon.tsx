@@ -3,16 +3,16 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { memo, useEffect, useState } from "react";
-import { getMoviceData, getMoviceComingData } from "@/api/movice";
-import { detailsImf, moviceImf } from "@/types/movice";
-import "@/assets/css/movice.scss";
-import useLocation from "@/hook/location";
-import { useSelector } from "react-redux";
+import { memo, useEffect, useState } from 'react';
+import { getMoviceData, getMoviceComingData } from '@/api/movice';
+import { detailsImf, moviceImf } from '@/types/movice';
+import Styles from '@/assets/css/movice.module.scss';
+import useLocation from '@/hook/location';
+import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from "@/types/location";
-import { InfiniteScroll } from "antd-mobile";
-import MovieItems from "@/components/Common/movieItems";
+import type { cityStateImf } from '@/types/location';
+import { InfiniteScroll } from 'antd-mobile';
+import MovieItems from '@/components/Common/movieItems';
 
 function comingSoon() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);
@@ -63,7 +63,7 @@ function comingSoon() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
+      <div style={{ backgroundColor: '#fff' }}>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={2} key={index} />;
         })}

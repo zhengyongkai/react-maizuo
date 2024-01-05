@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getQueryVariable } from "@/utils";
-import { queryOrder } from "@/api/order";
-import NavTitle from "@/components/Common/navTitle";
-import { Button, Result } from "antd-mobile";
-import "@/assets/css/orderQuery.scss";
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { getQueryVariable } from '@/utils';
+import { queryOrder } from '@/api/order';
+import NavTitle from '@/components/Common/navTitle';
+import { Button, Result } from 'antd-mobile';
+import Styles from '@/assets/css/orderQuery.module.scss';
 
 export default function Orderquery() {
   const { search } = useLocation();
@@ -18,8 +18,8 @@ export default function Orderquery() {
       try {
         setLoading(true);
         await queryOrder({
-          out_trade_no: query.get("out_trade_no"),
-          trade_no: query.get("trade_no"),
+          out_trade_no: query.get('out_trade_no'),
+          trade_no: query.get('trade_no'),
         });
         setLoading(false);
         setStatus(true);
@@ -32,7 +32,7 @@ export default function Orderquery() {
   return (
     <>
       <NavTitle title="结果查询"></NavTitle>
-      <div className="query_result">
+      <div className={Styles['query_result']}>
         {!loading ? (
           status ? (
             <>
@@ -42,7 +42,7 @@ export default function Orderquery() {
                   title="支付成功"
                   description="请前往我的订单页查看"
                 />
-                <Button onClick={() => navigator("/order")}>返回订单页</Button>
+                <Button onClick={() => navigator('/order')}>返回订单页</Button>
               </div>
             </>
           ) : (
@@ -52,7 +52,7 @@ export default function Orderquery() {
                 title="支付失败"
                 description="如有疑问，请联系客服"
               />
-              <Button onClick={() => navigator("/name/home/nowPlaying")}>
+              <Button onClick={() => navigator('/name/home/nowPlaying')}>
                 返回首页
               </Button>
             </>

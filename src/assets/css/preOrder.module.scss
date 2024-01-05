@@ -143,11 +143,11 @@
   margin-bottom: 4px;
   width: 100%;
   box-sizing: border-box;
-  .adm-checkbox {
+  :global(.adm-checkbox) {
     width: 100%;
-    .adm-checkbox-content {
+    :global(.adm-checkbox-content) {
       width: 100%;
-      .order-coupon-wrapper {
+      :global(.order-coupon-wrapper) {
         display: flex;
         // align-content: center;
         align-items: center;

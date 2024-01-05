@@ -1,21 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getLocationList, getLocation } from "@/api/location";
+import { getLocationList, getLocation } from '@/api/location';
 
 import {
   PERMISSION_DENIED,
   POSITION_UNAVAILABLE,
   TIMEOUT,
-} from "@/constant/geolocation";
-import { getAddress } from "@/utils/location";
+} from '@/constant/geolocation';
+import { getAddress } from '@/utils/location';
 
-import type { locationResultImf, initialStateImf } from "@/types/location";
-import cookie from "@/utils/cookie";
+import type { locationResultImf, initialStateImf } from '@/types/location';
+import cookie from '@/utils/cookie';
+import { showDialog } from '@/utils/dialog';
 
 const initialState: initialStateImf = {
   locale: {
-    name: cookie.getCookie("name"),
-    cityId: cookie.getCookie("cityId"),
+    name: cookie.getCookie('name'),
+    cityId: cookie.getCookie('cityId'),
   },
   tude: {
     longitude: 0,
@@ -27,7 +28,7 @@ const initialState: initialStateImf = {
 function getGPSPosition() {
   return new Promise((res, rej) => {
     if (navigator.geolocation) {
-      console.log("获取当前地点 ==");
+      console.log('获取当前地点 ==');
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
           const result: locationResultImf = await getAddress(
@@ -46,33 +47,33 @@ function getGPSPosition() {
           });
         },
         async (error: GeolocationPositionError) => {
-          let content = "";
+          let content = '';
           switch (error.code) {
             case PERMISSION_DENIED:
-              content = "地理位置信息的获取失败，请开启相关权限";
+              content = '地理位置信息的获取失败，请开启相关权限';
               break;
             case POSITION_UNAVAILABLE:
-              content = "地理位置获取失败，请稍后重试";
+              content = '地理位置获取失败，请稍后重试';
               break;
             case TIMEOUT:
-              content = "地理位置获取超时";
+              content = '地理位置获取超时';
           }
 
-          //
-          const { data: locale } = await getLocation({
-            longitude: 113.79289,
-            latitude: 22.694287,
-          });
-
-          res({
-            longitude: 113.79289,
-            latitude: 22.694287,
-            locale: locale.city,
-          });
-          // rej(error);
-          // showDialog.show({
-          //   content,
+          // //
+          // const { data: locale } = await getLocation({
+          //   longitude: 113.79289,
+          //   latitude: 22.694287,
           // });
+
+          // res({
+          //   longitude: 113.79289,
+          //   latitude: 22.694287,
+          //   locale: locale.city,
+          // });
+          rej(error);
+          showDialog.show({
+            content,
+          });
         }
       );
     }
@@ -80,21 +81,21 @@ function getGPSPosition() {
 }
 
 export const getLocationListsAsyc: any = createAsyncThunk(
-  "location/getLocationList",
+  'location/getLocationList',
   async () => {
     return await getLocationList();
   }
 );
 
 export const getLocationAsync: any = createAsyncThunk(
-  "location/getLocation",
+  'location/getLocation',
   async () => {
     return await getGPSPosition();
   }
 );
 
 export const location = createSlice({
-  name: "location",
+  name: 'location',
   initialState,
   reducers: {
     // 设置地区
@@ -110,8 +111,8 @@ export const location = createSlice({
       state.locale.name = payload.locale.name;
       state.locale.cityId = payload.locale.cityId;
 
-      cookie.setCookie("name", state.locale.name);
-      cookie.setCookie("cityId", state.locale.cityId);
+      cookie.setCookie('name', state.locale.name);
+      cookie.setCookie('cityId', state.locale.cityId);
     });
     builder.addCase(
       getLocationListsAsyc.fulfilled,

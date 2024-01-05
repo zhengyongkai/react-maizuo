@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { getDaysNameFn } from "@/utils/day";
-import "@/assets/css/dateTab.scss";
+import { useEffect, useState } from 'react';
+import { getDaysNameFn } from '@/utils/day';
+import Styles from '@/assets/css/dateTab.module.scss';
+import { combineCss } from '@/utils/css';
 
 interface propsImf<T> {
   tabList: Array<T>;
@@ -23,11 +24,11 @@ export default function Tab<T>(props: propsImf<T>) {
   }, [tabList]);
 
   return (
-    <div className="cinemas-dates  inner-scroll">
+    <div className={combineCss([Styles['cinemas-dates'], 'inner-scroll'])}>
       {tabList.map((item: any, index) => {
         return (
           <div
-            className={index === active ? "cinemas-dates-active" : ""}
+            className={index === active ? Styles['cinemas-dates-active'] : ''}
             key={index}
             onClick={() => {
               setActive(index);

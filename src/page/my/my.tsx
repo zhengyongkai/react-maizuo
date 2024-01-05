@@ -1,18 +1,18 @@
-import { amountInf, cardInf, cardListInf, user, userState } from "@/types/user";
-import { useSelector } from "react-redux";
+import { amountInf, cardInf, cardListInf, user, userState } from '@/types/user';
+import { useSelector } from 'react-redux';
 
-import { useEffect, useState } from "react";
-import { formatPrice } from "@/utils/price";
+import { useEffect, useState } from 'react';
+import { formatPrice } from '@/utils/price';
 
-import "@/assets/css/user.scss";
+import Styles from '@/assets/css/my.module.scss';
 
-import orderImg from "@/assets/img/order.png";
-import packetImg from "@/assets/img/packet.png";
-import historyImg from "@/assets/img/history.png";
-import customImg from "@/assets/img/custom.png";
-import settingImg from "@/assets/img/setting.png";
-import { RightOutline } from "antd-mobile-icons";
-import { useNavigate } from "react-router-dom";
+import orderImg from '@/assets/img/order.png';
+import packetImg from '@/assets/img/packet.png';
+import historyImg from '@/assets/img/history.png';
+import customImg from '@/assets/img/custom.png';
+import settingImg from '@/assets/img/setting.png';
+import { RightOutline } from 'antd-mobile-icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function myPage() {
   const navigate = useNavigate();
@@ -31,28 +31,28 @@ export default function myPage() {
   const menus = [
     {
       img: orderImg,
-      title: "电影订单",
-      url: "/order",
+      title: '电影订单',
+      url: '/order',
     },
     {
       img: packetImg,
-      title: "组合红包",
-      url: "/order",
+      title: '组合红包',
+      url: '/order',
     },
     {
       img: historyImg,
-      title: "历史记录",
-      url: "/order",
+      title: '历史记录',
+      url: '/order',
     },
     {
       img: customImg,
-      title: "帮助与客服",
-      url: "/order",
+      title: '帮助与客服',
+      url: '/order',
     },
     {
       img: settingImg,
-      title: "设置",
-      url: "/order",
+      title: '设置',
+      url: '/order',
     },
   ];
 
@@ -64,7 +64,7 @@ export default function myPage() {
   }, [userCouponData]);
   return (
     <>
-      <div className="user-bg">
+      <div className={Styles['user-bg']}>
         {userData.userId ? (
           <>
             <div>
@@ -73,11 +73,11 @@ export default function myPage() {
             <div>{userData.nickName}</div>
           </>
         ) : (
-          "请先登录"
+          '请先登录'
         )}
       </div>
-      <div className="user-card">
-        <div onClick={() => navigate("/coupon")}>
+      <div className={Styles['user-card']}>
+        <div onClick={() => navigate('/coupon')}>
           <div>{card.cardList.length}张</div>
           <div>优惠卷</div>
         </div>
@@ -86,11 +86,11 @@ export default function myPage() {
           <div>余额</div>
         </div>
       </div>
-      <div className="user-menu-items">
+      <div className={Styles['user-menu-items']}>
         {menus.map((item, key) => {
           return (
             <div
-              className="user-menu-item"
+              className={Styles['user-menu-item']}
               key={key}
               onClick={() => navigate(item.url)}
             >

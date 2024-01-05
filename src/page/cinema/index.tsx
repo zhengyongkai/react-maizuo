@@ -1,26 +1,26 @@
 // import useFetch from "@/hook/fetch";
-import useLocation from "@/hook/location";
+import useLocation from '@/hook/location';
 
-import { getCinemas, getCinemasList, getMoviceDetail } from "@/api/movice";
+import { getCinemas, getCinemasList, getMoviceDetail } from '@/api/movice';
 import {
   cinemaListResponseImf,
   cinemaResponseImf,
   moviceImf,
   chinemaDetailImf,
   detailsImf,
-} from "@/types/movice";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+} from '@/types/movice';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import "@/assets/css/cinemas.scss";
+import Styles from '@/assets/css/cinemas.module.scss';
 
-import NavTitle from "@/components/Common/navTitle";
-import { Dropdown, List } from "antd-mobile";
-import Loading from "@/components/Common/partLoading";
-import { useSelector } from "react-redux";
-import { tudeStateImf } from "@/types/location";
-import { getBetweenDistance } from "@/utils/location";
-import Tab from "@/components/Common/dateTab";
+import NavTitle from '@/components/Common/navTitle';
+import { Dropdown, List } from 'antd-mobile';
+import Loading from '@/components/Common/partLoading';
+import { useSelector } from 'react-redux';
+import { tudeStateImf } from '@/types/location';
+import { getBetweenDistance } from '@/utils/location';
+import Tab from '@/components/Common/dateTab';
 
 interface sortTitleInf {
   title: string;
@@ -30,51 +30,51 @@ interface sortTitleInf {
 export default function cinemas() {
   const initSortTitle = {
     key: 1,
-    title: "离我最近",
+    title: '离我最近',
   };
 
   const menuRef = useRef<any>();
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
   );
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState('');
   const [date, setDate] = useState(0);
   const navigator = useNavigate();
 
   const [params, setParams] = useState({
     filmId: 0,
     cityId: 0,
-    cinemaIds: "",
+    cinemaIds: '',
   });
 
   const [film, setFilm] = useState<detailsImf>({
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
+      name: '',
       value: 0,
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
+      name: '',
       type: 0,
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
     showDate: [],
   });
@@ -98,7 +98,7 @@ export default function cinemas() {
     setParams({
       filmId: +id,
       cityId: locale.cityId,
-      cinemaIds: "",
+      cinemaIds: '',
       // cityName: params.cityName,
     });
   });
@@ -135,13 +135,13 @@ export default function cinemas() {
   }, [params.filmId, params.cityId]);
 
   useEffect(() => {
-    const defaultTitle = "全城";
+    const defaultTitle = '全城';
     if (cinema.showCinemas.length) {
       setLoading(true);
 
       const cinemaIds = params.cinemaIds
         ? params.cinemaIds
-        : cinema.showCinemas[0].cinemaList.join(",");
+        : cinema.showCinemas[0].cinemaList.join(',');
       async function fn() {
         const {
           data: { cinemas },
@@ -197,12 +197,12 @@ export default function cinemas() {
         locationAttr.latitude,
         longitude,
         latitude
-      ).toFixed(1) + "km"
+      ).toFixed(1) + 'km'
     );
   }
 
   function formatPrice(price: number) {
-    const pre = "￥" + String(price).slice(0, 2);
+    const pre = '￥' + String(price).slice(0, 2);
     return pre;
   }
 
@@ -210,16 +210,16 @@ export default function cinemas() {
     const sortItem = [
       {
         key: 1,
-        title: "离我最近",
+        title: '离我最近',
       },
-      { key: 2, title: "价格最低" },
+      { key: 2, title: '价格最低' },
     ];
 
     return sortItem.map((res) => {
       return (
         <List.Item
           key={res.key}
-          className={sortTitle.key === res.key ? "cinemas-sort-active" : ""}
+          className={sortTitle.key === res.key ? 'cinemas-sort-active' : ''}
           arrow={false}
           onClick={() => onSortFn(res)}
         >
@@ -230,15 +230,15 @@ export default function cinemas() {
   }
 
   function onSortFn(type: sortTitleInf) {
-    let sortParams: "Distance" | "lowPrice" = "Distance";
+    let sortParams: 'Distance' | 'lowPrice' = 'Distance';
     switch (type.key) {
       case -1:
         break;
       case 1:
-        sortParams = "Distance";
+        sortParams = 'Distance';
         break;
       case 2:
-        sortParams = "lowPrice";
+        sortParams = 'lowPrice';
         break;
       default:
         break;
@@ -267,22 +267,22 @@ export default function cinemas() {
           onChange={(key, item) => {
             setParams({
               ...params,
-              cinemaIds: item.cinemaList.join(","),
+              cinemaIds: item.cinemaList.join(','),
             });
             setDate(item.showDate);
           }}
         />
         <Dropdown ref={menuRef}>
           <Dropdown.Item key="location" title={cityName}>
-            <div className="city-items">
+            <div className={Styles['city-items']}>
               {[...cinemaList.cinemas.keys()].map((res, index) => {
                 return (
                   <div
                     key={index}
                     className={[
-                      "city-item",
-                      cityName === res ? "cinemas-tabs-active" : "",
-                    ].join(" ")}
+                      'city-item',
+                      cityName === res ? 'cinemas-tabs-active' : '',
+                    ].join(' ')}
                     onClick={() => cityItemsChange(res)}
                   >
                     {res}
@@ -297,11 +297,11 @@ export default function cinemas() {
         </Dropdown>
 
         <Loading loading={loading}>
-          <div className="cinemas-items">
+          <div className={Styles['cinemas-items']}>
             {cinemaList.cinemasList.map((item, index) => {
               return (
                 <div
-                  className="cinemas-item"
+                  className={Styles['cinemas-item']}
                   key={index}
                   onClick={() =>
                     to(
@@ -309,13 +309,13 @@ export default function cinemas() {
                     )
                   }
                 >
-                  <div className="cinemas-top">
+                  <div className={Styles['cinemas-top']}>
                     <div>{item.name}</div>
                     <div>
-                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{" "}
+                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
                     </div>
                   </div>
-                  <div className="cinemas-bottom">
+                  <div className={Styles['cinemas-bottom']}>
                     <div className="text-ellipsis">{item.address}</div>
                     <div>{getDistance(item.longitude, item.latitude)}</div>
                   </div>
