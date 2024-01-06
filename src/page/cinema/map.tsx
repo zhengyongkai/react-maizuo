@@ -1,12 +1,12 @@
-import BMap from "@/utils/location";
-import { initialStateImf, localeState, tudeImf } from "@/types/location";
-import { Button, Picker, Toast } from "antd-mobile";
-import { useEffect, useRef, useState } from "react";
-import { Map, Marker, NavigationControl, InfoWindow } from "react-bmapgl";
-import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
-import NavTitle from "@/components/Common/navTitle";
-import "@/assets/css/map.scss";
+import BMap from '@/utils/location';
+import { initialStateImf, localeState, tudeImf } from '@/types/location';
+import { Button, Picker, Toast } from 'antd-mobile';
+import { useEffect, useRef, useState } from 'react';
+import { Map, Marker, NavigationControl, InfoWindow } from 'react-bmapgl';
+import { useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
+import NavTitle from '@/components/Common/navTitle';
+import '@/assets/css/map.scss';
 
 export default function Maps() {
   const mapRef = useRef<any>();
@@ -26,21 +26,20 @@ export default function Maps() {
 
   const basicColumns = [
     [
-      { label: "推荐方案", value: 0 },
-      { label: "最少时间", value: 1 },
-      { label: "最少换乘", value: 2 },
-      { label: "最少步行", value: 3 },
-      { label: "不乘地铁", value: 4 },
-      { label: "优先地铁", value: 5 },
+      { label: '推荐方案', value: 0 },
+      { label: '最少时间', value: 1 },
+      { label: '最少换乘', value: 2 },
+      { label: '最少步行', value: 3 },
+      { label: '不乘地铁', value: 4 },
+      { label: '优先地铁', value: 5 },
     ],
   ];
 
   useEffect(() => {
-    console.log(locale.longitude, locale.latitude);
     if (locale) {
-      start.current = new BMap.Point(locale.longitude, locale.latitude);
+      start.current = new BMap.Point(lng, lat);
     }
-  }, [locale]);
+  }, [lng]);
 
   useEffect(() => {
     if (start.current) {
@@ -57,8 +56,9 @@ export default function Maps() {
     map.current.clearOverlays();
     search(start.current, end.current, e);
     function search(start: any, end: any, route: any) {
+      // console.log(route);
       if (route === e) {
-        Toast.show("未找到合适的公交路线~");
+        Toast.show('未找到合适的公交路线~');
         return false;
       }
       transit.setPolicy(route);

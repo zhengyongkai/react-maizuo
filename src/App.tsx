@@ -59,8 +59,8 @@ export default () => {
     const fn = async () => {
       setLoading(true);
       await dispatch(getLocationListsAsyc());
-      await dispatch(getLocationAsync());
       setLoading(false);
+      await dispatch(getLocationAsync());
     };
     fn();
   }, []);
