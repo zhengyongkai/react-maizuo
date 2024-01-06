@@ -37,6 +37,7 @@ function locationPage() {
   const navigator = useNavigate();
 
   useEffect(() => {
+    console.log(locationList);
     const formatList = locationList.reduce(
       (
         pre: Map<string, { pinyin: string; list: Array<cityImf> }>,
@@ -94,7 +95,7 @@ function locationPage() {
     navigator(-1);
   }
   return (
-    <>
+    <div className={Styles['city-location-wrapper']}>
       <div className={Styles['city-location']}>当前城市 - {city.name} </div>
       <div className={Styles['city-recommend']}>
         <div className={Styles['city-title']}>GPS定位你所在的城市</div>
@@ -147,7 +148,7 @@ function locationPage() {
           })}
         </IndexBar>
       </div>
-    </>
+    </div>
   );
 }
 

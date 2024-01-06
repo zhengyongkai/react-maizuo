@@ -3,20 +3,21 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from 'react';
 
-import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
-import Router, { RouteObjectImf } from "./router";
-import KeepAlive from "react-activation";
-import RouterLocation from "./components/Route/routeFc";
-import { useDispatch, useSelector } from "react-redux";
-import { userState } from "./types/user";
+import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
+import Router, { RouteObjectImf } from './router';
+import KeepAlive from 'react-activation';
+import RouterLocation from './components/Route/routeFc';
+import { useDispatch, useSelector } from 'react-redux';
+import { userState } from './types/user';
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from "@/store/common/location";
-import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
-import AuthHoc from "@/components/Auth/authFc";
+} from '@/store/common/location';
+import { getUserCouponThunk, getUserDataThunk } from '@/store/common/user';
+import AuthHoc from '@/components/Auth/authFc';
+import Loading from './components/Common/partLoading';
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
@@ -52,12 +53,14 @@ const RequireAuth = (props: { route: RouteObjectImf; children: any }) => {
 export default () => {
   const token = useSelector<userState, string>((state) => state.user.token);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fn = async () => {
-      // do something
-      await dispatch(getLocationAsync());
+      setLoading(true);
       await dispatch(getLocationListsAsyc());
+      await dispatch(getLocationAsync());
+      setLoading(false);
     };
     fn();
   }, []);
@@ -72,5 +75,5 @@ export default () => {
     }
   }, [token]);
 
-  return useRoutes(syncRouter(Router));
+  return <Loading loading={loading}>{useRoutes(syncRouter(Router))}</Loading>;
 }; //暴露为一个函数

@@ -35,10 +35,13 @@ function getGPSPosition() {
           //   position.coords.longitude,
           //   position.coords.latitude
           // );
+          // console.log(position);
           const { data: locale } = await getLocation({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
           });
+
+          console.log(locale);
 
           res({
             longitude: position.coords.longitude,
@@ -124,6 +127,7 @@ export const location = createSlice({
           },
         }
       ) => {
+        console.log(cities);
         state.locationList = cities;
       }
     );
