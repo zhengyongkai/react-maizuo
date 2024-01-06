@@ -31,10 +31,10 @@ function getGPSPosition() {
       console.log('获取当前地点 ==');
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
-          const result: locationResultImf = await getAddress(
-            position.coords.longitude,
-            position.coords.latitude
-          );
+          // const result: locationResultImf = await getAddress(
+          //   position.coords.longitude,
+          //   position.coords.latitude
+          // );
           const { data: locale } = await getLocation({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
