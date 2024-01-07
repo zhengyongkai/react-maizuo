@@ -6,7 +6,7 @@ import { Map, Marker, NavigationControl, InfoWindow } from 'react-bmapgl';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import NavTitle from '@/components/Common/navTitle';
-import '@/assets/css/map.scss';
+import Styles from '@/assets/css/map.module.scss';
 
 export default function Maps() {
   const mapRef = useRef<any>();
@@ -100,7 +100,7 @@ export default function Maps() {
         <div ref={result}></div>
       </div>
 
-      <div className="buttonWrapper">
+      <div className={Styles['button-wrapper']}>
         <div onClick={() => setVisible(true)}>公交路线</div>
         <div onClick={() => onCarLine()}>行车路线</div>
       </div>

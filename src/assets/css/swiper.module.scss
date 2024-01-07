@@ -1,4 +1,4 @@
-.swiper-slide {
+:global(.swiper-slide) {
   // width: 72px !important;
   padding-top: 26px;
   display: flex;
@@ -13,7 +13,7 @@
   }
 }
 
-.swiper-slide-active {
+:global(.swiper-slide-active) {
   // transform: scale(1) !important;
   padding-top: 0 !important;
   min-width: 90px !important;
