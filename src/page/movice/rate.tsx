@@ -19,7 +19,7 @@ import {
   rateListDetailsResponseImg,
 } from '@/types/movice';
 import BarEcharts, { BaseBarChartImf } from '@/components/Echarts/barEcharts';
-import Navbar from '@/components/Common/Navbar';
+import Navbar from '@/components/Layout/Navbar';
 import NavTitle from '@/components/Common/navTitle';
 import dayjs from 'dayjs';
 import like from '@/assets/img/like.png';

@@ -1,0 +1,48 @@
+.cinemas-item {
+  padding: 15px;
+
+  .cinemas-top {
+    display: flex;
+    align-items: center;
+    > :first-child {
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #191a1b;
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    > :last-child {
+      color: #ff5f16;
+      width: 70px;
+      text-align: right;
+      :first-child {
+        font-size: 15px;
+      }
+      :last-child {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .cinemas-bottom {
+    display: flex;
+    font-size: 13px;
+    color: #797d82;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    > :first-child {
+      flex: 1;
+    }
+    > :last-child {
+      // color: #ff5f16;
+      width: 70px;
+      text-align: right;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import Navbar from '@/components/Common/Navbar';
+import Navbar from '@/components/Layout/Navbar';
 import {
   useEffect,
   useRef,

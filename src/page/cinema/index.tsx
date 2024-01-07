@@ -21,6 +21,9 @@ import { useSelector } from 'react-redux';
 import { tudeStateImf } from '@/types/location';
 import { getBetweenDistance } from '@/utils/location';
 import Tab from '@/components/Common/dateTab';
+import MovieItems from '@/components/Common/movieItems';
+import CinemaItem from '@/components/Common/cinemaItem';
+import CityItem from '@/components/Common/cityItem';
 
 interface sortTitleInf {
   title: string;
@@ -277,16 +280,12 @@ export default function cinemas() {
             <div className={Styles['city-items']}>
               {[...cinemaList.cinemas.keys()].map((res, index) => {
                 return (
-                  <div
+                  <CityItem
                     key={index}
-                    className={[
-                      'city-item',
-                      cityName === res ? 'cinemas-tabs-active' : '',
-                    ].join(' ')}
+                    title={res}
+                    activeName={cityName}
                     onClick={() => cityItemsChange(res)}
-                  >
-                    {res}
-                  </div>
+                  ></CityItem>
                 );
               })}
             </div>
@@ -300,26 +299,15 @@ export default function cinemas() {
           <div className={Styles['cinemas-items']}>
             {cinemaList.cinemasList.map((item, index) => {
               return (
-                <div
-                  className={Styles['cinemas-item']}
+                <CinemaItem
                   key={index}
+                  item={item}
                   onClick={() =>
                     to(
                       `/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`
                     )
                   }
-                >
-                  <div className={Styles['cinemas-top']}>
-                    <div>{item.name}</div>
-                    <div>
-                      <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
-                    </div>
-                  </div>
-                  <div className={Styles['cinemas-bottom']}>
-                    <div className="text-ellipsis">{item.address}</div>
-                    <div>{getDistance(item.longitude, item.latitude)}</div>
-                  </div>
-                </div>
+                ></CinemaItem>
               );
             })}
           </div>
