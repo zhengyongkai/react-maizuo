@@ -1,9 +1,9 @@
-import { PureComponent, ReactNode } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Style from "@/assets/css/tabbar.module.scss";
+import { PureComponent, ReactNode } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import Style from '@/assets/css/tabbar.module.scss';
 
-import { withRouter } from "@/utils/hoc";
-import SvgIcon from "@/components/SvgIcon";
+import { withRouter } from '@/utils/hoc';
+import SvgIcon from '@/components/SvgIcon';
 
 interface propsType {
   navigate: any;
@@ -27,19 +27,19 @@ class tabbar extends PureComponent<propsType, stateType> {
       path: this.props.location.pathname,
       tabbarList: [
         {
-          path: ["/name/home/nowPlaying", "/name/home/comingSoon"],
-          name: "主页",
-          svg: "cinema",
+          path: ['/name/home/nowPlaying', '/name/home/comingSoon'],
+          name: '主页',
+          svg: 'cinema',
         },
         {
-          path: ["/name/news"],
-          name: "新闻",
-          svg: "new",
+          path: ['/name/news'],
+          name: '影院',
+          svg: 'new',
         },
         {
-          path: ["/name/my"],
-          name: "我的",
-          svg: "my",
+          path: ['/name/my'],
+          name: '我的',
+          svg: 'my',
         },
       ],
     };
@@ -61,14 +61,14 @@ class tabbar extends PureComponent<propsType, stateType> {
     return this.state.tabbarList.map((item, index) => {
       return (
         <div
-          className={item.path.includes(this.state.path) ? "active" : ""}
+          className={item.path.includes(this.state.path) ? 'active' : ''}
           onClick={this.routerChange.bind(this, item.path[0])}
           key={index}
         >
           <div>
             <SvgIcon
               size={24}
-              color={item.path.includes(this.state.path) ? "#ff8751" : ""}
+              color={item.path.includes(this.state.path) ? '#ff8751' : ''}
               name={item.svg}
             ></SvgIcon>
           </div>

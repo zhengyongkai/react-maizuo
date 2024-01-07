@@ -14,3 +14,18 @@
 .cinemas-items {
   background-color: #fff;
 }
+
+.city-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.cinemas-wrapper {
+  // display: flex;
+  // flex-wrap: wrap;
+  // padding-left: 10px;
+  padding-top: 90px;
+  background-color: #fff;
+}

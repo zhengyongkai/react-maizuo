@@ -73,6 +73,10 @@ export interface cinemaRequestImf {
   cityId: number;
 }
 
+export interface cinemaListRequestInf {
+  cityId: number;
+}
+
 export interface cinemaResponseImf {
   cinemaExtendList: Array<{
     cinemaId: number;
@@ -110,9 +114,7 @@ export interface chinemaDetailImf {
 }
 
 export interface cinemaListResponseImf {
-  data: {
-    cinemas: Array<chinemaDetailImf>;
-  };
+  cinemas: Array<chinemaDetailImf>;
 }
 
 export type moviceDetailsImf = {

@@ -135,18 +135,34 @@ export default function cinemasInfo() {
       } = await getCinemasShowInfo({ cinemaId: +cinemaId });
       setFilms(films);
 
-      const current = films.filter((res) => res.filmId === +filmId)[0];
-      const index = films.findIndex((res) => res.filmId === +filmId);
-      if (current.showDate && current.showDate[0]) {
+      if (+filmId !== 0) {
+        // 如果存在 filmId
+        let current = films.filter((res) => res.filmId === +filmId)[0];
+        let index = films.findIndex((res) => res.filmId === +filmId);
+        if (current.showDate && current.showDate[0]) {
+          setParams({
+            ...params,
+            details: current,
+            date: current.showDate[0],
+          });
+          setTimeout(() => {
+            swiperRef.current.swiper.slideTo(index, 1000);
+          });
+        }
+      } else {
+        // 如果不存在 filmId, 直接拿第一个电影就行
+        let current = films[0];
+        let index = 0;
+        setFilmId(current.filmId);
         setParams({
           ...params,
           details: current,
           date: current.showDate[0],
         });
+        setTimeout(() => {
+          swiperRef.current.swiper.slideTo(index, 1000);
+        });
       }
-      setTimeout(() => {
-        swiperRef.current.swiper.slideTo(index, 1000);
-      });
     }
     if (cinemaId && filmId) {
       fn();

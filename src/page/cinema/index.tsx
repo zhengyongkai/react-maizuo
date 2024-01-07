@@ -9,13 +9,13 @@ import {
   chinemaDetailImf,
   detailsImf,
 } from '@/types/movice';
-import { useEffect, useRef, useState } from 'react';
+import { ExoticComponent, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Styles from '@/assets/css/cinemas.module.scss';
 
 import NavTitle from '@/components/Common/navTitle';
-import { Dropdown, List } from 'antd-mobile';
+import { Dropdown, DropdownRef, List } from 'antd-mobile';
 import Loading from '@/components/Common/partLoading';
 import { useSelector } from 'react-redux';
 import { tudeStateImf } from '@/types/location';
@@ -36,7 +36,7 @@ export default function cinemas() {
     title: '离我最近',
   };
 
-  const menuRef = useRef<any>();
+  const menuRef = useRef<DropdownRef>(null);
   const locationAttr = useSelector(
     (state: tudeStateImf) => state.location.tude
   );
@@ -148,10 +148,10 @@ export default function cinemas() {
       async function fn() {
         const {
           data: { cinemas },
-        } = (await getCinemasList({
+        } = await getCinemasList({
           cityId: params.cityId,
           cinemaIds,
-        })) as cinemaListResponseImf;
+        });
         const moviceMap = new Map<string, Array<chinemaDetailImf>>();
         moviceMap.set(defaultTitle, cinemas);
 
@@ -185,28 +185,12 @@ export default function cinemas() {
       cinemasList: cinemas,
     });
 
-    menuRef.current.close();
     setCityName(res);
+    closeMenu();
   }
 
   function to(path: string) {
     navigator(path);
-  }
-
-  function getDistance(longitude: number, latitude: number) {
-    return (
-      getBetweenDistance(
-        locationAttr.longitude,
-        locationAttr.latitude,
-        longitude,
-        latitude
-      ).toFixed(1) + 'km'
-    );
-  }
-
-  function formatPrice(price: number) {
-    const pre = '￥' + String(price).slice(0, 2);
-    return pre;
   }
 
   function sortItems() {
@@ -255,6 +239,12 @@ export default function cinemas() {
         cinemas: cinemaList.cinemas,
         cinemasList: result,
       });
+      closeMenu();
+    }
+  }
+
+  function closeMenu() {
+    if (menuRef.current) {
       menuRef.current.close();
     }
   }
