@@ -1,0 +1,82 @@
+.coupon_ticket {
+  box-sizing: border-box;
+
+  width: 100%;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+
+  .coupon_ticket_tag {
+    //   position: relative;
+    top: 0;
+    //   background-color: #ff5f16;
+    background: linear-gradient(to right, #ff5f16, #ff0000);
+    color: #fff;
+    font-size: 10px;
+    padding: 0 8px;
+    height: 18px;
+    line-height: 18px;
+    left: 0;
+    border-bottom-right-radius: 8px;
+    width: fit-content;
+  }
+
+  .coupon_ticket_body {
+    padding: 0 12px 0 12px;
+  }
+  .coupon_ticket_top {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px dotted grey;
+    padding-bottom: 18px;
+
+    > :first-child {
+      flex: 1;
+      .coupon_ticket_name {
+        font-size: 16px;
+        font-weight: 550;
+        margin-bottom: 4px;
+      }
+      .coupon_ticket_expiration {
+        color: #ff5f16;
+        //   background-color: ;
+        font-size: 12px;
+        //   background-color: ;
+      }
+    }
+
+    > :last-child {
+      margin-left: 0;
+      font-size: 24px;
+      color: #ff5f16;
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .coupon_ticket_bottom {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+
+    > :first-child {
+      color: grey;
+      font-size: 10px;
+      // flex: 1;
+    }
+
+    //   > :last-child {
+    //     background-color: #ff5f16;
+    //     font-size: 10px;
+    //     padding: 4px;
+    //     color: #fff;
+    //     height: 12px;
+    //     line-height: 12px;
+    //     border-radius: 4px;
+    //   }
+  }
+}

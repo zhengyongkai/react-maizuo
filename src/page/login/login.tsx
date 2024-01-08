@@ -3,12 +3,14 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Button, Form, Input } from 'antd-mobile';
-import { login } from '@/api/user';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setUserData } from '@/store/common/user';
-import sha256 from 'crypto-js/sha256';
+import { Button, Form, Input } from "antd-mobile";
+import { login } from "@/api/user";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUserData } from "@/store/common/user";
+import sha256 from "crypto-js/sha256";
+
+import Styles from "@/assets/css/login.module.scss";
 
 export default function Login() {
   const [form] = Form.useForm();
@@ -23,11 +25,12 @@ export default function Login() {
       password: sha256(values.password).toString(),
     });
     await dispatch(setUserData(data));
-    navigate('/');
+    navigate("/");
   };
   return (
     <>
       <Form
+        className={Styles["login"]}
         form={form}
         layout="horizontal"
         initialValues={{}}
@@ -43,16 +46,17 @@ export default function Login() {
           </Button>
         }
       >
+        <h3>卖座APP （React）</h3>
         <Form.Item
           name="username"
           label="姓名"
-          rules={[{ required: true, message: '姓名不能为空' }]}
+          rules={[{ required: true, message: "姓名不能为空" }]}
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: '密码不能为空' }]}
+          rules={[{ required: true, message: "密码不能为空" }]}
           label="密码"
         >
           <Input type="password" placeholder="请输入密码" />

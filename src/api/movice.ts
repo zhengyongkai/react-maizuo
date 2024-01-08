@@ -3,7 +3,7 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import request from '@/utils/request';
+import request from "@/utils/request";
 import type {
   cinemaListRequestInf,
   cinemaListResponseImf,
@@ -15,11 +15,11 @@ import type {
   rateDetailsResponseImg,
   rateListDetailsPaginImf,
   rateListDetailsResponseImg,
-} from '@/types/movice';
-import { MAIZUO, MOCK } from '@/constant/baseUrl';
+} from "@/types/movice";
+import { MAIZUO, MOCK } from "@/constant/baseUrl";
 
-import { Response, ResponsePageSize } from '@/types';
-import { cinemasInfoImf, cinemasInfoResponseInfo } from '@/types/cinema';
+import { Response, ResponsePageSize } from "@/types";
+import { cinemasInfoImf, cinemasInfoResponseInfo } from "@/types/cinema";
 
 export function getMoviceData(params: moviceParams) {
   const cityId = params.cityId === -1 ? 110100 : params.cityId;
@@ -46,7 +46,7 @@ export function getMoviceDetail(
 ): Response<detailsResponseImf> {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.film.info',
+      "X-Host": "mall.film-ticket.film.info",
     },
     params,
   });
@@ -55,7 +55,7 @@ export function getMoviceDetail(
 export function getCinemas(params: cinemaRequestImf) {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.film-show-cinema',
+      "X-Host": "mall.film-ticket.cinema.film-show-cinema",
     },
     params,
   });
@@ -67,18 +67,19 @@ export function getCinemasList(data: {
 }): Response<cinemaListResponseImf> {
   return request.post(`${MAIZUO}`, data, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.batch-cinema',
-      'Content-Type': 'application/x-www-form-urlencode',
+      "X-Host": "mall.film-ticket.cinema.batch-cinema",
+      "Content-Type": "application/x-www-form-urlencode",
     },
   });
 }
 
-export function getCinemasByCityId(
-  params: cinemaListRequestInf
-): Response<cinemaListResponseImf> {
+export function getCinemasByCityId(params: {
+  cityId: number;
+  ticketFlag: number;
+}): Response<cinemaListResponseImf> {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.list',
+      "X-Host": "mall.film-ticket.cinema.list",
     },
     params,
   });

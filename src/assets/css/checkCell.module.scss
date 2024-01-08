@@ -1,0 +1,17 @@
+.check-cell-item {
+  padding: 0 8px;
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+
+  &.check-cell-isCheck {
+    color: #ff5f16;
+  }
+
+  > div,
+  img {
+    width: 20px;
+    margin-right: 8px;
+  }
+}

@@ -6,16 +6,21 @@ import { useEffect, useRef, useState } from 'react';
 import { getCinemasByCityId } from '@/api/movice';
 import { useSelector } from 'react-redux';
 import useLocation from '@/hook/location';
-import { chinemaDetailImf } from '@/types/movice';
+import type { chinemaDetailImf } from '@/types/movice';
 import CityItem from '@/components/Common/cityItem';
 
 import Styles from '@/assets/css/cinemas.module.scss';
 import CinemaItem from '@/components/Common/cinemaItem';
 import Loading from '@/components/Common/partLoading';
+import CheckCell from '@/components/Common/checkCell';
 
 export default function newsPage() {
   const location = useLocation();
-  const [params, setParams] = useState(0);
+  const [params, setParams] = useState({
+    cityId: 0,
+    ticketFlag: 1,
+    ticketName: 'APP订票',
+  });
   const menuRef = useRef<DropdownRef>(null);
   const [cinemaList, setCinemasList] = useState<{
     cinemas: Map<string, chinemaDetailImf[]>;
@@ -28,39 +33,46 @@ export default function newsPage() {
   const [cityName, setCityName] = useState('');
   const [loading, setLoading] = useState(false);
   location((locale) => {
-    setParams(locale.cityId);
+    setParams({
+      ...params,
+      cityId: locale.cityId,
+    });
   });
 
-  useEffect(() => {
+  async function requestFn() {
     const defaultTitle = '全城';
-    async function fn() {
-      setLoading(true);
-      const {
-        data: { cinemas },
-      } = await getCinemasByCityId({ cityId: +params });
-      const moviceMap = new Map<string, Array<chinemaDetailImf>>();
-      moviceMap.set(defaultTitle, cinemas);
-      cinemas
-        .sort((pre, next) => pre.Distance - next.Distance)
-        .forEach((element) => {
-          const key = moviceMap.get(element.districtName);
+    setLoading(true);
+    const {
+      data: { cinemas },
+    } = await getCinemasByCityId({
+      cityId: +params.cityId,
+      ticketFlag: params.ticketFlag,
+    });
+    const moviceMap = new Map<string, Array<chinemaDetailImf>>();
+    moviceMap.set(defaultTitle, cinemas);
+    cinemas
+      .sort((pre, next) => pre.Distance - next.Distance)
+      .forEach((element) => {
+        const key = moviceMap.get(element.districtName);
 
-          if (key) {
-            moviceMap.set(element.districtName, [...key, element]);
-          } else {
-            moviceMap.set(element.districtName, [element]);
-          }
-        });
-      setCinemasList({
-        cinemas: moviceMap,
-        cinemasList: [...moviceMap.values()][0],
+        if (key) {
+          moviceMap.set(element.districtName, [...key, element]);
+        } else {
+          moviceMap.set(element.districtName, [element]);
+        }
       });
-      // console.log(moviceMap);
-      setCityName(defaultTitle);
-      setLoading(false);
-    }
-    if (params) {
-      fn();
+    setCinemasList({
+      cinemas: moviceMap,
+      cinemasList: [...moviceMap.values()][0],
+    });
+    // console.log(moviceMap);
+    setCityName(defaultTitle);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (params.cityId) {
+      requestFn();
     }
   }, [params]);
 
@@ -76,14 +88,23 @@ export default function newsPage() {
     closeMenu();
   }
 
-  function closeMenu() {
-    if (menuRef.current) {
-      menuRef.current.close();
-    }
+  function onTicketFlagchange(key: number, ticketName: string) {
+    setParams({
+      ...params,
+      ticketFlag: key,
+      ticketName,
+    });
+    closeMenu();
   }
 
   function to(path: string) {
     navigator(path);
+  }
+
+  function closeMenu() {
+    if (menuRef.current) {
+      menuRef.current.close();
+    }
   }
 
   return (
@@ -106,6 +127,32 @@ export default function newsPage() {
                   );
                 })}
               </div>
+            </Dropdown.Item>
+            <Dropdown.Item title={params.ticketName} key="type">
+              <CheckCell
+                title="APP订票"
+                value={1}
+                onClick={(e) => onTicketFlagchange(e, 'APP订票')}
+                active={params.ticketFlag === 1}
+              ></CheckCell>
+              <CheckCell
+                title="前台兑换"
+                value={2}
+                onClick={(e) => onTicketFlagchange(e, '前台兑换')}
+                active={params.ticketFlag === 2}
+              ></CheckCell>
+              {/* <div
+                onClick={() => onTicketFlagchange(1, "APP订票")}
+                className={Styles["cinemas-cell"]}
+              >
+                <img src={CheckPng}></img> App订票
+              </div>
+              <div
+                onClick={() => onTicketFlagchange(2, "前台兑换")}
+                className={Styles["cinemas-cell"]}
+              >
+                前台兑换
+              </div> */}
             </Dropdown.Item>
           </Dropdown>
         </div>

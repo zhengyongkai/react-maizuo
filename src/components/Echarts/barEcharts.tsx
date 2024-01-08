@@ -11,7 +11,7 @@ import {
   BarEchartsImf,
   BaseBarOptionsImf,
   BaseBarSeries,
-} from "@/assets/types/echarts";
+} from "@/types/echarts";
 import { forwardRef, useImperativeHandle } from "react";
 
 export interface BaseBarChartImf {
@@ -68,7 +68,6 @@ const BarEcharts = forwardRef<BaseBarChartImf, BarEchartsImf>((props, ref) => {
     xAxis: Array<number>,
     baseBarOptions: BaseBarOptionsImf = BaseBarOptions
   ) {
-    console.log(xAxis);
     baseBarOptions.yAxis.data = xAxis;
     setOptions({
       ...baseBarOptions,
