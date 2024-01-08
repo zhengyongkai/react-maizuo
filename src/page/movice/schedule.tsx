@@ -316,9 +316,6 @@ export default function cinemasInfo() {
                       : '',
                   ])}
                   key={item.scheduleId}
-                  onClick={() =>
-                    navigator(`/seat/${item.scheduleId}/${item.showAt}`)
-                  }
                 >
                   <div className={Styles['schedule-at']}>
                     <div>{getTime(item.showAt)}</div>
@@ -333,7 +330,17 @@ export default function cinemasInfo() {
                   <div className={Styles['schedule-price']}>
                     {formatPrice(item.salePrice)}
                   </div>
-                  <div>购票</div>
+                  {isStopSelling(item.showAt, item.advanceStopMins) ? (
+                    <div>购票</div>
+                  ) : (
+                    <div
+                      onClick={() =>
+                        navigator(`/seat/${item.scheduleId}/${item.showAt}`)
+                      }
+                    >
+                      购票
+                    </div>
+                  )}
                 </div>
               );
             })}

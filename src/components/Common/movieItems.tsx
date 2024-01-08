@@ -55,7 +55,7 @@ function moviceItem(props: propsImf) {
         {props.type === 1 ? (
           <span onClick={() => onBuyTickets(props)}>购票</span>
         ) : item.isPresale ? (
-          <span>预购</span>
+          <span onClick={() => onBuyTickets(props)}>预购</span>
         ) : (
           ''
         )}

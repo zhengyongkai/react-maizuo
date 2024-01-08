@@ -24,7 +24,7 @@ import LoadingWrap from '@/components/Common/partLoading';
 import { BarSeriesOption } from 'echarts';
 import { InfiniteScroll, Rate } from 'antd-mobile';
 
-import type {
+import {
   getMoviceDetail,
   getRateForChinema,
   getRateListForCinema,
