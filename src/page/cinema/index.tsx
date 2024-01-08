@@ -2,7 +2,7 @@
 import useLocation from '@/hook/location';
 
 import { getCinemas, getCinemasList, getMoviceDetail } from '@/api/movice';
-import {
+import type {
   cinemaListResponseImf,
   cinemaResponseImf,
   moviceImf,
@@ -18,13 +18,12 @@ import NavTitle from '@/components/Common/navTitle';
 import { Dropdown, DropdownRef, List } from 'antd-mobile';
 import Loading from '@/components/Common/partLoading';
 import { useSelector } from 'react-redux';
-import { tudeStateImf } from '@/types/location';
-import { getBetweenDistance } from '@/utils/location';
+
 import Tab from '@/components/Common/dateTab';
-import MovieItems from '@/components/Common/movieItems';
 import CinemaItem from '@/components/Common/cinemaItem';
 import CityItem from '@/components/Common/cityItem';
 
+import type { tudeStateImf } from '@/types/location';
 interface sortTitleInf {
   title: string;
   key: number;

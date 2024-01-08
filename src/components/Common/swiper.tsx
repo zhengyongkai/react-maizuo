@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Styles from '@/assets/css/swiper.module.scss';
 import 'swiper/css';
-import { chinemaDetailImf, detailsImf } from '@/types/movice';
+import type { detailsImf } from '@/types/movice';
 import { forwardRef } from 'react';
 
 interface cinemaSwiperProps {

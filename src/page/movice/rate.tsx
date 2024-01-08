@@ -7,17 +7,9 @@ import useEcharts from '@/hook/echarts';
 import useFetch from '@/hook/fetch';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  getMoviceDetail,
-  getRateForChinema,
-  getRateListForCinema,
-} from '@/api/movice';
+
 import { BaseBarSeries } from '@/types/echarts';
-import {
-  detailsResponseImf,
-  rateListDetailsPaginImf,
-  rateListDetailsResponseImg,
-} from '@/types/movice';
+
 import BarEcharts, { BaseBarChartImf } from '@/components/Echarts/barEcharts';
 import Navbar from '@/components/Layout/Navbar';
 import NavTitle from '@/components/Common/navTitle';
@@ -31,6 +23,17 @@ import Styles from '@/assets/css/rate.module.scss';
 import LoadingWrap from '@/components/Common/partLoading';
 import { BarSeriesOption } from 'echarts';
 import { InfiniteScroll, Rate } from 'antd-mobile';
+
+import type {
+  getMoviceDetail,
+  getRateForChinema,
+  getRateListForCinema,
+} from '@/api/movice';
+import type {
+  detailsResponseImf,
+  rateListDetailsPaginImf,
+  rateListDetailsResponseImg,
+} from '@/types/movice';
 
 const RatePage = () => {
   const detailsInitData = {

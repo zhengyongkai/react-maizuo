@@ -1,10 +1,10 @@
 import Navbar from '@/components/Layout/Navbar';
 import { Dropdown, DropdownRef } from 'antd-mobile';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { getCinemasByCityId } from '@/api/movice';
-import { useSelector } from 'react-redux';
+
 import useLocation from '@/hook/location';
 import type { chinemaDetailImf } from '@/types/movice';
 import CityItem from '@/components/Common/cityItem';

@@ -1,5 +1,6 @@
 import BMap from '@/utils/location';
-import { initialStateImf, localeState, tudeImf } from '@/types/location';
+import type { initialStateImf, localeState, tudeImf } from '@/types/location';
+
 import { Button, Picker, Toast } from 'antd-mobile';
 import { useEffect, useRef, useState } from 'react';
 import { Map, Marker, NavigationControl, InfoWindow } from 'react-bmapgl';

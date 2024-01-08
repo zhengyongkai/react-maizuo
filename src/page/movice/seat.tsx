@@ -7,13 +7,6 @@ import * as d3Select from 'd3-selection';
 import * as d3Zoom from 'd3-zoom';
 
 import { getSeatDetails } from '@/api/seat';
-import {
-  seatingChartInf,
-  seatListInf,
-  seatResponseInf,
-  seatsInf,
-  selectSeatsInf,
-} from '@/types/seat';
 
 import Unselect from '@/assets/img/unselect.png';
 import NavTitle from '@/components/Common/navTitle';
@@ -29,7 +22,7 @@ import {
   getCinemasSchedule,
   getCinemasSeat,
 } from '@/api/cinema';
-import { scheduleImf } from '@/types/schedule';
+
 import { formatPrice } from '@/utils/price';
 import { showDialog } from '@/utils/dialog';
 
@@ -45,10 +38,20 @@ import {
 import Loading from '@/components/Common/partLoading';
 import { generatePreOrder } from '@/api/order';
 import { getMoviceDetail } from '@/api/movice';
-import { detailsImf } from '@/types/movice';
-import { cinemasInfoImf } from '@/types/cinema';
+
 import cookie from '@/utils/cookie';
 import { combineCss } from '@/utils/css';
+
+import type { scheduleImf } from '@/types/schedule';
+import type {
+  seatingChartInf,
+  seatListInf,
+  seatResponseInf,
+  seatsInf,
+  selectSeatsInf,
+} from '@/types/seat';
+import type { detailsImf } from '@/types/movice';
+import type { cinemasInfoImf } from '@/types/cinema';
 
 const initSeat = {
   schedule: {

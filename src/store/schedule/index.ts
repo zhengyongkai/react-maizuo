@@ -3,8 +3,8 @@
  * @LastEditors: 郑永楷
  * @Description: 用户选择座位 reducers
  */
-import { seatsInf } from "@/types/seat";
-import { createSlice } from "@reduxjs/toolkit";
+import type { seatsInf } from '@/types/seat';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface initialStateProps {
   selectSeats: Array<seatsInf>;
@@ -15,7 +15,7 @@ const initialState: initialStateProps = {
 };
 
 export const scheduleStore = createSlice({
-  name: "schedule",
+  name: 'schedule',
   initialState,
   reducers: {
     setSeats(state, { payload }) {

@@ -3,11 +3,13 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { getCardList, getUserData } from "@/api/user";
-import { cardListInf, user } from "@/types/user";
-import cookie from "@/utils/cookie";
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TOKEN } from "../constants";
+import { getCardList, getUserData } from '@/api/user';
+
+import cookie from '@/utils/cookie';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOKEN } from '../constants';
+
+import type { cardListInf, user } from '@/types/user';
 
 export interface initUserStoreInf {
   userData: user;
@@ -19,14 +21,14 @@ export interface initUserStoreInf {
 // export function getUserData() {}
 // 获取用户信息
 export const getUserDataThunk: any = createAsyncThunk(
-  "/user/getData",
+  '/user/getData',
   async () => {
     return await getUserData();
   }
 );
 // 获取优惠券信息
 export const getUserCouponThunk: any = createAsyncThunk(
-  "/user/getCoupon",
+  '/user/getCoupon',
   async () => {
     return await getCardList();
   }
@@ -34,16 +36,16 @@ export const getUserCouponThunk: any = createAsyncThunk(
 
 const initUserStore: initUserStoreInf = {
   userData: {
-    accountName: "",
-    birthday: "",
+    accountName: '',
+    birthday: '',
     gender: 0,
     hasDefaultAddr: 0,
     hasPassword: 0,
     hasPayPwd: 0,
-    headIcon: "",
-    mail: "",
-    mobile: "",
-    nickName: "",
+    headIcon: '',
+    mail: '',
+    mobile: '',
+    nickName: '',
     thirdAccount: [],
     userId: 0,
   },
@@ -53,7 +55,7 @@ const initUserStore: initUserStoreInf = {
 };
 
 export const userStore = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initUserStore,
   reducers: {
     setUserData(state, payload) {
@@ -66,7 +68,7 @@ export const userStore = createSlice({
     clearUserData(state): any {
       state.logged = false;
       state.userData.userId = 0;
-      state.token = "";
+      state.token = '';
 
       cookie.removeCookie(TOKEN);
     },

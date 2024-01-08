@@ -5,8 +5,6 @@ import {
   getCinemasShowInfo,
   getCinemasSchedule,
 } from '@/api/cinema';
-import type { cinemasInfoImf } from '@/types/cinema';
-import type { scheduleImf } from '@/types/schedule';
 
 import NavTitle from '@/components/Common/navTitle';
 import locationImg from '@/assets/img/location.png';
@@ -18,16 +16,18 @@ import CinemaSwiper from '@/components/Common/swiper';
 import Styles from '@/assets/css/schedule.module.scss';
 
 // import { Swiper } from "antd-mobile";
-import { anctorImf, detailsImf, moviceDetailsImf } from '@/types/movice';
 
 import Tab from '@/components/Common/dateTab';
 import { getTime, isStopSelling } from '@/utils/day';
 import { formatPrice } from '@/utils/price';
 import useSroll from '@/hook/scroll';
 
-import { useActivate } from 'react-activation';
 import PartLoading from '@/components/Common/partLoading';
 import { combineCss } from '@/utils/css';
+
+import type { cinemasInfoImf } from '@/types/cinema';
+import type { scheduleImf } from '@/types/schedule';
+import type { anctorImf, detailsImf, moviceDetailsImf } from '@/types/movice';
 
 export default function cinemasInfo() {
   const { cinemaId = '', filmId = '', showDate = '' } = useParams();

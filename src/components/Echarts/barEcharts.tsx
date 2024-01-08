@@ -6,13 +6,13 @@
  * @func { setData }
  */
 
-import useEcharts from "@/hook/echarts";
-import {
+import useEcharts from '@/hook/echarts';
+import type {
   BarEchartsImf,
   BaseBarOptionsImf,
   BaseBarSeries,
-} from "@/types/echarts";
-import { forwardRef, useImperativeHandle } from "react";
+} from '@/types/echarts';
+import { forwardRef, useImperativeHandle } from 'react';
 
 export interface BaseBarChartImf {
   setData: (
@@ -24,26 +24,26 @@ export interface BaseBarChartImf {
 }
 
 const BaseBarOptions: BaseBarOptionsImf = {
-  color: ["#ff5f16"],
+  color: ['#ff5f16'],
   tooltip: {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "shadow",
+      type: 'shadow',
     },
   },
   legend: {},
   grid: {
-    left: "8px",
-    right: "8%",
-    bottom: "1%",
-    top: "0",
+    left: '8px',
+    right: '8%',
+    bottom: '1%',
+    top: '0',
     containLabel: true,
   },
   xAxis: {
-    type: "value",
+    type: 'value',
   },
   yAxis: {
-    type: "category",
+    type: 'category',
     data: [],
   },
   series: [],
@@ -75,7 +75,7 @@ const BarEcharts = forwardRef<BaseBarChartImf, BarEchartsImf>((props, ref) => {
     });
   }
 
-  return <div ref={echartsRef} style={{ width: "100%", height }}></div>;
+  return <div ref={echartsRef} style={{ width: '100%', height }}></div>;
 });
 
 export default BarEcharts;

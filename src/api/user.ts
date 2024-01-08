@@ -4,8 +4,8 @@
  * @Description: file content
  */
 import { BASE_URL, MAIZUO } from '@/constant/baseUrl';
-import { Response } from '@/types';
-import { amountInf, cardInf, loginRequestInf } from '@/types/user';
+import type { Response } from '@/types';
+import type { amountInf, cardInf, loginRequestInf } from '@/types/user';
 import request from '@/utils/request';
 
 // export const getUserData = () => {

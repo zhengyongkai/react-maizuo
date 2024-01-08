@@ -1,10 +1,10 @@
 import request from '@/utils/request';
 import { MAIZUO, BASE_URL } from '@/constant/baseUrl';
-import { scheduleResponseImf } from '@/types/schedule';
-import { cinemasInfoImf, cinemasInfoResponseImf } from '@/types/cinema';
-import { moviceDetailsResponseImf } from '@/types/movice';
-import { seatingChartInf, seatListInf } from '@/types/seat';
-import { Response } from '@/types';
+import type { scheduleResponseImf } from '@/types/schedule';
+import type { cinemasInfoImf, cinemasInfoResponseImf } from '@/types/cinema';
+import type { moviceDetailsResponseImf } from '@/types/movice';
+import type { seatingChartInf, seatListInf } from '@/types/seat';
+import type { Response } from '@/types';
 
 export function getCinemasInfo(params: {
   cinemaId: number;

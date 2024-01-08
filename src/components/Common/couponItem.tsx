@@ -1,4 +1,4 @@
-import { cardListInf } from '@/types/user';
+import type { cardListInf } from '@/types/user';
 import { getDate } from '@/utils/day';
 import { formatPrice } from '@/utils/price';
 

@@ -3,10 +3,10 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { cityStateImf, locationResultImf } from "@/types/location";
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import type { cityStateImf } from '@/types/location';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface propsImf {
   children: React.ReactElement;

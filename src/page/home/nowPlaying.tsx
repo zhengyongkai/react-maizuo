@@ -1,16 +1,16 @@
-import { memo, useEffect, useState } from "react";
-import { getMoviceData } from "@/api/movice";
-import { detailsImf, moviceImf } from "@/types/movice";
+import { memo, useEffect, useState } from 'react';
+import { getMoviceData } from '@/api/movice';
+
 // import { cityStateImf } from '@/types/location';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from "@/types/location";
-import { InfiniteScroll } from "antd-mobile";
+import type { detailsImf, moviceImf } from '@/types/movice';
+import type { cityStateImf } from '@/types/location';
 
-import useLocation from "@/hook/location";
-
-import MovieItems from "@/components/Common/movieItems";
+import { InfiniteScroll } from 'antd-mobile';
+import useLocation from '@/hook/location';
+import MovieItems from '@/components/Common/movieItems';
 
 function nowPlaying() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);
@@ -63,7 +63,7 @@ function nowPlaying() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#fff" }}>
+      <div style={{ backgroundColor: '#fff' }}>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={1} key={index}></MovieItems>;
         })}

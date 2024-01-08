@@ -10,7 +10,6 @@ import OrderCompleteImg from '@/assets/img/order_complete.png';
 import useCountDown from '@/hook/countdown';
 import { getDate, getDaysNameFn, secondToMMSS } from '@/utils/day';
 import { useSelector } from 'react-redux';
-import { user, userState } from '@/types/user';
 import { formatPrice } from '@/utils/price';
 import phoneImg from '@/assets/img/phone.png';
 import CopyText from '@/components/Common/copyText';
@@ -19,6 +18,8 @@ import { useRef, useState } from 'react';
 import QRCode from 'qrcode.react';
 import html2canvas from 'html2canvas';
 import { changeToCanvas } from '@/utils';
+
+import type { user, userState } from '@/types/user';
 
 const initData = {
   cinemaId: 0,

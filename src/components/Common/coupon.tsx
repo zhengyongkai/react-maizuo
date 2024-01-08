@@ -1,11 +1,11 @@
-import { cardListInf, userState } from "@/types/user";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import NavTitle from "./navTitle";
+import type { cardListInf, userState } from '@/types/user';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import NavTitle from './navTitle';
 
-import "@/assets/css/coupon.scss";
+import '@/assets/css/coupon.scss';
 
-import CouponItem from "./couponItem";
+import CouponItem from './couponItem';
 
 function couponPage() {
   const [couponList, setCouponList] = useState<cardListInf[]>([]);
@@ -21,7 +21,7 @@ function couponPage() {
   return (
     <>
       <div>
-        <NavTitle back title={"优惠券"}></NavTitle>
+        <NavTitle back title={'优惠券'}></NavTitle>
       </div>
       <div className="coupon_tickets">
         <div>

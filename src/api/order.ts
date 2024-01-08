@@ -1,7 +1,8 @@
-import { BASE_URL, MAIZUO } from "@/constant/baseUrl";
-import { preOrderEntity, preOrderParams } from "@/types/order";
-import request from "@/utils/request";
-import { OReseponse, Response } from "@/types";
+import { BASE_URL } from '@/constant/baseUrl';
+import type { preOrderEntity, preOrderParams } from '@/types/order';
+import type { OReseponse, Response } from '@/types';
+
+import request from '@/utils/request';
 
 export function generatePreOrder(data: preOrderParams): OReseponse {
   return request.post(`${BASE_URL}/order/addOrder`, data);

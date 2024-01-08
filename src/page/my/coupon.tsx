@@ -1,4 +1,4 @@
-import { cardListInf, userState } from '@/types/user';
+import type { cardListInf, userState } from '@/types/user';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import NavTitle from '@/components/Common/navTitle';

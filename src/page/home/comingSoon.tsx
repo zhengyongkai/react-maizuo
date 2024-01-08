@@ -5,14 +5,15 @@
  */
 import { memo, useEffect, useState } from 'react';
 import { getMoviceData, getMoviceComingData } from '@/api/movice';
-import { detailsImf, moviceImf } from '@/types/movice';
 import Styles from '@/assets/css/movice.module.scss';
 import useLocation from '@/hook/location';
 import { useSelector } from 'react-redux';
 
-import type { cityStateImf } from '@/types/location';
 import { InfiniteScroll } from 'antd-mobile';
 import MovieItems from '@/components/Common/movieItems';
+
+import type { detailsImf, moviceImf } from '@/types/movice';
+import type { cityStateImf } from '@/types/location';
 
 function comingSoon() {
   const [movice, setMovice] = useState<Array<detailsImf>>([]);

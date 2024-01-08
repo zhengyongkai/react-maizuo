@@ -1,4 +1,10 @@
-import { amountInf, cardInf, cardListInf, user, userState } from '@/types/user';
+import type {
+  amountInf,
+  cardInf,
+  cardListInf,
+  user,
+  userState,
+} from '@/types/user';
 import { useSelector } from 'react-redux';
 
 import { useEffect, useState } from 'react';
