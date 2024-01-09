@@ -1,76 +1,86 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Badge, TabBar } from "antd-mobile";
+import { PureComponent, ReactNode } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Style from "@/assets/css/tabbar.module.scss";
 
-import {
-  AppOutline,
-  MessageOutline,
-  MessageFill,
-  UnorderedListOutline,
-  UserOutline,
-} from "antd-mobile-icons";
+import { withRouter } from "@/utils/hoc";
+import SvgIcon from "@/components/SvgIcon";
 
-export default () => {
-  const navbarRouterList = ["/home"];
+interface propsType {
+  navigate: any;
+  location: any;
+}
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [isNavbar, setNavbar] = useState(false);
+interface stateType {
+  path: string;
+  tabbarList: Array<{
+    path: Array<string>;
+    name: string;
+    svg: string;
+  }>;
+}
 
-  const onNavigateTo = (path: string) => {
-    navigate(path);
-  };
+class tabbar extends PureComponent<propsType, stateType> {
+  constructor(props: propsType) {
+    super(props);
 
-  useEffect(() => {
-    if (navbarRouterList.includes(location.pathname)) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
+    this.state = {
+      path: this.props.location.pathname,
+      tabbarList: [
+        {
+          path: ["/name/home/nowPlaying", "/name/home/comingSoon"],
+          name: "主页",
+          svg: "cinema",
+        },
+        {
+          path: ["/name/news"],
+          name: "影院",
+          svg: "new",
+        },
+        {
+          path: ["/name/my"],
+          name: "我的",
+          svg: "my",
+        },
+      ],
+    };
+  }
+
+  componentDidUpdate(prevProps: Readonly<propsType>): void {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        path: this.props.location.pathname,
+      });
     }
-  }, [location]);
-  const tabs = [
-    {
-      key: "/home",
-      title: "首页",
-      icon: <AppOutline />,
-      badge: Badge.dot,
-    },
-    {
-      key: "/todo",
-      title: "待办",
-      icon: <UnorderedListOutline />,
-      badge: "5",
-    },
-    {
-      key: "/message",
-      title: "消息",
-      icon: (active: boolean) =>
-        active ? <MessageFill /> : <MessageOutline />,
-      badge: "99+",
-    },
-    {
-      key: "/personalCenter",
-      title: "我的",
-      icon: <UserOutline />,
-    },
-  ];
+  }
 
-  return (
-    <>
-      {isNavbar ? (
-        <div style={{ position: "fixed", bottom: 0, width: "100%" }}>
-          <TabBar safeArea={true} onChange={(value) => onNavigateTo(value)}>
-            {tabs.map((item) => (
-              <TabBar.Item
-                key={item.key}
-                badge={item.badge}
-                icon={item.icon}
-                title={item.title}
-              />
-            ))}
-          </TabBar>
+  routerChange(params: string) {
+    this.props.navigate(params);
+  }
+
+  getTabbarContext() {
+    return this.state.tabbarList.map((item, index) => {
+      return (
+        <div
+          className={item.path.includes(this.state.path) ? "active" : ""}
+          onClick={this.routerChange.bind(this, item.path[0])}
+          key={index}
+        >
+          <div>
+            <SvgIcon
+              size={24}
+              color={item.path.includes(this.state.path) ? "#ff8751" : ""}
+              name={item.svg}
+            ></SvgIcon>
+          </div>
+          {item.name}
         </div>
-      ) : undefined}
-    </>
-  );
-};
+      );
+    });
+  }
+
+  render(): ReactNode {
+    return <div className={Style.tabbar}>{this.getTabbarContext()}</div>;
+  }
+}
+
+export default withRouter(tabbar);

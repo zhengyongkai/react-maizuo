@@ -19,9 +19,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </AliveScope>
     </HashRouter>
   </Provider>
-  //   <React.StrictMode>
-  //   <BrowserRouter>
-  //     <App />
-  //   </BrowserRouter>
-  // </React.StrictMode>
 );

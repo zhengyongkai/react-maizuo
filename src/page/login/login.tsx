@@ -12,7 +12,12 @@ import sha256 from "crypto-js/sha256";
 
 import Styles from "@/assets/css/login.module.scss";
 
-export default function Login() {
+interface LoginPropsInf {
+  exact?: boolean;
+}
+
+export default function Login(props: LoginPropsInf) {
+  const { exact } = props;
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -25,7 +30,7 @@ export default function Login() {
       password: sha256(values.password).toString(),
     });
     await dispatch(setUserData(data));
-    navigate("/");
+    !exact && navigate("/");
   };
   return (
     <>

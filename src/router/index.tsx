@@ -29,6 +29,7 @@ import CinemasInfo from "@/page/movice/schedule";
 import { Navigate } from "react-router-dom";
 import OrderInfoPage from "@/page/order/orderInfo";
 import OrderQuery from "@/page/order/orderQuery";
+import SettingPage from "@/page/my/setting";
 
 export interface RouteObjectImf {
   path: string;
@@ -86,6 +87,7 @@ const Router: RouteObjectImf[] = [
         element: <NewsPage />,
         meta: {
           keepAlive: true,
+          locate: true,
         },
       },
       {
@@ -135,6 +137,13 @@ const Router: RouteObjectImf[] = [
   {
     path: "coupon",
     element: <CouponPage />,
+    meta: {
+      login: true,
+    },
+  },
+  {
+    path: "setting",
+    element: <SettingPage />,
     meta: {
       login: true,
     },

@@ -6,9 +6,9 @@ import {
   useParams,
   useNavigate,
   useLocation,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import Tabbar from '@/components/Common/tabbar';
+import Tabbar from "@/components/Layout/tabbar";
 
 import {
   useEffect,
@@ -16,7 +16,7 @@ import {
   useState,
   useLayoutEffect,
   useCallback,
-} from 'react';
+} from "react";
 
 export default function routerPage() {
   const { pathname } = useLocation();
@@ -44,10 +44,10 @@ export default function routerPage() {
   const scrollCallback = useScroll;
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollCallback);
+    window.addEventListener("scroll", scrollCallback);
 
     return () => {
-      window.removeEventListener('scroll', scrollCallback);
+      window.removeEventListener("scroll", scrollCallback);
     };
   }, []);
   return (

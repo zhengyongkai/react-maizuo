@@ -1,25 +1,25 @@
-import Navbar from '@/components/Layout/Navbar';
-import { Dropdown, DropdownRef } from 'antd-mobile';
+import Navbar from "@/components/Layout/navBar";
+import { Dropdown, DropdownRef } from "antd-mobile";
 
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import { getCinemasByCityId } from '@/api/movice';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { getCinemasByCityId } from "@/api/movice";
 
-import useLocation from '@/hook/location';
-import type { chinemaDetailImf } from '@/types/movice';
-import CityItem from '@/components/Common/cityItem';
+import useLocation from "@/hook/location";
+import type { chinemaDetailImf } from "@/types/movice";
+import CityItem from "@/components/Common/cityItem";
 
-import Styles from '@/assets/css/cinemas.module.scss';
-import CinemaItem from '@/components/Common/cinemaItem';
-import Loading from '@/components/Common/partLoading';
-import CheckCell from '@/components/Common/checkCell';
+import Styles from "@/assets/css/cinemas.module.scss";
+import CinemaItem from "@/components/Common/cinemaItem";
+import Loading from "@/components/Common/partLoading";
+import CheckCell from "@/components/Common/checkCell";
 
 export default function newsPage() {
   const location = useLocation();
   const [params, setParams] = useState({
     cityId: 0,
     ticketFlag: 1,
-    ticketName: 'APP订票',
+    ticketName: "APP订票",
   });
   const menuRef = useRef<DropdownRef>(null);
   const [cinemaList, setCinemasList] = useState<{
@@ -30,7 +30,7 @@ export default function newsPage() {
     cinemasList: [],
   });
   const navigator = useNavigate();
-  const [cityName, setCityName] = useState('');
+  const [cityName, setCityName] = useState("");
   const [loading, setLoading] = useState(false);
   location((locale) => {
     setParams({
@@ -40,7 +40,7 @@ export default function newsPage() {
   });
 
   async function requestFn() {
-    const defaultTitle = '全城';
+    const defaultTitle = "全城";
     setLoading(true);
     const {
       data: { cinemas },
@@ -110,12 +110,12 @@ export default function newsPage() {
   return (
     <>
       <div>
-        <div className={Styles['city-wrapper']}>
+        <div className={Styles["city-wrapper"]}>
           <Navbar></Navbar>
 
           <Dropdown ref={menuRef}>
             <Dropdown.Item title={cityName} key="location">
-              <div className={Styles['city-items']}>
+              <div className={Styles["city-items"]}>
                 {[...cinemaList.cinemas.keys()].map((res, index) => {
                   return (
                     <CityItem
@@ -132,32 +132,20 @@ export default function newsPage() {
               <CheckCell
                 title="APP订票"
                 value={1}
-                onClick={(e) => onTicketFlagchange(e, 'APP订票')}
+                onClick={(e) => onTicketFlagchange(e, "APP订票")}
                 active={params.ticketFlag === 1}
               ></CheckCell>
               <CheckCell
                 title="前台兑换"
                 value={2}
-                onClick={(e) => onTicketFlagchange(e, '前台兑换')}
+                onClick={(e) => onTicketFlagchange(e, "前台兑换")}
                 active={params.ticketFlag === 2}
               ></CheckCell>
-              {/* <div
-                onClick={() => onTicketFlagchange(1, "APP订票")}
-                className={Styles["cinemas-cell"]}
-              >
-                <img src={CheckPng}></img> App订票
-              </div>
-              <div
-                onClick={() => onTicketFlagchange(2, "前台兑换")}
-                className={Styles["cinemas-cell"]}
-              >
-                前台兑换
-              </div> */}
             </Dropdown.Item>
           </Dropdown>
         </div>
         <Loading loading={loading}>
-          <div className={Styles['cinemas-wrapper']}>
+          <div className={Styles["cinemas-wrapper"]}>
             {cinemaList.cinemasList.map((item, key) => {
               return (
                 <CinemaItem
