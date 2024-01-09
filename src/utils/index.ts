@@ -1,5 +1,4 @@
-import { ImageElement, SymbolElement, UseElement } from 'canvg';
-
+// 获取url参数
 export function getQueryVariable(url: string) {
   const str = url.split('?');
   const query = str[1];
