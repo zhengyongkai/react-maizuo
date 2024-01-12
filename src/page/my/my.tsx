@@ -82,7 +82,7 @@ export default function myPage() {
           <div>优惠卷</div>
         </div>
         <div>
-          <div>{formatPrice(card.availableAmount)}</div>
+          <div>{formatPrice(userData.balance)}</div>
           <div>余额</div>
         </div>
       </div>

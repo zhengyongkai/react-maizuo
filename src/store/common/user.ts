@@ -48,6 +48,7 @@ const initUserStore: initUserStoreInf = {
     nickName: "",
     thirdAccount: [],
     userId: 0,
+    balance: 0,
   },
   couponList: [],
   logged: false,
@@ -68,6 +69,7 @@ export const userStore = createSlice({
     clearUserData(state): any {
       state.logged = false;
       state.userData.userId = 0;
+      state.userData.balance = 0;
       state.token = "";
       state.couponList = [];
 

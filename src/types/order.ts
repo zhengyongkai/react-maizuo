@@ -1,4 +1,4 @@
-import { selectSeatsInf } from './seat';
+import { selectSeatsInf } from "./seat";
 
 export interface preOrderParams {
   cinemaId: number;
@@ -25,4 +25,5 @@ export type preOrderEntity = preOrderParams & {
   createDate: number;
   tradeNo: string;
   tradeTime: number;
+  actualPrice: number;
 };

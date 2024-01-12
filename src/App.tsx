@@ -3,7 +3,7 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, createContext, useEffect, useState } from "react";
 
 import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
 import Router, { RouteObjectImf } from "./router";
@@ -11,6 +11,8 @@ import KeepAlive from "react-activation";
 import RouterLocation from "./components/Route/routeFc";
 import { useDispatch, useSelector } from "react-redux";
 import { userState } from "./types/user";
+import io from "socket.io-client";
+
 import {
   getLocationAsync,
   getLocationListsAsyc,
@@ -18,6 +20,7 @@ import {
 import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
 import AuthHoc from "@/components/Auth/authFc";
 import Loading from "./components/Common/partLoading";
+import { SocketContext } from "./utils/socket";
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
@@ -75,5 +78,13 @@ export default () => {
     }
   }, [token]);
 
-  return <Loading loading={loading}>{useRoutes(syncRouter(Router))}</Loading>;
+  return (
+    <SocketContext.Provider
+      value={{
+        socket: io("http://localhost:3001/"),
+      }}
+    >
+      <Loading loading={loading}>{useRoutes(syncRouter(Router))}</Loading>
+    </SocketContext.Provider>
+  );
 };
