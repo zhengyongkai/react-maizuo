@@ -1,22 +1,22 @@
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
-class Simgleton {
-  static _instance: any = new Cookies();
+class CookiesInstance {
+  static _instance = new Cookies();
 
   static getInstance() {
-    return Simgleton;
+    return CookiesInstance;
   }
 
   static setCookie(key: string, value: any) {
-    Simgleton._instance.set(key, value, { path: "/" });
-    return Simgleton;
+    CookiesInstance._instance.set(key, value, { path: '/' });
+    return CookiesInstance;
   }
   static getCookie(key: string) {
-    return Simgleton._instance.get(key);
+    return CookiesInstance._instance.get(key);
   }
   static removeCookie(key: string) {
-    return Simgleton._instance.remove(key);
+    return CookiesInstance._instance.remove(key);
   }
 }
 
-export default Simgleton.getInstance();
+export default CookiesInstance.getInstance();

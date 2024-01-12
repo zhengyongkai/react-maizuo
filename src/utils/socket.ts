@@ -1,6 +1,15 @@
-import { createContext } from "react";
-import { io } from "socket.io-client";
+import { createContext } from 'react';
+import { io } from 'socket.io-client';
+class SocketInstance {
+  static _instance = io(import.meta.env.VITE_BASE_SOCKET_URL);
 
-export const SocketContext = createContext({
-  socket: io(""),
-});
+  static getInstance() {
+    return SocketInstance;
+  }
+
+  static disconnect() {
+    return SocketInstance._instance.disconnect();
+  }
+}
+
+export default SocketInstance.getInstance();
