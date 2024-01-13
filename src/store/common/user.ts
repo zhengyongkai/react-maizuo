@@ -10,6 +10,7 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOKEN } from "../constants";
 
 import type { cardListInf, user } from "@/types/user";
+import socketIo from "@/utils/socket";
 
 export interface initUserStoreInf {
   userData: user;
@@ -72,7 +73,7 @@ export const userStore = createSlice({
       state.userData.balance = 0;
       state.token = "";
       state.couponList = [];
-
+      socketIo.disconnect();
       cookie.removeCookie(TOKEN);
     },
   },

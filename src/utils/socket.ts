@@ -1,15 +1,27 @@
-import { createContext } from 'react';
-import { io } from 'socket.io-client';
-class SocketInstance {
-  static _instance = io(import.meta.env.VITE_BASE_SOCKET_URL);
+import { Socket, io } from "socket.io-client";
+
+class socketIo {
+  static _instance: Socket | null;
 
   static getInstance() {
-    return SocketInstance;
+    return this._instance;
+  }
+
+  static connect(query: { token: string }) {
+    if (!this._instance) {
+      this._instance = io("http://localhost:3001/", {
+        query,
+      });
+    }
+    return this._instance;
   }
 
   static disconnect() {
-    return SocketInstance._instance.disconnect();
+    if (this._instance) {
+      this._instance.disconnect();
+      this._instance = null;
+    }
   }
 }
 
-export default SocketInstance.getInstance();
+export default socketIo;

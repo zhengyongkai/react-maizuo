@@ -1,22 +1,22 @@
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
-class CookiesInstance {
-  static _instance = new Cookies();
+class CookieInstance {
+  static _instance: any = new Cookies();
 
   static getInstance() {
-    return CookiesInstance;
+    return CookieInstance;
   }
 
   static setCookie(key: string, value: any) {
-    CookiesInstance._instance.set(key, value, { path: '/' });
-    return CookiesInstance;
+    CookieInstance._instance.set(key, value, { path: "/" });
+    return CookieInstance;
   }
   static getCookie(key: string) {
-    return CookiesInstance._instance.get(key);
+    return CookieInstance._instance.get(key);
   }
   static removeCookie(key: string) {
-    return CookiesInstance._instance.remove(key);
+    return CookieInstance._instance.remove(key);
   }
 }
 
-export default CookiesInstance.getInstance();
+export default CookieInstance.getInstance();

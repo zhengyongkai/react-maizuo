@@ -43,7 +43,7 @@ export default function myPage() {
     {
       img: customImg,
       title: "帮助与客服",
-      url: "/order",
+      url: "/custom",
     },
     {
       img: settingImg,

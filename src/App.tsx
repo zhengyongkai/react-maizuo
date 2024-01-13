@@ -3,23 +3,23 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, createContext, useEffect, useState } from 'react';
+import { Suspense, createContext, useEffect, useState } from "react";
 
-import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
-import Router, { RouteObjectImf } from './router';
-import KeepAlive from 'react-activation';
-import RouterLocation from './components/Route/routeFc';
-import { useDispatch, useSelector } from 'react-redux';
-import { userState } from './types/user';
-import io from 'socket.io-client';
+import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
+import Router, { RouteObjectImf } from "./router";
+import KeepAlive from "react-activation";
+import RouterLocation from "./components/Route/routeFc";
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "./types/user";
 
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from '@/store/common/location';
-import { getUserCouponThunk, getUserDataThunk } from '@/store/common/user';
-import AuthHoc from '@/components/Auth/authFc';
-import Loading from './components/Common/partLoading';
+} from "@/store/common/location";
+import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
+import AuthHoc from "@/components/Auth/authFc";
+import Loading from "./components/Common/partLoading";
+import socketIo from "./utils/socket";
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
@@ -73,7 +73,11 @@ export default () => {
       await dispatch(getUserCouponThunk());
     };
     if (token) {
+      console.log(token);
       fn();
+      socketIo.connect({
+        token,
+      });
     }
   }, [token]);
 
