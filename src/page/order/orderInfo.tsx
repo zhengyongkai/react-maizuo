@@ -1,62 +1,72 @@
-import useFetch from "@/hook/fetch";
-import NavTitle from "@/components/Common/navTitle";
-import { getOrderById, payOrder } from "@/api/order";
-import { useParams } from "react-router-dom";
-import Loading from "@/components/Common/partLoading";
-import Styles from "@/assets/css/orderInfo.module.scss";
-import SvgIcon from "@/components/SvgIcon";
-import OrderCardImg from "@/assets/img/order_card.png";
-import OrderCompleteImg from "@/assets/img/order_complete.png";
-import useCountDown from "@/hook/countdown";
-import { getDate, getDaysNameFn, secondToMMSS } from "@/utils/day";
-import { useSelector } from "react-redux";
-import { formatPrice } from "@/utils/price";
-import phoneImg from "@/assets/img/phone.png";
-import CopyText from "@/components/Common/copyText";
-import { Checkbox, Radio, Toast } from "antd-mobile";
-import { useRef, useState } from "react";
-import QRCode from "qrcode.react";
-import html2canvas from "html2canvas";
-import { changeToCanvas } from "@/utils";
+import useFetch from '@/hook/fetch';
+import NavTitle from '@/components/Common/navTitle';
+import { getOrderById, payOrder, queryOrder } from '@/api/order';
+import { useLocation, useParams } from 'react-router-dom';
+import Loading from '@/components/Common/partLoading';
+import Styles from '@/assets/css/orderInfo.module.scss';
+import SvgIcon from '@/components/SvgIcon';
+import OrderCardImg from '@/assets/img/order_card.png';
+import OrderCompleteImg from '@/assets/img/order_complete.png';
+import useCountDown from '@/hook/countdown';
+import { getDate, getDaysNameFn, secondToMMSS } from '@/utils/day';
+import { useSelector } from 'react-redux';
+import { formatPrice } from '@/utils/price';
+import phoneImg from '@/assets/img/phone.png';
+import CopyText from '@/components/Common/copyText';
+import { Checkbox, Radio, Toast } from 'antd-mobile';
+import { useEffect, useRef, useState } from 'react';
+import QRCode from 'qrcode.react';
+import html2canvas from 'html2canvas';
+import { changeToCanvas, getQueryVariable } from '@/utils';
 
-import type { user, userState } from "@/types/user";
+import type { user, userState } from '@/types/user';
+import { selectSeatsInf } from '@/types/seat';
+import { preOrderEntity } from '@/types/order';
 
-const initData = {
+const initData: preOrderEntity = {
   cinemaId: 0,
-  cinemaName: "",
+  cinemaName: '',
   showAt: 0,
   endAt: 0,
-  hallId: "",
-  hallName: "",
+  hallId: '',
+  hallName: '',
   filmId: 0,
-  filmName: "",
+  filmName: '',
   scheduleId: 0,
   seatList: [],
   price: 0,
-  address: "",
-  poster: "",
-  cinemaPhone: "",
+  address: '',
+  poster: '',
+  cinemaPhone: '',
   orderId: 0,
   status: 0,
-  statusName: "",
-  oNum: "",
+  statusName: '',
+  oNum: '',
   createDate: 0,
-  tradeNo: "",
+  tradeNo: '',
   tradeTime: 0,
   actualPrice: 0,
 };
 
 function OrderInfoPage() {
   const payRef = useRef<HTMLDivElement>(null);
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const orderRef = useRef<HTMLDivElement>(null);
-  const [orderInfo, loading] = useFetch(
-    () => {
-      return getOrderById(+id);
-    },
-    initData,
-    [id]
-  );
+  const { search } = useLocation();
+  const [orderInfo, setOrderInfo] = useState(initData);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    // 查询订单结果
+    async function fn() {
+      await getOrderQuery();
+      // 查询订单详情
+      await getOrderInfo();
+    }
+    fn();
+    setLoading(false);
+  }, []);
 
   const [remainer] = useCountDown(60 * 15);
 
@@ -66,7 +76,7 @@ function OrderInfoPage() {
     const { data } = await payOrder({
       oNum: orderInfo.oNum,
       price: +formatPrice(orderInfo.price, false),
-      subject: orderInfo.filmName + "(" + orderInfo.seatList.length + "张)",
+      subject: orderInfo.filmName + '(' + orderInfo.seatList.length + '张)',
       orderId: orderInfo.orderId,
     });
 
@@ -74,7 +84,7 @@ function OrderInfoPage() {
       console.log(payRef.current);
       if (payRef.current) {
         payRef.current.innerHTML = data;
-        document.getElementsByTagName("form")[0].submit();
+        document.getElementsByTagName('form')[0].submit();
       }
     }, 500);
   }
@@ -114,23 +124,23 @@ function OrderInfoPage() {
 
   const ticketRender = () => {
     return orderInfo.status === 1 ? (
-      <div className={Styles["order-ticket-wrapper"]}>
-        <div className={Styles["order-ticket-tabs"]}>
-          <div className={Styles["order-ticket-tab"]}>取电影票</div>
+      <div className={Styles['order-ticket-wrapper']}>
+        <div className={Styles['order-ticket-tabs']}>
+          <div className={Styles['order-ticket-tab']}>取电影票</div>
         </div>
-        <div className={Styles["order-ticket-qrcode"]}>
+        <div className={Styles['order-ticket-qrcode']}>
           <QRCode
             value={orderInfo.oNum} // value参数为生成二维码的链接
             size={150} // 二维码的宽高尺寸
           ></QRCode>
-          <div className={Styles["order-ticket-length"]}>
+          <div className={Styles['order-ticket-length']}>
             {orderInfo.seatList.length}张电影票
           </div>
-          <div className={Styles["order-ticket-num"]}>
+          <div className={Styles['order-ticket-num']}>
             <span>取票码</span>
             <span>{orderInfo.oNum}</span>
           </div>
-          <div className={Styles["order-ticket-button"]}>取票码详情</div>
+          <div className={Styles['order-ticket-button']}>取票码详情</div>
         </div>
       </div>
     ) : (
@@ -169,13 +179,13 @@ function OrderInfoPage() {
         useCORS: true,
         allowTaint: true, //开启跨域
       }).then((canvas) => {
-        Toast.show("生成图片成功");
-        const link = document.createElement("a");
+        Toast.show('生成图片成功');
+        const link = document.createElement('a');
 
         // return;
-        link.href = canvas.toDataURL("image/png");
-        link.setAttribute("download", "订单详情.png");
-        link.style.display = "none";
+        link.href = canvas.toDataURL('image/png');
+        link.setAttribute('download', '订单详情.png');
+        link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -183,22 +193,41 @@ function OrderInfoPage() {
     }
   }
 
+  async function getOrderInfo() {
+    let { data } = await getOrderById(+id);
+    setOrderInfo(data);
+  }
+
+  async function getOrderQuery() {
+    if (search) {
+      const query = getQueryVariable(search);
+      if (query.get('out_trade_no')) {
+        async function fn() {
+          await queryOrder({
+            out_trade_no: query.get('out_trade_no'),
+            trade_no: query.get('trade_no'),
+          });
+        }
+        await fn();
+      }
+    }
+  }
   return (
     <Loading loading={loading}>
       <NavTitle title={orderInfo.filmName} back></NavTitle>
-      <div className={Styles["order-info-wrapper"]} ref={orderRef}>
-        <div className={Styles["order-info-status"]}>{orderStatusRender()}</div>
-        <div className={Styles["order-info-user"]}>
+      <div className={Styles['order-info-wrapper']} ref={orderRef}>
+        <div className={Styles['order-info-status']}>{orderStatusRender()}</div>
+        <div className={Styles['order-info-user']}>
           <div>
             <SvgIcon name="order_contact" size={32}></SvgIcon>
           </div>
           <div>{userData.userId}</div>
         </div>
-        <div className={Styles["order-info-wrapper"]}>
-          <div className={Styles["order-poster"]}>
+        <div className={Styles['order-info-wrapper']}>
+          <div className={Styles['order-poster']}>
             <img src={orderInfo.poster} alt="" />
           </div>
-          <div className={Styles["order-info"]}>
+          <div className={Styles['order-info']}>
             <div>{orderInfo.filmName}</div>
             <div>{getDaysNameFn(orderInfo.showAt)}</div>
             <div>{orderInfo.address}</div>
@@ -209,7 +238,7 @@ function OrderInfoPage() {
               {orderInfo.seatList.map((item, index) => {
                 return (
                   <span key={index}>
-                    {item.rowNum + "排" + (item.columnNum + "") + "座 "}
+                    {item.rowNum + '排' + (item.columnNum + '') + '座 '}
                   </span>
                 );
               })}
@@ -217,36 +246,36 @@ function OrderInfoPage() {
           </div>
         </div>
         {ticketRender()}
-        <div className={Styles["order-price-wrapper"]}>
-          <div className={Styles["order-price"]}>
+        <div className={Styles['order-price-wrapper']}>
+          <div className={Styles['order-price']}>
             <div>商品金额</div>
             <div>{formatPrice(orderInfo.price)}</div>
           </div>
-          <div className={Styles["order-external-price"]}>
+          <div className={Styles['order-external-price']}>
             <div>实付</div>
             <div>{formatPrice(orderInfo.actualPrice)}</div>
           </div>
         </div>
 
-        <div className={Styles["order-locate-wrapper"]}>
-          <div className={Styles["order-locate"]}>
+        <div className={Styles['order-locate-wrapper']}>
+          <div className={Styles['order-locate']}>
             <div>{orderInfo.cinemaName}</div>
             <div>{orderInfo.address}</div>
           </div>
-          <div className={Styles["order-tel"]}>
-            <a href={"tel:" + orderInfo.cinemaPhone}>
+          <div className={Styles['order-tel']}>
+            <a href={'tel:' + orderInfo.cinemaPhone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
         </div>
-        <div className={Styles["order-detailed-wrapper"]}>
+        <div className={Styles['order-detailed-wrapper']}>
           {orderDetailsRender()}
         </div>
         {orderInfo.status === 0 ? (
-          <div className={Styles["order-pay"]}>
+          <div className={Styles['order-pay']}>
             <div>支付方式</div>
-            <Radio.Group value={"1"} disabled>
-              <Radio value={"1"}>支付宝</Radio>
+            <Radio.Group value={'1'} disabled>
+              <Radio value={'1'}>支付宝</Radio>
             </Radio.Group>
           </div>
         ) : (
@@ -255,7 +284,7 @@ function OrderInfoPage() {
       </div>
 
       {orderInfo.status !== 2 ? (
-        <div className={Styles["order-info-bottom"]}>
+        <div className={Styles['order-info-bottom']}>
           {orderInfo.status === 0 ? (
             <>
               <div>
