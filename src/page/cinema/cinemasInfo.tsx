@@ -103,7 +103,6 @@ export default function cinemasInfo() {
       } = await getCinemasShowInfo({ cinemaId: +cinemaId });
       setFilms(films);
       const index = films.findIndex((res) => res.filmId === +filmId);
-      console.log(films.filter((res) => res.filmId === +filmId)[0]);
       setParams({
         ...params,
         details: films.filter((res) => res.filmId === +filmId)[0],
@@ -116,12 +115,10 @@ export default function cinemasInfo() {
   }, [cinemaId, filmId]);
 
   function onSlideChange(e: number) {
-    console.log(films[e]);
     setParams({
       ...params,
       details: films[e],
     });
-    console.log(films[e]);
   }
 
   function getAnctorsString(actors: Array<anctorImf>) {
