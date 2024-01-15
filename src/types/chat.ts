@@ -1,26 +1,29 @@
 export type messageInf = {
-  type: "selected" | "text";
+  type: 'selected' | 'text';
   title: string;
-  date: "";
+  date: string;
   fromId: number;
   from: string;
   data?: selectListInf;
   fromMy?: boolean;
+  id: string | null;
 };
 
 export type selectItemsInf = {
   title: string;
   url: string;
+  id: string;
 };
 
 export type selectedInf = {
-  type: "selected" | "text";
+  type: 'selected' | 'text';
   title: string;
-  date: "";
+  date: string;
   fromId: number;
   from: string;
-  data: selectListInf;
+  data?: selectListInf;
   fromMy?: boolean;
+  id: string | null;
 };
 
 export type selectListInf = Array<selectItemsInf>;

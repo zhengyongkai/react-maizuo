@@ -1,11 +1,16 @@
 .chat-item {
   margin: 0 8px 8px 8px;
-  border-radius: 8px;
 
   > :first-child {
     margin-bottom: 8px;
     color: rgba(36, 46, 51, 0.4);
     font-size: 12px;
+  }
+
+  > :last-child {
+    > div {
+      border-radius: 4px;
+    }
   }
 }
 
@@ -19,6 +24,11 @@
 
   > :last-child {
     display: flex;
+
     flex-direction: row-reverse;
+    > div {
+      background-color: #ff5f16;
+      color: #fff;
+    }
   }
 }

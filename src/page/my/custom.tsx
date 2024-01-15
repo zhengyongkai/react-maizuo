@@ -1,23 +1,31 @@
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from '@/components/Common/navTitle';
 
-import Styles from "@/assets/css/custom.module.scss";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import socketIo from "@/utils/socket";
-import type { messageInf } from "@/types/chat";
-import ChatItem from "./components/custom/chatItem";
+import Styles from '@/assets/css/custom.module.scss';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import socketIo from '@/utils/socket';
+import type { messageInf } from '@/types/chat';
+import ChatItem from './components/custom/chatItem';
+import { userSimpleImf, userState } from '@/types/user';
+import { useSelector } from 'react-redux';
+import { getDateFormat } from '@/utils/day';
+import { combineCss } from '@/utils/css';
 
 function customPage() {
   const [messageList, setMessageList] = useState<messageInf[]>([]);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
+
+  const user = useSelector<userState, userSimpleImf>(
+    (state) => state.user.userData
+  );
 
   const messageRef = useRef<messageInf[]>([]);
 
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    socketIo.emit("robot", null);
+    socketIo.emit('robot', null);
 
-    socketIo.getInstance()?.on("message", (data: messageInf) => {
+    socketIo.getInstance()?.on('message', (data: messageInf) => {
       messageRef.current.push(data);
       setMessageList([...messageRef.current]);
       scrollBottom();
@@ -26,46 +34,61 @@ function customPage() {
 
   function scrollBottom() {
     setTimeout(() => {
-      bodyRef.current?.scrollTo(0, bodyRef.current.offsetHeight + 48);
+      bodyRef.current?.scrollTo(0, bodyRef.current.offsetHeight + 72);
     }, 0);
   }
 
   const message = useMemo(() => {
     return messageList.map((item, index) => {
-      return <ChatItem data={item} onChange={(e) => send(e)}></ChatItem>;
+      return (
+        <ChatItem
+          key={index}
+          data={item}
+          onChange={(id, e) => send(id, e)}
+        ></ChatItem>
+      );
     });
   }, [messageList]);
 
-  function send(message: string) {
+  function send(id: string | null, message: string) {
     if (message) {
       messageRef.current.push({
-        type: "text",
+        type: 'text',
         title: message,
-        date: "",
-        from: "机器人",
-        fromId: -1,
+        date: getDateFormat(new Date()),
+        from: user.nickName,
+        fromId: user.userId,
         fromMy: true,
+        id,
       });
       setMessageList([...messageRef.current]);
     }
 
-    socketIo.emit("robot", message);
+    socketIo.emit('robot', id || message);
 
     scrollBottom();
   }
   return (
     <>
       <NavTitle title="在线客服" back></NavTitle>
-      <div className={Styles["custom-body"]} ref={bodyRef}>
+      <div
+        className={combineCss(['inner-scroll', Styles['custom-body']])}
+        ref={bodyRef}
+      >
         {message}
       </div>
-      <div className={Styles["custom-tabbar"]}>
-        <input
-          onChange={(e) => {
-            setValue(e.currentTarget.value);
-          }}
-        ></input>
-        <button onClick={(e) => send(value)}>发送</button>
+      <div className={Styles['custom-tabbar']}>
+        <div>
+          <textarea
+            placeholder="很高兴为你服务，请输入你想查询的内容"
+            onChange={(e) => {
+              setValue(e.currentTarget.value);
+            }}
+          ></textarea>
+        </div>
+        <div>
+          <div onClick={(e) => send(null, value)}>发送</div>
+        </div>
       </div>
     </>
   );
