@@ -1,4 +1,4 @@
-import { Socket, io } from "socket.io-client";
+import { Socket, io } from 'socket.io-client';
 
 class socketIo {
   static _instance: Socket | null;
@@ -9,10 +9,10 @@ class socketIo {
 
   static connect(query: { token: string }) {
     if (!this._instance) {
-      this._instance = io("http://localhost:3001/socket", {
+      this._instance = io(import.meta.env.VITE_BASE_WEBSOCKET, {
         query,
-      }).on("connect", () => {
-        console.log("已经成功链接上socket");
+      }).on('connect', () => {
+        console.log('已经成功链接上socket');
       });
     }
     return this._instance;

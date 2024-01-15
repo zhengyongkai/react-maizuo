@@ -75,7 +75,7 @@ function OrderInfoPage() {
   async function pay() {
     const { data } = await payOrder({
       oNum: orderInfo.oNum,
-      price: +formatPrice(orderInfo.price, false),
+      price: +formatPrice(orderInfo.actualPrice, false),
       subject: orderInfo.filmName + '(' + orderInfo.seatList.length + '张)',
       orderId: orderInfo.orderId,
     });
