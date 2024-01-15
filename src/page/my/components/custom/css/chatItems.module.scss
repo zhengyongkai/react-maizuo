@@ -1,0 +1,24 @@
+.chat-item {
+  margin: 0 8px 8px 8px;
+  border-radius: 8px;
+
+  > :first-child {
+    margin-bottom: 8px;
+    color: rgba(36, 46, 51, 0.4);
+    font-size: 12px;
+  }
+}
+
+.chat-item-left {
+}
+
+.chat-item-right {
+  > :first-child {
+    text-align: right;
+  }
+
+  > :last-child {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}

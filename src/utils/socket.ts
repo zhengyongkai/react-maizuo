@@ -1,4 +1,4 @@
-import { Socket, io } from 'socket.io-client';
+import { Socket, io } from "socket.io-client";
 
 class socketIo {
   static _instance: Socket | null;
@@ -9,13 +9,11 @@ class socketIo {
 
   static connect(query: { token: string }) {
     if (!this._instance) {
-      this._instance = io('http://localhost:3002/', {
+      this._instance = io("http://localhost:3001/socket", {
         query,
-      }).on('connect', () => {
-        console.log('连接陈工');
+      }).on("connect", () => {
+        console.log("已经成功链接上socket");
       });
-      // 进入房间
-      this._instance.emit('join');
     }
     return this._instance;
   }
