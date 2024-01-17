@@ -68,7 +68,7 @@ function OrderInfoPage() {
     setLoading(false);
   }, []);
 
-  const [remainer] = useCountDown(60 * 15);
+  const [remainer] = useCountDown(60 * 10);
 
   const userData = useSelector<userState, user>((state) => state.user.userData);
 
@@ -212,6 +212,7 @@ function OrderInfoPage() {
       }
     }
   }
+
   return (
     <Loading loading={loading}>
       <NavTitle title={orderInfo.filmName} back></NavTitle>

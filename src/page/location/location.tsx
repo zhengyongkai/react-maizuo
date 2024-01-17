@@ -1,14 +1,14 @@
-import Styles from "@/assets/css/location.module.scss";
-import { useSelector, useDispatch } from "react-redux";
+import Styles from '@/assets/css/location.module.scss';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Cookie from "@/utils/cookie";
+import Cookie from '@/utils/cookie';
 
-import { IndexBar, List } from "antd-mobile";
-import { useEffect, useState } from "react";
-import { setLocale } from "@/store/common/location";
+import { IndexBar, List } from 'antd-mobile';
+import { useEffect, useState } from 'react';
+import { setLocale } from '@/store/common/location';
 
-import type { cityStateInf } from "@/types/location";
-import { useNavigate } from "react-router-dom";
+import type { cityStateInf } from '@/types/location';
+import { useNavigate } from 'react-router-dom';
 
 interface cityInf {
   pinyin: string;
@@ -94,20 +94,19 @@ function locationPage(props: locationPageInf) {
       return false;
     }
     dispatch(setLocale(item));
-    console.log(Cookie);
-    Cookie.setCookie("cityId", item.cityId);
-    Cookie.setCookie("name", item.name);
+    Cookie.setCookie('cityId', item.cityId);
+    Cookie.setCookie('name', item.name);
     back && navigator(-1);
   }
 
   return (
-    <div className={Styles["city-location-wrapper"]}>
-      <div className={Styles["city-location"]}>当前城市 - {city.name} </div>
-      <div className={Styles["city-recommend"]}>
-        <div className={Styles["city-title"]}>GPS定位你所在的城市</div>
-        <div className={Styles["city-gps"]}>
+    <div className={Styles['city-location-wrapper']}>
+      <div className={Styles['city-location']}>当前城市 - {city.name} </div>
+      <div className={Styles['city-recommend']}>
+        <div className={Styles['city-title']}>GPS定位你所在的城市</div>
+        <div className={Styles['city-gps']}>
           <div
-            className={Styles["city-tab"]}
+            className={Styles['city-tab']}
             onClick={() =>
               onCityClick({
                 cityId: city.cityId,
@@ -116,15 +115,15 @@ function locationPage(props: locationPageInf) {
               })
             }
           >
-            {city.name ? city.name : "定位失败"}
+            {city.name ? city.name : '定位失败'}
           </div>
         </div>
-        <div className={Styles["city-title"]}>热门城市</div>
-        <div className={Styles["city-tabs"]}>
+        <div className={Styles['city-title']}>热门城市</div>
+        <div className={Styles['city-tabs']}>
           {hotList.map((item, index) => {
             return (
               <div
-                className={Styles["city-tab"]}
+                className={Styles['city-tab']}
                 key={index}
                 onClick={() => onCityClick(item)}
               >
@@ -134,7 +133,7 @@ function locationPage(props: locationPageInf) {
           })}
         </div>
       </div>
-      <div className={Styles["city-list"]}>
+      <div className={Styles['city-list']}>
         <IndexBar>
           {list.map((group) => {
             const { title, items } = group;
