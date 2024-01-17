@@ -33,7 +33,7 @@ import {
   REMAINER,
   SEAT_DEFAULT_HEIGHT,
   SEAT_DEFAULT_WIDTH,
-} from '@/store/constants';
+} from '@/constant';
 
 import Loading from '@/components/Common/partLoading';
 import { generatePreOrder } from '@/api/order';
@@ -42,7 +42,7 @@ import { getMoviceDetail } from '@/api/movice';
 import cookie from '@/utils/cookie';
 import { combineCss } from '@/utils/css';
 
-import type { scheduleImf } from '@/types/schedule';
+import type { scheduleInf } from '@/types/schedule';
 import type {
   seatingChartInf,
   seatListInf,
@@ -50,8 +50,8 @@ import type {
   seatsInf,
   selectSeatsInf,
 } from '@/types/seat';
-import type { detailsImf } from '@/types/movice';
-import type { cinemasInfoImf } from '@/types/cinema';
+import type { detailsInf } from '@/types/movice';
+import type { cinemasInfoInf } from '@/types/cinema';
 
 const initSeat = {
   schedule: {
@@ -146,7 +146,7 @@ export default function SeatPage() {
   // let zoomInstance = null;
   const navigator = useNavigate();
   const { id = 0, showDate } = useParams();
-  const [scheduleList, setScheduleList] = useState<Array<scheduleImf>>([]);
+  const [scheduleList, setScheduleList] = useState<Array<scheduleInf>>([]);
   const [showSchedule, setShowSchedule] = useState(false);
   const [seatsList, setSeatsList] = useState<seatingChartInf>(initSeats);
   const [scheduleId, setScheduleId] = useState<number>(+id);
@@ -179,7 +179,7 @@ export default function SeatPage() {
     [scheduleId]
   );
 
-  let [filmsDetails, setFilmDetails] = useState<detailsImf & cinemasInfoImf>({
+  let [filmsDetails, setFilmDetails] = useState<detailsInf & cinemasInfoInf>({
     actors: [],
     category: '',
     director: '',

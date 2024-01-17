@@ -11,7 +11,7 @@ import { cardInf, cardListInf, user, userState } from "@/types/user";
 import { getDate, getDaysNameFn, secondToMMSS } from "@/utils/day";
 import { formatPrice } from "@/utils/price";
 import { Checkbox, Dialog, Popup } from "antd-mobile";
-import { REMAINER } from "@/store/constants";
+import { REMAINER } from "@/constant";
 import couponImg from "@/assets/img/coupon.png";
 import invoiceImg from "@/assets/img/invoice.png";
 import balanceImg from "@/assets/img/balance.png";
@@ -232,6 +232,7 @@ export default function preOrder() {
               <div key={index} className={Styles["order-coupon-item"]}>
                 <Checkbox
                   className="adm-checkboxs"
+                  disabled={item.isExpia}
                   onChange={(e) => {
                     if (e) {
                       setCoupon([...coupon, item.remission]);

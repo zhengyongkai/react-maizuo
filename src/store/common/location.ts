@@ -7,13 +7,12 @@ import {
   POSITION_UNAVAILABLE,
   TIMEOUT,
 } from "@/constant/geolocation";
-import { getAddress } from "@/utils/location";
 
-import type { locationResultImf, initialStateImf } from "@/types/location";
+import type { locationResultInf, initialStateInf } from "@/types/location";
 import cookie from "@/utils/cookie";
 import { showDialog } from "@/utils/dialog";
 
-const initialState: initialStateImf = {
+const initialState: initialStateInf = {
   locale: {
     name: cookie.getCookie("name"),
     cityId: cookie.getCookie("cityId"),
@@ -31,18 +30,10 @@ function getGPSPosition() {
       console.log("获取当前地点 ==");
       navigator.geolocation.getCurrentPosition(
         async (position: GeolocationPosition) => {
-          // const result: locationResultImf = await getAddress(
-          //   position.coords.longitude,
-          //   position.coords.latitude
-          // );
-          // console.log(position);
           const { data: locale } = await getLocation({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
           });
-
-          // console.log(locale);
-
           res({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,

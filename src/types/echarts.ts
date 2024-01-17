@@ -6,11 +6,11 @@ export interface BaseBarSeries {
   data: Array<number>;
 }
 
-export interface BarEchartsImf {
+export interface BarEchartsInf {
   height: number;
 }
 
-export type BaseBarOptionsImf = {
+export type BaseBarOptionsInf = {
   yAxis: {
     type?: string;
     data: Array<number>;

@@ -28,11 +28,6 @@ export interface userState {
 }
 
 export interface loginRequestInf {
-  // extra: {};
-  // imgCode: string;
-  // imgKey: string;
-  // mobile: string;
-  // smsCode: string;
   userId: number;
   password: string;
 }
@@ -66,7 +61,7 @@ export interface amountResponseInf {
   data: amountInf;
 }
 
-export interface userSimpleImf {
+export interface userSimpleInf {
   userId: number;
   nickName: string;
   headIcon: string;

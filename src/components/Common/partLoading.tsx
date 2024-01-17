@@ -2,12 +2,12 @@
 import { SpinLoading } from "antd-mobile";
 import React from "react";
 
-interface LoadingPropsImf {
+interface LoadingPropsInf {
   children: React.ReactNode;
   loading: boolean;
 }
 
-export default function Loading(props: LoadingPropsImf) {
+export default function Loading(props: LoadingPropsInf) {
   const { children, loading } = props;
   return (
     <div style={{ position: "relative" }}>

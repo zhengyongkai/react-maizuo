@@ -7,8 +7,13 @@ body {
     Arial,
     sans-serif;
   -webkit-font-smoothing: antialiased;
-
   margin: 0;
+}
+
+ul,
+li {
+  padding: 0;
+  list-style-type: none;
 }
 
 .text-ellipsis {

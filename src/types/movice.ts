@@ -1,20 +1,20 @@
-import type { districtImf } from '@/types/location';
-import { userSimpleImf } from './user';
+import type { districtInf } from "@/types/location";
+import { userSimpleInf } from "./user";
 
-export interface anctorImf {
+export interface anctorInf {
   name: string;
   role: string;
   avatarAddress: string;
 }
 
-export interface moviceImf {
+export interface moviceInf {
   filmId: number;
   name: string;
   category: string;
   synopsis: string;
   poster: string;
   grade: string;
-  actors: Array<anctorImf>;
+  actors: Array<anctorInf>;
   runtime: number;
   nation: string;
   language?: string;
@@ -27,25 +27,25 @@ export interface moviceParams {
   total: number;
 }
 
-export interface itemImf {
+export interface itemInf {
   name: string;
   type: number;
 }
 
-export interface filmTypeImf {
+export interface filmTypeInf {
   name: string;
   value: number;
 }
 
-export interface detailsImf {
-  actors: Array<anctorImf>;
+export interface detailsInf {
+  actors: Array<anctorInf>;
   category: string;
   director: string;
   filmId: number;
-  filmType: filmTypeImf;
+  filmType: filmTypeInf;
   isPresale: boolean;
   isSale: boolean;
-  item: itemImf;
+  item: itemInf;
   language: string;
   name: string;
   nation: string;
@@ -60,15 +60,15 @@ export interface detailsImf {
   showDate?: Array<string>;
 }
 
-export interface detailsResponseImf {
-  film: detailsImf;
+export interface detailsResponseInf {
+  film: detailsInf;
 }
 
 export interface detailsParams {
   filmId: number;
 }
 
-export interface cinemaRequestImf {
+export interface cinemaRequestInf {
   filmId: number;
   cityId: number;
 }
@@ -77,7 +77,7 @@ export interface cinemaListRequestInf {
   cityId: number;
 }
 
-export interface cinemaResponseImf {
+export interface cinemaResponseInf {
   cinemaExtendList: Array<{
     cinemaId: number;
     lowPrice: number;
@@ -88,14 +88,14 @@ export interface cinemaResponseImf {
   }>;
 }
 
-export interface chinemaDetailImf {
+export interface chinemaDetailInf {
   Distance: number;
   address: string;
   businessTime: string;
   cinemaId: number;
   cityId: number;
   cityName: string;
-  district: districtImf;
+  district: districtInf;
   districtId: number;
   districtName: string;
   eTicketFlag: number;
@@ -113,32 +113,32 @@ export interface chinemaDetailImf {
   ticketTypes: number;
 }
 
-export interface cinemaListResponseImf {
-  cinemas: Array<chinemaDetailImf>;
+export interface cinemaListResponseInf {
+  cinemas: Array<chinemaDetailInf>;
 }
 
-export type moviceDetailsImf = {
+export type moviceDetailsInf = {
   showDate: Array<string>;
-} & detailsImf;
+} & detailsInf;
 
-export interface moviceDetailsResponseImf {
-  films: Array<moviceDetailsImf>;
+export interface moviceDetailsResponseInf {
+  films: Array<moviceDetailsInf>;
 }
 
 // 评分
 export type rateDetailsResponseImg = Array<number>;
 
-export type rateListDetailsPaginImf = {
+export type rateListDetailsPaginInf = {
   pageSize: number;
   pageNo: number;
   list: Array<rateListDetailsResponseImg>;
 };
 
 export type rateListDetailsResponseImg = {
-  userInfo: userSimpleImf;
+  userInfo: userSimpleInf;
   rate: number;
   estimation: string;
   like: number;
 };
 
-export interface cinemaRequestImf {}
+export interface cinemaRequestInf {}

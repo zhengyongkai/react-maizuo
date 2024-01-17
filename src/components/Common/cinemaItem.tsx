@@ -1,13 +1,13 @@
-import Styles from '@/assets/css/cinemaItem.module.scss';
-import type { tudeStateImf } from '@/types/location';
-import type { chinemaDetailImf } from '@/types/movice';
-import { getBetweenDistance } from '@/utils/location';
-import { formatPrice } from '@/utils/price';
-import { memo } from 'react';
-import { useSelector } from 'react-redux';
+import Styles from "@/assets/css/cinemaItem.module.scss";
+import type { tudeStateInf } from "@/types/location";
+import type { chinemaDetailInf } from "@/types/movice";
+import { getBetweenDistance } from "@/utils/location";
+import { formatPrice } from "@/utils/price";
+import { memo } from "react";
+import { useSelector } from "react-redux";
 
 interface cinemaItemProps {
-  item: chinemaDetailImf;
+  item: chinemaDetailInf;
   onClick: () => void;
 }
 
@@ -15,7 +15,7 @@ function cinemaItem(props: cinemaItemProps) {
   const { item, onClick } = props;
 
   const locationAttr = useSelector(
-    (state: tudeStateImf) => state.location.tude
+    (state: tudeStateInf) => state.location.tude
   );
 
   function getDistance(longitude: number, latitude: number) {
@@ -25,23 +25,23 @@ function cinemaItem(props: cinemaItemProps) {
         locationAttr.latitude,
         longitude,
         latitude
-      ).toFixed(1) + 'km'
+      ).toFixed(1) + "km"
     );
   }
 
   return (
-    <div className={Styles['cinemas-item']} onClick={onClick}>
-      <div className={Styles['cinemas-top']}>
+    <div className={Styles["cinemas-item"]} onClick={onClick}>
+      <div className={Styles["cinemas-top"]}>
         <div>{item.name}</div>
         {item.lowPrice ? (
           <div>
-            <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{' '}
+            <span>{formatPrice(item.lowPrice)}</span> <span>起</span>{" "}
           </div>
         ) : (
           <div>价格未知</div>
         )}
       </div>
-      <div className={Styles['cinemas-bottom']}>
+      <div className={Styles["cinemas-bottom"]}>
         <div className="text-ellipsis">{item.address}</div>
         <div>{getDistance(item.longitude, item.latitude)}</div>
       </div>

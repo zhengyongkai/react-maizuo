@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 import { BaseBarSeries } from "@/types/echarts";
 
-import BarEcharts, { BaseBarChartImf } from "@/components/Echarts/barEcharts";
+import BarEcharts, { BaseBarChartInf } from "@/components/Echarts/barEcharts";
 
 import NavTitle from "@/components/Common/navTitle";
 import dayjs from "dayjs";
@@ -30,8 +30,8 @@ import {
   getRateListForCinema,
 } from "@/api/movice";
 import type {
-  detailsResponseImf,
-  rateListDetailsPaginImf,
+  detailsResponseInf,
+  rateListDetailsPaginInf,
   rateListDetailsResponseImg,
 } from "@/types/movice";
 
@@ -67,9 +67,9 @@ const RatePage = () => {
     },
   };
 
-  const ref = useRef<BaseBarChartImf>(null);
+  const ref = useRef<BaseBarChartInf>(null);
   const warpperDom = useRef<HTMLDivElement>(null);
-  const [esimateList, setEsimateList] = useState<rateListDetailsPaginImf>({
+  const [esimateList, setEsimateList] = useState<rateListDetailsPaginInf>({
     pageNo: 1,
     pageSize: 10,
     list: [],
@@ -78,7 +78,7 @@ const RatePage = () => {
 
   const { filmId = "" } = useParams();
 
-  const [{ film }, loading] = useFetch<detailsResponseImf>(
+  const [{ film }, loading] = useFetch<detailsResponseInf>(
     () => getMoviceDetail({ filmId: +filmId }),
     detailsInitData,
     [filmId],
@@ -86,7 +86,7 @@ const RatePage = () => {
       const data: Array<BaseBarSeries> = [
         {
           type: "bar",
-          data: [0, 5, 200, 500, 2545],
+          data: [],
         },
       ];
 
@@ -127,14 +127,6 @@ const RatePage = () => {
       list: [...esimateList.list, ...list],
     });
   }
-
-  // function jietu() {
-  //   domtoImg.toPng(warpperDom.current as Node).then(function (dataUrl) {
-  //     var img = new Image();
-  //     img.src = dataUrl;
-  //     document.body.appendChild(img);
-  //   });
-  // }
   return (
     <>
       <NavTitle back title={film.name}></NavTitle>

@@ -1,15 +1,15 @@
-import Styles from '@/assets/css/movice.module.scss';
-import { memo } from 'react';
+import Styles from "@/assets/css/movice.module.scss";
+import { memo } from "react";
 
-import type { detailsImf } from '@/types/movice';
-import { useNavigate } from 'react-router-dom';
+import type { detailsInf } from "@/types/movice";
+import { useNavigate } from "react-router-dom";
 
-interface propsImf {
-  item: detailsImf;
+interface propsInf {
+  item: detailsInf;
   type: Number;
 }
 
-function moviceItem(props: propsImf) {
+function moviceItem(props: propsInf) {
   const navigate = useNavigate();
   let { item } = props;
 
@@ -17,35 +17,35 @@ function moviceItem(props: propsImf) {
     navigate(`/films/${filemId}`);
   }
 
-  function onBuyTickets(props: propsImf) {
+  function onBuyTickets(props: propsInf) {
     navigate(`/films/cinemas/${item.filmId}`);
   }
 
   return (
-    <div className={Styles['movice-item']}>
+    <div className={Styles["movice-item"]}>
       <div
-        className={Styles['movice-poster']}
+        className={Styles["movice-poster"]}
         onClick={() => onNavigateTo(item.filmId)}
       >
         <img src={item.poster} alt="" />
       </div>
-      <div className={Styles['movice-content']}>
-        <div className={Styles['movice-name']}>
-          <div className="text-ellipsis">{item.name} </div>{' '}
+      <div className={Styles["movice-content"]}>
+        <div className={Styles["movice-name"]}>
+          <div className="text-ellipsis">{item.name} </div>{" "}
           <span>{item.filmType.name}</span>
         </div>
         {item.grade ? (
-          <div className={Styles['movice-grade']}>
-            观众评分 <span>{item.grade}</span>{' '}
+          <div className={Styles["movice-grade"]}>
+            观众评分 <span>{item.grade}</span>{" "}
           </div>
         ) : undefined}
-        <div className={[Styles['movice-anctor'], 'text-ellipsis'].join(' ')}>
+        <div className={[Styles["movice-anctor"], "text-ellipsis"].join(" ")}>
           {item.actors &&
             item.actors.map((anctor, index) => {
               return <span key={index}>{anctor.name} </span>;
             })}
         </div>
-        <div className={Styles['movice-tips']}>
+        <div className={Styles["movice-tips"]}>
           <span>{item.nation}</span>
           <span>|</span>
           <span>{item.runtime} 分钟</span>
@@ -57,7 +57,7 @@ function moviceItem(props: propsImf) {
         ) : item.isPresale ? (
           <span onClick={() => onBuyTickets(props)}>预购</span>
         ) : (
-          ''
+          ""
         )}
       </div>
     </div>

@@ -1,46 +1,52 @@
-import Styles from '@/assets/css/location.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import Styles from "@/assets/css/location.module.scss";
+import { useSelector, useDispatch } from "react-redux";
 
-import Cookie from '@/utils/cookie';
+import Cookie from "@/utils/cookie";
 
-import { IndexBar, List } from 'antd-mobile';
-import { useEffect, useState } from 'react';
-import { setLocale } from '@/store/common/location';
+import { IndexBar, List } from "antd-mobile";
+import { useEffect, useState } from "react";
+import { setLocale } from "@/store/common/location";
 
-import type { cityStateImf } from '@/types/location';
-import { useNavigate } from 'react-router-dom';
+import type { cityStateInf } from "@/types/location";
+import { useNavigate } from "react-router-dom";
 
-interface cityImf {
+interface cityInf {
   pinyin: string;
   name: string;
   cityId: number;
 }
 
-interface formatImf {
+interface formatInf {
   title: string;
   name: string;
   cityId: number;
 }
 
-function locationPage() {
+interface locationPageInf {
+  back?: boolean;
+}
+
+function locationPage(props: locationPageInf) {
+  const { back = true } = props;
+
   const dispatch = useDispatch();
 
-  const cityState = useSelector((state: cityStateImf) => state.location.locale);
+  const cityState = useSelector((state: cityStateInf) => state.location.locale);
   const locationList = useSelector(
-    (state: cityStateImf) => state.location.locationList
+    (state: cityStateInf) => state.location.locationList
   );
   const [city, setCity] = useState(cityState);
-  const [hotList, setHotList] = useState<Array<formatImf>>([]);
+  const [hotList, setHotList] = useState<Array<formatInf>>([]);
   const [list, setList] = useState<
-    Array<{ title: string; items: Array<formatImf> }>
+    Array<{ title: string; items: Array<formatInf> }>
   >([]);
   const navigator = useNavigate();
 
   useEffect(() => {
     const formatList = locationList.reduce(
       (
-        pre: Map<string, { pinyin: string; list: Array<cityImf> }>,
-        res: cityImf
+        pre: Map<string, { pinyin: string; list: Array<cityInf> }>,
+        res: cityInf
       ) => {
         const chatOne = res.pinyin.charAt(0);
         const lists = pre.get(res.pinyin.charAt(0))?.list || [];
@@ -57,7 +63,7 @@ function locationPage() {
       },
       new Map()
     );
-    const result: Array<{ title: string; items: Array<formatImf> }> = [
+    const result: Array<{ title: string; items: Array<formatInf> }> = [
       ...formatList.entries(),
     ]
       .map((res) => {
@@ -83,24 +89,25 @@ function locationPage() {
     setCity(cityState);
   }, [cityState]);
 
-  function onCityClick(item: formatImf) {
+  function onCityClick(item: formatInf) {
     if (!item.cityId) {
       return false;
     }
     dispatch(setLocale(item));
     console.log(Cookie);
-    Cookie.setCookie('cityId', item.cityId);
-    Cookie.setCookie('name', item.name);
-    // navigator(-1);
+    Cookie.setCookie("cityId", item.cityId);
+    Cookie.setCookie("name", item.name);
+    back && navigator(-1);
   }
+
   return (
-    <div className={Styles['city-location-wrapper']}>
-      <div className={Styles['city-location']}>当前城市 - {city.name} </div>
-      <div className={Styles['city-recommend']}>
-        <div className={Styles['city-title']}>GPS定位你所在的城市</div>
-        <div className={Styles['city-gps']}>
+    <div className={Styles["city-location-wrapper"]}>
+      <div className={Styles["city-location"]}>当前城市 - {city.name} </div>
+      <div className={Styles["city-recommend"]}>
+        <div className={Styles["city-title"]}>GPS定位你所在的城市</div>
+        <div className={Styles["city-gps"]}>
           <div
-            className={Styles['city-tab']}
+            className={Styles["city-tab"]}
             onClick={() =>
               onCityClick({
                 cityId: city.cityId,
@@ -109,15 +116,15 @@ function locationPage() {
               })
             }
           >
-            {city.name ? city.name : '定位失败'}
+            {city.name ? city.name : "定位失败"}
           </div>
         </div>
-        <div className={Styles['city-title']}>热门城市</div>
-        <div className={Styles['city-tabs']}>
+        <div className={Styles["city-title"]}>热门城市</div>
+        <div className={Styles["city-tabs"]}>
           {hotList.map((item, index) => {
             return (
               <div
-                className={Styles['city-tab']}
+                className={Styles["city-tab"]}
                 key={index}
                 onClick={() => onCityClick(item)}
               >
@@ -127,7 +134,7 @@ function locationPage() {
           })}
         </div>
       </div>
-      <div className={Styles['city-list']}>
+      <div className={Styles["city-list"]}>
         <IndexBar>
           {list.map((group) => {
             const { title, items } = group;

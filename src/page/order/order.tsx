@@ -22,7 +22,7 @@ const orderPage = () => {
         {orderList.map((item) => {
           return (
             <div
-              key={item.cinemaId}
+              key={item.oNum}
               className={Styles["order-item"]}
               onClick={() => navigate(`/orderInfo/${item.orderId}`)}
             >

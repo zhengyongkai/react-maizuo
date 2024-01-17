@@ -1,20 +1,20 @@
-import NavTitle from '@/components/Common/navTitle';
+import NavTitle from "@/components/Common/navTitle";
 
-import Styles from '@/assets/css/custom.module.scss';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import socketIo from '@/utils/socket';
-import type { messageInf } from '@/types/chat';
-import ChatItem from './components/custom/chatItem';
-import { userSimpleImf, userState } from '@/types/user';
-import { useSelector } from 'react-redux';
-import { getDateFormat } from '@/utils/day';
-import { combineCss } from '@/utils/css';
+import Styles from "@/assets/css/custom.module.scss";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import socketIo from "@/utils/socket";
+import type { messageInf } from "@/types/chat";
+import ChatItem from "./components/custom/chatItem";
+import { userSimpleInf, userState } from "@/types/user";
+import { useSelector } from "react-redux";
+import { getDateFormat } from "@/utils/day";
+import { combineCss } from "@/utils/css";
 
 function customPage() {
   const [messageList, setMessageList] = useState<messageInf[]>([]);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
-  const user = useSelector<userState, userSimpleImf>(
+  const user = useSelector<userState, userSimpleInf>(
     (state) => state.user.userData
   );
 
@@ -23,9 +23,8 @@ function customPage() {
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    socketIo.emit('robot', null);
-
-    socketIo.getInstance()?.on('message', (data: messageInf) => {
+    socketIo.emit("robot", null);
+    socketIo.getInstance()?.on("message", (data: messageInf) => {
       messageRef.current.push(data);
       setMessageList([...messageRef.current]);
       scrollBottom();
@@ -35,7 +34,14 @@ function customPage() {
   function scrollBottom() {
     setTimeout(() => {
       bodyRef.current?.scrollTo(0, bodyRef.current.offsetHeight + 72);
-    }, 0);
+    }, 200);
+  }
+
+  function onKeydown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      send(null, e.currentTarget.value);
+    }
   }
 
   const message = useMemo(() => {
@@ -53,18 +59,18 @@ function customPage() {
   function send(id: string | null, message: string) {
     if (message) {
       messageRef.current.push({
-        type: 'text',
+        type: "text",
         title: message,
-        date: getDateFormat(new Date()),
+        date: getDateFormat(new Date().toString()),
         from: user.nickName,
         fromId: user.userId,
         fromMy: true,
         id,
+        data: [],
       });
       setMessageList([...messageRef.current]);
     }
-
-    socketIo.emit('robot', id || message);
+    socketIo.emit("robot", id || message);
 
     scrollBottom();
   }
@@ -72,18 +78,19 @@ function customPage() {
     <>
       <NavTitle title="在线客服" back></NavTitle>
       <div
-        className={combineCss(['inner-scroll', Styles['custom-body']])}
+        className={combineCss(["inner-scroll", Styles["custom-body"]])}
         ref={bodyRef}
       >
         {message}
       </div>
-      <div className={Styles['custom-tabbar']}>
+      <div className={Styles["custom-tabbar"]}>
         <div>
           <textarea
             placeholder="很高兴为你服务，请输入你想查询的内容"
             onChange={(e) => {
               setValue(e.currentTarget.value);
             }}
+            onKeyDown={(e) => onKeydown(e)}
           ></textarea>
         </div>
         <div>

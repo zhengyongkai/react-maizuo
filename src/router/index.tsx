@@ -29,7 +29,7 @@ import { Navigate } from 'react-router-dom';
 import OrderInfoPage from '@/page/order/orderInfo';
 import SettingPage from '@/page/my/setting';
 
-export interface RouteObjectImf {
+export interface RouteObjectInf {
   path: string;
   element: React.ReactNode;
   meta?: {
@@ -37,10 +37,10 @@ export interface RouteObjectImf {
     keepAlive?: boolean;
     locate?: boolean;
   };
-  children?: RouteObjectImf[];
+  children?: RouteObjectInf[];
 }
 
-const Router: RouteObjectImf[] = [
+const Router: RouteObjectInf[] = [
   {
     path: '*',
     element: <Navigate to={'/name/home/nowPlaying'}></Navigate>,

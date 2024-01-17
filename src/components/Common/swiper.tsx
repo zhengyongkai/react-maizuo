@@ -1,12 +1,12 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import Styles from '@/assets/css/swiper.module.scss';
-import 'swiper/css';
-import type { detailsImf } from '@/types/movice';
-import { forwardRef } from 'react';
+import Styles from "@/assets/css/swiper.module.scss";
+import "swiper/css";
+import type { detailsInf } from "@/types/movice";
+import { forwardRef } from "react";
 
 interface cinemaSwiperProps {
-  items: Array<detailsImf>;
+  items: Array<detailsInf>;
   change: (e: any) => void;
 }
 
@@ -28,7 +28,7 @@ function cinemaSwiper(props: cinemaSwiperProps, ref: any) {
       {items.map((item, index) => {
         return (
           <SwiperSlide key={index}>
-            <div className={Styles['cinema-swiper']}>
+            <div className={Styles["cinema-swiper"]}>
               <img src={item.poster} alt="" />
             </div>
           </SwiperSlide>

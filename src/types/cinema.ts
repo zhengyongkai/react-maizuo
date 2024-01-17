@@ -6,16 +6,16 @@ export interface cinemasInfoRequestInfo {
 
 export interface cinemasInfoResponseInfo {
   data: {
-    cinema: cinemasInfoImf;
+    cinema: cinemasInfoInf;
   };
 }
 
-export interface servicesImf {
+export interface servicesInf {
   name: string;
   description: string;
 }
 
-export type cinemasInfoImf = {
+export type cinemasInfoInf = {
   Distance: number;
   address: string;
   businessTime: string;
@@ -34,10 +34,10 @@ export type cinemasInfoImf = {
   telephones: Array<string>;
   ticketTypes?: string;
   district: district;
-  services?: Array<servicesImf>;
+  services?: Array<servicesInf>;
 } & tude &
   district;
 
-export interface cinemasInfoResponseImf {
-  cinema: cinemasInfoImf;
+export interface cinemasInfoResponseInf {
+  cinema: cinemasInfoInf;
 }

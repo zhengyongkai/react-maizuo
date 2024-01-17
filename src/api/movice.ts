@@ -3,22 +3,22 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import request from '@/utils/request';
+import request from "@/utils/request";
 import type {
   cinemaListRequestInf,
-  cinemaListResponseImf,
-  cinemaRequestImf,
-  detailsImf,
+  cinemaListResponseInf,
+  cinemaRequestInf,
+  detailsInf,
   detailsParams,
-  detailsResponseImf,
+  detailsResponseInf,
   moviceParams,
   rateDetailsResponseImg,
-  rateListDetailsPaginImf,
+  rateListDetailsPaginInf,
   rateListDetailsResponseImg,
-} from '@/types/movice';
-import { MAIZUO, MOCK } from '@/constant/baseUrl';
+} from "@/types/movice";
+import { MAIZUO, MOCK } from "@/constant/baseUrl";
 
-import type { Response, ResponsePageSize } from '@/types';
+import type { Response, ResponsePageSize } from "@/types";
 
 export function getMoviceData(params: moviceParams) {
   const cityId = params.cityId === -1 ? 110100 : params.cityId;
@@ -42,19 +42,19 @@ export function getMoviceComingData(params: moviceParams) {
 
 export function getMoviceDetail(
   params: detailsParams
-): Response<detailsResponseImf> {
+): Response<detailsResponseInf> {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.film.info',
+      "X-Host": "mall.film-ticket.film.info",
     },
     params,
   });
 }
 
-export function getCinemas(params: cinemaRequestImf) {
+export function getCinemas(params: cinemaRequestInf) {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.film-show-cinema',
+      "X-Host": "mall.film-ticket.cinema.film-show-cinema",
     },
     params,
   });
@@ -63,11 +63,11 @@ export function getCinemas(params: cinemaRequestImf) {
 export function getCinemasList(data: {
   cityId: number;
   cinemaIds: string;
-}): Response<cinemaListResponseImf> {
+}): Response<cinemaListResponseInf> {
   return request.post(`${MAIZUO}`, data, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.batch-cinema',
-      'Content-Type': 'application/x-www-form-urlencode',
+      "X-Host": "mall.film-ticket.cinema.batch-cinema",
+      "Content-Type": "application/x-www-form-urlencode",
     },
   });
 }
@@ -75,10 +75,10 @@ export function getCinemasList(data: {
 export function getCinemasByCityId(params: {
   cityId: number;
   ticketFlag: number;
-}): Response<cinemaListResponseImf> {
+}): Response<cinemaListResponseInf> {
   return request.get(`${MAIZUO}`, {
     headers: {
-      'X-Host': 'mall.film-ticket.cinema.list',
+      "X-Host": "mall.film-ticket.cinema.list",
     },
     params,
   });

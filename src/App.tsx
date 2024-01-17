@@ -3,27 +3,27 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, createContext, useEffect, useState } from 'react';
+import { Suspense, createContext, useEffect, useState } from "react";
 
-import { useRoutes, RouteObject, useNavigate } from 'react-router-dom';
-import Router, { RouteObjectImf } from './router';
-import KeepAlive from 'react-activation';
-import RouterLocation from './components/Route/routeFc';
-import { useDispatch, useSelector } from 'react-redux';
-import { userState } from './types/user';
+import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
+import Router, { RouteObjectInf } from "./router";
+import KeepAlive from "react-activation";
+import RouterLocation from "./components/Route/routeFc";
+import { useDispatch, useSelector } from "react-redux";
+import { userState } from "./types/user";
 
 import {
   getLocationAsync,
   getLocationListsAsyc,
-} from '@/store/common/location';
-import { getUserCouponThunk, getUserDataThunk } from '@/store/common/user';
-import AuthHoc from '@/components/Auth/authFc';
-import Loading from './components/Common/partLoading';
-import socketIo from './utils/socket';
+} from "@/store/common/location";
+import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
+import AuthHoc from "@/components/Auth/authFc";
+import Loading from "./components/Common/partLoading";
+import socketIo from "./utils/socket";
 
 //懒加载处理
-const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
-  let mRouteTable: RouteObjectImf[] = [];
+const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
+  let mRouteTable: RouteObjectInf[] = [];
   routes.forEach((route) => {
     mRouteTable.push({
       path: route.path,
@@ -34,7 +34,7 @@ const syncRouter = (routes: RouteObjectImf[]): RouteObjectImf[] => {
   return mRouteTable;
 };
 //路由拦截
-const RequireAuth = (props: { route: RouteObjectImf; children: any }) => {
+const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
   let router = props.route;
   let children = props.children;
   children = (

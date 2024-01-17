@@ -3,21 +3,21 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import type { cityStateImf } from "@/types/location";
+import type { cityStateInf } from "@/types/location";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import LocationPage from "@/page/location/location";
 
-interface propsImf {
+interface propsInf {
   children: React.ReactElement;
 }
 
-export default function RouterLocation(props: propsImf): any {
+export default function RouterLocation(props: propsInf): any {
   let { children } = props;
 
   // console.log(pathname);
-  const cityId = useSelector<cityStateImf, number>(
+  const cityId = useSelector<cityStateInf, number>(
     (locale) => locale.location.locale.cityId
   );
 
@@ -28,7 +28,7 @@ export default function RouterLocation(props: propsImf): any {
   }, [cityId]);
 
   if (!city) {
-    return <LocationPage></LocationPage>;
+    return <LocationPage back={false}></LocationPage>;
   } else {
     return children;
   }

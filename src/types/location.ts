@@ -1,41 +1,41 @@
-interface addressComponentsImf {
+interface addressComponentsInf {
   city: string;
 }
 
-export interface locationResultImf {
-  addressComponents: addressComponentsImf;
+export interface locationResultInf {
+  addressComponents: addressComponentsInf;
 }
 
-export interface localeImf {
+export interface localeInf {
   cityId: number;
   name: string;
 }
 
-export interface tudeImf {
+export interface tudeInf {
   longitude: number;
   latitude: number;
 }
 
-export interface initialStateImf {
-  locale: localeImf;
-  tude: tudeImf;
+export interface initialStateInf {
+  locale: localeInf;
+  tude: tudeInf;
   locationList: Array<any>;
 }
 
 export interface localeState {
-  location: initialStateImf;
+  location: initialStateInf;
 }
 
-export interface cityStateImf {
-  location: initialStateImf;
+export interface cityStateInf {
+  location: initialStateInf;
 }
-export interface tudeStateImf {
+export interface tudeStateInf {
   location: {
-    tude: tudeImf;
+    tude: tudeInf;
   };
 }
 
-export interface districtImf {
+export interface districtInf {
   districtId: number;
   name: string;
 }

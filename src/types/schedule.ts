@@ -1,4 +1,4 @@
-export interface scheduleImf {
+export interface scheduleInf {
   advanceStopMins: number;
   endAt: number;
   filmLanguage: string;
@@ -13,6 +13,6 @@ export interface scheduleImf {
   showAt: number;
 }
 
-export interface scheduleResponseImf {
-  schedules: Array<scheduleImf>;
+export interface scheduleResponseInf {
+  schedules: Array<scheduleInf>;
 }

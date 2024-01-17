@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCinemasByCityId } from "@/api/movice";
 
 import useLocation from "@/hook/location";
-import type { chinemaDetailImf } from "@/types/movice";
+import type { chinemaDetailInf } from "@/types/movice";
 import CityItem from "@/components/Common/cityItem";
 
 import Styles from "@/assets/css/cinemas.module.scss";
@@ -23,8 +23,8 @@ export default function newsPage() {
   });
   const menuRef = useRef<DropdownRef>(null);
   const [cinemaList, setCinemasList] = useState<{
-    cinemas: Map<string, chinemaDetailImf[]>;
-    cinemasList: chinemaDetailImf[];
+    cinemas: Map<string, chinemaDetailInf[]>;
+    cinemasList: chinemaDetailInf[];
   }>({
     cinemas: new Map(),
     cinemasList: [],
@@ -48,7 +48,7 @@ export default function newsPage() {
       cityId: +params.cityId,
       ticketFlag: params.ticketFlag,
     });
-    const moviceMap = new Map<string, Array<chinemaDetailImf>>();
+    const moviceMap = new Map<string, Array<chinemaDetailInf>>();
     moviceMap.set(defaultTitle, cinemas);
     cinemas
       .sort((pre, next) => pre.Distance - next.Distance)
