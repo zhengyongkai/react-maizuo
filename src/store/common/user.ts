@@ -64,9 +64,8 @@ export const userStore = createSlice({
       state.userData = payload.payload;
       state.token = payload.payload.token;
       cookie.setCookie(TOKEN, payload.payload.token);
-      // console.log(state.userData, state.token);
     },
-    clearUserData(state): any {
+    clearUserData(state) {
       state.logged = false;
       state.userData.userId = 0;
       state.userData.balance = 0;

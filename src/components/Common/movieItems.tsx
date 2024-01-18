@@ -9,7 +9,7 @@ interface propsInf {
   type: Number;
 }
 
-function moviceItem(props: propsInf) {
+function MoviceItem(props: propsInf) {
   const navigate = useNavigate();
   let { item } = props;
 
@@ -64,4 +64,4 @@ function moviceItem(props: propsInf) {
   );
 }
 
-export default memo(moviceItem);
+export default memo(MoviceItem);

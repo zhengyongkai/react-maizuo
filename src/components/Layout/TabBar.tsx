@@ -3,7 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Style from "@/assets/css/tabbar.module.scss";
 
 import { withRouter } from "@/utils/hoc";
-import SvgIcon from "@/components/SvgIcon";
+import SvgIcon from "@/components/SvgIcon/Index";
 
 interface propsType {
   navigate: any;
@@ -19,7 +19,7 @@ interface stateType {
   }>;
 }
 
-class tabbar extends PureComponent<propsType, stateType> {
+class Tabbar extends PureComponent<propsType, stateType> {
   constructor(props: propsType) {
     super(props);
 
@@ -83,4 +83,4 @@ class tabbar extends PureComponent<propsType, stateType> {
   }
 }
 
-export default withRouter(tabbar);
+export default withRouter(Tabbar);

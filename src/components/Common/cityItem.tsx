@@ -9,11 +9,12 @@ interface cityItemInf {
   onClick: (title: string) => void;
 }
 
-function cityItem(props: cityItemInf) {
+function CityItem(props: cityItemInf) {
   const { activeName, title, onClick } = props;
   return (
     <div
       className={combineCss([
+        "text-ellipsis",
         Styles["city-item"],
         activeName === title ? Styles["city-tabs-active"] : "",
       ])}
@@ -24,4 +25,4 @@ function cityItem(props: cityItemInf) {
   );
 }
 
-export default memo(cityItem);
+export default memo(CityItem);

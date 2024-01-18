@@ -6,23 +6,23 @@ import {
   getCinemasSchedule,
 } from "@/api/cinema";
 
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 import locationImg from "@/assets/img/location.png";
 import phoneImg from "@/assets/img/phone.png";
 import triggleImg from "@/assets/img/triggle.png";
 import rightImg from "@/assets/img/right.png";
 
-import CinemaSwiper from "@/components/Common/swiper";
+import CinemaSwiper from "@/components/Common/Swiper";
 import Styles from "@/assets/css/schedule.module.scss";
 
 // import { Swiper } from "antd-mobile";
 
-import Tab from "@/components/Common/dateTab";
+import Tab from "@/components/Common/DateTab";
 import { getTime, isStopSelling } from "@/utils/day";
 import { formatPrice } from "@/utils/price";
 import useSroll from "@/hook/scroll";
 
-import PartLoading from "@/components/Common/partLoading";
+import PartLoading from "@/components/Common/PartLoading";
 import { combineCss } from "@/utils/css";
 
 import type { cinemasInfoInf } from "@/types/cinema";

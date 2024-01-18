@@ -10,7 +10,7 @@ import type { cityStateInf } from "@/types/location";
 
 import { InfiniteScroll } from "antd-mobile";
 import useLocation from "@/hook/location";
-import MovieItems from "@/components/Common/movieItems";
+import MovieItems from "@/components/Common/MovieItems";
 
 function nowPlaying() {
   const [movice, setMovice] = useState<Array<detailsInf>>([]);

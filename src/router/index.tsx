@@ -3,31 +3,29 @@
  * @LastEditors: 郑永楷
  * @Description: file content:
  */
-import React, { lazy } from 'react';
-import { RouteObject } from 'react-router-dom';
+import React from "react";
+import BaseLayout from "@/page/layout/baseLayout";
+import Login from "@/page/login/login";
+import Location from "@/page/location/location";
+import HomePage from "@/page/layout/homeLayout";
+import NewsPage from "@/page/news/news";
+import MyPage from "@/page/my/my";
+import ComingSoon from "@/page/home/comingSoon";
+import NowPlaying from "@/page/home/nowPlaying";
+import FilmPage from "@/page/films/films";
+import CinemasPage from "@/page/cinema/index";
+import Map from "@/page/cinema/map";
+import SeatPage from "@/page/movice/seat";
+import RatePage from "@/page/movice/rate";
+import OrderPage from "@/page/order/order";
+import PreOrderPage from "@/page/order/orderPre";
+import CouponPage from "@/page/my/coupon";
+import CustomPage from "@/page/my/custom";
 
-import BaseLayout from '@/page/layout/baseLayout';
-import Login from '@/page/login/login';
-import Location from '@/page/location/location';
-import HomePage from '@/page/layout/homeLayout';
-import NewsPage from '@/page/news/news';
-import MyPage from '@/page/my/my';
-import ComingSoon from '@/page/home/comingSoon';
-import NowPlaying from '@/page/home/nowPlaying';
-import FilmPage from '@/page/films/films';
-import CinemasPage from '@/page/cinema/index';
-import Map from '@/page/cinema/map';
-import SeatPage from '@/page/movice/seat';
-import RatePage from '@/page/movice/rate';
-import OrderPage from '@/page/order/order';
-import PreOrderPage from '@/page/order/orderPre';
-import CouponPage from '@/page/my/coupon';
-import CustomPage from '@/page/my/custom';
-
-import CinemasInfo from '@/page/movice/schedule';
-import { Navigate } from 'react-router-dom';
-import OrderInfoPage from '@/page/order/orderInfo';
-import SettingPage from '@/page/my/setting';
+import CinemasInfo from "@/page/movice/schedule";
+import { Navigate } from "react-router-dom";
+import OrderInfoPage from "@/page/order/orderInfo";
+import SettingPage from "@/page/my/setting";
 
 export interface RouteObjectInf {
   path: string;
@@ -42,37 +40,37 @@ export interface RouteObjectInf {
 
 const Router: RouteObjectInf[] = [
   {
-    path: '*',
-    element: <Navigate to={'/name/home/nowPlaying'}></Navigate>,
+    path: "*",
+    element: <Navigate to={"/name/home/nowPlaying"}></Navigate>,
   },
   {
-    path: 'login',
+    path: "login",
     element: <Login></Login>,
   },
   {
-    path: '/location',
+    path: "/location",
     element: <Location />,
   },
   {
-    path: '/name/',
+    path: "/name/",
     element: <BaseLayout />,
     children: [
       {
-        path: '/name/home',
+        path: "/name/home",
         element: <HomePage />,
         meta: {
           locate: true,
         },
         children: [
           {
-            path: '/name/home/nowPlaying',
+            path: "/name/home/nowPlaying",
             element: <NowPlaying />,
             meta: {
               keepAlive: true,
             },
           },
           {
-            path: '/name/home/comingSoon',
+            path: "/name/home/comingSoon",
             element: <ComingSoon />,
             meta: {
               keepAlive: true,
@@ -81,7 +79,7 @@ const Router: RouteObjectInf[] = [
         ],
       },
       {
-        path: 'news',
+        path: "news",
         element: <NewsPage />,
         meta: {
           keepAlive: true,
@@ -89,7 +87,7 @@ const Router: RouteObjectInf[] = [
         },
       },
       {
-        path: 'my',
+        path: "my",
         element: <MyPage />,
         meta: {
           keepAlive: true,
@@ -99,76 +97,76 @@ const Router: RouteObjectInf[] = [
   },
 
   {
-    path: '/films/:id',
+    path: "/films/:id",
     element: <FilmPage />,
   },
   {
-    path: '/films/cinemas/:id',
+    path: "/films/cinemas/:id",
     element: <CinemasPage />,
     meta: {
       locate: true,
     },
   },
   {
-    path: '/films/chinemasInfo/:cinemaId/:filmId/:showDate',
+    path: "/films/chinemasInfo/:cinemaId/:filmId/:showDate",
     element: <CinemasInfo />,
     meta: {
       locate: true,
     },
   },
   {
-    path: 'map/:lng/:lat',
+    path: "map/:lng/:lat",
     element: <Map />,
   },
   {
-    path: 'seat/:id/:showDate',
+    path: "seat/:id/:showDate",
     element: <SeatPage></SeatPage>,
     meta: {
       login: true,
     },
   },
   {
-    path: 'rate/:filmId',
+    path: "rate/:filmId",
 
     element: <RatePage />,
   },
   {
-    path: 'coupon',
+    path: "coupon",
     element: <CouponPage />,
     meta: {
       login: true,
     },
   },
   {
-    path: 'setting',
+    path: "setting",
     element: <SettingPage />,
     meta: {
       login: true,
     },
   },
   {
-    path: 'preOrder/:id',
+    path: "preOrder/:id",
     element: <PreOrderPage />,
     meta: {
       login: true,
     },
   },
   {
-    path: 'order',
+    path: "order",
     element: <OrderPage />,
     meta: {
       login: true,
     },
   },
   {
-    path: 'orderInfo/:id',
+    path: "orderInfo/:id",
     element: <OrderInfoPage />,
     meta: {
       login: true,
     },
   },
   {
-    path: 'custom',
+    path: "custom",
     element: <CustomPage />,
     meta: {
       login: true,

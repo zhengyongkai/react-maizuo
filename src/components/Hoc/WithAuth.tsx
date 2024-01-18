@@ -7,7 +7,7 @@ interface propsInf {
   children: React.ReactElement;
 }
 
-export default function AuthHoc(props: propsInf): React.ReactElement {
+export default function WithAuth(props: propsInf): React.ReactElement {
   const user = useSelector<userState>((state) => state.user.token);
 
   if (user) {

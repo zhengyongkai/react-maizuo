@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
 
 import { BaseBarSeries } from "@/types/echarts";
 
-import BarEcharts, { BaseBarChartInf } from "@/components/Echarts/barEcharts";
+import BarEcharts, { BaseBarChartInf } from "@/components/Echarts/BarEcharts";
 
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 import dayjs from "dayjs";
 import like from "@/assets/img/like.png";
 
@@ -20,7 +20,7 @@ import like from "@/assets/img/like.png";
 
 import Styles from "@/assets/css/rate.module.scss";
 
-import LoadingWrap from "@/components/Common/partLoading";
+import LoadingWrap from "@/components/Common/PartLoading";
 import { BarSeriesOption } from "echarts";
 import { InfiniteScroll, Rate } from "antd-mobile";
 

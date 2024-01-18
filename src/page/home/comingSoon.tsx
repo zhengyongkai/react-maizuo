@@ -10,7 +10,7 @@ import useLocation from "@/hook/location";
 import { useSelector } from "react-redux";
 
 import { InfiniteScroll } from "antd-mobile";
-import MovieItems from "@/components/Common/movieItems";
+import MovieItems from "@/components/Common/MovieItems";
 
 import type { detailsInf, moviceInf } from "@/types/movice";
 import type { cityStateInf } from "@/types/location";

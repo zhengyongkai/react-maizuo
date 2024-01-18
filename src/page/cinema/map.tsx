@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Map, Marker, NavigationControl, InfoWindow } from "react-bmapgl";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 import Styles from "@/assets/css/map.module.scss";
 
 export default function Maps() {

@@ -21,7 +21,7 @@ import useFetch from "@/hook/fetch";
 
 import dayjs from "dayjs";
 
-import LoadingWrap from "@/components/Common/partLoading";
+import LoadingWrap from "@/components/Common/PartLoading";
 import { combineCss } from "@/utils/css";
 
 const detailsInitData: detailsResponseInf = {
@@ -159,7 +159,6 @@ function FilmPage() {
                 style={{
                   position: "absolute",
                   top: "-30px",
-                  // marginLeft: -1000,
                   opacity: 0,
                 }}
               >

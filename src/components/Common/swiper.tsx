@@ -10,7 +10,7 @@ interface cinemaSwiperProps {
   change: (e: any) => void;
 }
 
-function cinemaSwiper(props: cinemaSwiperProps, ref: any) {
+function CinemaSwiper(props: cinemaSwiperProps, ref: any) {
   let { items, change } = props;
 
   function onSlideChange(e: any) {
@@ -38,4 +38,4 @@ function cinemaSwiper(props: cinemaSwiperProps, ref: any) {
   );
 }
 
-export default forwardRef(cinemaSwiper);
+export default forwardRef(CinemaSwiper);

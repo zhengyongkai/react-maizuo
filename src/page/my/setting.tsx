@@ -1,4 +1,4 @@
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 import { List } from "antd-mobile";
 
 import Styles from "@/assets/css/setting.module.scss";

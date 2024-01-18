@@ -1,4 +1,4 @@
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 
 import Styles from "@/assets/css/custom.module.scss";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";

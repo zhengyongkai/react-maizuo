@@ -8,7 +8,7 @@ import { Suspense, createContext, useEffect, useState } from "react";
 import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
 import Router, { RouteObjectInf } from "./router";
 import KeepAlive from "react-activation";
-import RouterLocation from "./components/Route/routeFc";
+import WithLocation from "./components/Hoc/WithLocation";
 import { useDispatch, useSelector } from "react-redux";
 import { userState } from "./types/user";
 
@@ -17,9 +17,15 @@ import {
   getLocationListsAsyc,
 } from "@/store/common/location";
 import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
-import AuthHoc from "@/components/Auth/authFc";
-import Loading from "./components/Common/partLoading";
+import WithAuth from "@/components/Hoc/WithAuth";
+import Loading from "./components/Common/PartLoading";
 import socketIo from "./utils/socket";
+
+import {
+  CSSTransition,
+  SwitchTransition,
+  TransitionGroup,
+} from "react-transition-group";
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
@@ -39,15 +45,15 @@ const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
   let children = props.children;
   children = (
     <KeepAlive id={props.route.path} when={false}>
-      {props.children}
+      <Suspense>{props.children}</Suspense>
     </KeepAlive>
   );
 
   if (router.meta?.locate) {
-    children = <RouterLocation>{children}</RouterLocation>;
+    children = <WithLocation>{children}</WithLocation>;
   }
   if (router.meta?.login) {
-    children = <AuthHoc>{children}</AuthHoc>;
+    children = <WithAuth>{children}</WithAuth>;
   }
   return children;
 };

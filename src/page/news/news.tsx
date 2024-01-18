@@ -1,4 +1,4 @@
-import Navbar from "@/components/Layout/navBar";
+import Navbar from "@/components/Layout/Navbar";
 import { Dropdown, DropdownRef } from "antd-mobile";
 
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,13 @@ import { getCinemasByCityId } from "@/api/movice";
 
 import useLocation from "@/hook/location";
 import type { chinemaDetailInf } from "@/types/movice";
-import CityItem from "@/components/Common/cityItem";
+import CityItem from "@/components/Common/CityItem";
 
 import Styles from "@/assets/css/cinemas.module.scss";
-import CinemaItem from "@/components/Common/cinemaItem";
-import Loading from "@/components/Common/partLoading";
-import CheckCell from "@/components/Common/checkCell";
+import CinemaItem from "@/components/Common/CinemaItem";
+import Loading from "@/components/Common/PartLoading";
+import CheckCell from "@/components/Common/CheckCell";
+import { SearchOutlined } from "@ant-design/icons";
 
 export default function newsPage() {
   const location = useLocation();
@@ -111,7 +112,9 @@ export default function newsPage() {
     <>
       <div>
         <div className={Styles["city-wrapper"]}>
-          <Navbar></Navbar>
+          <Navbar title="影院">
+            <SearchOutlined size={96}></SearchOutlined>
+          </Navbar>
 
           <Dropdown ref={menuRef}>
             <Dropdown.Item title={cityName} key="location">

@@ -14,14 +14,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Styles from "@/assets/css/cinemas.module.scss";
 
-import NavTitle from "@/components/Common/navTitle";
+import NavTitle from "@/components/Layout/NavTitle";
 import { Dropdown, DropdownRef, List } from "antd-mobile";
-import Loading from "@/components/Common/partLoading";
+import Loading from "@/components/Common/PartLoading";
 import { useSelector } from "react-redux";
 
-import Tab from "@/components/Common/dateTab";
-import CinemaItem from "@/components/Common/cinemaItem";
-import CityItem from "@/components/Common/cityItem";
+import Tab from "@/components/Common/DateTab";
+import CinemaItem from "@/components/Common/CinemaItem";
+import CityItem from "@/components/Common/CityItem";
 
 import type { tudeStateInf } from "@/types/location";
 interface sortTitleInf {

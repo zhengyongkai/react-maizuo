@@ -1,7 +1,7 @@
-import BackImg from '@/assets/img/back.png';
-import Styles from '@/assets/css/navTitle.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { combineCss } from '@/utils/css';
+import BackImg from "@/assets/img/back.png";
+import Styles from "@/assets/css/navTitle.module.scss";
+import { useNavigate } from "react-router-dom";
+import { combineCss } from "@/utils/css";
 
 interface props {
   back?: boolean;
@@ -10,15 +10,15 @@ interface props {
   backFn?: () => unknown;
 }
 
-export default function navTitle(props: props) {
+export default function NavTitle(props: props) {
   let { back, title, children, backFn } = props;
 
   const navigate = useNavigate();
 
   return (
     <>
-      <div className={Styles['navbar']}>
-        <div className={Styles['navBack']}>
+      <div className={Styles["navbar"]}>
+        <div className={Styles["navBack"]}>
           {back ? (
             <img
               src={BackImg}
@@ -27,11 +27,11 @@ export default function navTitle(props: props) {
             />
           ) : undefined}
         </div>
-        <div className={combineCss([Styles['navTitle'], 'text-ellipsis'])}>
+        <div className={combineCss([Styles["navTitle"], "text-ellipsis"])}>
           {title}
         </div>
 
-        <div className={Styles['navSlots']}>{children ? children : <></>}</div>
+        <div className={Styles["navSlots"]}>{children ? children : <></>}</div>
       </div>
     </>
   );

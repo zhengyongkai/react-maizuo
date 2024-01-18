@@ -1,7 +1,7 @@
 import useFetch from "@/hook/fetch";
 import { getOrderByUser } from "@/api/order";
-import NavTitle from "@/components/Common/navTitle";
-import Loading from "@/components/Common/partLoading";
+import NavTitle from "@/components/Layout/NavTitle";
+import Loading from "@/components/Common/PartLoading";
 import Styles from "@/assets/css/order.module.scss";
 import { getDaysNameFn } from "@/utils/day";
 import { formatPrice } from "@/utils/price";

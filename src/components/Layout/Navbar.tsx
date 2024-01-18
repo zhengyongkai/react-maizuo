@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Style from "@/assets/css/navbar.module.scss";
+import Styles from "@/assets/css/navbar.module.scss";
 
 import type { cityStateInf } from "@/types/location";
 import { DownOutline } from "antd-mobile-icons";
 
-export default function navbar() {
+interface navbarInf {
+  title?: string;
+  children?: React.ReactNode;
+}
+
+export default function Navbar(props: navbarInf) {
+  const { title = "电影", children } = props;
+
   const navigate = useNavigate();
   const citySelector = useSelector((state: cityStateInf) => {
     return state.location.locale.name;
@@ -18,7 +25,7 @@ export default function navbar() {
   }, [citySelector]);
   return (
     <>
-      <div className={Style.navbar}>
+      <div className={Styles.navbar}>
         <div
           onClick={() => {
             navigate("/location");
@@ -26,7 +33,8 @@ export default function navbar() {
         >
           {city} <DownOutline></DownOutline>
         </div>
-        <div>电影</div>
+        <div>{title}</div>
+        <div className={Styles["navSlots"]}>{children ? children : <></>}</div>
       </div>
     </>
   );

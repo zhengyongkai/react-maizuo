@@ -9,7 +9,7 @@ interface checkCellInf {
   onClick: (value: number) => void;
 }
 
-function checkCell(props: checkCellInf) {
+function CheckCell(props: checkCellInf) {
   let { active, title, value, onClick } = props;
 
   function renderItem() {
@@ -30,4 +30,4 @@ function checkCell(props: checkCellInf) {
   return renderItem();
 }
 
-export default checkCell;
+export default CheckCell;

@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   right: 0;
-  // text-align: center;
+  padding: 0 16px;
   align-items: center;
 
   > :first-child {
@@ -22,5 +22,10 @@
   > :nth-child(2) {
     width: 70%;
     text-align: center;
+  }
+
+  > :last-child {
+    width: 15%;
+    text-align: right;
   }
 }

@@ -52,18 +52,6 @@ function getGPSPosition() {
             case TIMEOUT:
               content = "地理位置获取超时";
           }
-
-          // //
-          // const { data: locale } = await getLocation({
-          //   longitude: 113.79289,
-          //   latitude: 22.694287,
-          // });
-
-          // res({
-          //   longitude: 113.79289,
-          //   latitude: 22.694287,
-          //   locale: locale.city,
-          // });
           rej(error);
           showDialog.show({
             content,
@@ -96,15 +84,13 @@ export const location = createSlice({
     setLocale(state, { payload }) {
       state.locale = payload;
     },
-    getGeoLocale() {},
   },
   extraReducers: (builder) => {
     builder.addCase(getLocationAsync.fulfilled, (state, { payload }: any) => {
-      state.tude.latitude = payload.latitude as number;
-      state.tude.longitude = payload.longitude as number;
+      state.tude.latitude = +payload.latitude;
+      state.tude.longitude = +payload.longitude;
       state.locale.name = payload.locale.name;
       state.locale.cityId = payload.locale.cityId;
-
       cookie.setCookie("name", state.locale.name);
       cookie.setCookie("cityId", state.locale.cityId);
     });
@@ -118,7 +104,6 @@ export const location = createSlice({
           },
         }
       ) => {
-        // console.log(cities);
         state.locationList = cities;
       }
     );

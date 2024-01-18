@@ -1,6 +1,6 @@
-import SvgIcon from '@/components/SvgIcon';
-import type { seatsInf } from '@/types/seat';
-import { memo } from 'react';
+import SvgIcon from "@/components/SvgIcon/Index";
+import type { seatsInf } from "@/types/seat";
+import { memo } from "react";
 
 interface seatProps {
   data: seatsInf;
@@ -8,7 +8,7 @@ interface seatProps {
   selecteds: Boolean;
 }
 
-const seat = (item: seatProps) => {
+function Seat(item: seatProps) {
   const { data, onSelect, selecteds } = item;
   function getSeat() {
     if (data.isBroken) {
@@ -35,6 +35,6 @@ const seat = (item: seatProps) => {
     );
   }
   return getSeat();
-};
+}
 
-export default memo(seat);
+export default memo(Seat);

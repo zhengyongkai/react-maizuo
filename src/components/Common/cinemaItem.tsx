@@ -11,7 +11,7 @@ interface cinemaItemProps {
   onClick: () => void;
 }
 
-function cinemaItem(props: cinemaItemProps) {
+function CinemaItem(props: cinemaItemProps) {
   const { item, onClick } = props;
 
   const locationAttr = useSelector(
@@ -49,4 +49,4 @@ function cinemaItem(props: cinemaItemProps) {
   );
 }
 
-export default memo(cinemaItem);
+export default memo(CinemaItem);

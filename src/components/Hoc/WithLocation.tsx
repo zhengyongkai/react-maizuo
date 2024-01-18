@@ -13,7 +13,7 @@ interface propsInf {
   children: React.ReactElement;
 }
 
-export default function RouterLocation(props: propsInf): any {
+export default function WithLocation(props: propsInf): any {
   let { children } = props;
 
   // console.log(pathname);
