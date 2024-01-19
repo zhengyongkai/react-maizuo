@@ -17,28 +17,13 @@ import Styles from "@/assets/css/cinemas.module.scss";
 import NavTitle from "@/components/Layout/NavTitle";
 import { Dropdown, DropdownRef, List } from "antd-mobile";
 import Loading from "@/components/Common/PartLoading";
-import { useSelector } from "react-redux";
-
 import Tab from "@/components/Common/DateTab";
 import CinemaItem from "@/components/Common/CinemaItem";
 import CityItem from "@/components/Common/CityItem";
 
-import type { tudeStateInf } from "@/types/location";
-interface sortTitleInf {
-  title: string;
-  key: number;
-}
-
 export default function cinemas() {
-  const initSortTitle = {
-    key: 1,
-    title: "离我最近",
-  };
-
   const menuRef = useRef<DropdownRef>(null);
-  const locationAttr = useSelector(
-    (state: tudeStateInf) => state.location.tude
-  );
+
   const { id = "" } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -94,14 +79,11 @@ export default function cinemas() {
     cinemasList: [],
   });
 
-  const [sortTitle, setSortTitle] = useState<sortTitleInf>(initSortTitle);
-
   location((locale) => {
     setParams({
       filmId: +id,
       cityId: locale.cityId,
       cinemaIds: "",
-      // cityName: params.cityName,
     });
   });
 
@@ -153,7 +135,6 @@ export default function cinemas() {
         });
         const moviceMap = new Map<string, Array<chinemaDetailInf>>();
         moviceMap.set(defaultTitle, cinemas);
-
         cinemas
           .sort((pre, next) => pre.Distance - next.Distance)
           .forEach((element) => {
@@ -183,7 +164,6 @@ export default function cinemas() {
       cinemas: cinemaList.cinemas,
       cinemasList: cinemas,
     });
-
     setCityName(res);
     closeMenu();
   }

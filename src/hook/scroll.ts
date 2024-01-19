@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-export default function useSroll(fn: () => any) {
+export default function useSroll(fn: (e: Event) => void) {
   const fnRef = useRef(fn);
 
   useEffect(() => {
@@ -8,9 +8,9 @@ export default function useSroll(fn: () => any) {
   }, [fn]);
 
   useEffect(() => {
-    window.addEventListener('scroll', fnRef.current);
+    window.addEventListener("scroll", fnRef.current);
   }, []);
   return () => {
-    window.removeEventListener('scroll', fnRef.current);
+    window.removeEventListener("scroll", fnRef.current);
   };
 }

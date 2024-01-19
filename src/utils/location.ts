@@ -6,6 +6,7 @@ const toRad = function (n: number) {
   return (n * Math.PI) / 180;
 };
 
+// 获取两地距离
 export const getBetweenDistance = function (
   lat: number,
   lot: number,

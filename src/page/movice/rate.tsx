@@ -89,7 +89,6 @@ const RatePage = () => {
           data: [],
         },
       ];
-
       let { data: rateList } = await getRateForChinema({
         filmId: +filmId,
       });

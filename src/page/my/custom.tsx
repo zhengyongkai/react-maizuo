@@ -94,7 +94,7 @@ function customPage() {
           ></textarea>
         </div>
         <div>
-          <div onClick={(e) => send(null, value)}>发送</div>
+          <div onClick={() => send(null, value)}>发送</div>
         </div>
       </div>
     </>

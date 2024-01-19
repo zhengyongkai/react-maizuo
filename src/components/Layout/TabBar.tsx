@@ -2,7 +2,7 @@ import { PureComponent, ReactNode } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Style from "@/assets/css/tabbar.module.scss";
 
-import { withRouter } from "@/utils/hoc";
+import WithRouter from "@/components/Hoc/WithRouter";
 import SvgIcon from "@/components/SvgIcon/Index";
 
 interface propsType {
@@ -83,4 +83,4 @@ class Tabbar extends PureComponent<propsType, stateType> {
   }
 }
 
-export default withRouter(Tabbar);
+export default WithRouter(Tabbar);

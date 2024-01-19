@@ -6,9 +6,20 @@ import Styles from "@/assets/css/order.module.scss";
 import { getDaysNameFn } from "@/utils/day";
 import { formatPrice } from "@/utils/price";
 import { useNavigate } from "react-router-dom";
+
+import type { preOrderEntity } from "@/types/order";
+
 const orderPage = () => {
   const [orderList, loading] = useFetch(async () => getOrderByUser(), [], []);
   const navigate = useNavigate();
+
+  function onBuyTicket(
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    item: preOrderEntity
+  ) {
+    e.stopPropagation();
+    navigate(`/films/cinemas/${item.filmId}`);
+  }
   return (
     <Loading loading={loading}>
       <div>
@@ -42,7 +53,10 @@ const orderPage = () => {
                   实付 <span>{formatPrice(item.actualPrice)}</span>
                 </div>
               </div>
-              <div className={Styles["order-item-bottom"]}>
+              <div
+                className={Styles["order-item-bottom"]}
+                onClick={(e) => onBuyTicket(e, item)}
+              >
                 <div>{item.statusName}</div>
                 <div>再次购买</div>
               </div>

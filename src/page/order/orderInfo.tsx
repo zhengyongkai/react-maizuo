@@ -22,6 +22,7 @@ import { changeToCanvas, getQueryVariable } from "@/utils";
 import type { user, userState } from "@/types/user";
 import { selectSeatsInf } from "@/types/seat";
 import { preOrderEntity } from "@/types/order";
+import { showDialog } from "@/utils/dialog";
 
 const initData: preOrderEntity = {
   cinemaId: 0,
@@ -81,7 +82,6 @@ function OrderInfoPage() {
     });
 
     setTimeout(() => {
-      console.log(payRef.current);
       if (payRef.current) {
         payRef.current.innerHTML = data;
         document.getElementsByTagName("form")[0].submit();
@@ -207,6 +207,7 @@ function OrderInfoPage() {
           });
         }
         await fn();
+        showDialog.show({ content: "支付成功" });
       }
     }
   }

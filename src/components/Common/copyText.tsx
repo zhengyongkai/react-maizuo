@@ -11,7 +11,6 @@ function CopyText(props: propsInf) {
   const copyRef = useRef<HTMLSpanElement>(null);
 
   function copy() {
-    console.log("dasd");
     navigator.clipboard.writeText(text).then(() => {
       Toast.show("复制成功");
     });

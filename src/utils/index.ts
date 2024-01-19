@@ -44,6 +44,5 @@ export function getBase64(image: HTMLImageElement) {
 }
 
 // 判断是不是数组
-
 export const isArray = (data: unknown) =>
   Object.prototype.toString.call(data) === "[object Array]";

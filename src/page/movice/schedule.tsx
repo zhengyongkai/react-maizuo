@@ -165,6 +165,24 @@ export default function cinemasInfo() {
     }
   }, [cinemaId, filmId]);
 
+  useSroll(() => {
+    const scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+    if (scrollTop > 20) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  });
+
+  useEffect(() => {
+    if (params.date && id && cinemaId) {
+      getCinemasScheduleList();
+    }
+  }, [cinemaId, id, params.date]);
+
   async function getCinemasScheduleList() {
     setLoading(true);
     const {
@@ -177,12 +195,6 @@ export default function cinemasInfo() {
     setSchedules(schedules);
     setLoading(false);
   }
-
-  useEffect(() => {
-    if (params.date && id && cinemaId) {
-      getCinemasScheduleList();
-    }
-  }, [cinemaId, id, params.date]);
 
   function onSlideChange(e: number) {
     setParams({
@@ -201,17 +213,11 @@ export default function cinemasInfo() {
       .join(" ");
   }
 
-  useSroll(() => {
-    const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop;
-    if (scrollTop > 20) {
-      setFixed(true);
-    } else {
-      setFixed(false);
+  function onBuyTicket(item: scheduleInf) {
+    if (!isStopSelling(item.showAt, item.advanceStopMins)) {
+      navigator(`/seat/${item.scheduleId}/${item.showAt}`);
     }
-  });
+  }
 
   return (
     <>
@@ -326,17 +332,8 @@ export default function cinemasInfo() {
                   <div className={Styles["schedule-price"]}>
                     {formatPrice(item.salePrice)}
                   </div>
-                  {isStopSelling(item.showAt, item.advanceStopMins) ? (
-                    <div>购票</div>
-                  ) : (
-                    <div
-                      onClick={() =>
-                        navigator(`/seat/${item.scheduleId}/${item.showAt}`)
-                      }
-                    >
-                      购票
-                    </div>
-                  )}
+
+                  <div onClick={() => onBuyTicket(item)}>购票</div>
                 </div>
               );
             })}

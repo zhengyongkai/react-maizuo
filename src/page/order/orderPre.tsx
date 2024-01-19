@@ -15,7 +15,7 @@ import { REMAINER } from "@/constant";
 import couponImg from "@/assets/img/coupon.png";
 import invoiceImg from "@/assets/img/invoice.png";
 import balanceImg from "@/assets/img/balance.png";
-import { QuestionCircleOutline, RightOutline } from "antd-mobile-icons";
+import { RightOutline } from "antd-mobile-icons";
 import useCountDown from "@/hook/countdown";
 
 const initData = {
@@ -94,7 +94,6 @@ export default function preOrder() {
       return pre - item;
     }, preOrderInfo.price);
     // 第一参数是 传给数据库的价格 第二个是实际价格
-
     return [result, result / 100];
   }, [preOrderInfo.price, coupon]);
 

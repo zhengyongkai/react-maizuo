@@ -17,7 +17,7 @@ function MoviceItem(props: propsInf) {
     navigate(`/films/${filemId}`);
   }
 
-  function onBuyTickets(props: propsInf) {
+  function onBuyTickets() {
     navigate(`/films/cinemas/${item.filmId}`);
   }
 
@@ -53,9 +53,9 @@ function MoviceItem(props: propsInf) {
       </div>
       <div>
         {props.type === 1 ? (
-          <span onClick={() => onBuyTickets(props)}>购票</span>
+          <span onClick={onBuyTickets}>购票</span>
         ) : item.isPresale ? (
-          <span onClick={() => onBuyTickets(props)}>预购</span>
+          <span onClick={onBuyTickets}>预购</span>
         ) : (
           ""
         )}

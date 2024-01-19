@@ -21,12 +21,6 @@ import WithAuth from "@/components/Hoc/WithAuth";
 import Loading from "./components/Common/PartLoading";
 import socketIo from "./utils/socket";
 
-import {
-  CSSTransition,
-  SwitchTransition,
-  TransitionGroup,
-} from "react-transition-group";
-
 //懒加载处理
 const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
   let mRouteTable: RouteObjectInf[] = [];

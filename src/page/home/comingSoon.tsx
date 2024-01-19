@@ -29,6 +29,14 @@ function comingSoon() {
     cityId,
   });
 
+  location((locale) => {
+    setPage({
+      ...page,
+      cityId: locale.cityId,
+    });
+    getMoviceDataList();
+  });
+
   async function getMoviceDataList() {
     const api = getMoviceComingData;
     const {
@@ -44,14 +52,6 @@ function comingSoon() {
       total,
     });
   }
-
-  location((locale) => {
-    setPage({
-      ...page,
-      cityId: locale.cityId,
-    });
-    getMoviceDataList();
-  });
 
   async function loadMore() {
     setPage({

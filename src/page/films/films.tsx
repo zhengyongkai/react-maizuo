@@ -67,11 +67,13 @@ function FilmPage() {
   const [heights, setHeight] = useState(38);
   const [tabbarVisble, setTabbarVisble] = useState(false);
 
-  function onMoreSynopsis() {
-    setMore(!more);
-  }
+  const [{ film }, loading] = useFetch<detailsResponseInf>(
+    () => getMoviceDetail({ filmId: +id }),
+    detailsInitData,
+    [id]
+  );
 
-  function scrollCallback() {
+  useSroll(() => {
     const scrollTop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -81,6 +83,23 @@ function FilmPage() {
     } else {
       setTabbarVisble(false);
     }
+  });
+
+  useEffect(() => {
+    if (synopsisRef.current) {
+      setTimeout(function () {
+        synopsisHeight.current =
+          synopsisRef.current?.getBoundingClientRect().height || 0;
+      }, 500);
+    }
+  }, [synopsisRef.current]);
+
+  useEffect(() => {
+    setHeight(more ? synopsisHeight.current : 38);
+  }, [more]);
+
+  function onMoreSynopsis() {
+    setMore(!more);
   }
 
   function showTabbar(film: detailsInf) {
@@ -98,28 +117,6 @@ function FilmPage() {
       </div>
     );
   }
-
-  const [{ film }, loading] = useFetch<detailsResponseInf>(
-    () => getMoviceDetail({ filmId: +id }),
-    detailsInitData,
-    [id]
-  );
-
-  useSroll(scrollCallback);
-
-  useEffect(() => {
-    if (synopsisRef.current) {
-      setTimeout(function () {
-        synopsisHeight.current =
-          synopsisRef.current?.getBoundingClientRect().height || 0;
-      }, 500);
-    }
-  }, [synopsisRef.current]);
-
-  useEffect(() => {
-    setHeight(more ? synopsisHeight.current : 38);
-  }, [more]);
-
   return (
     <>
       <LoadingWrap loading={loading}>

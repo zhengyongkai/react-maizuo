@@ -26,7 +26,11 @@ function HomePage() {
   const [visable, setVisable] = useState(false);
   const [path, setPath] = useState(pathname);
 
-  function useScroll() {
+  useEffect(() => {
+    setPath(pathname);
+  }, [pathname]);
+
+  useSroll(() => {
     const scrollTop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -36,14 +40,7 @@ function HomePage() {
     } else {
       setVisable(false);
     }
-    // console.log('dd');
-  }
-
-  useEffect(() => {
-    setPath(pathname);
-  }, [pathname]);
-
-  useSroll(useScroll);
+  });
 
   return (
     <>

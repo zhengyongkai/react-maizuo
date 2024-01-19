@@ -127,7 +127,6 @@ const Router: RouteObjectInf[] = [
   },
   {
     path: "rate/:filmId",
-
     element: <RatePage />,
   },
   {

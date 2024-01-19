@@ -138,12 +138,64 @@ const initSeats = {
   seats: [],
 };
 
+const initDetailsCinemaData = {
+  actors: [],
+  category: "",
+  director: "",
+  filmId: 0,
+  filmType: {
+    name: "",
+    value: 0,
+  },
+  isPresale: false,
+  isSale: false,
+  item: {
+    name: "",
+    type: 0,
+  },
+  language: "",
+  name: "",
+  nation: "",
+  photos: [],
+  poster: "",
+  premiereAt: 0,
+  runtime: 0,
+  synopsis: "",
+  timeType: 0,
+  videoId: "",
+  grade: 0,
+  showDate: [],
+  Distance: 0,
+  address: "",
+  businessTime: "",
+  cinemaId: 0,
+  cityId: -1,
+  cityName: "",
+  district: {
+    districtName: "",
+    districtId: 0,
+  },
+  districtId: 0,
+  districtName: "",
+  eTicketFlag: 0,
+  gpsAddress: "",
+  isVisited: 0,
+  latitude: 0,
+  logoUrl: "",
+  longitude: 0,
+  lowPrice: 0,
+  notice: "",
+  phone: "",
+  seatFlag: 1,
+  services: [],
+  telephones: [],
+  ticketTypes: undefined,
+};
+
 export default function SeatPage() {
   let screenCtx: any = null;
   let axionYCtx: any = null;
   let seatingChartContext: any = null;
-  // let seatingChartContextWrap: any = null;
-  // let zoomInstance = null;
   const navigator = useNavigate();
   const { id = 0, showDate } = useParams();
   const [scheduleList, setScheduleList] = useState<Array<scheduleInf>>([]);
@@ -179,59 +231,9 @@ export default function SeatPage() {
     [scheduleId]
   );
 
-  let [filmsDetails, setFilmDetails] = useState<detailsInf & cinemasInfoInf>({
-    actors: [],
-    category: "",
-    director: "",
-    filmId: 0,
-    filmType: {
-      name: "",
-      value: 0,
-    },
-    isPresale: false,
-    isSale: false,
-    item: {
-      name: "",
-      type: 0,
-    },
-    language: "",
-    name: "",
-    nation: "",
-    photos: [],
-    poster: "",
-    premiereAt: 0,
-    runtime: 0,
-    synopsis: "",
-    timeType: 0,
-    videoId: "",
-    grade: 0,
-    showDate: [],
-    Distance: 0,
-    address: "",
-    businessTime: "",
-    cinemaId: 0,
-    cityId: -1,
-    cityName: "",
-    district: {
-      districtName: "",
-      districtId: 0,
-    },
-    districtId: 0,
-    districtName: "",
-    eTicketFlag: 0,
-    gpsAddress: "",
-    isVisited: 0,
-    latitude: 0,
-    logoUrl: "",
-    longitude: 0,
-    lowPrice: 0,
-    notice: "",
-    phone: "",
-    seatFlag: 1,
-    services: [],
-    telephones: [],
-    ticketTypes: undefined,
-  });
+  let [filmsDetails, setFilmDetails] = useState<detailsInf & cinemasInfoInf>(
+    initDetailsCinemaData
+  );
 
   useEffect(() => {
     async function fn() {
@@ -275,12 +277,9 @@ export default function SeatPage() {
         });
 
         setFilmDetails({ ...film, ...cinema });
-        // console.log(schedules);
         setScheduleList(schedules);
         setScheduleId(schedule.scheduleId);
         setLoading(false);
-
-        // console.log(data);
       } catch {
         showDialog.show({ content: "该场次已经结束" });
       }
