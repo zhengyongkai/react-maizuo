@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import type { preOrderEntity } from "@/types/order";
 
-const orderPage = () => {
+export default function OrderPage() {
   const [orderList, loading] = useFetch(async () => getOrderByUser(), [], []);
   const navigate = useNavigate();
 
@@ -66,6 +66,4 @@ const orderPage = () => {
       </div>
     </Loading>
   );
-};
-
-export default orderPage;
+}

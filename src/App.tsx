@@ -20,6 +20,9 @@ import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
 import WithAuth from "@/components/Hoc/WithAuth";
 import Loading from "./components/Common/PartLoading";
 import socketIo from "./utils/socket";
+import { localeState } from "./types/location";
+import { getCinemasByCityId } from "./api/movice";
+import { setCinemaList } from "./store/common/cinema";
 
 //懒加载处理
 const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
@@ -37,11 +40,7 @@ const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
 const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
   let router = props.route;
   let children = props.children;
-  children = (
-    <KeepAlive id={props.route.path} when={false}>
-      <Suspense>{props.children}</Suspense>
-    </KeepAlive>
-  );
+  children = <Suspense>{props.children}</Suspense>;
 
   if (router.meta?.locate) {
     children = <WithLocation>{children}</WithLocation>;
@@ -54,6 +53,9 @@ const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
 
 export default () => {
   const token = useSelector<userState, string>((state) => state.user.token);
+  const cityId = useSelector<localeState, number>(
+    (state) => state.location.locale.cityId
+  );
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
@@ -79,6 +81,20 @@ export default () => {
       });
     }
   }, [token]);
+
+  useEffect(() => {
+    async function fn() {
+      const {
+        data: { cinemas },
+      } = await getCinemasByCityId({
+        cityId: cityId,
+      });
+      dispatch(setCinemaList(cinemas));
+    }
+    if (cityId) {
+      fn();
+    }
+  }, [cityId]);
 
   return <Loading loading={loading}>{useRoutes(syncRouter(Router))}</Loading>;
 };

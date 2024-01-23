@@ -19,8 +19,9 @@ import customImg from "@/assets/img/custom.png";
 import settingImg from "@/assets/img/setting.png";
 import { RightOutline } from "antd-mobile-icons";
 import { useNavigate } from "react-router-dom";
+import SvgIcon from "@/components/SvgIcon/Index";
 
-export default function myPage() {
+export default function MyPage() {
   const navigate = useNavigate();
 
   const userData = useSelector<userState, user>((state) => state.user.userData);
@@ -62,6 +63,15 @@ export default function myPage() {
   function login() {
     navigate("/login");
   }
+
+  function getSex() {
+    if (userData.gender === 1) {
+      return <SvgIcon name="sexm" size={12}></SvgIcon>;
+    } else {
+      return <SvgIcon name="sexw" size={12}></SvgIcon>;
+    }
+  }
+
   return (
     <>
       <div className={Styles["user-bg"]}>
@@ -70,7 +80,13 @@ export default function myPage() {
             <div className={Styles["user-headerIcon"]}>
               <img src={userData.headIcon} alt="" />
             </div>
-            <div className={Styles["user-nickName"]}>{userData.nickName}</div>
+            <div className={Styles["user-nickName"]}>
+              <div>{userData.nickName}</div>
+              <div>
+                <div>ID： {userData.uid}</div>
+                <div>{getSex()}</div>
+              </div>
+            </div>
           </>
         ) : (
           <div onClick={login}>请先登录</div>

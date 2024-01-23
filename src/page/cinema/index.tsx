@@ -6,9 +6,9 @@ import type {
   cinemaListResponseInf,
   cinemaResponseInf,
   moviceInf,
-  chinemaDetailInf,
   detailsInf,
 } from "@/types/movice";
+import { cinemasInfoInf } from "@/types/cinema";
 import { ExoticComponent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -21,7 +21,7 @@ import Tab from "@/components/Common/DateTab";
 import CinemaItem from "@/components/Common/CinemaItem";
 import CityItem from "@/components/Common/CityItem";
 
-export default function cinemas() {
+export default function Cinemas() {
   const menuRef = useRef<DropdownRef>(null);
 
   const { id = "" } = useParams();
@@ -72,8 +72,8 @@ export default function cinemas() {
   });
 
   const [cinemaList, setCinemasList] = useState<{
-    cinemas: Map<string, chinemaDetailInf[]>;
-    cinemasList: chinemaDetailInf[];
+    cinemas: Map<string, cinemasInfoInf[]>;
+    cinemasList: cinemasInfoInf[];
   }>({
     cinemas: new Map(),
     cinemasList: [],
@@ -133,7 +133,7 @@ export default function cinemas() {
           cityId: params.cityId,
           cinemaIds,
         });
-        const moviceMap = new Map<string, Array<chinemaDetailInf>>();
+        const moviceMap = new Map<string, Array<cinemasInfoInf>>();
         moviceMap.set(defaultTitle, cinemas);
         cinemas
           .sort((pre, next) => pre.Distance - next.Distance)

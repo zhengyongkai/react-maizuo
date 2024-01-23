@@ -1,5 +1,7 @@
 .city-location-wrapper {
   height: 100vh;
+  position: relative;
+  z-index: 2;
 }
 .city-location {
   height: 44px;

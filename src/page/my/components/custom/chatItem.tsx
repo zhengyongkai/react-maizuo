@@ -1,8 +1,8 @@
 import { messageInf, orderInf, selectedInf, textInf } from "@/types/chat";
 import { memo, useMemo } from "react";
-import SelectedChat from "./selected";
-import CommonChat from "./common";
-import OrderChat from "./order";
+import SelectedChat from "./Selected";
+import CommonChat from "./Common";
+import OrderChat from "./Order";
 
 import Styles from "./css/chatItems.module.scss";
 import { combineCss } from "@/utils/css";

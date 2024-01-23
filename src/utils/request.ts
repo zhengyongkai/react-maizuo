@@ -4,12 +4,8 @@ import { clearUserData } from "@/store/common/user";
 
 import cookie from "./cookie";
 import store from "@/store/index";
-import {
-  X_CLIENT_INFO,
-  X_HOST,
-  X_Requested_With,
-} from "@/store/constants/header";
-import { TOKEN } from "@/store/constants";
+import { X_CLIENT_INFO, X_HOST, X_Requested_With } from "@/constant/header";
+import { TOKEN } from "@/constant";
 
 axios.interceptors.request.use((requestConfig) => {
   requestConfig.headers["X-Client-Info"] =

@@ -74,7 +74,7 @@ export function getCinemasList(data: {
 
 export function getCinemasByCityId(params: {
   cityId: number;
-  ticketFlag: number;
+  ticketFlag?: number;
 }): Response<cinemaListResponseInf> {
   return request.get(`${MAIZUO}`, {
     headers: {

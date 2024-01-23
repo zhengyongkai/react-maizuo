@@ -43,7 +43,7 @@ const initData = {
   actualPrice: 0,
 };
 
-export default function preOrder() {
+export default function PreOrder() {
   const navigator = useNavigate();
 
   const time = useRef<NodeJS.Timeout>();

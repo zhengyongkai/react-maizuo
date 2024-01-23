@@ -12,7 +12,7 @@ import { InfiniteScroll } from "antd-mobile";
 import useLocation from "@/hook/location";
 import MovieItems from "@/components/Common/MovieItems";
 
-function nowPlaying() {
+function NowPlaying() {
   const [movice, setMovice] = useState<Array<detailsInf>>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const location = useLocation();
@@ -73,4 +73,4 @@ function nowPlaying() {
   );
 }
 
-export default memo(nowPlaying);
+export default memo(NowPlaying);

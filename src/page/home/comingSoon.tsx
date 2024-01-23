@@ -15,7 +15,7 @@ import MovieItems from "@/components/Common/MovieItems";
 import type { detailsInf, moviceInf } from "@/types/movice";
 import type { cityStateInf } from "@/types/location";
 
-function comingSoon() {
+function ComingSoon() {
   const [movice, setMovice] = useState<Array<detailsInf>>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const location = useLocation();
@@ -74,4 +74,4 @@ function comingSoon() {
   );
 }
 
-export default memo(comingSoon);
+export default memo(ComingSoon);

@@ -1,13 +1,13 @@
 import Styles from "@/assets/css/cinemaItem.module.scss";
 import type { tudeStateInf } from "@/types/location";
-import type { chinemaDetailInf } from "@/types/movice";
+import type { cinemasInfoInf } from "@/types/cinema";
 import { getBetweenDistance } from "@/utils/location";
 import { formatPrice } from "@/utils/price";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 
 interface cinemaItemProps {
-  item: chinemaDetailInf;
+  item: cinemasInfoInf;
   onClick: () => void;
 }
 

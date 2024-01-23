@@ -7,7 +7,7 @@ import Styles from "@/assets/css/coupon.module.scss";
 
 import CouponItem from "@/components/Common/CouponItem";
 
-function couponPage() {
+export default function CouponPage() {
   const [couponList, setCouponList] = useState<cardListInf[]>([]);
 
   const userCouponData = useSelector<userState, cardListInf[]>(
@@ -33,5 +33,3 @@ function couponPage() {
     </>
   );
 }
-
-export default couponPage;

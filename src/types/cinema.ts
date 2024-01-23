@@ -41,3 +41,13 @@ export type cinemasInfoInf = {
 export interface cinemasInfoResponseInf {
   cinema: cinemasInfoInf;
 }
+
+export interface initialStateInf {
+  cinemaList: Array<cinemasInfoInf>;
+}
+
+export interface cinemaState {
+  cinema: {
+    cinemaList: Array<cinemasInfoInf>;
+  };
+}

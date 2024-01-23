@@ -66,14 +66,11 @@
     > :first-child {
       color: grey;
       font-size: 10px;
-      // flex: 1;
     }
   }
   &.coupon_isExpia {
-    // color: #000 !important;
     > * {
       opacity: 0.4;
     }
-    // background-color: #d2d6dc !important;
   }
 }

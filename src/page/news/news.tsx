@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCinemasByCityId } from "@/api/movice";
 
 import useLocation from "@/hook/location";
-import type { chinemaDetailInf } from "@/types/movice";
+import type { cinemasInfoInf } from "@/types/cinema";
 import CityItem from "@/components/Common/CityItem";
 
 import Styles from "@/assets/css/cinemas.module.scss";
@@ -15,7 +15,7 @@ import Loading from "@/components/Common/PartLoading";
 import CheckCell from "@/components/Common/CheckCell";
 import { SearchOutlined } from "@ant-design/icons";
 
-export default function newsPage() {
+export default function NewsPage() {
   const location = useLocation();
   const [params, setParams] = useState({
     cityId: 0,
@@ -24,8 +24,8 @@ export default function newsPage() {
   });
   const menuRef = useRef<DropdownRef>(null);
   const [cinemaList, setCinemasList] = useState<{
-    cinemas: Map<string, chinemaDetailInf[]>;
-    cinemasList: chinemaDetailInf[];
+    cinemas: Map<string, cinemasInfoInf[]>;
+    cinemasList: cinemasInfoInf[];
   }>({
     cinemas: new Map(),
     cinemasList: [],
@@ -49,13 +49,12 @@ export default function newsPage() {
       cityId: +params.cityId,
       ticketFlag: params.ticketFlag,
     });
-    const moviceMap = new Map<string, Array<chinemaDetailInf>>();
+    const moviceMap = new Map<string, Array<cinemasInfoInf>>();
     moviceMap.set(defaultTitle, cinemas);
     cinemas
       .sort((pre, next) => pre.Distance - next.Distance)
       .forEach((element) => {
         const key = moviceMap.get(element.districtName);
-
         if (key) {
           moviceMap.set(element.districtName, [...key, element]);
         } else {
@@ -79,12 +78,10 @@ export default function newsPage() {
 
   function cityItemsChange(res: string) {
     const cinemas = cinemaList.cinemas.get(res) || [];
-
     setCinemasList({
       cinemas: cinemaList.cinemas,
       cinemasList: cinemas,
     });
-
     setCityName(res);
     closeMenu();
   }
@@ -113,7 +110,10 @@ export default function newsPage() {
       <div>
         <div className={Styles["city-wrapper"]}>
           <Navbar title="影院">
-            <SearchOutlined size={96}></SearchOutlined>
+            <SearchOutlined
+              size={96}
+              onClick={() => to("/cinema/search")}
+            ></SearchOutlined>
           </Navbar>
 
           <Dropdown ref={menuRef}>

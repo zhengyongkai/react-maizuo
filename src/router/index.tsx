@@ -21,6 +21,7 @@ import OrderPage from "@/page/order/order";
 import PreOrderPage from "@/page/order/orderPre";
 import CouponPage from "@/page/my/coupon";
 import CustomPage from "@/page/my/custom";
+import SearchPage from "@/page/cinema/search";
 
 import CinemasInfo from "@/page/movice/schedule";
 import { Navigate } from "react-router-dom";
@@ -99,6 +100,10 @@ const Router: RouteObjectInf[] = [
   {
     path: "/films/:id",
     element: <FilmPage />,
+  },
+  {
+    path: "/cinema/search",
+    element: <SearchPage />,
   },
   {
     path: "/films/cinemas/:id",

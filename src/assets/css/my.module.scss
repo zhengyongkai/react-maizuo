@@ -28,6 +28,24 @@
     }
     margin-right: 16px;
   }
+
+  .user-nickName {
+    > :last-child {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      > div {
+        // margin-left: 8px;
+        font-size: 10px;
+        border-radius: 8px;
+        background-color: rgb(255, 135, 81);
+        padding: 4px 8px;
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+      }
+    }
+  }
 }
 
 .user-card {

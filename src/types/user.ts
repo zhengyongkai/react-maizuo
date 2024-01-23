@@ -17,6 +17,7 @@ export interface user {
   thirdAccount: Array<string>;
   userId: number;
   balance: number;
+  uid: number;
 }
 
 export interface userState {

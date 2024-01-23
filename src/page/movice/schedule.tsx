@@ -29,7 +29,7 @@ import type { cinemasInfoInf } from "@/types/cinema";
 import type { scheduleInf } from "@/types/schedule";
 import type { anctorInf, detailsInf, moviceDetailsInf } from "@/types/movice";
 
-export default function cinemasInfo() {
+export default function Schedule() {
   const { cinemaId = "", filmId = "", showDate = "" } = useParams();
   const swiperRef = useRef<any>(null);
   const navigator = useNavigate();

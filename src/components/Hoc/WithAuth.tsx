@@ -8,7 +8,7 @@ interface propsInf {
 }
 
 export default function WithAuth(props: propsInf): React.ReactElement {
-  const user = useSelector<userState>((state) => state.user.token);
+  const user = useSelector<userState, string>((state) => state.user.token);
 
   if (user) {
     return props.children;

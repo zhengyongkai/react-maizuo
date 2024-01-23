@@ -1,5 +1,6 @@
 import type { districtInf } from "@/types/location";
 import { userSimpleInf } from "./user";
+import { cinemasInfoInf } from "./cinema";
 
 export interface anctorInf {
   name: string;
@@ -88,33 +89,8 @@ export interface cinemaResponseInf {
   }>;
 }
 
-export interface chinemaDetailInf {
-  Distance: number;
-  address: string;
-  businessTime: string;
-  cinemaId: number;
-  cityId: number;
-  cityName: string;
-  district: districtInf;
-  districtId: number;
-  districtName: string;
-  eTicketFlag: number;
-  gpsAddress: string;
-  isVisited: number;
-  latitude: number;
-  logoUrl: string;
-  longitude: number;
-  lowPrice: number;
-  name: string;
-  notice: string;
-  phone: string;
-  seatFlag: number;
-  telephones: Array<string>;
-  ticketTypes: number;
-}
-
 export interface cinemaListResponseInf {
-  cinemas: Array<chinemaDetailInf>;
+  cinemas: Array<cinemasInfoInf>;
 }
 
 export type moviceDetailsInf = {

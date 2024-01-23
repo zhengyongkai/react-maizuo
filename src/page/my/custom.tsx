@@ -4,13 +4,13 @@ import Styles from "@/assets/css/custom.module.scss";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import socketIo from "@/utils/socket";
 import type { messageInf } from "@/types/chat";
-import ChatItem from "./components/custom/chatItem";
+import ChatItem from "./components/custom/ChatItem";
 import { userSimpleInf, userState } from "@/types/user";
 import { useSelector } from "react-redux";
 import { getDateFormat } from "@/utils/day";
 import { combineCss } from "@/utils/css";
 
-function customPage() {
+export default function CustomPage() {
   const [messageList, setMessageList] = useState<messageInf[]>([]);
   const [value, setValue] = useState("");
 
@@ -100,5 +100,3 @@ function customPage() {
     </>
   );
 }
-
-export default customPage;

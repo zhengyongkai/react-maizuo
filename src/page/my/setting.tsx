@@ -7,10 +7,8 @@ import type { user, userState } from "@/types/user";
 import { useNavigate } from "react-router-dom";
 
 import { clearUserData } from "@/store/common/user";
-import SocketInstance from "@/utils/socket";
-import socketIo from "@/utils/socket";
 
-function setting() {
+export default function SettingPage() {
   const version = import.meta.env.VITE_BASE_VERSION;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,5 +39,3 @@ function setting() {
     </>
   );
 }
-
-export default setting;
