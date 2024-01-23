@@ -8,7 +8,7 @@
 
 ```js
 // 前端
-React TypeScript Antd-Mobile Dayjs 3D-selection
+React React-Toolkit TypeScript Antd-Mobile Dayjs 3D-selection Baidu-Map
 // 后端
 nestjs(websocket+jwt等)
 ```
@@ -18,6 +18,7 @@ nestjs(websocket+jwt等)
 1.  部分直接调用 `卖座App` 的 `接口`
 2.  支付接口自己写的 `nestjs` 后端 , 用的是 `支付宝沙盒`
 3.  很小部分用的是 `mock` 的接口
+4.  对接了 `百度地图`,但是页面未完善 ╮(╯▽╰)╭
 
 ## 部分详情截图
 
@@ -69,6 +70,10 @@ nestjs(websocket+jwt等)
 ### 客服
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/9b41b7eb0eaa4f898250553ca0fe6c74.png)
+
+### 评论 (接口和数据都是Mock)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/4c1b5eae10c34994b09bb8d7176c414a.png)
 
 ## 结尾
 
