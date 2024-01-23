@@ -1,0 +1,68 @@
+# React实现卖座App
+
+##  简介
+
+之前在`学习React`的时候，在 `bilibili`  看到 `React` 学习视频，于是马上着手 `React版本的卖座App` 开发
+
+##  技术栈
+
+```js
+// 前端
+React TypeScript Antd-Mobile Dayjs 3D-selection
+// 后端
+nestjs(websocket+jwt等)
+```
+## 接口对接
+
+1.  部分直接调用 `卖座App` 的 `接口`
+2. 支付接口自己写的 `nestjs` 后端 , 用的是 `支付宝沙盒`
+3. 很小部分用的是 `mock` 的接口
+
+## 部分详情截图
+### 选择城市
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/03126901932041c8b384d72057986c49.jpeg)
+### 选择电影
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/11e9fde9f3c545b3b7de30c4b325038b.png)
+### 影院搜索
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/3e1f1931cf3342139650dfc0baec9e6d.png)
+
+### 登录
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/89fc50e5d7694c51a1c2078b441d438f.png)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/fa2fd9f39f3845ab97ae3f2354ddb91e.png)
+### 选择电影
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/bc8ad3fb486b4100bb97b5553c51d5fe.png)
+
+### 选座
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/d20e9fe997ed4ab6a3f32f3f63708004.png)
+### 提交订单
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/c81c9d7433964681a8d618dfa4dd9d30.jpeg)
+### 支付
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/30caa588d95b4fe3b7c0d34d16c19edc.png)
+### 支付成功和出票
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/ed1fd48ac5cf44788e20ff7b5436fb4d.png)
+### 我的订单
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/d266a831d00e4ffe87d3af2212e3e5b8.png)
+
+### 优惠卷
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/a9856e87fdba4f939d1a533df04e4279.png)
+### 客服
+![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/9b41b7eb0eaa4f898250553ca0fe6c74.png)
+
+## 结尾
+
+1. 大概就这些功能，感觉自己搞了个 `低配版`的 `卖座App`
+2. 自己对 `TS` 其实并不太能掌握，可能导致有些混乱，`请见谅`
+3. 自己的 `后端水平`, `emmmm`,真不好说，如果我这个`建表`给我大学老师看到估计头都给锤烂 ╮(╯▽╰)╭
+4. 用的是 `卖座App的接口`,谢谢 `卖座App` 提供给我这么宝贵的接口供我 `学习`，万分感谢
+5. 如果可以的话，可以直接 `folk` 和 `提issue`,`旨在互相学习(*^▽^*)`
+
+
+## 代码
+
+前端: `https://github.com/zhengyongkai/react-maizuo`
+后端 `https://github.com/zhengyongkai/nest-maizuo-backend/tree/master`
