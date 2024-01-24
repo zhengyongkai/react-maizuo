@@ -1,4 +1,7 @@
+
 # React实现卖座App
+
+> 娱乐项目，请勿当真 ！！！
 
 ##  简介
 
@@ -12,6 +15,8 @@ React TypeScript Antd-Mobile Dayjs 3D-selection
 // 后端
 nestjs(websocket+jwt等)
 ```
+
+
 ## 接口对接
 
 1.  部分直接调用 `卖座App` 的 `接口`
@@ -64,5 +69,38 @@ nestjs(websocket+jwt等)
 
 ## 代码
 
-前端: `https://github.com/zhengyongkai/react-maizuo`
+前端: `https://github.com/zhengyongkai/react-maizuo` <br>
 后端 `https://github.com/zhengyongkai/nest-maizuo-backend/tree/master`
+
+
+## 实现和待实现
+
+ - [x] 基础功能
+ - [x] 选座
+ - [x] 简单聊天
+ - [x] 订单转成图片下载
+ - [x] 支付功能，包括选择优惠券
+ - [ ] 百度地图实现路线规划
+ - [ ]  余额支付
+ - [ ] 优化....
+
+##  关于学习
+1. 自己封装了少量 `hook` , 以及将自己工作的经验和学习相互转化
+2. 将一些工具封装成 `单例模式`
+3. 不会用ts类型体操，所以有些`ts类型`比较简单
+4. 年后可能再找`工作机会`，希望有大佬可以给一次机会
+
+## 待优化
+1. 一些类型声明
+2. 一些功能页面拆分
+
+
+
+
+## 线上地址
+
+等我回去更新个最新版本 ==
+
+
+## 更新
+暂无
