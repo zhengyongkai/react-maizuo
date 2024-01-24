@@ -5,9 +5,9 @@ import type { cityStateInf, localeInf } from "@/types/location";
 
 const useLocation = () => {
   return (fn: (locale: localeInf) => void) => {
-    const location = useSelector<cityStateInf>(
+    const location = useSelector<cityStateInf, localeInf>(
       (state) => state.location.locale
-    ) as localeInf;
+    );
     useEffect(() => {
       // console.log(location);
       fn(location);

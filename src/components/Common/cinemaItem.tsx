@@ -5,6 +5,7 @@ import { getBetweenDistance } from "@/utils/location";
 import { formatPrice } from "@/utils/price";
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { combineCss } from "@/utils/css";
 
 interface cinemaItemProps {
   item: cinemasInfoInf;
@@ -30,7 +31,7 @@ function CinemaItem(props: cinemaItemProps) {
   }
 
   return (
-    <div className={Styles["cinemas-item"]} onClick={onClick}>
+    <div className={combineCss([Styles["cinemas-item"]])} onClick={onClick}>
       <div className={Styles["cinemas-top"]}>
         <div>{item.name}</div>
         {item.lowPrice ? (

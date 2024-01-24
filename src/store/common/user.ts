@@ -50,6 +50,7 @@ const initUserStore: initUserStoreInf = {
     thirdAccount: [],
     userId: 0,
     balance: 0,
+    uid: 0,
   },
   couponList: [],
   logged: false,
