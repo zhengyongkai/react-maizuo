@@ -23,6 +23,10 @@ export default function Login(props: LoginPropsInf) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  /**
+   * @description: 登录，登陆成功将数据塞到 userData 中
+   * @return {*}
+   */
   const onSubmit = async () => {
     const values = form.getFieldsValue();
     const { data } = await login({

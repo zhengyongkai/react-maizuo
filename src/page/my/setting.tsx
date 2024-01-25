@@ -17,6 +17,10 @@ export default function SettingPage() {
     (state) => state.user.userData
   );
 
+  /**
+   * @description: 登出并且清除数据，并且返回到首页
+   * @return {*}
+   */
   function logout() {
     dispatch(clearUserData());
     navigate("/");

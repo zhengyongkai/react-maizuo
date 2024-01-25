@@ -1,6 +1,6 @@
 import CheckPng from "@/assets/img/check.png";
 import Styles from "@/assets/css/checkCell.module.scss";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 interface checkCellInf {
   active?: boolean;
@@ -16,7 +16,7 @@ function CheckCell(props: checkCellInf) {
     return (
       <div
         onClick={() => onClick(value)}
-        className={combineCss([
+        className={cssCb([
           Styles["check-cell-item"],
           active ? Styles["check-cell-isCheck"] : "",
         ])}

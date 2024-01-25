@@ -5,7 +5,7 @@ import { getBetweenDistance } from "@/utils/location";
 import { formatPrice } from "@/utils/price";
 import { memo } from "react";
 import { useSelector } from "react-redux";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 interface cinemaItemProps {
   item: cinemasInfoInf;
@@ -31,7 +31,7 @@ function CinemaItem(props: cinemaItemProps) {
   }
 
   return (
-    <div className={combineCss([Styles["cinemas-item"]])} onClick={onClick}>
+    <div className={cssCb([Styles["cinemas-item"]])} onClick={onClick}>
       <div className={Styles["cinemas-top"]}>
         <div>{item.name}</div>
         {item.lowPrice ? (
@@ -43,7 +43,7 @@ function CinemaItem(props: cinemaItemProps) {
         )}
       </div>
       <div className={Styles["cinemas-bottom"]}>
-        <div className="text-ellipsis">{item.address}</div>
+        <div className="truncate">{item.address}</div>
         <div>{getDistance(item.longitude, item.latitude)}</div>
       </div>
     </div>

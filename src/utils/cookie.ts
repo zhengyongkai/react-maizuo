@@ -1,5 +1,9 @@
 import Cookies from "universal-cookie";
 
+/**
+ * @description: cookie 的单例模式
+ * @return {*} CookieInstance
+ */
 class CookieInstance {
   static _instance: any = new Cookies();
 
@@ -7,13 +11,15 @@ class CookieInstance {
     return CookieInstance;
   }
 
-  static setCookie(key: string, value: any) {
+  static setCookie(key: string, value: unknown) {
     CookieInstance._instance.set(key, value, { path: "/" });
     return CookieInstance;
   }
+
   static getCookie(key: string) {
     return CookieInstance._instance.get(key);
   }
+
   static removeCookie(key: string) {
     return CookieInstance._instance.remove(key);
   }

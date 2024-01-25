@@ -1,4 +1,8 @@
-// 获取url参数
+/**
+ * @description: 获取 url 参数
+ * @param {string} url
+ * @return {*} new Map
+ */
 export function getQueryVariable(url: string) {
   const str = url.split("?");
   const query = str[1];
@@ -11,6 +15,11 @@ export function getQueryVariable(url: string) {
   return queryMap;
 }
 
+/**
+ * @description: 将 div 转化为 图片进行下载
+ * @param {HTMLDivElement} element
+ * @return {*}
+ */
 export function changeToCanvas(element: HTMLDivElement) {
   const svgElems = element.querySelectorAll("svg");
   let elems: SVGElement[] = [...svgElems];
@@ -30,19 +39,23 @@ export function changeToCanvas(element: HTMLDivElement) {
   });
 }
 
-/**图片转base64格式 */
-export function getBase64(image: HTMLImageElement) {
-  var canvas = document.createElement("canvas");
-  canvas.width = image.width;
-  canvas.height = image.height;
-  var context = canvas.getContext("2d");
-  if (context) {
-    context.drawImage(image, 0, 0, image.width, image.height);
-    var base64 = canvas.toDataURL("image/png");
-    return base64;
-  }
-}
+// /**图片转base64格式 */
+// export function getBase64(image: HTMLImageElement) {
+//   var canvas = document.createElement("canvas");
+//   canvas.width = image.width;
+//   canvas.height = image.height;
+//   var context = canvas.getContext("2d");
+//   if (context) {
+//     context.drawImage(image, 0, 0, image.width, image.height);
+//     var base64 = canvas.toDataURL("image/png");
+//     return base64;
+//   }
+// }
 
-// 判断是不是数组
+/**
+ * @description: 判断是不是数组
+ * @param {unknown} data
+ * @return {*}
+ */
 export const isArray = (data: unknown) =>
   Object.prototype.toString.call(data) === "[object Array]";

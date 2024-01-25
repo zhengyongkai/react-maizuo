@@ -7,33 +7,26 @@
   padding-top: 44px;
   font-size: 16px;
   background-size: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   color: #fff;
   box-sizing: border-box;
 
   .user-headerIcon {
     border: 3px solid #fff;
     border-radius: 35px;
-    width: 63px;
-    height: 63px;
+    width: 64px;
+    height: 64px;
     overflow: hidden;
-    img {
-      width: 63px;
-      height: 63px;
-    }
     margin-right: 16px;
+    img {
+      width: 64px;
+      height: 64px;
+    }
   }
 
   .user-nickName {
     > :last-child {
       margin-top: 8px;
-      display: flex;
-      align-items: center;
+
       > div {
         // margin-left: 8px;
         font-size: 10px;
@@ -41,7 +34,6 @@
         background-color: rgb(255, 135, 81);
         padding: 4px 8px;
         display: flex;
-        align-items: center;
         margin-right: 8px;
       }
     }

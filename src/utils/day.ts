@@ -10,28 +10,58 @@ export function getDateFormat(date: string, format = "YYYY-MM-DD HH:mm:ss") {
   return dayjs(date).format(format);
 }
 
+/**
+ * @description: 根据 unix 返回 YYYY-MM-DD
+ * @param {number} time
+ * @return {*}
+ */
 export function getDate(time: number) {
   return dayjs.unix(time).format("YYYY-MM-DD");
 }
 
+/**
+ * @description: 根据 unix 返回 HH:mm
+ * @param {number} time
+ * @return {*}
+ */
 export function getTime(time: number) {
   return dayjs.unix(time).format("HH:mm");
 }
 
+/**
+ * @description: 根据 unix 返回是不是当天
+ * @param {number} num
+ * @return {*} true = 是 false = 否
+ */
 export function isTodayFn(num: number) {
   return dayjs.unix(num).isToday();
 }
 
+/**
+ * @description: 根据 unix 返回是不是明天
+ * @param {number} num
+ * @return {*} true = 是 false = 否
+ */
 export function isTomorrowFn(num: number) {
   return dayjs.unix(num).isTomorrow();
 }
 
+/**
+ * @description: 根据 unix 返回是不是明天
+ * @param {number} num
+ * @return {*} true = 是 false = 否
+ */
 export function isAfter(num: number) {
   const after = dayjs.unix(num);
   const now = dayjs(new Date());
   return after.diff(now, "day") == 1;
 }
 
+/**
+ * @description: 根据 unix 输出星期几
+ * @param {number} num
+ * @return {*}
+ */
 export function getDay(num: number) {
   const day = dayjs.unix(num).day();
   switch (day) {
@@ -54,6 +84,12 @@ export function getDay(num: number) {
   }
 }
 
+/**
+ * @description: 根据unix返回是否时间差
+ * @param {number} num
+ * @param {boolean} showTime
+ * @return {*}
+ */
 export function getDaysNameFn(num: number, showTime: boolean = false): string {
   let day = null;
   if (!showTime) {
@@ -74,14 +110,23 @@ export function getDaysNameFn(num: number, showTime: boolean = false): string {
   return pre + day;
 }
 
-// 判断电影是否过时间
+/**
+ * @description: 判断电影是否过时间
+ * @param {number} stopAt
+ * @param {number} beforeStopMins
+ * @return {*}
+ */
 export const isStopSelling = (stopAt: number, beforeStopMins: number) => {
   let v = +stopAt * 1000 - +dayjs().valueOf();
   let re = +beforeStopMins * 60 * 1000;
   return v < re;
 };
 
-// 秒转时分
+/**
+ * @description: 秒转化为时分 定时器所用
+ * @param {number} seconds
+ * @return {*}
+ */
 export const secondToMMSS = (seconds: number) => {
   var minutes = Math.floor((seconds % 3600) / 60);
   var remainingSeconds = seconds % 60;

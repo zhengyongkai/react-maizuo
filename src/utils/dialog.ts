@@ -5,6 +5,10 @@ const normalConfig = {
   closeOnMaskClick: true,
 };
 
+/**
+ * @description: 一个封装的提示框
+ * @return {*}
+ */
 export const showDialog = {
   show: ({
     title = "提示",

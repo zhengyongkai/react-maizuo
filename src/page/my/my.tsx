@@ -13,13 +13,12 @@ import { formatPrice } from "@/utils/price";
 import Styles from "@/assets/css/my.module.scss";
 
 import orderImg from "@/assets/img/order.png";
-import packetImg from "@/assets/img/packet.png";
-import historyImg from "@/assets/img/history.png";
 import customImg from "@/assets/img/custom.png";
 import settingImg from "@/assets/img/setting.png";
 import { RightOutline } from "antd-mobile-icons";
 import { useNavigate } from "react-router-dom";
 import SvgIcon from "@/components/SvgIcon/Index";
+import { cssCb } from "@/utils/css";
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -64,6 +63,10 @@ export default function MyPage() {
     navigate("/login");
   }
 
+  /**
+   * @description: 获取性别
+   * @return {*}
+   */
   function getSex() {
     if (userData.gender === 1) {
       return <SvgIcon name="sexm" size={12}></SvgIcon>;
@@ -74,7 +77,7 @@ export default function MyPage() {
 
   return (
     <>
-      <div className={Styles["user-bg"]}>
+      <div className={cssCb([Styles["user-bg"], "flex", "items-center"])}>
         {userData.userId ? (
           <>
             <div className={Styles["user-headerIcon"]}>
@@ -82,7 +85,7 @@ export default function MyPage() {
             </div>
             <div className={Styles["user-nickName"]}>
               <div>{userData.nickName}</div>
-              <div>
+              <div className="flex items-center">
                 <div>ID： {userData.uid}</div>
                 <div>{getSex()}</div>
               </div>

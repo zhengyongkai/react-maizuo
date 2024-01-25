@@ -2,7 +2,7 @@
   background-color: #fff;
   display: flex;
   height: 124px;
-  padding: 15px 15px 15px 15px;
+  padding: 16px;
   box-sizing: border-box;
   align-items: center;
   .movice-poster {
@@ -24,11 +24,7 @@
       line-height: 22px;
       margin-right: 5px;
       overflow: hidden;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
+
       div {
         // flex: 1;
         margin-right: 7px;

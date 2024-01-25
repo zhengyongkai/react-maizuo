@@ -40,7 +40,7 @@ import { generatePreOrder } from "@/api/order";
 import { getMoviceDetail } from "@/api/movice";
 
 import cookie from "@/utils/cookie";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 import type { scheduleInf } from "@/types/schedule";
 import type {
@@ -623,9 +623,7 @@ export default function SeatPage() {
             </div>
           </div>
 
-          <div
-            className={combineCss([Styles["seating-schedule"], "inner-scroll"])}
-          >
+          <div className={cssCb([Styles["seating-schedule"], "inner-scroll"])}>
             {showSchedule
               ? scheduleList.map((item, index) => {
                   return (
@@ -646,9 +644,7 @@ export default function SeatPage() {
                 })
               : null}
           </div>
-          <div
-            className={combineCss([Styles["selects-wraps"], "inner-scroll"])}
-          >
+          <div className={cssCb([Styles["selects-wraps"], "inner-scroll"])}>
             {selectSeats.map((res, index) => {
               return (
                 <div className={Styles["selects-wraps-item"]} key={index}>
@@ -668,7 +664,7 @@ export default function SeatPage() {
         </div>
       </div>
       <div
-        className={combineCss([
+        className={cssCb([
           Styles["seating-choose"],
           selectSeats.length ? "" : Styles["disabled"],
         ])}

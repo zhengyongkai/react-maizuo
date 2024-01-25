@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-:global(.text-ellipsis) {
+:global(.truncate) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

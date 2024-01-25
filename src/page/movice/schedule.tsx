@@ -23,7 +23,7 @@ import { formatPrice } from "@/utils/price";
 import useSroll from "@/hook/scroll";
 
 import PartLoading from "@/components/Common/PartLoading";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 import type { cinemasInfoInf } from "@/types/cinema";
 import type { scheduleInf } from "@/types/schedule";
@@ -183,6 +183,10 @@ export default function Schedule() {
     }
   }, [cinemaId, id, params.date]);
 
+  /**
+   * @description: 加载列表数据
+   * @return {*}
+   */
   async function getCinemasScheduleList() {
     setLoading(true);
     const {
@@ -196,6 +200,11 @@ export default function Schedule() {
     setLoading(false);
   }
 
+  /**
+   * @description: 轮播更改时候，数据跟着刷新
+   * @param {number} e：当前轮播的index
+   * @return {*}
+   */
   function onSlideChange(e: number) {
     setParams({
       ...params,
@@ -205,11 +214,16 @@ export default function Schedule() {
     setFilmId(films[e].filmId);
   }
 
+  /**
+   * @description: 获取人员信息
+   * @param {Array} actors
+   * @return {*}
+   */
   function getAnctorsString(actors: Array<anctorInf>) {
     return actors
       .reduce((pre, item) => {
         return pre.concat(item.name);
-      }, [] as Array<string>)
+      }, new Array<string>())
       .join(" ");
   }
 
@@ -224,7 +238,11 @@ export default function Schedule() {
       <NavTitle back title={fixed ? cinemaInfo.name : ""}></NavTitle>
       <div className={Styles["cinemas-warpper"]}>
         <div>
-          <div className={Styles["cinemas-title"]}>{cinemaInfo.name}</div>
+          <div
+            className={cssCb([Styles["cinemas-title"], "truncate", "m-auto"])}
+          >
+            {cinemaInfo.name}
+          </div>
         </div>
         <div className={Styles["cinemas-tags"]}>
           {cinemaInfo.services &&
@@ -232,7 +250,9 @@ export default function Schedule() {
               return <span key={key}> {item.name} </span>;
             })}
         </div>
-        <div className={Styles["cinemas-info"]}>
+        <div
+          className={cssCb([Styles["cinemas-info"], "flex", "items-center"])}
+        >
           <div>
             <img
               src={locationImg}
@@ -244,7 +264,7 @@ export default function Schedule() {
               }
             />
           </div>
-          <div className="text-ellipsis">{cinemaInfo.address}</div>
+          <div className="truncate flex-1 px-3">{cinemaInfo.address}</div>
           <div>
             <a href={"tel:" + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
@@ -311,7 +331,7 @@ export default function Schedule() {
             {schedules.map((item, index) => {
               return (
                 <div
-                  className={combineCss([
+                  className={cssCb([
                     Styles["schedule-item"],
                     isStopSelling(item.showAt, item.advanceStopMins)
                       ? Styles["disabled"]

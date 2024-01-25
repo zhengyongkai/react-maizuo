@@ -6,7 +6,14 @@ const toRad = function (n: number) {
   return (n * Math.PI) / 180;
 };
 
-// 获取两地距离
+/**
+ * @description: 计算两地距离
+ * @param {number} lat 经度
+ * @param {number} lot 纬度
+ * @param {number} lats 经度
+ * @param {number} lots 纬度
+ * @return {*}
+ */
 export const getBetweenDistance = function (
   lat: number,
   lot: number,

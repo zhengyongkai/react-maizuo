@@ -3,6 +3,7 @@ import { memo } from "react";
 
 import type { detailsInf } from "@/types/movice";
 import { useNavigate } from "react-router-dom";
+import { cssCb } from "@/utils/css";
 
 interface propsInf {
   item: detailsInf;
@@ -30,8 +31,8 @@ function MoviceItem(props: propsInf) {
         <img src={item.poster} alt="" />
       </div>
       <div className={Styles["movice-content"]}>
-        <div className={Styles["movice-name"]}>
-          <div className="text-ellipsis">{item.name} </div>{" "}
+        <div className={cssCb([Styles["movice-name"], "flex", "items-center"])}>
+          <div className="truncate">{item.name} </div>{" "}
           <span>{item.filmType.name}</span>
         </div>
         {item.grade ? (
@@ -39,7 +40,7 @@ function MoviceItem(props: propsInf) {
             观众评分 <span>{item.grade}</span>{" "}
           </div>
         ) : undefined}
-        <div className={[Styles["movice-anctor"], "text-ellipsis"].join(" ")}>
+        <div className={cssCb([Styles["movice-anctor"], "truncate"])}>
           {item.actors &&
             item.actors.map((anctor, index) => {
               return <span key={index}>{anctor.name} </span>;

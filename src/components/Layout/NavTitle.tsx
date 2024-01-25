@@ -1,7 +1,7 @@
 import BackImg from "@/assets/img/back.png";
 import Styles from "@/assets/css/navTitle.module.scss";
 import { useNavigate } from "react-router-dom";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 interface props {
   back?: boolean;
@@ -27,9 +27,7 @@ export default function NavTitle(props: props) {
             />
           ) : undefined}
         </div>
-        <div className={combineCss([Styles["navTitle"], "text-ellipsis"])}>
-          {title}
-        </div>
+        <div className={cssCb([Styles["navTitle"], "truncate"])}>{title}</div>
 
         <div className={Styles["navSlots"]}>{children ? children : <></>}</div>
       </div>

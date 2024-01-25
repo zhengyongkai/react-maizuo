@@ -136,7 +136,7 @@ const RatePage = () => {
             <div className={Styles["film-descrption"]}>
               <div className={Styles["film-name"]}>
                 <div>
-                  <div className="text-ellipsis"> {film.name}</div>
+                  <div className="truncate"> {film.name}</div>
                   <span>{film.filmType.name}</span>
                 </div>
 

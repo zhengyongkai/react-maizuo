@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDaysNameFn } from "@/utils/day";
 import Styles from "@/assets/css/dateTab.module.scss";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 interface propsInf<T> {
   tabList: Array<T>;
@@ -24,7 +24,7 @@ export default function Tab<T>(props: propsInf<T>) {
   }, [tabList]);
 
   return (
-    <div className={combineCss([Styles["cinemas-dates"], "inner-scroll"])}>
+    <div className={cssCb([Styles["cinemas-dates"], "inner-scroll"])}>
       {tabList.map((item: any, index) => {
         return (
           <div

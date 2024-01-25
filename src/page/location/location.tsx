@@ -89,6 +89,11 @@ function LocationPage(props: locationPageInf) {
     setCity(cityState);
   }, [cityState]);
 
+  /**
+   * @description: 选取城市 并且写到 cookie
+   * @param {formatInf} item
+   * @return {*}
+   */
   function onCityClick(item: formatInf) {
     if (!item.cityId) {
       return false;

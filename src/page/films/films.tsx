@@ -22,7 +22,7 @@ import useFetch from "@/hook/fetch";
 import dayjs from "dayjs";
 
 import LoadingWrap from "@/components/Common/PartLoading";
-import { combineCss } from "@/utils/css";
+import { cssCb } from "@/utils/css";
 
 const detailsInitData: detailsResponseInf = {
   film: {
@@ -131,7 +131,7 @@ function FilmPage() {
             <div className={Styles["film-descrption"]}>
               <div className={Styles["film-name"]}>
                 <div>
-                  <div className="text-ellipsis"> {film.name}</div>
+                  <div className="truncate"> {film.name}</div>
                   <span>{film.filmType.name}</span>
                 </div>
 
@@ -181,9 +181,7 @@ function FilmPage() {
             </div>
             <div className={Styles["film-anctors-list"]}>
               <div className={Styles["film-title"]}>演职列表</div>
-              <div
-                className={combineCss([Styles["film-anctors"], "inner-scroll"])}
-              >
+              <div className={cssCb([Styles["film-anctors"], "inner-scroll"])}>
                 {film.actors.map((item, index) => {
                   return (
                     <div className={Styles["film-anctor"]} key={index}>
@@ -199,9 +197,7 @@ function FilmPage() {
             </div>
             <div className={Styles["film-photos-list"]}>
               <div className={Styles["film-title"]}>剧照</div>
-              <div
-                className={combineCss([Styles["film-photo"], "inner-scroll"])}
-              >
+              <div className={cssCb([Styles["film-photo"], "inner-scroll"])}>
                 {film.photos.map((item, index) => {
                   return (
                     <div key={index}>
