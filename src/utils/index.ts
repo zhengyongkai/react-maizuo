@@ -63,3 +63,12 @@ export function changeToCanvas(element: HTMLDivElement) {
  */
 export const isArray = (data: unknown) =>
   Object.prototype.toString.call(data) === '[object Array]';
+
+/**
+ * @description: 第三方跳转删除code等参数
+ * @return {*}
+ */
+export const thirdPartyRedirect = () => {
+  const urlInfo = new URL(location.href);
+  return location.replace(urlInfo.origin + urlInfo.pathname);
+};

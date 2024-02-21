@@ -19,7 +19,7 @@ import { RightOutline } from 'antd-mobile-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SvgIcon from '@/components/SvgIcon/Index';
 import { cssCb } from '@/utils/css';
-import { getQueryVariable } from '@/utils';
+import { getQueryVariable, thirdPartyRedirect } from '@/utils';
 import { loginByGithub } from '@/api/user';
 import { clearUserData, setUserData } from '@/store/common/user';
 
@@ -86,6 +86,7 @@ export default function MyPage() {
       if (code) {
         const { data } = await loginByGithub(code);
         await dispatch(setUserData(data));
+        thirdPartyRedirect();
       }
     }
     fn();
