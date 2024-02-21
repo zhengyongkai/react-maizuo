@@ -1,7 +1,15 @@
-.login {
-  margin: 60px 16px;
-
-  h3 {
-    text-align: center;
+.login-wrapper {
+  height: 100vh;
+  background-color: #fff;
+  .login-content {
+    padding: 60px 16px;
+    .login-logo {
+      text-align: center;
+      margin-bottom: 16px;
+      img {
+        width: 64px;
+        border-radius: 8px;
+      }
+    }
   }
 }
