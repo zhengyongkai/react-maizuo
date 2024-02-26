@@ -3,65 +3,65 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import useEcharts from "@/hook/echarts";
-import useFetch from "@/hook/fetch";
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import useEcharts from '@/hook/echarts';
+import useFetch from '@/hook/fetch';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { BaseBarSeries } from "@/types/echarts";
+import { BaseBarSeries } from '@/types/echarts';
 
-import BarEcharts, { BaseBarChartInf } from "@/components/Echarts/BarEcharts";
+import BarEcharts, { BaseBarChartInf } from '@/components/Echarts/BarEcharts';
 
-import NavTitle from "@/components/Layout/NavTitle";
-import dayjs from "dayjs";
-import like from "@/assets/img/like.png";
+import NavTitle from '@/components/Layout/NavTitle';
+import dayjs from 'dayjs';
+import like from '@/assets/img/like.png';
 
 // import domtoImg from 'dom-to-image';
 
-import Styles from "@/assets/css/rate.module.scss";
+import Styles from '@/assets/css/rate.module.scss';
 
-import LoadingWrap from "@/components/Common/PartLoading";
-import { BarSeriesOption } from "echarts";
-import { InfiniteScroll, Rate } from "antd-mobile";
+import LoadingWrap from '@/components/Common/PartLoading';
+import { BarSeriesOption } from 'echarts';
+import { InfiniteScroll, Rate } from 'antd-mobile';
 
 import {
   getMoviceDetail,
   getRateForChinema,
   getRateListForCinema,
-} from "@/api/movice";
+} from '@/api/movice';
 import type {
   detailsResponseInf,
   rateListDetailsPaginInf,
   rateListDetailsResponseImg,
-} from "@/types/movice";
+} from '@/types/movice';
 
 const RatePage = () => {
   const detailsInitData = {
     film: {
       actors: [],
-      category: "",
-      director: "",
+      category: '',
+      director: '',
       filmId: 0,
       filmType: {
-        name: "",
+        name: '',
         value: 0,
       },
       isPresale: false,
       isSale: false,
       item: {
-        name: "",
+        name: '',
         type: 0,
       },
-      language: "",
-      name: "",
-      nation: "",
+      language: '',
+      name: '',
+      nation: '',
       photos: [],
-      poster: "",
+      poster: '',
       premiereAt: 0,
       runtime: 0,
-      synopsis: "",
+      synopsis: '',
       timeType: 0,
-      videoId: "",
+      videoId: '',
       grade: 0,
       showDate: [],
     },
@@ -76,16 +76,17 @@ const RatePage = () => {
   });
   const [hasMore, setHasMore] = useState(true);
 
-  const { filmId = "" } = useParams();
+  const { filmId = '' } = useParams();
 
   const [{ film }, loading] = useFetch<detailsResponseInf>(
-    () => getMoviceDetail({ filmId: +filmId }),
+    getMoviceDetail,
+    { filmId: +filmId },
     detailsInitData,
     [filmId],
     async () => {
       const data: Array<BaseBarSeries> = [
         {
-          type: "bar",
+          type: 'bar',
           data: [],
         },
       ];
@@ -95,7 +96,7 @@ const RatePage = () => {
       data[0].data = rateList;
       ref.current?.setData(data, [1, 2, 3, 4, 5], {
         ...ref.current.baseBarOptions,
-        color: ["red"],
+        color: ['red'],
       });
       // loadMore();
     }
@@ -131,29 +132,29 @@ const RatePage = () => {
       <NavTitle back title={film.name}></NavTitle>
 
       <LoadingWrap loading={loading}>
-        <div className={Styles["films-wrapper"]} ref={warpperDom}>
-          <div className={Styles["films-info"]}>
-            <div className={Styles["film-descrption"]}>
-              <div className={Styles["film-name"]}>
+        <div className={Styles['films-wrapper']} ref={warpperDom}>
+          <div className={Styles['films-info']}>
+            <div className={Styles['film-descrption']}>
+              <div className={Styles['film-name']}>
                 <div>
                   <div className="truncate"> {film.name}</div>
                   <span>{film.filmType.name}</span>
                 </div>
 
                 <div
-                  className={Styles["film-grade"]}
-                  style={!film.grade ? { display: "none" } : {}}
+                  className={Styles['film-grade']}
+                  style={!film.grade ? { display: 'none' } : {}}
                 >
                   {film.grade} <span>分</span>
                 </div>
               </div>
-              <div className={Styles["film-grey"]}>
-                {film.category.split("|").join(" | ")}
+              <div className={Styles['film-grey']}>
+                {film.category.split('|').join(' | ')}
               </div>
-              <div className={Styles["film-grey"]}>
-                {dayjs.unix(film.premiereAt).format("YYYY-MM-DD")}上映
+              <div className={Styles['film-grey']}>
+                {dayjs.unix(film.premiereAt).format('YYYY-MM-DD')}上映
               </div>
-              <div className={Styles["film-grey"]}>
+              <div className={Styles['film-grey']}>
                 {film.nation} | {film.runtime} 分钟
               </div>
             </div>
@@ -161,22 +162,22 @@ const RatePage = () => {
               <img src={film.poster} alt="" />
             </div>
           </div>
-          <div className={Styles["film-rate"]}>
+          <div className={Styles['film-rate']}>
             <div className="film-title">总体评分</div>
             <BarEcharts ref={ref} height={200}></BarEcharts>
           </div>
-          <div className={Styles["film-rate"]}>
+          <div className={Styles['film-rate']}>
             <div className="film-title">总体评价</div>
           </div>
           <div>
             {esimateList.list.map((item, key) => {
               return (
-                <div key={key} className={Styles["esimate-wrapper"]}>
+                <div key={key} className={Styles['esimate-wrapper']}>
                   <div>
                     <img src={item.userInfo.headIcon} alt="" />
                   </div>
                   <div>
-                    <div className={Styles["esimate-header"]}>
+                    <div className={Styles['esimate-header']}>
                       <div>
                         <div>{item.userInfo.nickName}</div>
                         <div>
@@ -185,27 +186,27 @@ const RatePage = () => {
                             value={item.rate}
                             count={5}
                             style={{
-                              "--star-size": "10px",
+                              '--star-size': '10px',
                             }}
                           />
                           <span
                             style={{
                               marginLeft: 10,
                               fontSize: 10,
-                              color: "#faaf00",
+                              color: '#faaf00',
                             }}
                           >
                             {item.rate}分
                           </span>
                         </div>
                       </div>
-                      <div className={Styles["esimate-like"]}>
+                      <div className={Styles['esimate-like']}>
                         <img src={like} alt="" />
                         <span> {item.like}</span>
                       </div>
                     </div>
 
-                    <div className={Styles["esimate-estimation"]}>
+                    <div className={Styles['esimate-estimation']}>
                       {item.estimation}
                     </div>
                   </div>

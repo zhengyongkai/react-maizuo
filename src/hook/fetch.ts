@@ -1,9 +1,10 @@
-import { Toast } from "antd-mobile";
-import { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { Toast } from 'antd-mobile';
+import { AxiosResponse } from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function useFetch<T>(
-  api: () => Promise<{ data: T; msg: string }>,
+  api: (params: any) => Promise<{ data: T; msg: string }>,
+  params: any,
   initData: T,
   listener: Array<unknown>,
   callback?: (data: T) => void
@@ -13,7 +14,7 @@ export default function useFetch<T>(
   useEffect(() => {
     setLoading(true);
     async function fetch() {
-      const { data, msg } = await api();
+      const { data, msg } = await api(params);
       if (data) {
         setResponseData(data);
         callback && callback(data);
