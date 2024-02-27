@@ -46,7 +46,6 @@ export default function SettingPage() {
     const file = (e.target as HTMLInputElement).files![0];
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('username', 'username');
     let { data } = await uploadUserHeadIcon(formData);
     if (data === 1) {
       Toast.show('上传图片成功');

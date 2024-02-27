@@ -115,4 +115,4 @@ nestjs(websocket+jwt等)
 
 ## 更新
 
-暂无
+2024.02.27 添加 github 登录和图片上传
