@@ -4,7 +4,7 @@
  * @Description: file content
  */
 import { BASE_URL } from '@/constant/baseUrl';
-import type { Response } from '@/types';
+import type { OReseponse, Response } from '@/types';
 import type { cardInf, loginRequestInf } from '@/types/user';
 import request from '@/utils/request';
 
@@ -24,4 +24,8 @@ export const loginByGithub = (code: string) => {
 
 export const getCardList = (): Response<cardInf> => {
   return request.get(`${BASE_URL}/user-coupon/getInfo`);
+};
+
+export const uploadUserHeadIcon = (file: FormData): OReseponse => {
+  return request.post(`${BASE_URL}/user/upload-head-icon`, file);
 };
