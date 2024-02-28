@@ -1,14 +1,15 @@
-import NavTitle from '@/components/Layout/NavTitle';
-import { Avatar, ImageUploader, List, Toast } from 'antd-mobile';
+import NavTitle from "@/components/Layout/NavTitle";
+import { Avatar, ImageUploader, List, Toast } from "antd-mobile";
 
-import Styles from '@/assets/css/setting.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import type { user, userState } from '@/types/user';
-import { useNavigate } from 'react-router-dom';
+import Styles from "@/assets/css/setting.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import type { user, userState } from "@/types/user";
+import { useNavigate } from "react-router-dom";
 
-import { clearUserData, getUserDataThunk } from '@/store/common/user';
-import { ChangeEvent, SyntheticEvent, useRef } from 'react';
-import { uploadUserHeadIcon } from '@/api/user';
+import { clearUserData, getUserDataThunk } from "@/store/common/user";
+import { ChangeEvent, SyntheticEvent, useRef } from "react";
+import { uploadUserHeadIcon } from "@/api/user";
+import { acceptFile } from "@/utils/file";
 
 export default function SettingPage() {
   const version = import.meta.env.VITE_BASE_VERSION;
@@ -27,7 +28,7 @@ export default function SettingPage() {
    */
   function logout() {
     dispatch(clearUserData());
-    navigate('/');
+    navigate("/");
   }
 
   /**
@@ -44,11 +45,14 @@ export default function SettingPage() {
    */
   async function fileChange(e: ChangeEvent) {
     const file = (e.target as HTMLInputElement).files![0];
+    if (!acceptFile(file, [".png", ".jpeg"])) {
+      return;
+    }
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
     let { data } = await uploadUserHeadIcon(formData);
     if (data === 1) {
-      Toast.show('上传图片成功');
+      Toast.show("上传图片成功");
       dispatch(getUserDataThunk());
     }
   }
@@ -56,7 +60,7 @@ export default function SettingPage() {
   return (
     <>
       <NavTitle title="设置" back></NavTitle>
-      <div className={Styles['setting-wrapper']}>
+      <div className={Styles["setting-wrapper"]}>
         <List>
           <List.Item
             extra={<Avatar src={userState.headIcon} />}
@@ -71,7 +75,7 @@ export default function SettingPage() {
         <List>
           <List.Item extra={version}>软件版本</List.Item>
         </List>
-        <div className={Styles['setting-bottom']} onClick={logout}>
+        <div className={Styles["setting-bottom"]} onClick={logout}>
           退出登录
         </div>
       </div>
@@ -79,6 +83,7 @@ export default function SettingPage() {
         className="hidden"
         type="file"
         ref={FileRef}
+        accept="image/gif,image/jpeg,image/jpg,image/png"
         onChange={fileChange}
       ></input>
     </>
