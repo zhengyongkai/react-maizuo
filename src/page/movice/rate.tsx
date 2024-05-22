@@ -96,7 +96,6 @@ const RatePage = () => {
       data[0].data = rateList;
       ref.current?.setData(data, [1, 2, 3, 4, 5], {
         ...ref.current.baseBarOptions,
-        color: ["red"],
       });
       // loadMore();
     },

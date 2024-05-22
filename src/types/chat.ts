@@ -21,7 +21,7 @@ export type selectItemsInf = {
  * @param fromMy 发送者是否是我自己
  * @param id 聊天项的Id
  * @param title 标题
- * @param 日期
+ * @param date 日期
  */
 export type commonInf = {
   fromId: number;
@@ -53,7 +53,6 @@ export type textInf = {
 } & commonInf;
 
 
-
 /**
  * @description: 选择框类型类型
  * @param commonInf 基本类型
@@ -62,5 +61,6 @@ export type selectedInf = {
   type: "selected";
   data: selectListInf;
 } & commonInf;
+
 
 export type selectListInf = Array<selectItemsInf>;

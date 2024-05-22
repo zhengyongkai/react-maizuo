@@ -4,10 +4,12 @@ import { hallInf } from "./hall";
 import { moviceInf } from "./movice";
 import priceInf, { sectionPricesInf } from "./price";
 
+
 export interface lockSeatRulesInf {
   ruleCheckType: number;
   rules: Array<{ ruleType: number }>[];
 }
+
 
 export interface providerInf {
   providerId: number;
@@ -59,6 +61,8 @@ export type seatsInf = {
   isOccupied: boolean;
   offerSeatId: string;
 } & seatsPosInf;
+
+
 
 export interface seatingChartInf {
   hall: hallInf;

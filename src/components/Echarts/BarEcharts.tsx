@@ -24,7 +24,6 @@ export interface BaseBarChartInf {
 }
 
 const BaseBarOptions: BaseBarOptionsInf = {
-  color: ["#ff5f16"],
   tooltip: {
     trigger: "axis",
     axisPointer: {
