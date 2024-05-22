@@ -1,9 +1,9 @@
-import { PureComponent, ReactNode } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Style from "@/assets/css/tabbar.module.scss";
+import { PureComponent, ReactNode } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import Style from '@/assets/css/tabbar.module.scss';
 
-import WithRouter from "@/components/Hoc/WithRouter";
-import SvgIcon from "@/components/SvgIcon/Index";
+import WithRouter from '@/components/Hoc/WithRouter';
+import SvgIcon from '@/components/SvgIcon/Index';
 
 interface propsType {
   navigate: any;
@@ -27,28 +27,28 @@ class Tabbar extends PureComponent<propsType, stateType> {
       path: this.props.location.pathname,
       tabbarList: [
         {
-          path: ["/name/home/nowPlaying", "/name/home/comingSoon"],
-          name: "主页",
-          svg: "cinema",
+          path: ['/name/home/nowPlaying', '/name/home/comingSoon'],
+          name: '主页',
+          svg: 'cinema'
         },
         {
-          path: ["/name/news"],
-          name: "影院",
-          svg: "new",
+          path: ['/name/news'],
+          name: '影院',
+          svg: 'new'
         },
         {
-          path: ["/name/my"],
-          name: "我的",
-          svg: "my",
-        },
-      ],
+          path: ['/name/my'],
+          name: '我的',
+          svg: 'my'
+        }
+      ]
     };
   }
 
   componentDidUpdate(prevProps: Readonly<propsType>): void {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({
-        path: this.props.location.pathname,
+        path: this.props.location.pathname
       });
     }
   }
@@ -61,16 +61,14 @@ class Tabbar extends PureComponent<propsType, stateType> {
     return this.state.tabbarList.map((item, index) => {
       return (
         <div
-          className={item.path.includes(this.state.path) ? "active" : ""}
+          className={item.path.includes(this.state.path) ? 'active' : ''}
           onClick={this.routerChange.bind(this, item.path[0])}
-          key={index}
-        >
+          key={index}>
           <div>
             <SvgIcon
               size={24}
-              color={item.path.includes(this.state.path) ? "#ff8751" : ""}
-              name={item.svg}
-            ></SvgIcon>
+              color={item.path.includes(this.state.path) ? '#ff8751' : ''}
+              name={item.svg}></SvgIcon>
           </div>
           {item.name}
         </div>

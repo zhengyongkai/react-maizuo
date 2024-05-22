@@ -1,18 +1,18 @@
-import { messageInf, orderInf, selectedInf } from "@/types/chat";
-import Styles from "./css/chatItem.module.scss";
-import { useNavigate } from "react-router-dom";
+import { messageInf, orderInf, selectedInf } from '@/types/chat';
+import Styles from './css/chatItem.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 function orderChat(props: { data: orderInf }) {
   const navigator = useNavigate();
 
   let {
-    data: { title, date, fromId, from, data },
+    data: { title, date, fromId, from, data }
   } = props;
 
   return (
-    <div className={Styles["order-item-wrapper"]}>
-      <div className={Styles["order-item-title"]}>{title}</div>
-      <div className={Styles["order-item-content"]}>
+    <div className={Styles['order-item-wrapper']}>
+      <div className={Styles['order-item-title']}>{title}</div>
+      <div className={Styles['order-item-content']}>
         <ul>
           <li>
             <div>单号</div> <div>{data.oNum}</div>
@@ -22,9 +22,7 @@ function orderChat(props: { data: orderInf }) {
           </li>
           <li>
             <div>链接</div>
-            <div onClick={() => navigator(`/orderInfo/${data.orderId}`)}>
-              点击链接
-            </div>
+            <div onClick={() => navigator(`/orderInfo/${data.orderId}`)}>点击链接</div>
           </li>
         </ul>
       </div>

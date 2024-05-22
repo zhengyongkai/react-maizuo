@@ -1,5 +1,5 @@
-import { Toast } from "antd-mobile";
-import { memo, useRef } from "react";
+import { Toast } from 'antd-mobile';
+import { memo, useRef } from 'react';
 
 interface propsInf {
   text: string;
@@ -16,7 +16,7 @@ function CopyText(props: propsInf) {
    */
   function copy() {
     navigator.clipboard.writeText(text).then(() => {
-      Toast.show("复制成功");
+      Toast.show('复制成功');
     });
   }
 

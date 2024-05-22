@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getDaysNameFn } from "@/utils/day";
-import Styles from "@/assets/css/dateTab.module.scss";
-import { cssCb } from "@/utils/css";
+import { useEffect, useState } from 'react';
+import { getDaysNameFn } from '@/utils/day';
+import Styles from '@/assets/css/dateTab.module.scss';
+import { cssCb } from '@/utils/css';
 
 interface propsInf<T> {
   tabList: Array<T>;
@@ -23,17 +23,16 @@ export default function Tab<T>(props: propsInf<T>) {
   }, [tabList]);
 
   return (
-    <div className={cssCb([Styles["cinemas-dates"], "inner-scroll"])}>
+    <div className={cssCb([Styles['cinemas-dates'], 'inner-scroll'])}>
       {tabList.map((item: any, index) => {
         return (
           <div
-            className={index === active ? Styles["cinemas-dates-active"] : ""}
+            className={index === active ? Styles['cinemas-dates-active'] : ''}
             key={index}
             onClick={() => {
               setActive(index);
               onChange && onChange(index, item);
-            }}
-          >
+            }}>
             {dataKey ? (
               <span>{getDaysNameFn(item[dataKey])}</span>
             ) : (

@@ -1,74 +1,74 @@
 // import useFetch from "@/hook/fetch";
-import useLocation from "@/hook/location";
+import useLocation from '@/hook/location';
 
-import { getCinemas, getCinemasList, getMoviceDetail } from "@/api/movice";
+import { getCinemas, getCinemasList, getMoviceDetail } from '@/api/movice';
 import type {
   cinemaListResponseInf,
   cinemaResponseInf,
   moviceInf,
-  detailsInf,
-} from "@/types/movice";
-import { cinemasInfoInf } from "@/types/cinema";
-import { ExoticComponent, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+  detailsInf
+} from '@/types/movice';
+import { cinemasInfoInf } from '@/types/cinema';
+import { ExoticComponent, useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import Styles from "@/assets/css/cinemas.module.scss";
+import Styles from '@/assets/css/cinemas.module.scss';
 
-import NavTitle from "@/components/Layout/NavTitle";
-import { Dropdown, DropdownRef, List } from "antd-mobile";
-import Loading from "@/components/Common/PartLoading";
-import Tab from "@/components/Common/DateTab";
-import CinemaItem from "@/components/Common/CinemaItem";
-import CityItem from "@/components/Common/CityItem";
+import NavTitle from '@/components/Layout/NavTitle';
+import { Dropdown, DropdownRef, List } from 'antd-mobile';
+import Loading from '@/components/Common/PartLoading';
+import Tab from '@/components/Common/DateTab';
+import CinemaItem from '@/components/Common/CinemaItem';
+import CityItem from '@/components/Common/CityItem';
 
 export default function Cinemas() {
   const menuRef = useRef<DropdownRef>(null);
 
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState('');
   const [date, setDate] = useState(0);
   const navigator = useNavigate();
 
   const [params, setParams] = useState({
     filmId: 0,
     cityId: 0,
-    cinemaIds: "",
+    cinemaIds: ''
   });
 
   const [film, setFilm] = useState<detailsInf>({
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
-      value: 0,
+      name: '',
+      value: 0
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
-      type: 0,
+      name: '',
+      type: 0
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
-    showDate: [],
+    showDate: []
   });
 
   const [cinema, setCinemas] = useState<cinemaResponseInf>({
     cinemaExtendList: [],
-    showCinemas: [],
+    showCinemas: []
   });
 
   const [cinemaList, setCinemasList] = useState<{
@@ -76,21 +76,21 @@ export default function Cinemas() {
     cinemasList: cinemasInfoInf[];
   }>({
     cinemas: new Map(),
-    cinemasList: [],
+    cinemasList: []
   });
 
   location((locale) => {
     setParams({
       filmId: +id,
       cityId: locale.cityId,
-      cinemaIds: "",
+      cinemaIds: ''
     });
   });
 
   useEffect(() => {
     async function fn() {
       const {
-        data: { film },
+        data: { film }
       } = await getMoviceDetail({ filmId: +id });
       setFilm(film);
     }
@@ -100,7 +100,7 @@ export default function Cinemas() {
   useEffect(() => {
     async function getList() {
       const {
-        data: { cinemaExtendList, showCinemas },
+        data: { cinemaExtendList, showCinemas }
       } = (await getCinemas(params)) as {
         data: cinemaResponseInf;
       };
@@ -108,7 +108,7 @@ export default function Cinemas() {
       showCinemas.sort((a, b) => a.showDate - b.showDate);
       setCinemas({
         cinemaExtendList,
-        showCinemas: showCinemas,
+        showCinemas: showCinemas
       });
 
       setDate(showCinemas[0].showDate);
@@ -119,19 +119,19 @@ export default function Cinemas() {
   }, [params.filmId, params.cityId]);
 
   useEffect(() => {
-    const defaultTitle = "全城";
+    const defaultTitle = '全城';
     if (cinema.showCinemas.length) {
       setLoading(true);
 
       const cinemaIds = params.cinemaIds
         ? params.cinemaIds
-        : cinema.showCinemas[0].cinemaList.join(",");
+        : cinema.showCinemas[0].cinemaList.join(',');
       async function fn() {
         const {
-          data: { cinemas },
+          data: { cinemas }
         } = await getCinemasList({
           cityId: params.cityId,
-          cinemaIds,
+          cinemaIds
         });
         const moviceMap = new Map<string, Array<cinemasInfoInf>>();
         moviceMap.set(defaultTitle, cinemas);
@@ -148,7 +148,7 @@ export default function Cinemas() {
           });
         setCinemasList({
           cinemas: moviceMap,
-          cinemasList: [...moviceMap.values()][0],
+          cinemasList: [...moviceMap.values()][0]
         });
         setCityName(defaultTitle);
         setLoading(false);
@@ -162,7 +162,7 @@ export default function Cinemas() {
 
     setCinemasList({
       cinemas: cinemaList.cinemas,
-      cinemasList: cinemas,
+      cinemasList: cinemas
     });
     setCityName(res);
     closeMenu();
@@ -189,22 +189,21 @@ export default function Cinemas() {
           onChange={(key, item) => {
             setParams({
               ...params,
-              cinemaIds: item.cinemaList.join(","),
+              cinemaIds: item.cinemaList.join(',')
             });
             setDate(item.showDate);
           }}
         />
         <Dropdown ref={menuRef}>
           <Dropdown.Item key="location" title={cityName}>
-            <div className={Styles["city-items"]}>
+            <div className={Styles['city-items']}>
               {[...cinemaList.cinemas.keys()].map((res, index) => {
                 return (
                   <CityItem
                     key={index}
                     title={res}
                     activeName={cityName}
-                    onClick={() => cityItemsChange(res)}
-                  ></CityItem>
+                    onClick={() => cityItemsChange(res)}></CityItem>
                 );
               })}
             </div>
@@ -212,18 +211,15 @@ export default function Cinemas() {
         </Dropdown>
 
         <Loading loading={loading}>
-          <div className={Styles["cinemas-items"]}>
+          <div className={Styles['cinemas-items']}>
             {cinemaList.cinemasList.map((item, index) => {
               return (
                 <CinemaItem
                   key={index}
                   item={item}
                   onClick={() =>
-                    to(
-                      `/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`,
-                    )
-                  }
-                ></CinemaItem>
+                    to(`/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`)
+                  }></CinemaItem>
               );
             })}
           </div>

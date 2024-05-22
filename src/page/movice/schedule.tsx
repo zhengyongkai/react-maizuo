@@ -1,96 +1,92 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-  getCinemasInfo,
-  getCinemasShowInfo,
-  getCinemasSchedule,
-} from "@/api/cinema";
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { getCinemasInfo, getCinemasShowInfo, getCinemasSchedule } from '@/api/cinema';
 
-import NavTitle from "@/components/Layout/NavTitle";
-import locationImg from "@/assets/img/location.png";
-import phoneImg from "@/assets/img/phone.png";
-import triggleImg from "@/assets/img/triggle.png";
-import rightImg from "@/assets/img/right.png";
+import NavTitle from '@/components/Layout/NavTitle';
+import locationImg from '@/assets/img/location.png';
+import phoneImg from '@/assets/img/phone.png';
+import triggleImg from '@/assets/img/triggle.png';
+import rightImg from '@/assets/img/right.png';
 
-import CinemaSwiper from "@/components/Common/Swiper";
-import Styles from "@/assets/css/schedule.module.scss";
+import CinemaSwiper from '@/components/Common/Swiper';
+import Styles from '@/assets/css/schedule.module.scss';
 
 // import { Swiper } from "antd-mobile";
 
-import Tab from "@/components/Common/DateTab";
-import { getTime, isStopSelling } from "@/utils/day";
-import { formatPrice } from "@/utils/price";
-import useSroll from "@/hook/scroll";
+import Tab from '@/components/Common/DateTab';
+import { getTime, isStopSelling } from '@/utils/day';
+import { formatPrice } from '@/utils/price';
+import useSroll from '@/hook/scroll';
 
-import PartLoading from "@/components/Common/PartLoading";
-import { cssCb } from "@/utils/css";
+import PartLoading from '@/components/Common/PartLoading';
+import { cssCb } from '@/utils/css';
 
-import type { cinemasInfoInf } from "@/types/cinema";
-import type { scheduleInf } from "@/types/schedule";
-import type { anctorInf, detailsInf, moviceDetailsInf } from "@/types/movice";
-import { scrollTop } from "@/utils";
+import type { cinemasInfoInf } from '@/types/cinema';
+import type { scheduleInf } from '@/types/schedule';
+import type { anctorInf, detailsInf, moviceDetailsInf } from '@/types/movice';
+import { scrollTop } from '@/utils';
 
 export default function Schedule() {
-  const { cinemaId = "", filmId = "", showDate = "" } = useParams();
+  const { cinemaId = '', filmId = '', showDate = '' } = useParams();
   const swiperRef = useRef<any>(null);
   const navigator = useNavigate();
 
   const cinemasInfoState = {
     Distance: 0,
-    address: "",
-    businessTime: "",
+    address: '',
+    businessTime: '',
     cinemaId: 0,
     cityId: -1,
-    cityName: "",
+    cityName: '',
     district: {
-      districtName: "",
-      districtId: 0,
+      districtName: '',
+      districtId: 0
     },
     districtId: 0,
-    districtName: "",
+    districtName: '',
     eTicketFlag: 0,
-    gpsAddress: "",
+    gpsAddress: '',
     isVisited: 0,
     latitude: 0,
-    logoUrl: "",
+    logoUrl: '',
     longitude: 0,
     lowPrice: 0,
-    name: "",
-    notice: "",
-    phone: "",
+    name: '',
+    notice: '',
+    phone: '',
     seatFlag: 1,
     services: [],
     telephones: [],
-    ticketTypes: undefined,
+    ticketTypes: undefined
   };
 
   const defaultDetails = {
     actors: [],
-    category: "",
-    director: "",
+    category: '',
+    director: '',
     filmId: 0,
     filmType: {
-      name: "",
-      value: 0,
+      name: '',
+      value: 0
     },
     isPresale: false,
     isSale: false,
     item: {
-      name: "",
-      type: 0,
+      name: '',
+      type: 0
     },
-    language: "",
-    name: "",
-    nation: "",
+    language: '',
+    name: '',
+    nation: '',
     photos: [],
-    poster: "",
+    poster: '',
     premiereAt: 0,
     runtime: 0,
-    synopsis: "",
+    synopsis: '',
     timeType: 0,
-    videoId: "",
+    videoId: '',
     grade: 0,
-    showDate: [],
+    showDate: []
   };
 
   const [loading, setLoading] = useState(false);
@@ -102,14 +98,13 @@ export default function Schedule() {
     details: moviceDetailsInf;
   }>({
     cinemaId: +cinemaId,
-    date: "",
-    details: defaultDetails,
+    date: '',
+    details: defaultDetails
   });
 
   const [id, setFilmId] = useState<number>(0);
 
-  const [cinemaInfo, setCinemaInfo] =
-    useState<cinemasInfoInf>(cinemasInfoState);
+  const [cinemaInfo, setCinemaInfo] = useState<cinemasInfoInf>(cinemasInfoState);
 
   const [films, setFilms] = useState<Array<moviceDetailsInf>>([]);
 
@@ -124,11 +119,11 @@ export default function Schedule() {
   useEffect(() => {
     async function fn() {
       const {
-        data: { cinema },
+        data: { cinema }
       } = await getCinemasInfo({ cinemaId: +cinemaId });
       setCinemaInfo(cinema);
       const {
-        data: { films },
+        data: { films }
       } = await getCinemasShowInfo({ cinemaId: +cinemaId });
       setFilms(films);
 
@@ -140,7 +135,7 @@ export default function Schedule() {
           setParams({
             ...params,
             details: current,
-            date: current.showDate[0],
+            date: current.showDate[0]
           });
           setTimeout(() => {
             swiperRef.current.swiper.slideTo(index, 1000);
@@ -154,7 +149,7 @@ export default function Schedule() {
         setParams({
           ...params,
           details: current,
-          date: current.showDate[0],
+          date: current.showDate[0]
         });
         setTimeout(() => {
           swiperRef.current.swiper.slideTo(index, 1000);
@@ -187,11 +182,11 @@ export default function Schedule() {
   async function getCinemasScheduleList() {
     setLoading(true);
     const {
-      data: { schedules },
+      data: { schedules }
     } = await getCinemasSchedule({
       filmId: id,
       cinemaId: params.cinemaId,
-      date: params.date,
+      date: params.date
     });
     setSchedules(schedules);
     setLoading(false);
@@ -206,7 +201,7 @@ export default function Schedule() {
     setParams({
       ...params,
       details: films[e],
-      date: films[e].showDate[0],
+      date: films[e].showDate[0]
     });
     setFilmId(films[e].filmId);
   }
@@ -221,7 +216,7 @@ export default function Schedule() {
       .reduce((pre, item) => {
         return pre.concat(item.name);
       }, new Array<string>())
-      .join(" ");
+      .join(' ');
   }
 
   function onBuyTicket(item: scheduleInf) {
@@ -232,70 +227,56 @@ export default function Schedule() {
 
   return (
     <>
-      <NavTitle back title={fixed ? cinemaInfo.name : ""}></NavTitle>
-      <div className={Styles["cinemas-warpper"]}>
+      <NavTitle back title={fixed ? cinemaInfo.name : ''}></NavTitle>
+      <div className={Styles['cinemas-warpper']}>
         <div>
-          <div
-            className={cssCb([Styles["cinemas-title"], "truncate", "m-auto"])}
-          >
+          <div className={cssCb([Styles['cinemas-title'], 'truncate', 'm-auto'])}>
             {cinemaInfo.name}
           </div>
         </div>
-        <div className={Styles["cinemas-tags"]}>
+        <div className={Styles['cinemas-tags']}>
           {cinemaInfo.services &&
             cinemaInfo.services.slice(0, 4).map((item, key) => {
               return <span key={key}> {item.name} </span>;
             })}
         </div>
-        <div
-          className={cssCb([Styles["cinemas-info"], "flex", "items-center"])}
-        >
+        <div className={cssCb([Styles['cinemas-info'], 'flex', 'items-center'])}>
           <div>
             <img
               src={locationImg}
               alt=""
-              onClick={() =>
-                navigator(
-                  "/map/" + cinemaInfo.longitude + "/" + cinemaInfo.latitude,
-                )
-              }
+              onClick={() => navigator('/map/' + cinemaInfo.longitude + '/' + cinemaInfo.latitude)}
             />
           </div>
           <div className="truncate flex-1 px-3">{cinemaInfo.address}</div>
           <div>
-            <a href={"tel:" + cinemaInfo.phone}>
+            <a href={'tel:' + cinemaInfo.phone}>
               <img src={phoneImg} alt="" />
             </a>
           </div>
         </div>
-        <div className={Styles["cinemas-film-list"]}>
-          <div className={Styles["cinemas-film-cover"]}>
+        <div className={Styles['cinemas-film-list']}>
+          <div className={Styles['cinemas-film-cover']}>
             <div
               style={{
-                backgroundImage: `url('${params.details.poster}')`,
-              }}
-            ></div>
+                backgroundImage: `url('${params.details.poster}')`
+              }}></div>
           </div>
-          <CinemaSwiper
-            items={films}
-            change={(e) => onSlideChange(e)}
-            ref={swiperRef}
-          />
-          <div className={Styles["film-triggle"]}>
+          <CinemaSwiper items={films} change={(e) => onSlideChange(e)} ref={swiperRef} />
+          <div className={Styles['film-triggle']}>
             <img src={triggleImg} />
           </div>
         </div>
-        <div className={Styles["film-info"]}>
+        <div className={Styles['film-info']}>
           <div>
-            <div className={Styles["film-info-name"]}>
-              {params.details.name}{" "}
+            <div className={Styles['film-info-name']}>
+              {params.details.name}{' '}
               <span>
                 <i>{params.details.grade}</i> 分
               </span>
             </div>
-            <div className={Styles["film-info-desc"]}>
-              {params.details.category} | {params.details.runtime}分钟 |{" "}
-              {params.details.director} |{" "}
+            <div className={Styles['film-info-desc']}>
+              {params.details.category} | {params.details.runtime}分钟 | {params.details.director} |{' '}
               {getAnctorsString(params.details.actors)}
             </div>
           </div>
@@ -304,7 +285,7 @@ export default function Schedule() {
               src={rightImg}
               alt=""
               onClick={() => {
-                navigator("/films/" + params.details.filmId);
+                navigator('/films/' + params.details.filmId);
               }}
             />
           </div>
@@ -317,38 +298,32 @@ export default function Schedule() {
               onChange={(index, item) => {
                 setParams({
                   ...params,
-                  date: item,
+                  date: item
                 });
-              }}
-            ></Tab>
+              }}></Tab>
           )}
         </div>
-        <div className={Styles["schedule-items"]}>
+        <div className={Styles['schedule-items']}>
           <PartLoading loading={loading}>
             {schedules.map((item, index) => {
               return (
                 <div
                   className={cssCb([
-                    Styles["schedule-item"],
-                    isStopSelling(item.showAt, item.advanceStopMins)
-                      ? Styles["disabled"]
-                      : "",
+                    Styles['schedule-item'],
+                    isStopSelling(item.showAt, item.advanceStopMins) ? Styles['disabled'] : ''
                   ])}
-                  key={item.scheduleId}
-                >
-                  <div className={Styles["schedule-at"]}>
+                  key={item.scheduleId}>
+                  <div className={Styles['schedule-at']}>
                     <div>{getTime(item.showAt)}</div>
                     <div>{getTime(item.endAt)}</div>
                   </div>
-                  <div className={Styles["schedule-info"]}>
+                  <div className={Styles['schedule-info']}>
                     <div>
                       {item.filmLanguage} {item.imagery}
                     </div>
                     <div>{item.hallName}号厅</div>
                   </div>
-                  <div className={Styles["schedule-price"]}>
-                    {formatPrice(item.salePrice)}
-                  </div>
+                  <div className={Styles['schedule-price']}>{formatPrice(item.salePrice)}</div>
 
                   <div onClick={() => onBuyTicket(item)}>购票</div>
                 </div>

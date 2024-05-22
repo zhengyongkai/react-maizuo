@@ -3,7 +3,7 @@
  * @LastEditors: 郑永楷
  * @Description: svg Conponents
  */
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 type SvgIconProps = {
   prefix?: string;
@@ -14,7 +14,7 @@ type SvgIconProps = {
 };
 
 const SvgIcon = (props: SvgIconProps) => {
-  const { prefix = "icon", name, color, size = 16, onClick } = props;
+  const { prefix = 'icon', name, color, size = 16, onClick } = props;
   const symbolId = useMemo(() => `#${prefix}-${name}`, [prefix, name]);
   return (
     <svg
@@ -22,8 +22,7 @@ const SvgIcon = (props: SvgIconProps) => {
       width={size}
       height={size}
       fill={color}
-      onClick={(e) => (onClick ? onClick(e) : {})}
-    >
+      onClick={(e) => (onClick ? onClick(e) : {})}>
       <use href={symbolId} fill={color} />
     </svg>
   );

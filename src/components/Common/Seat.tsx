@@ -1,6 +1,6 @@
-import SvgIcon from "@/components/SvgIcon/Index";
-import type { seatsInf } from "@/types/seat";
-import { memo } from "react";
+import SvgIcon from '@/components/SvgIcon/Index';
+import type { seatsInf } from '@/types/seat';
+import { memo } from 'react';
 
 interface seatProps {
   data: seatsInf;
@@ -22,21 +22,9 @@ function Seat(item: seatProps) {
       return <SvgIcon size={24} name="in-seat"></SvgIcon>;
     }
     if (selecteds) {
-      return (
-        <SvgIcon
-          size={24}
-          name="choose"
-          onClick={(e) => onSelect(data, e)}
-        ></SvgIcon>
-      );
+      return <SvgIcon size={24} name="choose" onClick={(e) => onSelect(data, e)}></SvgIcon>;
     }
-    return (
-      <SvgIcon
-        size={24}
-        name="seat"
-        onClick={(e) => onSelect(data, e)}
-      ></SvgIcon>
-    );
+    return <SvgIcon size={24} name="seat" onClick={(e) => onSelect(data, e)}></SvgIcon>;
   }
   return getSeat();
 }

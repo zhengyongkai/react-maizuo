@@ -1,18 +1,16 @@
-import type { cardListInf, userState } from "@/types/user";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import NavTitle from "@/components/Layout/NavTitle";
+import type { cardListInf, userState } from '@/types/user';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import NavTitle from '@/components/Layout/NavTitle';
 
-import Styles from "@/assets/css/coupon.module.scss";
+import Styles from '@/assets/css/coupon.module.scss';
 
-import CouponItem from "@/components/Common/CouponItem";
+import CouponItem from '@/components/Common/CouponItem';
 
 export default function CouponPage() {
   const [couponList, setCouponList] = useState<cardListInf[]>([]);
 
-  const userCouponData = useSelector<userState, cardListInf[]>(
-    (state) => state.user.couponList,
-  );
+  const userCouponData = useSelector<userState, cardListInf[]>((state) => state.user.couponList);
 
   useEffect(() => {
     setCouponList(userCouponData);
@@ -21,9 +19,9 @@ export default function CouponPage() {
   return (
     <>
       <div>
-        <NavTitle back title={"优惠券"}></NavTitle>
+        <NavTitle back title={'优惠券'}></NavTitle>
       </div>
-      <div className={Styles["coupon_tickets"]}>
+      <div className={Styles['coupon_tickets']}>
         <div>
           {couponList.map((item) => {
             return <CouponItem item={item} key={item.couponId}></CouponItem>;

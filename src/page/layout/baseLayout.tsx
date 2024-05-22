@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-import Tabbar from "@/components/Layout/TabBar";
+import Tabbar from '@/components/Layout/TabBar';
 
 export default function RouterPage() {
   return (

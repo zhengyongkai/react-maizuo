@@ -1,14 +1,14 @@
 // @ts-nocheck
-import BMap from "@/utils/location";
-import type { localeState, tudeInf } from "@/types/location";
+import BMap from '@/utils/location';
+import type { localeState, tudeInf } from '@/types/location';
 
-import { Picker, Toast } from "antd-mobile";
-import { useEffect, useRef, useState } from "react";
-import { Map, Marker, NavigationControl } from "react-bmapgl";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import NavTitle from "@/components/Layout/NavTitle";
-import Styles from "@/assets/css/map.module.scss";
+import { Picker, Toast } from 'antd-mobile';
+import { useEffect, useRef, useState } from 'react';
+import { Map, Marker, NavigationControl } from 'react-bmapgl';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import NavTitle from '@/components/Layout/NavTitle';
+import Styles from '@/assets/css/map.module.scss';
 
 export default function Maps() {
   const mapRef = useRef<any>();
@@ -18,9 +18,7 @@ export default function Maps() {
   const [visible, setVisible] = useState<boolean>(false);
   const { lat = 0, lng = 0 } = useParams();
 
-  const locale = useSelector<localeState, tudeInf>(
-    (state) => state.location.tude,
-  );
+  const locale = useSelector<localeState, tudeInf>((state) => state.location.tude);
 
   const start = useRef();
 
@@ -28,13 +26,13 @@ export default function Maps() {
 
   const basicColumns = [
     [
-      { label: "推荐方案", value: 0 },
-      { label: "最少时间", value: 1 },
-      { label: "最少换乘", value: 2 },
-      { label: "最少步行", value: 3 },
-      { label: "不乘地铁", value: 4 },
-      { label: "优先地铁", value: 5 },
-    ],
+      { label: '推荐方案', value: 0 },
+      { label: '最少时间', value: 1 },
+      { label: '最少换乘', value: 2 },
+      { label: '最少步行', value: 3 },
+      { label: '不乘地铁', value: 4 },
+      { label: '优先地铁', value: 5 }
+    ]
   ];
 
   useEffect(() => {
@@ -53,14 +51,14 @@ export default function Maps() {
   function onBusLine(e: any) {
     const transit = new BMap.TransitRoute(map.current, {
       renderOptions: { map: map.current, panel: result.current },
-      policy: 0,
+      policy: 0
     });
     map.current.clearOverlays();
     search(start.current, end.current, e);
     function search(start: any, end: any, route: any) {
       // console.log(route);
       if (route === e) {
-        Toast.show("未找到合适的公交路线~");
+        Toast.show('未找到合适的公交路线~');
         return false;
       }
       transit.setPolicy(route);
@@ -71,7 +69,7 @@ export default function Maps() {
   // 获取 汽车路线
   function onCarLine() {
     const driving = new BMap.DrivingRoute(map.current, {
-      renderOptions: { map: map.current, autoViewport: true },
+      renderOptions: { map: map.current, autoViewport: true }
     });
     console.log(driving);
     if (driving) {
@@ -84,11 +82,7 @@ export default function Maps() {
       <NavTitle back title="路线查看"></NavTitle>
       <div style={{ marginBottom: 60, paddingTop: 48 }}>
         <Map center={{ lng: 0, lat: 0 }} zoom="11" ref={mapRef}>
-          <Marker
-            position={{ lng: 0, lat: 0 }}
-            icon={undefined}
-            map={undefined}
-          />
+          <Marker position={{ lng: 0, lat: 0 }} icon={undefined} map={undefined} />
           <NavigationControl map={undefined} />
         </Map>
 
@@ -105,7 +99,7 @@ export default function Maps() {
         <div ref={result}></div>
       </div>
 
-      <div className={Styles["button-wrapper"]}>
+      <div className={Styles['button-wrapper']}>
         <div onClick={() => setVisible(true)}>公交路线</div>
         <div onClick={() => onCarLine()}>行车路线</div>
       </div>

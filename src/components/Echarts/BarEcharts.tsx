@@ -6,46 +6,42 @@
  * @func { setData }
  */
 
-import useEcharts from "@/hook/echarts";
-import type {
-  BarEchartsInf,
-  BaseBarOptionsInf,
-  BaseBarSeries,
-} from "@/types/echarts";
-import { forwardRef, useImperativeHandle } from "react";
+import useEcharts from '@/hook/echarts';
+import type { BarEchartsInf, BaseBarOptionsInf, BaseBarSeries } from '@/types/echarts';
+import { forwardRef, useImperativeHandle } from 'react';
 
 export interface BaseBarChartInf {
   setData: (
     series: Array<BaseBarSeries>,
     xAxis: Array<number>,
-    baseBarOptions?: BaseBarOptionsInf,
+    baseBarOptions?: BaseBarOptionsInf
   ) => void;
   baseBarOptions: BaseBarOptionsInf;
 }
 
 const BaseBarOptions: BaseBarOptionsInf = {
   tooltip: {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "shadow",
-    },
+      type: 'shadow'
+    }
   },
   legend: {},
   grid: {
-    left: "8px",
-    right: "8%",
-    bottom: "1%",
-    top: "0",
-    containLabel: true,
+    left: '8px',
+    right: '8%',
+    bottom: '1%',
+    top: '0',
+    containLabel: true
   },
   xAxis: {
-    type: "value",
+    type: 'value'
   },
   yAxis: {
-    type: "category",
-    data: [],
+    type: 'category',
+    data: []
   },
-  series: [],
+  series: []
 };
 
 const BarEcharts = forwardRef<BaseBarChartInf, BarEchartsInf>((props, ref) => {
@@ -54,7 +50,7 @@ const BarEcharts = forwardRef<BaseBarChartInf, BarEchartsInf>((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     setData,
-    baseBarOptions: BaseBarOptions,
+    baseBarOptions: BaseBarOptions
   }));
 
   /**
@@ -67,16 +63,16 @@ const BarEcharts = forwardRef<BaseBarChartInf, BarEchartsInf>((props, ref) => {
   function setData(
     series: Array<BaseBarSeries>,
     xAxis: Array<number>,
-    baseBarOptions: BaseBarOptionsInf = BaseBarOptions,
+    baseBarOptions: BaseBarOptionsInf = BaseBarOptions
   ) {
     baseBarOptions.yAxis.data = xAxis;
     setOptions({
       ...baseBarOptions,
-      series,
+      series
     });
   }
 
-  return <div ref={echartsRef} style={{ width: "100%", height }}></div>;
+  return <div ref={echartsRef} style={{ width: '100%', height }}></div>;
 });
 
 export default BarEcharts;

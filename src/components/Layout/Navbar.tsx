@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Styles from "@/assets/css/navbar.module.scss";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Styles from '@/assets/css/navbar.module.scss';
 
-import type { cityStateInf } from "@/types/location";
-import { DownOutline } from "antd-mobile-icons";
+import type { cityStateInf } from '@/types/location';
+import { DownOutline } from 'antd-mobile-icons';
 
 interface navbarInf {
   title?: string;
@@ -12,7 +12,7 @@ interface navbarInf {
 }
 
 export default function Navbar(props: navbarInf) {
-  const { title = "电影", children } = props;
+  const { title = '电影', children } = props;
 
   const navigate = useNavigate();
   const citySelector = useSelector((state: cityStateInf) => {
@@ -28,13 +28,12 @@ export default function Navbar(props: navbarInf) {
       <div className={Styles.navbar}>
         <div
           onClick={() => {
-            navigate("/location");
-          }}
-        >
+            navigate('/location');
+          }}>
           {city} <DownOutline></DownOutline>
         </div>
         <div>{title}</div>
-        <div className={Styles["navSlots"]}>{children ? children : <></>}</div>
+        <div className={Styles['navSlots']}>{children ? children : <></>}</div>
       </div>
     </>
   );

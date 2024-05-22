@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: config.VITE_APP_BASE_URL,
     server: {
-      host: '0.0.0.0',
+      host: '0.0.0.0'
     },
     plugins: [
       react(),
@@ -25,27 +25,27 @@ export default defineConfig(({ mode }) => {
         inject: {
           data: {
             title: config.VITE_APP_TITLE,
-            MapApi: config.VITE_APP_MAPAPI,
-          },
-        },
+            MapApi: config.VITE_APP_MAPAPI
+          }
+        }
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
         iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
         // 指定symbolId格式
-        symbolId: 'icon-[dir]-[name]',
-      }),
+        symbolId: 'icon-[dir]-[name]'
+      })
     ],
     resolve: {
       alias: {
         // 这里就是需要配置resolve里的别名
-        '@': path.join(__dirname, './src'), // path记得引入
-      },
+        '@': path.join(__dirname, './src') // path记得引入
+      }
     },
     css: {
       postcss: {
-        plugins: [tailwindcss],
-      },
+        plugins: [tailwindcss]
+      }
     },
     build: {
       rollupOptions: {
@@ -55,10 +55,10 @@ export default defineConfig(({ mode }) => {
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             react: 'React',
-            'react-dom': 'react-dom',
-          },
-        },
-      },
-    },
+            'react-dom': 'react-dom'
+          }
+        }
+      }
+    }
   };
 });

@@ -3,25 +3,22 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from 'react';
 
-import { useRoutes } from "react-router-dom";
-import Router, { RouteObjectInf } from "./router";
-import WithLocation from "./components/Hoc/WithLocation";
-import { useDispatch, useSelector } from "react-redux";
-import { userState } from "./types/user";
+import { useRoutes } from 'react-router-dom';
+import Router, { RouteObjectInf } from './router';
+import WithLocation from './components/Hoc/WithLocation';
+import { useDispatch, useSelector } from 'react-redux';
+import { userState } from './types/user';
 
-import {
-  getLocationAsync,
-  getLocationListsAsyc,
-} from "@/store/common/location";
-import { getUserCouponThunk, getUserDataThunk } from "@/store/common/user";
-import WithAuth from "@/components/Hoc/WithAuth";
-import Loading from "./components/Common/PartLoading";
-import socketIo from "./utils/socket";
-import { localeState } from "./types/location";
-import { getCinemasByCityId } from "./api/movice";
-import { setCinemaList } from "./store/common/cinema";
+import { getLocationAsync, getLocationListsAsyc } from '@/store/common/location';
+import { getUserCouponThunk, getUserDataThunk } from '@/store/common/user';
+import WithAuth from '@/components/Hoc/WithAuth';
+import Loading from './components/Common/PartLoading';
+import socketIo from './utils/socket';
+import { localeState } from './types/location';
+import { getCinemasByCityId } from './api/movice';
+import { setCinemaList } from './store/common/cinema';
 
 /**
  * @description: 生成子路由，加入 RequireAuth 组件进行鉴权
@@ -34,7 +31,7 @@ const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
     mRouteTable.push({
       path: route.path,
       element: <RequireAuth route={route}>{route.element}</RequireAuth>,
-      children: route.children && syncRouter(route.children),
+      children: route.children && syncRouter(route.children)
     });
   });
   return mRouteTable;
@@ -45,10 +42,7 @@ const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
  * @param {object} props
  * @return {React.ReactNode}
  */
-const RequireAuth = (props: {
-  route: RouteObjectInf;
-  children: React.ReactNode;
-}) => {
+const RequireAuth = (props: { route: RouteObjectInf; children: React.ReactNode }) => {
   let router = props.route;
   let children = props.children;
   children = <Suspense>{props.children}</Suspense>;
@@ -64,9 +58,7 @@ const RequireAuth = (props: {
 
 export default () => {
   const token = useSelector<userState, string>((state) => state.user.token);
-  const cityId = useSelector<localeState, number>(
-    (state) => state.location.locale.cityId,
-  );
+  const cityId = useSelector<localeState, number>((state) => state.location.locale.cityId);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +84,7 @@ export default () => {
     if (token) {
       getUserDataCouponAndSocketConnect();
       socketIo.connect({
-        token,
+        token
       });
     }
   }, [token]);
@@ -104,9 +96,9 @@ export default () => {
      */
     async function getCinemasList() {
       const {
-        data: { cinemas },
+        data: { cinemas }
       } = await getCinemasByCityId({
-        cityId: cityId,
+        cityId: cityId
       });
       dispatch(setCinemaList(cinemas));
     }
