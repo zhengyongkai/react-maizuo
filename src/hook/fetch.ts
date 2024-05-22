@@ -1,13 +1,13 @@
-import { Toast } from 'antd-mobile';
-import { AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
+import { Toast } from "antd-mobile";
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
 export default function useFetch<T>(
   api: (params: any) => Promise<{ data: T; msg: string }>,
   params: any,
   initData: T,
   listener: Array<unknown>,
-  callback?: (data: T) => void
+  callback?: (data: T) => void,
 ): [T, boolean] {
   const [responseData, setResponseData] = useState<T>(initData);
   const [loading, setLoading] = useState(false);

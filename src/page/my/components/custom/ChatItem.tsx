@@ -17,6 +17,8 @@ function chatItem(props: {
     data: { from, type, fromMy, date },
     onChange,
   } = props;
+
+  
   const components = useMemo(() => {
     if (type === "selected") {
       return (

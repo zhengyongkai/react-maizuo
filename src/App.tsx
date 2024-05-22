@@ -3,11 +3,10 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Suspense, createContext, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
-import { useRoutes, RouteObject, useNavigate } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Router, { RouteObjectInf } from "./router";
-import KeepAlive from "react-activation";
 import WithLocation from "./components/Hoc/WithLocation";
 import { useDispatch, useSelector } from "react-redux";
 import { userState } from "./types/user";
@@ -24,7 +23,11 @@ import { localeState } from "./types/location";
 import { getCinemasByCityId } from "./api/movice";
 import { setCinemaList } from "./store/common/cinema";
 
-//懒加载处理
+/**
+ * @description: 生成子路由，加入 RequireAuth 组件进行鉴权
+ * @param {RouteObjectInf} routes
+ * @return {RouteObjectInf[]}
+ */
 const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
   let mRouteTable: RouteObjectInf[] = [];
   routes.forEach((route) => {
@@ -36,8 +39,16 @@ const syncRouter = (routes: RouteObjectInf[]): RouteObjectInf[] => {
   });
   return mRouteTable;
 };
-//路由拦截
-const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
+
+/**
+ * @description:  生成鉴权或者需要地址得中间件
+ * @param {object} props
+ * @return {React.ReactNode}
+ */
+const RequireAuth = (props: {
+  route: RouteObjectInf;
+  children: React.ReactNode;
+}) => {
   let router = props.route;
   let children = props.children;
   children = <Suspense>{props.children}</Suspense>;
@@ -54,7 +65,7 @@ const RequireAuth = (props: { route: RouteObjectInf; children: any }) => {
 export default () => {
   const token = useSelector<userState, string>((state) => state.user.token);
   const cityId = useSelector<localeState, number>(
-    (state) => state.location.locale.cityId
+    (state) => state.location.locale.cityId,
   );
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -70,12 +81,16 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    const fn = async () => {
+    /**
+     * @description: 获取用户信息 获取用户优惠卷 链接Socket
+     * @return {*}
+     */
+    const getUserDataCouponAndSocketConnect = async () => {
       await dispatch(getUserDataThunk());
       await dispatch(getUserCouponThunk());
     };
     if (token) {
-      fn();
+      getUserDataCouponAndSocketConnect();
       socketIo.connect({
         token,
       });
@@ -83,7 +98,11 @@ export default () => {
   }, [token]);
 
   useEffect(() => {
-    async function fn() {
+    /**
+     * @description: 通过 CityId 获取当地电影院
+     * @return {*}
+     */
+    async function getCinemasList() {
       const {
         data: { cinemas },
       } = await getCinemasByCityId({
@@ -92,7 +111,7 @@ export default () => {
       dispatch(setCinemaList(cinemas));
     }
     if (cityId) {
-      fn();
+      getCinemasList();
     }
   }, [cityId]);
 

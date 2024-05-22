@@ -41,7 +41,7 @@ export function getMoviceComingData(params: moviceParams) {
 }
 
 export function getMoviceDetail(
-  params: detailsParams
+  params: detailsParams,
 ): Response<detailsResponseInf> {
   return request.get(`${MAIZUO}`, {
     headers: {

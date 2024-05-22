@@ -6,7 +6,7 @@
 import { getCardList, getUserData } from "@/api/user";
 
 import cookie from "@/utils/cookie";
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOKEN } from "../../constant";
 
 import type { cardListInf, user } from "@/types/user";
@@ -19,15 +19,21 @@ export interface initUserStoreInf {
   couponList: cardListInf[];
 }
 
-// export function getUserData() {}
-// 获取用户信息
+/**
+ * @description: 获取用户信息
+ * @return {*}
+ */
 export const getUserDataThunk: any = createAsyncThunk(
   "/user/getData",
   async () => {
     return await getUserData();
   }
 );
-// 获取优惠券信息
+
+/**
+ * @description: 获取优惠卷信息
+ * @return {*}
+ */
 export const getUserCouponThunk: any = createAsyncThunk(
   "/user/getCoupon",
   async () => {
@@ -61,11 +67,23 @@ export const userStore = createSlice({
   name: "user",
   initialState: initUserStore,
   reducers: {
+    /**
+     * @description: 设置用户信息
+     * @param {*} state
+     * @param {*} payload
+     * @return {*}
+     */    
     setUserData(state, payload) {
       state.userData = payload.payload;
       state.token = payload.payload.token;
       cookie.setCookie(TOKEN, payload.payload.token);
     },
+
+    /**
+     * @description: 清空用户信息 （比如退出登录等）
+     * @param {*} state
+     * @return {*}
+     */    
     clearUserData(state) {
       state.logged = false;
       state.userData.userId = 0;

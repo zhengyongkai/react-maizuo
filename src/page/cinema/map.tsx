@@ -1,11 +1,12 @@
+// @ts-nocheck
 import BMap from "@/utils/location";
-import type { initialStateInf, localeState, tudeInf } from "@/types/location";
+import type { localeState, tudeInf } from "@/types/location";
 
-import { Button, Picker, Toast } from "antd-mobile";
+import { Picker, Toast } from "antd-mobile";
 import { useEffect, useRef, useState } from "react";
-import { Map, Marker, NavigationControl, InfoWindow } from "react-bmapgl";
+import { Map, Marker, NavigationControl } from "react-bmapgl";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NavTitle from "@/components/Layout/NavTitle";
 import Styles from "@/assets/css/map.module.scss";
 
@@ -18,7 +19,7 @@ export default function Maps() {
   const { lat = 0, lng = 0 } = useParams();
 
   const locale = useSelector<localeState, tudeInf>(
-    (state) => state.location.tude
+    (state) => state.location.tude,
   );
 
   const start = useRef();

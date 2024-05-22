@@ -10,6 +10,10 @@ interface seatProps {
 
 function Seat(item: seatProps) {
   const { data, onSelect, selecteds } = item;
+  /**
+   * @description: 根据不同的状态显示不同的座位效果
+   * @return {*}
+   */
   function getSeat() {
     if (data.isBroken) {
       return <SvgIcon size={24} name="lock"></SvgIcon>;

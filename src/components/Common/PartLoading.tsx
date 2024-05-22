@@ -1,4 +1,3 @@
-// import { Loading3QuartersOutlined } from "@ant-design/icons";
 import { SpinLoading } from "antd-mobile";
 import React from "react";
 

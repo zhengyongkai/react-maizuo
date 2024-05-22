@@ -19,7 +19,7 @@ export default function SettingPage() {
   const FileRef = useRef<HTMLInputElement | null>(null);
 
   const userState = useSelector<userState, user>(
-    (state) => state.user.userData
+    (state) => state.user.userData,
   );
 
   /**

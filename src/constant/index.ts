@@ -1,9 +1,9 @@
-export const INCREMENT = 'increment';
-export const DECREMENT = 'decrement';
+export const INCREMENT = "increment";
+export const DECREMENT = "decrement";
 
 // 请求 TOKEN Header
-export const TOKEN = 'x-Token';
-export const REDIRECTURL = 'redirectURL';
+export const TOKEN = "x-Token";
+export const REDIRECTURL = "redirectURL";
 
 // 座椅默认宽度
 export const SEAT_DEFAULT_WIDTH = 25;
@@ -22,7 +22,7 @@ export const AXION_MIDDLE_WIDTH = 194;
 // 座椅距离右边宽度
 export const COUPLE_SEAT_IS_RIGHT = 2;
 // 倒计时cookie
-export const REMAINER = 'COOKIE-REMAINER';
+export const REMAINER = "COOKIE-REMAINER";
 // Github 跳转地址
 export const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=${
   import.meta.env.VITE_APP_GITHUB_CLIENTID

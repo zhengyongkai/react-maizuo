@@ -16,16 +16,22 @@ function CinemaItem(props: cinemaItemProps) {
   const { item, onClick } = props;
 
   const locationAttr = useSelector(
-    (state: tudeStateInf) => state.location.tude
+    (state: tudeStateInf) => state.location.tude,
   );
 
-  function getDistance(longitude: number, latitude: number) {
+  /**
+   * @description: 通过当前经纬度和目标经纬度获取距离
+   * @param {number} longitude
+   * @param {number} latitude
+   * @return {*}
+   */
+  function getDistance(longitude: number, latitude: number): string {
     return (
       getBetweenDistance(
         locationAttr.longitude,
         locationAttr.latitude,
         longitude,
-        latitude
+        latitude,
       ).toFixed(1) + "km"
     );
   }

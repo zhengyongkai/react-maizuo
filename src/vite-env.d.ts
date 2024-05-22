@@ -17,4 +17,5 @@ export declare global {
   interface Window {
     BMapGL: any;
   }
+
 }

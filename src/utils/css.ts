@@ -1,5 +1,5 @@
 /**
- * @description: 合併數組
+ * @description: 合併css數組 如 ['classA','classB'] =>  'classA classB'
  * @param {string} cssArr css數組
  * @return {*} 數組字符串
  */

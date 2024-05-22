@@ -8,11 +8,12 @@ import {
   TIMEOUT,
 } from "@/constant/geolocation";
 
-import type { locationResultInf, initialStateInf } from "@/types/location";
+import type { initialStateInf } from "@/types/location";
 import cookie from "@/utils/cookie";
 import { showDialog } from "@/utils/dialog";
 
 const initialState: initialStateInf = {
+
   locale: {
     name: cookie.getCookie("name"),
     cityId: cookie.getCookie("cityId"),
@@ -24,6 +25,10 @@ const initialState: initialStateInf = {
   locationList: [],
 };
 
+/**
+ * @description: 通过 navigator.geolocation 获取当前经纬度，通过经纬度去服务器获取地理信息
+ * @return {*}
+ */
 function getGPSPosition() {
   return new Promise((res, rej) => {
     if (navigator.geolocation) {
@@ -62,6 +67,10 @@ function getGPSPosition() {
   });
 }
 
+/**
+ * @description: 获取地理位置列表
+ * @return {*}
+ */
 export const getLocationListsAsyc: any = createAsyncThunk(
   "location/getLocationList",
   async () => {
@@ -69,6 +78,11 @@ export const getLocationListsAsyc: any = createAsyncThunk(
   }
 );
 
+
+/**
+ * @description: 通过 navigator.geolocation 获取当前经纬度，通过经纬度去服务器获取地理信息
+ * @return {*}
+ */
 export const getLocationAsync: any = createAsyncThunk(
   "location/getLocation",
   async () => {
@@ -80,7 +94,12 @@ export const location = createSlice({
   name: "location",
   initialState,
   reducers: {
-    // 设置地区
+    /**
+     * @description: 设置地理位置信息
+     * @param {*} state
+     * @param {*} param2
+     * @return {*}
+     */    
     setLocale(state, { payload }) {
       state.locale = payload;
     },

@@ -14,10 +14,19 @@ function MoviceItem(props: propsInf) {
   const navigate = useNavigate();
   let { item } = props;
 
+  /**
+   * @description: 跳转到影院详情页
+   * @param {number} filemId
+   * @return {*}
+   */
   function onNavigateTo(filemId: number) {
     navigate(`/films/${filemId}`);
   }
 
+  /**
+   * @description: 跳转到影院列表页
+   * @return {*}
+   */
   function onBuyTickets() {
     navigate(`/films/cinemas/${item.filmId}`);
   }
@@ -57,9 +66,7 @@ function MoviceItem(props: propsInf) {
           <span onClick={onBuyTickets}>购票</span>
         ) : item.isPresale ? (
           <span onClick={onBuyTickets}>预购</span>
-        ) : (
-          ""
-        )}
+        ) : undefined}
       </div>
     </div>
   );

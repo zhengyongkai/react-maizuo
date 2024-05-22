@@ -18,7 +18,7 @@ export default function WithLocation(props: propsInf): any {
 
   // console.log(pathname);
   const cityId = useSelector<cityStateInf, number>(
-    (locale) => locale.location.locale.cityId
+    (locale) => locale.location.locale.cityId,
   );
 
   const [city, setCity] = useState(cityId);

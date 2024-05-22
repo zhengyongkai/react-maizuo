@@ -10,14 +10,14 @@ function Search() {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const cinemaList = useSelector<cinemaState, Array<cinemasInfoInf>>(
-    (state) => state.cinema.cinemaList
+    (state) => state.cinema.cinemaList,
   );
 
   const cinemaFilterList = useMemo(() => {
     if (searchText) {
       let result = cinemaList.filter(
         (res) =>
-          res.address.includes(searchText) || res.name.includes(searchText)
+          res.address.includes(searchText) || res.name.includes(searchText),
       );
       return result;
     } else {

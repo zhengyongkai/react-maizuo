@@ -13,17 +13,15 @@ interface cinemaSwiperProps {
 function CinemaSwiper(props: cinemaSwiperProps, ref: any) {
   let { items, change } = props;
 
-  function onSlideChange(e: any) {
-    change(e.activeIndex);
-  }
-
   return (
     <Swiper
       ref={ref}
       centeredSlides={true}
       spaceBetween={16}
       slidesPerView={4}
-      onSlideChange={(e: any) => onSlideChange(e)}
+      onSlideChange={(e: any) => {
+        change(e.activeIndex);
+      }}
     >
       {items.map((item, index) => {
         return (

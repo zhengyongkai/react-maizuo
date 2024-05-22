@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 const useEcharts = function (): [
   any,
-  (options: echarts.EChartsOption) => void
+  (options: echarts.EChartsOption) => void,
 ] {
   const myChart = useRef<echarts.ECharts>();
   const echart = useRef<HTMLElement>();

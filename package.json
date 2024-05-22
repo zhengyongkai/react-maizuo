@@ -7,6 +7,8 @@
     "dev": "vite --mode dev",
     "build": "vite build --mode production",
     "build-test": "vite build --mode test",
+    "lint":"npx tsc",
+    "prettier": "npx prettier --write src/**/*.tsx",
     "preview": "vite preview"
   },
   "dependencies": {

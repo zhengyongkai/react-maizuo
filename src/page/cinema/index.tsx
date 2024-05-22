@@ -220,7 +220,7 @@ export default function Cinemas() {
                   item={item}
                   onClick={() =>
                     to(
-                      `/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`
+                      `/films/chinemasInfo/${item.cinemaId}/${film.filmId}/${date}`,
                     )
                   }
                 ></CinemaItem>

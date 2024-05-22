@@ -20,7 +20,7 @@ function ComingSoon() {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const location = useLocation();
   const cityId = useSelector(
-    (state: cityStateInf) => state.location.locale.cityId
+    (state: cityStateInf) => state.location.locale.cityId,
   );
   const [page, setPage] = useState({
     pageNum: 0,
@@ -37,11 +37,14 @@ function ComingSoon() {
     getMoviceDataList();
   });
 
+  /**
+   * @description: 获取电影列表
+   * @return {*}
+   */
   async function getMoviceDataList() {
-    const api = getMoviceComingData;
     const {
       data: { films, total },
-    } = await api(page);
+    } = await getMoviceComingData(page);
     if (films.length === 0) {
       return setHasMore(false);
     }
@@ -53,6 +56,10 @@ function ComingSoon() {
     });
   }
 
+  /**
+   * @description: 加载更多
+   * @return {*}
+   */
   async function loadMore() {
     setPage({
       ...page,

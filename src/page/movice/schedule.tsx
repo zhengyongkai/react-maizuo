@@ -28,6 +28,7 @@ import { cssCb } from "@/utils/css";
 import type { cinemasInfoInf } from "@/types/cinema";
 import type { scheduleInf } from "@/types/schedule";
 import type { anctorInf, detailsInf, moviceDetailsInf } from "@/types/movice";
+import { scrollTop } from "@/utils";
 
 export default function Schedule() {
   const { cinemaId = "", filmId = "", showDate = "" } = useParams();
@@ -166,10 +167,6 @@ export default function Schedule() {
   }, [cinemaId, filmId]);
 
   useSroll(() => {
-    const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop;
     if (scrollTop > 20) {
       setFixed(true);
     } else {
@@ -259,7 +256,7 @@ export default function Schedule() {
               alt=""
               onClick={() =>
                 navigator(
-                  "/map/" + cinemaInfo.longitude + "/" + cinemaInfo.latitude
+                  "/map/" + cinemaInfo.longitude + "/" + cinemaInfo.latitude,
                 )
               }
             />

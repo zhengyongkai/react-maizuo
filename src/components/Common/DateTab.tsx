@@ -7,7 +7,6 @@ interface propsInf<T> {
   tabList: Array<T>;
   defaultActive?: number;
   dataKey?: string;
-
   onChange?: (index: number, item: T) => void;
 }
 

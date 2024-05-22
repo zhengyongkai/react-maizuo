@@ -3,10 +3,10 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { BASE_URL } from '@/constant/baseUrl';
-import type { OReseponse, Response } from '@/types';
-import type { cardInf, loginRequestInf } from '@/types/user';
-import request from '@/utils/request';
+import { BASE_URL } from "@/constant/baseUrl";
+import type { OReseponse, Response } from "@/types";
+import type { cardInf, loginRequestInf } from "@/types/user";
+import request from "@/utils/request";
 
 export const getUserData = () => {
   return request.get(`${BASE_URL}/user/getInfo`);

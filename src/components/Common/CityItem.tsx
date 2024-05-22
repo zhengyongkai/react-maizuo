@@ -1,5 +1,4 @@
 import { memo } from "react";
-
 import Styles from "@/assets/css/cityItem.module.scss";
 import { cssCb } from "@/utils/css";
 

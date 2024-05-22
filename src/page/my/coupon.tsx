@@ -11,7 +11,7 @@ export default function CouponPage() {
   const [couponList, setCouponList] = useState<cardListInf[]>([]);
 
   const userCouponData = useSelector<userState, cardListInf[]>(
-    (state) => state.user.couponList
+    (state) => state.user.couponList,
   );
 
   useEffect(() => {

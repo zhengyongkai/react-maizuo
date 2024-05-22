@@ -33,7 +33,7 @@ function LocationPage(props: locationPageInf) {
 
   const cityState = useSelector((state: cityStateInf) => state.location.locale);
   const locationList = useSelector(
-    (state: cityStateInf) => state.location.locationList
+    (state: cityStateInf) => state.location.locationList,
   );
   const [city, setCity] = useState(cityState);
   const [hotList, setHotList] = useState<Array<formatInf>>([]);
@@ -46,7 +46,7 @@ function LocationPage(props: locationPageInf) {
     const formatList = locationList.reduce(
       (
         pre: Map<string, { pinyin: string; list: Array<cityInf> }>,
-        res: cityInf
+        res: cityInf,
       ) => {
         const chatOne = res.pinyin.charAt(0);
         const lists = pre.get(res.pinyin.charAt(0))?.list || [];
@@ -61,7 +61,7 @@ function LocationPage(props: locationPageInf) {
 
         return pre;
       },
-      new Map()
+      new Map(),
     );
     const result: Array<{ title: string; items: Array<formatInf> }> = [
       ...formatList.entries(),

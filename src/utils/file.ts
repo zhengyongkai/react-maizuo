@@ -1,5 +1,12 @@
 import { Toast } from "antd-mobile";
 
+
+/**
+ * @description: 判断上传的文件是否是符合规范的
+ * @param {File} file 文件
+ * @param {string} acceptedFiles 接受的数组。如 .jpg 或者 [.jpg,.png]
+ * @return {*}
+ */
 export function validateFn(file: File, acceptedFiles: string | string[]) {
   const acceptedFilesArray = Array.isArray(acceptedFiles)
     ? acceptedFiles
@@ -41,6 +48,12 @@ export function validateFn(file: File, acceptedFiles: string | string[]) {
   });
 }
 
+/**
+ * @description: 判断文件是否符合 如果正确返回 true ， 错误返回false
+ * @param {File} file
+ * @param {string} acceptedFiles
+ * @return {Boolean}
+ */
 export function acceptFile(file: File, acceptedFiles: string | string[]) {
   if (file && acceptedFiles) {
     const isValidate = validateFn(file, acceptedFiles);

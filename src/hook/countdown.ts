@@ -4,7 +4,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 export default function useCountDown(
   second: number,
   cookieName?: string,
-  endCallback?: () => void
+  endCallback?: () => void,
 ) {
   let seconds: MutableRefObject<number>;
   if (cookieName) {

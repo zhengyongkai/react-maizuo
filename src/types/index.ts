@@ -6,7 +6,7 @@
  */
 // export type ResponseDetails<T> = Promise<{ data: T; msg: string }>;
 
-import { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export type ResponsePageSize<T> = Promise<{
   data: { pageSize: number; pageNo: number; list: Array<T> };

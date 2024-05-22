@@ -1,24 +1,10 @@
-import {
-  Outlet,
-  Route,
-  Routes,
-  useSearchParams,
-  useParams,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import Navbar from "@/components/Layout/Navbar";
-import {
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect,
-  useCallback,
-  memo,
-} from "react";
+import { useEffect, useState, memo } from "react";
 import Styles from "@/assets/css/home.module.scss";
 import useSroll from "@/hook/scroll";
+import { scrollTop } from "@/utils";
 
 function HomePage() {
   const { pathname } = useLocation();
@@ -31,10 +17,6 @@ function HomePage() {
   }, [pathname]);
 
   useSroll(() => {
-    const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop;
     if (scrollTop > 210) {
       setVisable(true);
     } else {

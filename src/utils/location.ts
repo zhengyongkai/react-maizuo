@@ -18,7 +18,7 @@ export const getBetweenDistance = function (
   lat: number,
   lot: number,
   lats: number,
-  lots: number
+  lots: number,
 ) {
   let dLat = toRad(lats - lat);
   let dLon = toRad(lots - lot);

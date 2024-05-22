@@ -15,7 +15,7 @@ export default function CustomPage() {
   const [value, setValue] = useState("");
 
   const user = useSelector<userState, userSimpleInf>(
-    (state) => state.user.userData
+    (state) => state.user.userData,
   );
 
   const messageRef = useRef<messageInf[]>([]);

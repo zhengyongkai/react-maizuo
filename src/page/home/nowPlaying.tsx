@@ -17,7 +17,7 @@ function NowPlaying() {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const location = useLocation();
   const cityId = useSelector(
-    (state: cityStateInf) => state.location.locale.cityId
+    (state: cityStateInf) => state.location.locale.cityId,
   );
   const [page, setPage] = useState({
     pageNum: 0,
@@ -28,10 +28,9 @@ function NowPlaying() {
 
   async function getMoviceDataList() {
     if (page.cityId) {
-      const api = getMoviceData;
       const {
         data: { films, total },
-      } = await api(page);
+      } = await getMoviceData(page);
       if (films.length === 0) {
         return setHasMore(false);
       }

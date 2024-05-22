@@ -18,7 +18,7 @@ export interface BaseBarChartInf {
   setData: (
     series: Array<BaseBarSeries>,
     xAxis: Array<number>,
-    baseBarOptions?: BaseBarOptionsInf
+    baseBarOptions?: BaseBarOptionsInf,
   ) => void;
   baseBarOptions: BaseBarOptionsInf;
 }
@@ -66,7 +66,7 @@ const BarEcharts = forwardRef<BaseBarChartInf, BarEchartsInf>((props, ref) => {
   function setData(
     series: Array<BaseBarSeries>,
     xAxis: Array<number>,
-    baseBarOptions: BaseBarOptionsInf = BaseBarOptions
+    baseBarOptions: BaseBarOptionsInf = BaseBarOptions,
   ) {
     baseBarOptions.yAxis.data = xAxis;
     setOptions({

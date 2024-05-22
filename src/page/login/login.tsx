@@ -3,17 +3,17 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { Button, Form, Input } from 'antd-mobile';
-import { login } from '@/api/user';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setUserData } from '@/store/common/user';
-import sha256 from 'crypto-js/sha256';
+import { Button, Form, Input } from "antd-mobile";
+import { login } from "@/api/user";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUserData } from "@/store/common/user";
+import sha256 from "crypto-js/sha256";
 
-import Styles from '@/assets/css/login.module.scss';
+import Styles from "@/assets/css/login.module.scss";
 
-import Logo from '@/assets/img/logo.png';
-import { GITHUB_LOGIN_URL } from '@/constant';
+import Logo from "@/assets/img/logo.png";
+import { GITHUB_LOGIN_URL } from "@/constant";
 
 interface LoginPropsInf {
   exact?: boolean;
@@ -37,7 +37,7 @@ export default function Login(props: LoginPropsInf) {
       password: sha256(values.password).toString(),
     });
     await dispatch(setUserData(data));
-    !exact && navigate('/');
+    !exact && navigate("/");
   };
 
   function onGithubSubmit() {
@@ -45,14 +45,14 @@ export default function Login(props: LoginPropsInf) {
   }
 
   return (
-    <div className={Styles['login-wrapper']}>
+    <div className={Styles["login-wrapper"]}>
       <Form
-        className={Styles['login-content']}
+        className={Styles["login-content"]}
         form={form}
         layout="horizontal"
         initialValues={{
-          username: '',
-          password: '',
+          username: "",
+          password: "",
         }}
         footer={
           <>
@@ -78,19 +78,19 @@ export default function Login(props: LoginPropsInf) {
           </>
         }
       >
-        <div className={Styles['login-logo']}>
+        <div className={Styles["login-logo"]}>
           <img src={Logo} />
         </div>
         <Form.Item
           name="username"
           label="姓名"
-          rules={[{ required: true, message: '姓名不能为空' }]}
+          rules={[{ required: true, message: "姓名不能为空" }]}
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: '密码不能为空' }]}
+          rules={[{ required: true, message: "密码不能为空" }]}
           label="密码"
         >
           <Input type="password" placeholder="请输入密码" />
