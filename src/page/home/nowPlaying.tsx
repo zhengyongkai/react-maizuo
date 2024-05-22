@@ -5,7 +5,7 @@ import { getMoviceData } from '@/api/movice';
 
 import { useSelector } from 'react-redux';
 
-import type { detailsInf, moviceInf } from '@/types/movice';
+import type { detailsInf } from '@/types/movice';
 import type { cityStateInf } from '@/types/location';
 
 import { InfiniteScroll } from 'antd-mobile';
@@ -24,6 +24,10 @@ function NowPlaying() {
     cityId
   });
 
+  /**
+   * @description: 获取电影列表
+   * @return {*}
+   */
   async function getMoviceDataList() {
     if (page.cityId) {
       const {
@@ -49,6 +53,10 @@ function NowPlaying() {
     getMoviceDataList();
   });
 
+  /**
+   * @description: 下拉加载更多
+   * @return {*}
+   */
   async function loadMore() {
     setPage({
       ...page,

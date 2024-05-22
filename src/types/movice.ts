@@ -1,6 +1,6 @@
-import type { districtInf } from "@/types/location";
-import { userSimpleInf } from "./user";
-import { cinemasInfoInf } from "./cinema";
+import type { districtInf } from '@/types/location';
+import { userSimpleInf } from './user';
+import { cinemasInfoInf } from './cinema';
 
 export interface anctorInf {
   name: string;
@@ -65,6 +65,10 @@ export interface detailsResponseInf {
   film: detailsInf;
 }
 
+/**
+ * @description: 电影详情查询参数
+ * @param {number} filmId 电影 Id
+ */
 export interface detailsParams {
   filmId: number;
 }

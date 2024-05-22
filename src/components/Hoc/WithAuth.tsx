@@ -7,6 +7,11 @@ interface propsInf {
   children: React.ReactElement;
 }
 
+/**
+ * @description: 如果鉴权成功直接显示，不成则显示登录页
+ * @param {propsInf} props
+ * @return {*}
+ */
 export default function WithAuth(props: propsInf): React.ReactElement {
   const user = useSelector<userState, string>((state) => state.user.token);
 

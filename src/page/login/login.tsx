@@ -40,6 +40,10 @@ export default function Login(props: LoginPropsInf) {
     !exact && navigate('/');
   };
 
+  /**
+   * @description: gitHub登录
+   * @return {*}
+   */
   function onGithubSubmit() {
     window.location.replace(GITHUB_LOGIN_URL);
   }

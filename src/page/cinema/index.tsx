@@ -101,9 +101,7 @@ export default function Cinemas() {
     async function getList() {
       const {
         data: { cinemaExtendList, showCinemas }
-      } = (await getCinemas(params)) as {
-        data: cinemaResponseInf;
-      };
+      } = await getCinemas(params);
 
       showCinemas.sort((a, b) => a.showDate - b.showDate);
       setCinemas({

@@ -3,14 +3,14 @@
  * @LastEditors: 郑永楷
  * @Description: file content
  */
-import { getCardList, getUserData } from "@/api/user";
+import { getCardList, getUserData } from '@/api/user';
 
-import cookie from "@/utils/cookie";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TOKEN } from "../../constant";
+import cookie from '@/utils/cookie';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TOKEN } from '../../constant';
 
-import type { cardListInf, user } from "@/types/user";
-import socketIo from "@/utils/socket";
+import type { cardListInf, user } from '@/types/user';
+import socketIo from '@/utils/socket';
 
 export interface initUserStoreInf {
   userData: user;
@@ -23,48 +23,42 @@ export interface initUserStoreInf {
  * @description: 获取用户信息
  * @return {*}
  */
-export const getUserDataThunk: any = createAsyncThunk(
-  "/user/getData",
-  async () => {
-    return await getUserData();
-  },
-);
+export const getUserDataThunk: any = createAsyncThunk('/user/getData', async () => {
+  return await getUserData();
+});
 
 /**
  * @description: 获取优惠卷信息
  * @return {*}
  */
-export const getUserCouponThunk: any = createAsyncThunk(
-  "/user/getCoupon",
-  async () => {
-    return await getCardList();
-  },
-);
+export const getUserCouponThunk: any = createAsyncThunk('/user/getCoupon', async () => {
+  return await getCardList();
+});
 
 const initUserStore: initUserStoreInf = {
   userData: {
-    accountName: "",
-    birthday: "",
+    accountName: '',
+    birthday: '',
     gender: 0,
     hasDefaultAddr: 0,
     hasPassword: 0,
     hasPayPwd: 0,
-    headIcon: "",
-    mail: "",
-    mobile: "",
-    nickName: "",
+    headIcon: '',
+    mail: '',
+    mobile: '',
+    nickName: '',
     thirdAccount: [],
     userId: 0,
     balance: 0,
-    uid: 0,
+    uid: 0
   },
   couponList: [],
   logged: false,
-  token: cookie.getCookie(TOKEN),
+  token: cookie.getCookie(TOKEN)
 };
 
 export const userStore = createSlice({
-  name: "user",
+  name: 'user',
   initialState: initUserStore,
   reducers: {
     /**
@@ -88,11 +82,11 @@ export const userStore = createSlice({
       state.logged = false;
       state.userData.userId = 0;
       state.userData.balance = 0;
-      state.token = "";
+      state.token = '';
       state.couponList = [];
       socketIo.disconnect();
       cookie.removeCookie(TOKEN);
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getUserDataThunk.fulfilled, (state, { payload }) => {
@@ -106,7 +100,7 @@ export const userStore = createSlice({
         state.couponList = payload.data;
       }
     });
-  },
+  }
 });
 
 export const { setUserData, clearUserData } = userStore.actions;

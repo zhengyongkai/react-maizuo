@@ -13,6 +13,11 @@ interface propsInf {
   children: React.ReactElement;
 }
 
+/**
+ * @description: 是否已经获取用户信息，如果未获取用户信息，显示获取用户信息页面
+ * @param {propsInf} props
+ * @return {*}
+ */
 export default function WithLocation(props: propsInf): any {
   let { children } = props;
 
