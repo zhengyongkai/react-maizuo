@@ -41,8 +41,6 @@ export type orderInf = {
   data: preOrderEntity;
 } & commonInf;
 
-
-
 /**
  * @description: 普通文字类型
  * @param commonInf 基本类型
@@ -52,7 +50,6 @@ export type textInf = {
   data: [];
 } & commonInf;
 
-
 /**
  * @description: 选择框类型类型
  * @param commonInf 基本类型
@@ -61,6 +58,5 @@ export type selectedInf = {
   type: "selected";
   data: selectListInf;
 } & commonInf;
-
 
 export type selectListInf = Array<selectItemsInf>;

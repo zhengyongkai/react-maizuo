@@ -1,5 +1,3 @@
-
-
 /**
  * @description: 鉴权类型
  * @return {*}

@@ -13,7 +13,6 @@ import cookie from "@/utils/cookie";
 import { showDialog } from "@/utils/dialog";
 
 const initialState: initialStateInf = {
-
   locale: {
     name: cookie.getCookie("name"),
     cityId: cookie.getCookie("cityId"),
@@ -61,7 +60,7 @@ function getGPSPosition() {
           showDialog.show({
             content,
           });
-        }
+        },
       );
     }
   });
@@ -75,9 +74,8 @@ export const getLocationListsAsyc: any = createAsyncThunk(
   "location/getLocationList",
   async () => {
     return await getLocationList();
-  }
+  },
 );
-
 
 /**
  * @description: 通过 navigator.geolocation 获取当前经纬度，通过经纬度去服务器获取地理信息
@@ -87,7 +85,7 @@ export const getLocationAsync: any = createAsyncThunk(
   "location/getLocation",
   async () => {
     return await getGPSPosition();
-  }
+  },
 );
 
 export const location = createSlice({
@@ -99,7 +97,7 @@ export const location = createSlice({
      * @param {*} state
      * @param {*} param2
      * @return {*}
-     */    
+     */
     setLocale(state, { payload }) {
       state.locale = payload;
     },
@@ -121,10 +119,10 @@ export const location = createSlice({
           payload: {
             data: { cities },
           },
-        }
+        },
       ) => {
         state.locationList = cities;
-      }
+      },
     );
   },
 });

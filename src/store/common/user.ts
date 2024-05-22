@@ -27,7 +27,7 @@ export const getUserDataThunk: any = createAsyncThunk(
   "/user/getData",
   async () => {
     return await getUserData();
-  }
+  },
 );
 
 /**
@@ -38,7 +38,7 @@ export const getUserCouponThunk: any = createAsyncThunk(
   "/user/getCoupon",
   async () => {
     return await getCardList();
-  }
+  },
 );
 
 const initUserStore: initUserStoreInf = {
@@ -72,7 +72,7 @@ export const userStore = createSlice({
      * @param {*} state
      * @param {*} payload
      * @return {*}
-     */    
+     */
     setUserData(state, payload) {
       state.userData = payload.payload;
       state.token = payload.payload.token;
@@ -83,7 +83,7 @@ export const userStore = createSlice({
      * @description: 清空用户信息 （比如退出登录等）
      * @param {*} state
      * @return {*}
-     */    
+     */
     clearUserData(state) {
       state.logged = false;
       state.userData.userId = 0;

@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import 'react-bmapgl';
+import "react-bmapgl";
 
 // 导入环境变量
 interface ImportMetaEnv {
@@ -17,5 +17,4 @@ export declare global {
   interface Window {
     BMapGL: any;
   }
-
 }

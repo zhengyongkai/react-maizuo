@@ -16,7 +16,7 @@ class CookieInstance {
    * @param {string} key
    * @param {unknown} value
    * @return {*}
-   */  
+   */
   static setCookie(key: string, value: unknown) {
     CookieInstance._instance.set(key, value, { path: "/" });
     return CookieInstance;
@@ -26,17 +26,16 @@ class CookieInstance {
    * @description: 获取Cookie
    * @param {string} key
    * @return {*}
-   */  
+   */
   static getCookie(key: string) {
     return CookieInstance._instance.get(key);
   }
-
 
   /**
    * @description: 移除Cookie
    * @param {string} key
    * @return {*}
-   */  
+   */
   static removeCookie(key: string) {
     return CookieInstance._instance.remove(key);
   }

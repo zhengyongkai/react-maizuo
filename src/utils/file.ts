@@ -1,6 +1,5 @@
 import { Toast } from "antd-mobile";
 
-
 /**
  * @description: 判断上传的文件是否是符合规范的
  * @param {File} file 文件

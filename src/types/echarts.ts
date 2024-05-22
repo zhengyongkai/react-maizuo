@@ -1,5 +1,3 @@
-
-
 export type BarSeries = echarts.BarSeriesOption;
 export type PieSeries = echarts.PieSeriesOption;
 export type LineSeries = echarts.LineSeriesOption;
@@ -15,20 +13,15 @@ export interface LineOptionsInf<T> {
   calculable?: boolean;
 }
 
-
-
-
 export interface BaseBarSeries {
   name?: string;
   type: "bar";
   data: Array<number>;
 }
 
-
 export interface BarEchartsInf {
   height: number;
 }
-
 
 export type BaseBarOptionsInf = {
   yAxis: {

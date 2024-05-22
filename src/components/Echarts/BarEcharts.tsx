@@ -57,10 +57,12 @@ const BarEcharts = forwardRef<BaseBarChartInf, BarEchartsInf>((props, ref) => {
     baseBarOptions: BaseBarOptions,
   }));
 
-  /*
-   * @name  设置 bar 的 options
-   * @param {series,xAxis,baseBarOptions}
-   * @author zhengyongkai
+  /**
+   * @description: 将值设置到 echarts 中
+   * @param {Array} series
+   * @param {Array} xAxis
+   * @param {BaseBarOptionsInf} baseBarOptions
+   * @return {*}
    */
   function setData(
     series: Array<BaseBarSeries>,

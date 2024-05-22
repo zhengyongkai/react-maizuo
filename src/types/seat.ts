@@ -4,18 +4,38 @@ import { hallInf } from "./hall";
 import { moviceInf } from "./movice";
 import priceInf, { sectionPricesInf } from "./price";
 
-
 export interface lockSeatRulesInf {
   ruleCheckType: number;
   rules: Array<{ ruleType: number }>[];
 }
-
 
 export interface providerInf {
   providerId: number;
   scheduleId: string;
 }
 
+/**
+ * @description: 座位信息
+ * @param {cinemasInfoInf} cinema 影院信息;
+   @param {moviceInf} film 电影信息;
+   @param {number} advanceStopMins 结束时间;
+   @param {number} endAt 结束时间;
+   @param  {hallInf} hall 影院大厅信息 ;
+   @param {string}  imagery;
+   @param {boolean} isMobileRequiredForLocking 手机是否允许开启;
+   @param {boolean} isOnsell 是否正在售票;
+   @param {lockSeatRulesInf} lockSeatRulesInf 座位锁定规则;
+   @param {number}  maxSeatsCount 最大座位数量;
+   @param {string} noticeMsg 提示信息;
+   @param  {priceInf} price 票价信息;
+   @param {providerInf} provider 提供者;
+   @param {realNameAuthInf} readNameAuth 实名认证;
+   @param {number} scheduleId: 排场Id;
+   @param {sectionPricesInf} sectionPrices 价格信息;
+   @param  {number} showAt 开始时间;
+ * 
+ * @return {*}
+ */
 export interface seatInf {
   cinema: cinemasInfoInf;
   film: moviceInf;
@@ -61,8 +81,6 @@ export type seatsInf = {
   isOccupied: boolean;
   offerSeatId: string;
 } & seatsPosInf;
-
-
 
 export interface seatingChartInf {
   hall: hallInf;
