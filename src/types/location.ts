@@ -29,6 +29,7 @@ export interface localeState {
 export interface cityStateInf {
   location: initialStateInf;
 }
+
 export interface tudeStateInf {
   location: {
     tude: tudeInf;

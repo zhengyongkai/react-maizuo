@@ -56,15 +56,27 @@ export interface seatInf {
   showAt: number;
 }
 
+
+/**
+ * @description: 座位返回信息
+ * @return {*}
+ */
 export interface seatResponseInf {
   schedule: seatInf;
 }
 
-export interface seatRequestParamsInf {
-  scheduleId: number;
-}
 
-// 座位简短信息
+
+
+/**
+ * @description: 座位简短信息
+ * @param {string} columnId: string 列Id;
+ * @param {string} columnNum: string 列数;
+ * @param {string} rowId: string 行Id;
+ * @param {string} rowNum: string 行数;
+ * @param {string} sectionId: string 地址Id;
+ * @param {string} sectionName: string 地址名字;
+ */
 export interface seatsPosInf {
   columnId: string;
   columnNum: string;
@@ -74,14 +86,29 @@ export interface seatsPosInf {
   sectionName: string;
 }
 
-// 座位详细信息
+
+/**
+ * @description: 座位详细信息
+ * @param {number} coupleType 位置类型（情侣座）: 
+ * @param {boolean} isBroken: 是否损坏 列数;
+ * @param {boolean} isOccupied: 是否被霸占
+ */
 export type seatsInf = {
   coupleType: number;
   isBroken: boolean;
   isOccupied: boolean;
-  offerSeatId: string;
 } & seatsPosInf;
 
+
+/**
+ * @description: 大厅座位详情
+ * @param {hallInf} hall 礼堂信息 
+ * @param {height} height 屏幕高度 
+ * @param {number} scheduleId 排班Id 
+ * @param {Array<seatsInf>}  seats 座位列表
+ * @param {number} width 屏幕宽度
+ * @return {*}
+ */
 export interface seatingChartInf {
   hall: hallInf;
   height: number;
@@ -90,10 +117,27 @@ export interface seatingChartInf {
   width: number;
 }
 
+/**
+ * @description: 大厅作为列表
+ * @param {seatingChartInf} 大厅作为详情
+ */
 export interface seatListInf {
   seatingChart: seatingChartInf;
 }
 
+
+/**
+ * @description: 选择座位信息
+ * @param {string} columnId 列数Id 
+ * @param {string} columnNum 列数编号 
+ * @param {string} rowId 行数Id 
+ * @param {string} rowNum 行数编号
+ * @param {string} sectionId 地址Id
+ * @param {string} sectionName 地址名称 
+ * @param {number} scheduleId 排班Id
+ * @param {number} date 日期
+ * @param {number} cinemaId 影院ID
+ */
 export interface selectSeatsInf {
   columnId: string;
   columnNum: string;

@@ -5,7 +5,7 @@
  */
 import { BASE_URL } from '@/constant/baseUrl';
 import type { OReseponse, Response } from '@/types';
-import type { cardInf, loginRequestInf } from '@/types/user';
+import type { cardInf } from '@/types/user';
 import request from '@/utils/request';
 
 /**
@@ -18,10 +18,11 @@ export const getUserData = () => {
 
 /**
  * @description: 登录接口
- * @param {loginRequestInf} data
+ * @param {{userId:number,password:string}} data 用户信息（userId,password）
  * @return {*}
  */
-export const login = (data: loginRequestInf) => {
+export const login = (data: {  userId: number;
+  password: string}) => {
   return request.post(`${BASE_URL}/user/login`, data);
 };
 
