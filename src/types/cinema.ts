@@ -1,4 +1,4 @@
-import type { district, tude } from "./location";
+import type { district, tude } from './location';
 
 export interface cinemasInfoRequestInfo {
   cinemaId: string;

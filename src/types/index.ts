@@ -6,7 +6,6 @@
  */
 // export type ResponseDetails<T> = Promise<{ data: T; msg: string }>;
 
-
 /**
  * @description: 分页类型
  * @return {*}

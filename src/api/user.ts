@@ -21,8 +21,7 @@ export const getUserData = () => {
  * @param {{userId:number,password:string}} data 用户信息（userId,password）
  * @return {*}
  */
-export const login = (data: {  userId: number;
-  password: string}) => {
+export const login = (data: { userId: number; password: string }) => {
   return request.post(`${BASE_URL}/user/login`, data);
 };
 
@@ -47,7 +46,7 @@ export const getCardList = (): Response<cardInf> => {
 
 /**
  * @description: 上传我的头像
- * @param {FormData} file
+ * @param {FormData} file  头像图片
  * @return {*}
  */
 export const uploadUserHeadIcon = (file: FormData): OReseponse => {

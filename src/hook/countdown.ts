@@ -1,10 +1,17 @@
-import cookie from "@/utils/cookie";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import cookie from '@/utils/cookie';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
+/**
+ * @description: 倒计时hook
+ * @param {number} second 描述
+ * @param {string} cookieName 存入COOKIE
+ * @param {function} endCallback 回调函数
+ * @return {*}
+ */
 export default function useCountDown(
   second: number,
   cookieName?: string,
-  endCallback?: () => void,
+  endCallback?: () => void
 ) {
   let seconds: MutableRefObject<number>;
   if (cookieName) {

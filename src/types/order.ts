@@ -1,4 +1,4 @@
-import { selectSeatsInf } from "./seat";
+import { selectSeatsInf } from './seat';
 
 export interface preOrderParams {
   cinemaId: number;

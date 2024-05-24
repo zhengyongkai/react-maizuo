@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
-import locationSlice from "./common/location";
-import userSlice from "./common/user";
-import cinemaSlice from "./common/cinema";
+import locationSlice from './common/location';
+import userSlice from './common/user';
+import cinemaSlice from './common/cinema';
 
-import scheduleSlice from "./schedule";
+import scheduleSlice from './schedule';
 
 // configureStore创建一个redux数据
 const store = configureStore({
@@ -13,9 +13,9 @@ const store = configureStore({
     user: userSlice,
     location: locationSlice,
     schedule: scheduleSlice,
-    cinema: cinemaSlice,
+    cinema: cinemaSlice
     // user: useSlice,
-  },
+  }
 });
 
 export default store;

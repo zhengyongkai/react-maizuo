@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 /**
  * @description: 一个监听滚动条滚动的hook
@@ -13,9 +13,9 @@ export default function useSroll(fn: (e: Event) => void) {
   }, [fn]);
 
   useEffect(() => {
-    window.addEventListener("scroll", fnRef.current);
+    window.addEventListener('scroll', fnRef.current);
   }, []);
   return () => {
-    window.removeEventListener("scroll", fnRef.current);
+    window.removeEventListener('scroll', fnRef.current);
   };
 }

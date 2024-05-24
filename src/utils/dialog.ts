@@ -1,8 +1,8 @@
-import { Dialog } from "antd-mobile";
+import { Dialog } from 'antd-mobile';
 
 const normalConfig = {
   closeOnAction: true,
-  closeOnMaskClick: true,
+  closeOnMaskClick: true
 };
 
 /**
@@ -11,9 +11,9 @@ const normalConfig = {
  */
 export const showDialog = {
   show: ({
-    title = "提示",
-    content = "",
-    maskClassName = "",
+    title = '提示',
+    content = '',
+    maskClassName = ''
   }: {
     title?: string;
     content: string;
@@ -23,6 +23,6 @@ export const showDialog = {
       ...normalConfig,
       title,
       content,
-      maskClassName,
-    }),
+      maskClassName
+    })
 };

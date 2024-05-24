@@ -3,23 +3,21 @@
  * @return {*}
  */
 export const scrollTop =
-  window.pageYOffset ||
-  document.documentElement.scrollTop ||
-  document.body.scrollTop;
+  window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 /**
  * @description: 获取 url 参数
  * @param {string} url
  * @return {*} new Map
  */
 export function getQueryVariable(url: string): Map<string, string> {
-  const str = url.split("?");
+  const str = url.split('?');
   const queryMap = new Map();
   if (str.length) {
     const query = str[1];
     if (query) {
-      const consts = query.split("&");
+      const consts = query.split('&');
       for (let i = 0; i < consts.length; i++) {
-        const pair = consts[i].split("=");
+        const pair = consts[i].split('=');
         queryMap.set(pair[0], pair[1]);
       }
     }
@@ -33,7 +31,7 @@ export function getQueryVariable(url: string): Map<string, string> {
  * @return {*}
  */
 export function changeToCanvas(element: HTMLDivElement) {
-  const svgElems = element.querySelectorAll("svg");
+  const svgElems = element.querySelectorAll('svg');
   let elems: SVGElement[] = [...svgElems];
   elems.forEach((node: SVGElement) => {
     // 拿到 symbol 的 use 属性
@@ -43,7 +41,7 @@ export function changeToCanvas(element: HTMLDivElement) {
     // 拿到 Symbol 标签
     let symbol: any = document.getElementById(id)?.cloneNode(true);
     // 获取填充颜色
-    let fill = window.getComputedStyle(node)["fill"];
+    let fill = window.getComputedStyle(node)['fill'];
     // 填充颜色
     symbol.style.fill = fill;
     // 直接把他塞到 use 中
@@ -69,8 +67,7 @@ export function changeToCanvas(element: HTMLDivElement) {
  * @param {unknown} data
  * @return {*}
  */
-export const isArray = (data: unknown) =>
-  Object.prototype.toString.call(data) === "[object Array]";
+export const isArray = (data: unknown) => Object.prototype.toString.call(data) === '[object Array]';
 
 /**
  * @description: 第三方跳转删除code等参数

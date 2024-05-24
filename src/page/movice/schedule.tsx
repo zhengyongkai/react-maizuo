@@ -219,6 +219,11 @@ export default function Schedule() {
       .join(' ');
   }
 
+  /**
+   * @description: 跳转到选座位页面
+   * @param {scheduleInf} item
+   * @return {*}
+   */  
   function onBuyTicket(item: scheduleInf) {
     if (!isStopSelling(item.showAt, item.advanceStopMins)) {
       navigator(`/seat/${item.scheduleId}/${item.showAt}`);

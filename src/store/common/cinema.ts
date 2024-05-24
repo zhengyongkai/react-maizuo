@@ -1,20 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-import { initialStateInf } from "@/types/cinema";
+import { initialStateInf } from '@/types/cinema';
 
 const initialState: initialStateInf = {
-  cinemaList: [],
+  cinemaList: []
 };
 
 export const cinema = createSlice({
-  name: "location",
+  name: 'location',
   initialState,
   reducers: {
     // 设置地区
     setCinemaList(state, { payload }) {
       state.cinemaList = payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setCinemaList } = cinema.actions;

@@ -32,7 +32,7 @@ export interface EchartsOptionsInf<T> {
  */
 export interface BaseBarSeries {
   name?: string;
-  type: "bar";
+  type: 'bar';
   data: Array<number>;
 }
 
@@ -44,7 +44,6 @@ export interface BaseBarSeries {
 export interface BarEchartsInf {
   height: number;
 }
-
 
 /**
  * @description: bar状图表基本配置

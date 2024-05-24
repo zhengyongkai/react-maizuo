@@ -1,4 +1,4 @@
-import { preOrderEntity } from "./order";
+import { preOrderEntity } from './order';
 
 export type messageInf = textInf | selectedInf | orderInf;
 
@@ -37,7 +37,7 @@ export type commonInf = {
  * @param commonInf 基本类型
  */
 export type orderInf = {
-  type: "order";
+  type: 'order';
   data: preOrderEntity;
 } & commonInf;
 
@@ -46,7 +46,7 @@ export type orderInf = {
  * @param commonInf 基本类型
  */
 export type textInf = {
-  type: "text";
+  type: 'text';
   data: [];
 } & commonInf;
 
@@ -55,7 +55,7 @@ export type textInf = {
  * @param commonInf 基本类型
  */
 export type selectedInf = {
-  type: "selected";
+  type: 'selected';
   data: selectListInf;
 } & commonInf;
 

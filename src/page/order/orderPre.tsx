@@ -79,6 +79,11 @@ export default function PreOrder() {
     });
   });
 
+  /**
+   * @description: 实际价格和数据库价格 实际价格为 数据库价格 / 100
+   * @param {*} useMemo
+   * @return {*}
+   */  
   const price = useMemo(() => {
     const result = coupon.reduce((pre, item) => {
       return pre - item;
@@ -87,6 +92,10 @@ export default function PreOrder() {
     return [result, result / 100];
   }, [preOrderInfo.price, coupon]);
 
+  /**
+   * @description: 交易结束
+   * @return {*}
+   */  
   async function onFinishOrder() {
     await finishOrder({
       orderId: preOrderInfo.orderId,

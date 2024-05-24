@@ -14,12 +14,7 @@ const toRad = function (n: number) {
  * @param {number} lots 纬度
  * @return {*}
  */
-export const getBetweenDistance = function (
-  lat: number,
-  lot: number,
-  lats: number,
-  lots: number,
-) {
+export const getBetweenDistance = function (lat: number, lot: number, lats: number, lots: number) {
   let dLat = toRad(lats - lat);
   let dLon = toRad(lots - lot);
   let fromLat = toRad(lat);

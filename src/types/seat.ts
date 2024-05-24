@@ -1,8 +1,8 @@
-import { realNameAuthInf } from "./auth";
-import { cinemasInfoInf } from "./cinema";
-import { hallInf } from "./hall";
-import { moviceInf } from "./movice";
-import priceInf, { sectionPricesInf } from "./price";
+import { realNameAuthInf } from './auth';
+import { cinemasInfoInf } from './cinema';
+import { hallInf } from './hall';
+import { moviceInf } from './movice';
+import priceInf, { sectionPricesInf } from './price';
 
 export interface lockSeatRulesInf {
   ruleCheckType: number;
@@ -56,7 +56,6 @@ export interface seatInf {
   showAt: number;
 }
 
-
 /**
  * @description: 座位返回信息
  * @return {*}
@@ -64,9 +63,6 @@ export interface seatInf {
 export interface seatResponseInf {
   schedule: seatInf;
 }
-
-
-
 
 /**
  * @description: 座位简短信息
@@ -86,10 +82,9 @@ export interface seatsPosInf {
   sectionName: string;
 }
 
-
 /**
  * @description: 座位详细信息
- * @param {number} coupleType 位置类型（情侣座）: 
+ * @param {number} coupleType 位置类型（情侣座）:
  * @param {boolean} isBroken: 是否损坏 列数;
  * @param {boolean} isOccupied: 是否被霸占
  */
@@ -99,12 +94,11 @@ export type seatsInf = {
   isOccupied: boolean;
 } & seatsPosInf;
 
-
 /**
  * @description: 大厅座位详情
- * @param {hallInf} hall 礼堂信息 
- * @param {height} height 屏幕高度 
- * @param {number} scheduleId 排班Id 
+ * @param {hallInf} hall 礼堂信息
+ * @param {height} height 屏幕高度
+ * @param {number} scheduleId 排班Id
  * @param {Array<seatsInf>}  seats 座位列表
  * @param {number} width 屏幕宽度
  * @return {*}
@@ -125,15 +119,14 @@ export interface seatListInf {
   seatingChart: seatingChartInf;
 }
 
-
 /**
  * @description: 选择座位信息
- * @param {string} columnId 列数Id 
- * @param {string} columnNum 列数编号 
- * @param {string} rowId 行数Id 
+ * @param {string} columnId 列数Id
+ * @param {string} columnNum 列数编号
+ * @param {string} rowId 行数Id
  * @param {string} rowNum 行数编号
  * @param {string} sectionId 地址Id
- * @param {string} sectionName 地址名称 
+ * @param {string} sectionName 地址名称
  * @param {number} scheduleId 排班Id
  * @param {number} date 日期
  * @param {number} cinemaId 影院ID

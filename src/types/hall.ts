@@ -1,4 +1,3 @@
-
 /**
  * @description: 礼堂信息
  * @param {string} hallId 礼堂ID

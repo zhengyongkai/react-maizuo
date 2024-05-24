@@ -282,6 +282,12 @@ export default function SeatPage() {
     }
   }, [schedule.film.filmId, schedule.cinema.cinemaId, showDate]);
 
+
+  /**
+   * @description: 缩放
+   * @param {any} event
+   * @return {*}
+   */  
   function zoom(event: any) {
     // console.log(event);
     seatingChartContext.style(
@@ -338,7 +344,10 @@ export default function SeatPage() {
     }, 0);
   }
 
-  // 重新渲染
+  /**
+   * @description: 重新渲染座位
+   * @return {*}
+   */
   function initSeatComposition() {
     zoomInstance.current = d3Zoom
       .zoom()
@@ -364,7 +373,10 @@ export default function SeatPage() {
     zoomInstance.current.transform(seatingChartContextWrap.current, t);
   }
 
-  // 计算得到行数
+  /**
+   * @description: 计算得到行数和列数
+   * @return {*}
+   */
   function getSeatingRowsAndColumnsNum() {
     const columnNumMap = new Map();
     const rowNumMap = new Map();
@@ -385,8 +397,15 @@ export default function SeatPage() {
     return rcObjs;
   }
 
+
   const rowNum = getSeatingRowsAndColumnsNum().rowNum;
 
+
+  /**
+   * @description: 获取行数和列数进行定位
+   * @param {seatsInf} s
+   * @return {*}
+   */  
   function getSeatPosition(s: seatsInf) {
     const column = s.columnNum;
     const row = s.rowNum;
@@ -401,6 +420,12 @@ export default function SeatPage() {
     };
   }
 
+  /**
+   * @description: 双击可以方法
+   * @param {React} ev
+   * @param {*} MouseEvent
+   * @return {*}
+   */  
   const onSelectZoom = (ev: React.MouseEvent<any, MouseEvent>) => {
     const transform = d3.zoomTransform(seatingChartContextWrap.current.node());
     if (transform.k >= 2) {
@@ -419,9 +444,12 @@ export default function SeatPage() {
     }, 10);
   };
 
-  // 优化函数重新渲染问题
-  // 防止 zoom 和 移动时出现子组件不断渲染的问题
 
+
+  /**
+   * @description: 优化函数重新渲染问题 防止 zoom 和 移动时出现子组件不断渲染的问题
+   * @return {*}
+   */  
   const onSelectSeats = useCallback(
     (item: seatsInf, ev: React.MouseEvent<any, MouseEvent>) => {
       onSelectZoom(ev);
@@ -436,7 +464,6 @@ export default function SeatPage() {
         scheduleId: schedule.scheduleId,
         date: schedule.showAt,
         cinemaId: schedule.cinema.cinemaId
-        // price:item.
       };
       let result = [];
       let isSelect = selectSeats.filter(
@@ -444,7 +471,6 @@ export default function SeatPage() {
       );
       if (isSelect[0]) {
         result = selectSeats.filter((res) => {
-          // console.log(res, item);
           return res.columnId !== item.columnId || res.rowId !== item.rowId;
         });
       } else {
@@ -459,6 +485,10 @@ export default function SeatPage() {
     [selectSeats]
   );
 
+  /**
+   * @description: 是否已经选择
+   * @return {*}
+   */  
   const isSelect = useMemo(
     () => (item: seatsInf) => {
       const flag = selectSeats.filter((res) => {
@@ -469,6 +499,11 @@ export default function SeatPage() {
     [selectSeats]
   );
 
+  /**
+   * @description: 选择排版 清空作为列表
+   * @param {number} id
+   * @return {*}
+   */  
   function setSchedule(id: number) {
     if (id === scheduleId) {
       return false;
@@ -477,13 +512,21 @@ export default function SeatPage() {
     setScheduleId(id);
   }
 
+  /**
+   * @description: 删除选中得作为
+   * @param {number} index
+   * @return {*}
+   */  
   function removeSeats(index: number) {
     let result = [...selectSeats];
     result.splice(index, 1);
     setSelectSeats(result);
   }
 
-  // 生成预支订单
+  /**
+   * @description: 预生成订单
+   * @return {*}
+   */ 
   async function onGeneratePreOrder() {
     if (!selectSeats.length) {
       return;
@@ -513,6 +556,11 @@ export default function SeatPage() {
     navigator(`/preorder/${data}`);
   }
 
+  /**
+   * @description: 价格计算
+   * @param {*} useMemo
+   * @return {*}
+   */  
   const totalPrice = useMemo(() => {
     // console.log(selectSeats.length * schedule.price.sale);
     return formatPrice(selectSeats.length * schedule.price.sale, false);

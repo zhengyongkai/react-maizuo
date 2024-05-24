@@ -1,4 +1,4 @@
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
 /**
  * @description: cookie 的单例模式
@@ -18,7 +18,7 @@ class CookieInstance {
    * @return {*}
    */
   static setCookie(key: string, value: unknown) {
-    CookieInstance._instance.set(key, value, { path: "/" });
+    CookieInstance._instance.set(key, value, { path: '/' });
     return CookieInstance;
   }
 

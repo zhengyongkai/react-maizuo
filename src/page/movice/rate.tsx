@@ -106,6 +106,10 @@ const RatePage = () => {
     await getData();
   }
 
+  /**
+   * @description: 获取评论
+   * @return {*}
+   */  
   async function getData() {
     let {
       data: { list, pageSize, pageNo }

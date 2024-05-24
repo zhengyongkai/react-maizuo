@@ -39,6 +39,7 @@ function LocationPage(props: locationPageInf) {
   const navigator = useNavigate();
 
   useEffect(() => {
+    // 根据拼英首字母对城市进行分类
     const formatList = locationList.reduce(
       (pre: Map<string, { pinyin: string; list: Array<cityInf> }>, res: cityInf) => {
         const chatOne = res.pinyin.charAt(0);
@@ -53,6 +54,8 @@ function LocationPage(props: locationPageInf) {
       },
       new Map()
     );
+
+    // 排序
     const result: Array<{ title: string; items: Array<formatInf> }> = [...formatList.entries()]
       .map((res) => {
         return {
@@ -70,6 +73,7 @@ function LocationPage(props: locationPageInf) {
         return 0;
       });
     setList(result);
+    // 设置热门城市
     setHotList(locationList.filter((res) => res.isHot === 1));
   }, [locationList]);
 

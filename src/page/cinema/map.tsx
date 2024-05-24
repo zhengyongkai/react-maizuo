@@ -48,6 +48,12 @@ export default function Maps() {
     }
   }, [start.current]);
 
+
+  /**
+   * @description: 获取公交路线
+   * @param {any} e
+   * @return {*}
+   */  
   function onBusLine(e: any) {
     const transit = new BMap.TransitRoute(map.current, {
       renderOptions: { map: map.current, panel: result.current },
@@ -66,12 +72,14 @@ export default function Maps() {
     }
   }
 
-  // 获取 汽车路线
+  /**
+   * @description: 获取汽车路线
+   * @return {*}
+   */  
   function onCarLine() {
     const driving = new BMap.DrivingRoute(map.current, {
       renderOptions: { map: map.current, autoViewport: true }
     });
-    console.log(driving);
     if (driving) {
       driving.search(start.current, end.current);
     }

@@ -65,7 +65,6 @@ export default function NewsPage() {
       cinemas: moviceMap,
       cinemasList: [...moviceMap.values()][0]
     });
-    // console.log(moviceMap);
     setCityName(defaultTitle);
     setLoading(false);
   }
@@ -76,6 +75,12 @@ export default function NewsPage() {
     }
   }, [params]);
 
+
+  /**
+   * @description: 城市选择
+   * @param {string} res
+   * @return {*}
+   */  
   function cityItemsChange(res: string) {
     const cinemas = cinemaList.cinemas.get(res) || [];
     setCinemasList({
@@ -86,6 +91,12 @@ export default function NewsPage() {
     closeMenu();
   }
 
+  /**
+   * @description: 前台兑换还是APP订票
+   * @param {number} key
+   * @param {string} ticketName
+   * @return {*}
+   */  
   function onTicketFlagchange(key: number, ticketName: string) {
     setParams({
       ...params,

@@ -4,7 +4,6 @@
  * @Description: user typescript 定义
  */
 
-
 /**
  * @description: 用户信息
  * @param {string} accountName 账户名称
@@ -19,7 +18,7 @@
  * @param {Array<string>} thirdAccount 第三方账号
  * @param {number} userId userId
  * @param {number} balance 余额
- * @param {number} uid uid 
+ * @param {number} uid uid
  * @return {*}
  */
 export interface user {
@@ -51,7 +50,6 @@ export interface userState {
     couponList: Array<cardListInf>;
   };
 }
-
 
 /**
  * @description: 优惠券信息
@@ -103,7 +101,6 @@ export interface amountInf {
 export interface amountResponseInf {
   data: amountInf;
 }
-
 
 export interface userSimpleInf {
   userId: number;

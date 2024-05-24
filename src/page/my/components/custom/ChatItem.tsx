@@ -15,6 +15,11 @@ function chatItem(props: { data: messageInf; onChange: (id: string, e: string) =
     onChange
   } = props;
 
+  /**
+   * @description: 判断聊天列表得数据类型 并进行渲染
+   * @param {*} useMemo
+   * @return {*}
+   */  
   const components = useMemo(() => {
     if (type === 'selected') {
       return (

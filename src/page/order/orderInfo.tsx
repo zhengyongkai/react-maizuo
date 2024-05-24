@@ -73,6 +73,10 @@ function OrderInfoPage() {
 
   const userData = useSelector<userState, user>((state) => state.user.userData);
 
+  /**
+   * @description: 生成订单 并且跳转支付宝进行提交
+   * @return {*}
+   */  
   async function pay() {
     const { data } = await payOrder({
       oNum: orderInfo.oNum,
@@ -89,6 +93,10 @@ function OrderInfoPage() {
     }, 500);
   }
 
+  /**
+   * @description: 预支付订单状态判断
+   * @return {*}
+   */  
   const orderStatusRender = () => {
     // console.log(orderInfo.status);
     // 未支付 或者 已过期
@@ -120,6 +128,10 @@ function OrderInfoPage() {
     }
   };
 
+  /**
+   * @description: 根据状态判断是否显示电影票页面
+   * @return {*}
+   */  
   const ticketRender = () => {
     return orderInfo.status === 1 ? (
       <div className={Styles['order-ticket-wrapper']}>
@@ -144,6 +156,10 @@ function OrderInfoPage() {
     );
   };
 
+  /**
+   * @description: 订单信息
+   * @return {*}
+   */  
   function orderDetailsRender() {
     return (
       <>
