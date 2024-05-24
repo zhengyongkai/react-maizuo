@@ -184,6 +184,10 @@ function OrderInfoPage() {
     );
   }
 
+  /**
+   * @description: 生成图片
+   * @return {*}
+   */  
   function generateImg() {
     if (orderRef.current) {
       changeToCanvas(orderRef.current);
@@ -203,11 +207,19 @@ function OrderInfoPage() {
     }
   }
 
+  /**
+   * @description: 根据ID获取订单
+   * @return {*}
+   */  
   async function getOrderInfo() {
     let { data } = await getOrderById(+id);
     setOrderInfo(data);
   }
 
+  /**
+   * @description: 根据返回得参数查看订单支付信息
+   * @return {*}
+   */  
   async function getOrderQuery() {
     if (search) {
       const query = getQueryVariable(search);
