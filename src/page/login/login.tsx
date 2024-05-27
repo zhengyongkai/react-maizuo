@@ -1,7 +1,7 @@
 /*
  * @Author: 郑永楷
- * @LastEditors: 郑永楷
- * @Description: file content
+ * @LastEditors: zhengyongkai 825947557@qq.com
+ * @Description: 登录页面
  */
 import { Button, Form, Input } from 'antd-mobile';
 import { login } from '@/api/user';
@@ -9,8 +9,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUserData } from '@/store/common/user';
 import sha256 from 'crypto-js/sha256';
-
-import Styles from '@/assets/css/login.module.scss';
 
 import Logo from '@/assets/img/logo.png';
 import { GITHUB_LOGIN_URL } from '@/constant';
@@ -49,9 +47,8 @@ export default function Login(props: LoginPropsInf) {
   }
 
   return (
-    <div className={Styles['login-wrapper']}>
+    <div h-screen pl-16 pr-16 pt-60 bg-white>
       <Form
-        className={Styles['login-content']}
         form={form}
         layout="horizontal"
         initialValues={{
@@ -60,17 +57,30 @@ export default function Login(props: LoginPropsInf) {
         }}
         footer={
           <>
-            <Button onClick={onSubmit} block type="submit" color="primary" size="large">
-              提交
-            </Button>
-            <br />
-            <Button onClick={onGithubSubmit} block type="submit" color="warning" size="large">
+            <div mb-8>
+              <Button
+                style={{ width: '100%' }}
+                onClick={onSubmit}
+                block
+                type="submit"
+                color="primary"
+                size="large">
+                提交
+              </Button>
+            </div>
+            <Button
+              style={{ width: '100%' }}
+              onClick={onGithubSubmit}
+              block
+              type="submit"
+              color="warning"
+              size="large">
               gitHub登录
             </Button>
           </>
         }>
-        <div className={Styles['login-logo']}>
-          <img src={Logo} />
+        <div text-center mb-16>
+          <img src={Logo} w-64 br-8 />
         </div>
         <Form.Item
           name="username"

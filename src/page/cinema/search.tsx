@@ -17,7 +17,7 @@ function Search() {
    * @description: 通过关键字筛选影院
    * @param {*} useMemo
    * @return {*}
-   */  
+   */
   const cinemaFilterList = useMemo(() => {
     if (searchText) {
       let result = cinemaList.filter(

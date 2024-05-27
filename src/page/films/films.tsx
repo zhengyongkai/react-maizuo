@@ -96,7 +96,7 @@ function FilmPage() {
    * @description: Tabbar 显影
    * @param {detailsInf} film 影院详情
    * @return {*}
-   */  
+   */
   function showTabbar(film: detailsInf) {
     return (
       <div

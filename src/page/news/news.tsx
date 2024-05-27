@@ -75,12 +75,11 @@ export default function NewsPage() {
     }
   }, [params]);
 
-
   /**
    * @description: 城市选择
    * @param {string} res
    * @return {*}
-   */  
+   */
   function cityItemsChange(res: string) {
     const cinemas = cinemaList.cinemas.get(res) || [];
     setCinemasList({
@@ -96,7 +95,7 @@ export default function NewsPage() {
    * @param {number} key
    * @param {string} ticketName
    * @return {*}
-   */  
+   */
   function onTicketFlagchange(key: number, ticketName: string) {
     setParams({
       ...params,

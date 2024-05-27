@@ -18,9 +18,13 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      // ...
-    }
+    'grey-50': '#797d82', // class="text-very-cool"
+    'slate-50':'#d2d6dc',
+    black:'#191a1b',
+    'yellow-50':'#ffb232'
   },
+  },
+  
   presets: [
     presetRemToPx({
       baseFontSize: 4

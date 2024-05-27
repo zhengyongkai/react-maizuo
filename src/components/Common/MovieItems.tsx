@@ -1,9 +1,9 @@
-import Styles from '@/assets/css/movice.module.scss';
+// import Styles from '@/assets/css/movice.module.scss';
 import { memo } from 'react';
 
 import type { detailsInf } from '@/types/movice';
 import { useNavigate } from 'react-router-dom';
-import { cssCb } from '@/utils/css';
+// import { cssCb } from '@/utils/css';
 
 interface propsInf {
   item: detailsInf;
@@ -32,36 +32,82 @@ function MoviceItem(props: propsInf) {
   }
 
   return (
-    <div className={Styles['movice-item']}>
-      <div className={Styles['movice-poster']} onClick={() => onNavigateTo(item.filmId)}>
-        <img src={item.poster} alt="" />
+    <div bg-white flex h-124 p-16 items-center box-border>
+      <div mr-12 onClick={() => onNavigateTo(item.filmId)}>
+        <img w-66 h-94 src={item.poster} alt="" />
       </div>
-      <div className={Styles['movice-content']}>
-        <div className={cssCb([Styles['movice-name'], 'flex', 'items-center'])}>
-          <div className="truncate">{item.name} </div> <span>{item.filmType.name}</span>
+      <div bg-white overflow-hidden flex-1>
+        <div text-black flex items-center height-22 leading-22 mr-5 text-16 overflow-hidden>
+          <div truncate mr-7>
+            {item.name}{' '}
+          </div>{' '}
+          <span
+            text-white
+            text-9
+            text-center
+            bg-slate-50
+            h-14
+            leading-14
+            px-2
+            rounded-2
+            inline-block
+            w-20>
+            {item.filmType.name}
+          </span>
         </div>
         {item.grade ? (
-          <div className={Styles['movice-grade']}>
-            观众评分 <span>{item.grade}</span>{' '}
+          <div text-13 mt-4 text-grey-50>
+            观众评分{' '}
+            <span text-yellow-50 text-14>
+              {item.grade}
+            </span>{' '}
           </div>
         ) : undefined}
-        <div className={cssCb([Styles['movice-anctor'], 'truncate'])}>
+        <div truncate text-13 mt-4 text-grey-50>
           {item.actors &&
             item.actors.map((anctor, index) => {
               return <span key={index}>{anctor.name} </span>;
             })}
         </div>
-        <div className={Styles['movice-tips']}>
+        <div text-13 mt-4 text-grey-50>
           <span>{item.nation}</span>
-          <span>|</span>
+          <span mx-2>|</span>
           <span>{item.runtime} 分钟</span>
         </div>
       </div>
       <div>
         {props.type === 1 ? (
-          <span onClick={onBuyTickets}>购票</span>
+          <span
+            onClick={onBuyTickets}
+            inline-block
+            text-center
+            leading-25
+            h-25
+            w-50
+            text-yellow-50
+            text-13
+            rounded-2
+            border-1
+            border-yellow-50
+            border-solid>
+            购票
+          </span>
         ) : item.isPresale ? (
-          <span onClick={onBuyTickets}>预购</span>
+          <span
+            onClick={onBuyTickets}
+            inline-block
+            text-center
+            leading-25
+            h-25
+            w-50
+            text-yellow-50
+            text-13
+            rounded-2
+            border-1
+            border-yellow-50
+            border-solid>
+            预购
+          </span>
         ) : undefined}
       </div>
     </div>

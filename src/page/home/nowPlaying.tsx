@@ -68,7 +68,7 @@ function NowPlaying() {
 
   return (
     <>
-      <div style={{ backgroundColor: '#fff' }}>
+      <div bg-white>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={1} key={index}></MovieItems>;
         })}

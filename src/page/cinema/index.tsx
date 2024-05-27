@@ -155,12 +155,11 @@ export default function Cinemas() {
     }
   }, [cinema.showCinemas, params.cinemaIds, params.cityId]);
 
-
   /**
    * @description: 点击城市切换该城市下得地区
    * @param {string} res  相关城市
    * @return {*}
-   */  
+   */
   function cityItemsChange(res: string) {
     const cinemas = cinemaList.cinemas.get(res) || [];
 
@@ -172,21 +171,19 @@ export default function Cinemas() {
     closeMenu();
   }
 
-
   /**
    * @description: 跳转
    * @param {string} path 跳转url
    * @return {*}
-   */  
+   */
   function to(path: string) {
     navigator(path);
   }
 
-
   /**
    * @description: 关闭菜单
    * @return {*}
-   */  
+   */
   function closeMenu() {
     if (menuRef.current) {
       menuRef.current.close();
