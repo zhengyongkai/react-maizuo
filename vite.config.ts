@@ -10,6 +10,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { createHtmlPlugin } from 'vite-plugin-html';
 // import { viteMockServe } from "vite-plugin-mock";
 import tailwindcss from 'tailwindcss';
+import UnoCSS from 'unocss/vite';
 
 // @ts-ignore
 export default defineConfig(({ mode }) => {
@@ -21,6 +22,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
+      UnoCSS(),
       createHtmlPlugin({
         inject: {
           data: {

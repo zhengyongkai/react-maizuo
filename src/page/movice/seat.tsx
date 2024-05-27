@@ -83,7 +83,7 @@ const initSeat = {
       category: '',
       synopsis: '',
       poster: '',
-      grade: '',
+      grade: 0,
       actors: [],
       runtime: 0,
       nation: '',
@@ -282,12 +282,11 @@ export default function SeatPage() {
     }
   }, [schedule.film.filmId, schedule.cinema.cinemaId, showDate]);
 
-
   /**
    * @description: 缩放
    * @param {any} event
    * @return {*}
-   */  
+   */
   function zoom(event: any) {
     // console.log(event);
     seatingChartContext.style(
@@ -397,15 +396,13 @@ export default function SeatPage() {
     return rcObjs;
   }
 
-
   const rowNum = getSeatingRowsAndColumnsNum().rowNum;
-
 
   /**
    * @description: 获取行数和列数进行定位
    * @param {seatsInf} s
    * @return {*}
-   */  
+   */
   function getSeatPosition(s: seatsInf) {
     const column = s.columnNum;
     const row = s.rowNum;
@@ -425,7 +422,7 @@ export default function SeatPage() {
    * @param {React} ev
    * @param {*} MouseEvent
    * @return {*}
-   */  
+   */
   const onSelectZoom = (ev: React.MouseEvent<any, MouseEvent>) => {
     const transform = d3.zoomTransform(seatingChartContextWrap.current.node());
     if (transform.k >= 2) {
@@ -444,12 +441,10 @@ export default function SeatPage() {
     }, 10);
   };
 
-
-
   /**
    * @description: 优化函数重新渲染问题 防止 zoom 和 移动时出现子组件不断渲染的问题
    * @return {*}
-   */  
+   */
   const onSelectSeats = useCallback(
     (item: seatsInf, ev: React.MouseEvent<any, MouseEvent>) => {
       onSelectZoom(ev);
@@ -488,7 +483,7 @@ export default function SeatPage() {
   /**
    * @description: 是否已经选择
    * @return {*}
-   */  
+   */
   const isSelect = useMemo(
     () => (item: seatsInf) => {
       const flag = selectSeats.filter((res) => {
@@ -503,7 +498,7 @@ export default function SeatPage() {
    * @description: 选择排版 清空作为列表
    * @param {number} id
    * @return {*}
-   */  
+   */
   function setSchedule(id: number) {
     if (id === scheduleId) {
       return false;
@@ -516,7 +511,7 @@ export default function SeatPage() {
    * @description: 删除选中得作为
    * @param {number} index
    * @return {*}
-   */  
+   */
   function removeSeats(index: number) {
     let result = [...selectSeats];
     result.splice(index, 1);
@@ -526,7 +521,7 @@ export default function SeatPage() {
   /**
    * @description: 预生成订单
    * @return {*}
-   */ 
+   */
   async function onGeneratePreOrder() {
     if (!selectSeats.length) {
       return;
@@ -560,7 +555,7 @@ export default function SeatPage() {
    * @description: 价格计算
    * @param {*} useMemo
    * @return {*}
-   */  
+   */
   const totalPrice = useMemo(() => {
     // console.log(selectSeats.length * schedule.price.sale);
     return formatPrice(selectSeats.length * schedule.price.sale, false);

@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 import 'react-bmapgl';
-
+import type { AttributifyAttributes } from '@unocss/preset-attributify';
 // 导入环境变量
 interface ImportMetaEnv {
   readonly VITE_NAME: string;
@@ -17,4 +17,8 @@ export declare global {
   interface Window {
     BMapGL: any;
   }
+}
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends AttributifyAttributes {}
 }

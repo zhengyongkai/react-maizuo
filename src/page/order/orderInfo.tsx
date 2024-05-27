@@ -76,7 +76,7 @@ function OrderInfoPage() {
   /**
    * @description: 生成订单 并且跳转支付宝进行提交
    * @return {*}
-   */  
+   */
   async function pay() {
     const { data } = await payOrder({
       oNum: orderInfo.oNum,
@@ -96,7 +96,7 @@ function OrderInfoPage() {
   /**
    * @description: 预支付订单状态判断
    * @return {*}
-   */  
+   */
   const orderStatusRender = () => {
     // console.log(orderInfo.status);
     // 未支付 或者 已过期
@@ -131,7 +131,7 @@ function OrderInfoPage() {
   /**
    * @description: 根据状态判断是否显示电影票页面
    * @return {*}
-   */  
+   */
   const ticketRender = () => {
     return orderInfo.status === 1 ? (
       <div className={Styles['order-ticket-wrapper']}>
@@ -140,6 +140,7 @@ function OrderInfoPage() {
         </div>
         <div className={Styles['order-ticket-qrcode']}>
           <QRCode
+            renderAs="canvas"
             value={orderInfo.oNum} // value参数为生成二维码的链接
             size={150} // 二维码的宽高尺寸
           ></QRCode>
@@ -159,7 +160,7 @@ function OrderInfoPage() {
   /**
    * @description: 订单信息
    * @return {*}
-   */  
+   */
   function orderDetailsRender() {
     return (
       <>
@@ -187,7 +188,7 @@ function OrderInfoPage() {
   /**
    * @description: 生成图片
    * @return {*}
-   */  
+   */
   function generateImg() {
     if (orderRef.current) {
       changeToCanvas(orderRef.current);
@@ -210,7 +211,7 @@ function OrderInfoPage() {
   /**
    * @description: 根据ID获取订单
    * @return {*}
-   */  
+   */
   async function getOrderInfo() {
     let { data } = await getOrderById(+id);
     setOrderInfo(data);
@@ -219,7 +220,7 @@ function OrderInfoPage() {
   /**
    * @description: 根据返回得参数查看订单支付信息
    * @return {*}
-   */  
+   */
   async function getOrderQuery() {
     if (search) {
       const query = getQueryVariable(search);

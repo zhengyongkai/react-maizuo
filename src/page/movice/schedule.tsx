@@ -223,7 +223,7 @@ export default function Schedule() {
    * @description: 跳转到选座位页面
    * @param {scheduleInf} item
    * @return {*}
-   */  
+   */
   function onBuyTicket(item: scheduleInf) {
     if (!isStopSelling(item.showAt, item.advanceStopMins)) {
       navigator(`/seat/${item.scheduleId}/${item.showAt}`);
@@ -235,7 +235,7 @@ export default function Schedule() {
       <NavTitle back title={fixed ? cinemaInfo.name : ''}></NavTitle>
       <div className={Styles['cinemas-warpper']}>
         <div>
-          <div className={cssCb([Styles['cinemas-title'], 'truncate', 'm-auto'])}>
+          <div truncate m-auto className={cssCb([Styles['cinemas-title']])}>
             {cinemaInfo.name}
           </div>
         </div>

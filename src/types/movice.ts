@@ -2,19 +2,38 @@ import type { districtInf } from '@/types/location';
 import { userSimpleInf } from './user';
 import { cinemasInfoInf } from './cinema';
 
+/**
+ * @description: 演员信息
+ * @param {string} name 演员名称
+ * @param {string} role 职位（主演）
+ * @param {string} avatarAddress 头像地址
+ * @return {*}
+ */
 export interface anctorInf {
   name: string;
   role: string;
   avatarAddress: string;
 }
 
+/**
+ * @description: 电影信息
+ * @param {number} filmId 电影Id
+ * @param {string} name 电影名称
+ * @param {string} category 简介
+ * @param {string} poster 海报
+ * @param {string} grade 评分
+ * @param {Array<anctorInf>} actors 主演列表
+ * @param {string} nation 国家
+ * @param {string} language 语言
+ * @return {*}
+ */
 export interface moviceInf {
   filmId: number;
   name: string;
   category: string;
   synopsis: string;
   poster: string;
-  grade: string;
+  grade: number;
   actors: Array<anctorInf>;
   runtime: number;
   nation: string;
@@ -38,26 +57,17 @@ export interface filmTypeInf {
   value: number;
 }
 
-export interface detailsInf {
-  actors: Array<anctorInf>;
-  category: string;
+export interface detailsInf extends moviceInf {
   director: string;
-  filmId: number;
   filmType: filmTypeInf;
   isPresale: boolean;
   isSale: boolean;
   item: itemInf;
-  language: string;
-  name: string;
-  nation: string;
   photos: Array<string>;
-  poster: string;
   premiereAt: number;
   runtime: number;
-  synopsis: string;
   timeType: number;
   videoId: string;
-  grade?: number;
   showDate?: Array<string>;
 }
 
@@ -105,7 +115,10 @@ export interface moviceDetailsResponseInf {
   films: Array<moviceDetailsInf>;
 }
 
-// 评分
+/**
+ * @description: 评分返回数据类型
+ * @return {*}
+ */
 export type rateDetailsResponseImg = Array<number>;
 
 export type rateListDetailsPaginInf = {
