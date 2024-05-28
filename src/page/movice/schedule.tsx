@@ -9,7 +9,7 @@ import triggleImg from '@/assets/img/triggle.png';
 import rightImg from '@/assets/img/right.png';
 
 import CinemaSwiper from '@/components/Common/Swiper';
-import Styles from '@/assets/css/schedule.module.scss';
+// import Styles from '@/assets/css/schedule.module.scss';
 
 // import { Swiper } from "antd-mobile";
 
@@ -233,21 +233,48 @@ export default function Schedule() {
   return (
     <>
       <NavTitle back title={fixed ? cinemaInfo.name : ''}></NavTitle>
-      <div className={Styles['cinemas-warpper']}>
+      <div bg-white>
         <div>
-          <div truncate m-auto className={cssCb([Styles['cinemas-title']])}>
+          <div
+            truncate
+            m-auto
+            pt-48
+            text-center
+            relative
+            text-17
+            text-black
+            h-44
+            leading-44
+            className="w-[80%]">
             {cinemaInfo.name}
           </div>
         </div>
-        <div className={Styles['cinemas-tags']}>
+        <div mx-auto flex w-fit pt-5 pb-15>
           {cinemaInfo.services &&
             cinemaInfo.services.slice(0, 4).map((item, key) => {
-              return <span key={key}> {item.name} </span>;
+              return (
+                <span
+                  border-1
+                  border-solid
+                  border="[#ffb232]"
+                  px-6
+                  mx="2.5"
+                  text-10
+                  text-yellow-50
+                  hidden
+                  relative
+                  key={key}>
+                  {' '}
+                  {item.name}{' '}
+                </span>
+              );
             })}
         </div>
-        <div className={cssCb([Styles['cinemas-info'], 'flex', 'items-center'])}>
+        <div items-center flex px-17 h-50>
           <div>
             <img
+              w-14
+              mr-6
               src={locationImg}
               alt=""
               onClick={() => navigator('/map/' + cinemaInfo.longitude + '/' + cinemaInfo.latitude)}
@@ -256,37 +283,44 @@ export default function Schedule() {
           <div className="truncate flex-1 px-3">{cinemaInfo.address}</div>
           <div>
             <a href={'tel:' + cinemaInfo.phone}>
-              <img src={phoneImg} alt="" />
+              <img w-17 src={phoneImg} alt="" />
             </a>
           </div>
         </div>
-        <div className={Styles['cinemas-film-list']}>
-          <div className={Styles['cinemas-film-cover']}>
+        <div h-160 pt-15 relative>
+          <div absolute inset-0 h-160 overflow-hidden>
             <div
+              h="100%"
+              w="100%"
+              blur="30px"
               style={{
                 backgroundImage: `url('${params.details.poster}')`
               }}></div>
           </div>
           <CinemaSwiper items={films} change={(e) => onSlideChange(e)} ref={swiperRef} />
-          <div className={Styles['film-triggle']}>
+          <div relative top-5 flex justify-center>
             <img src={triggleImg} />
           </div>
         </div>
-        <div className={Styles['film-info']}>
+        <div relative px-15>
           <div>
-            <div className={Styles['film-info-name']}>
+            <div text-15 text-black text-center mb-10 pr-5>
               {params.details.name}{' '}
-              <span>
-                <i>{params.details.grade}</i> 分
+              <span text-10 text-yellow-50>
+                <i text-16>{params.details.grade}</i> 分
               </span>
             </div>
-            <div className={Styles['film-info-desc']}>
+            <div pb-16 w="98%" text-center h-18 text-grey-50 text-13 overflow-hidden truncate>
               {params.details.category} | {params.details.runtime}分钟 | {params.details.director} |{' '}
               {getAnctorsString(params.details.actors)}
             </div>
           </div>
           <div>
             <img
+              absolute
+              top-20
+              right-15
+              w-6
               src={rightImg}
               alt=""
               onClick={() => {
@@ -308,29 +342,56 @@ export default function Schedule() {
               }}></Tab>
           )}
         </div>
-        <div className={Styles['schedule-items']}>
+        <div relative bg-white>
           <PartLoading loading={loading}>
             {schedules.map((item, index) => {
               return (
                 <div
+                  h-74
+                  p-15
+                  box-border
+                  flex
+                  items-center
                   className={cssCb([
-                    Styles['schedule-item'],
                     isStopSelling(item.showAt, item.advanceStopMins) ? Styles['disabled'] : ''
                   ])}
                   key={item.scheduleId}>
-                  <div className={Styles['schedule-at']}>
-                    <div>{getTime(item.showAt)}</div>
-                    <div>{getTime(item.endAt)}</div>
+                  <div flex flex-col justify-between w-60>
+                    <div text-15 text-black>
+                      {getTime(item.showAt)}
+                    </div>
+                    <div text-13 text-grey-50 mt-2>
+                      {getTime(item.endAt)}
+                    </div>
                   </div>
-                  <div className={Styles['schedule-info']}>
-                    <div>
+                  <div flex-1 w-60 flex flex-col justify-between>
+                    <div text-15 text-black>
                       {item.filmLanguage} {item.imagery}
                     </div>
-                    <div>{item.hallName}号厅</div>
+                    <div text-13 text-grey-50 mt-2>
+                      {item.hallName}号厅
+                    </div>
                   </div>
-                  <div className={Styles['schedule-price']}>{formatPrice(item.salePrice)}</div>
+                  <div flex flex-col justify-between pr-20 leading-25 text-orange-50 text-15>
+                    {formatPrice(item.salePrice)}
+                  </div>
 
-                  <div onClick={() => onBuyTicket(item)}>购票</div>
+                  <div
+                    border-1
+                    border-solid
+                    border="orange-50"
+                    text-orange-50
+                    text-center
+                    leading-25
+                    h-25
+                    w-50
+                    rounded-2
+                    flex
+                    flex-col
+                    justify-between
+                    onClick={() => onBuyTicket(item)}>
+                    购票
+                  </div>
                 </div>
               );
             })}

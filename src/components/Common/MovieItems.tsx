@@ -30,7 +30,6 @@ function MoviceItem(props: propsInf) {
   function onBuyTickets() {
     navigate(`/films/cinemas/${item.filmId}`);
   }
-
   return (
     <div bg-white flex h-124 p-16 items-center box-border>
       <div mr-12 onClick={() => onNavigateTo(item.filmId)}>

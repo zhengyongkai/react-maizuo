@@ -100,12 +100,26 @@ function FilmPage() {
   function showTabbar(film: detailsInf) {
     return (
       <div
+        h-48
+        leading-48
+        w-screen
+        z-2
+        text-17
+        text-center
+        fixed
+        flex
+        items-center
+        transition="all duration-0.3s"
         className={Styles['film-tabbar']}
         style={tabbarVisble ? { backgroundColor: '#fff' } : {}}>
         <div>
-          <img src={backImg} alt="" onClick={() => navigate(-1)} />
+          <img absolute w-36 t-6 l-5 src={backImg} alt="" onClick={() => navigate(-1)} />
         </div>
-        {tabbarVisble ? <div className={Styles['title']}>{film.name}</div> : undefined}
+        {tabbarVisble ? (
+          <div w-screen text-16 className={Styles['title']}>
+            {film.name}
+          </div>
+        ) : undefined}
       </div>
     );
   }
@@ -115,22 +129,62 @@ function FilmPage() {
         <>
           <div>
             {showTabbar(film)}
-            <div className={Styles['film-lazy']}>
-              <div className={Styles['film-poster']}>
-                <img src={film.poster}></img>
+            <div relative z-1 className={Styles['film-lazy']}>
+              <div
+                w-screen
+                bg-white
+                relative
+                overflow-hidden
+                t-0
+                flex
+                justify-center
+                items-center
+                h="56vw"
+                className={Styles['film-poster']}>
+                <img
+                  w-screen
+                  absolute
+                  className="top-[50%]  translate-y--50%"
+                  src={film.poster}></img>
               </div>
             </div>
-            <div className={Styles['film-descrption']}>
-              <div className={Styles['film-name']}>
-                <div>
+            <div relative p-15 pt-12 bg-white className={Styles['film-descrption']}>
+              <div
+                text-black
+                text-18
+                h-24
+                leading-24
+                mr-7
+                flex
+                items-center
+                className={Styles['film-name']}>
+                <div flex flex-1 items-center overflow-hidden>
                   <div className="truncate"> {film.name}</div>
-                  <span>{film.filmType.name}</span>
+                  <span
+                    ml-8
+                    text-9
+                    text-center
+                    text-white
+                    bg-slate-50
+                    h-14
+                    leading-14
+                    px-2
+                    rounded-2
+                    inline-block
+                    w-20>
+                    {film.filmType.name}
+                  </span>
                 </div>
 
                 <div
+                  w-50
+                  text-right
+                  text-18
+                  font-italic
+                  text-yellow-50
                   className={Styles['film-grade']}
                   style={!film.grade ? { display: 'none' } : {}}>
-                  {film.grade} <span>分</span>
+                  {film.grade} <span text-10>分</span>
                 </div>
               </div>
               <div className={Styles['film-grey']}>{film.category.split('|').join(' | ')}</div>
@@ -150,6 +204,11 @@ function FilmPage() {
                 {film.synopsis}
               </div>
               <div
+                overflow-hidden
+                mt-12
+                text-13
+                text-grey-50
+                transition="height duration-0.5s"
                 className={`${Styles['film-synopsis']} ${
                   more ? Styles['film-synopsis-more'] : Styles['film-synopsis-short']
                 }
@@ -158,22 +217,34 @@ function FilmPage() {
                 {film.synopsis}
               </div>
               <div
+                text-center
+                block
+                w-20
+                mx-auto
+                mt-10
                 className={Styles['film-toggle']}
                 style={more ? { transform: 'rotate(180deg)' } : {}}>
                 <img src={moreImg} alt="" onClick={() => onMoreSynopsis()} />
               </div>
             </div>
-            <div className={Styles['film-anctors-list']}>
+            <div bg-white mt-8 className={Styles['film-anctors-list']}>
               <div className={Styles['film-title']}>演职列表</div>
-              <div className={cssCb([Styles['film-anctors'], 'inner-scroll'])}>
+              <div
+                pl-15
+                flex
+                flex-nowrap
+                overflow-x-auto
+                className={cssCb([Styles['film-anctors'], 'inner-scroll'])}>
                 {film.actors.map((item, index) => {
                   return (
-                    <div className={Styles['film-anctor']} key={index}>
+                    <div mr-15 text-center className={Styles['film-anctor']} key={index}>
                       <div>
-                        <img src={item.avatarAddress} alt="" />
+                        <img w-85 src={item.avatarAddress} alt="" />
                       </div>
                       <div>{item.name}</div>
-                      <div>{item.role}</div>
+                      <div text-10 text-grey-50>
+                        {item.role}
+                      </div>
                     </div>
                   );
                 })}

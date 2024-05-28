@@ -7,32 +7,14 @@
     z-index: 999;
   }
   .cinemas-title {
-    padding-top: 48px;
-    text-align: center;
-    position: relative;
-    text-align: center;
-    font-size: 17px;
-    color: #191a1b;
-
-    width: 80%;
-    height: 44px;
-    line-height: 44px;
+    
     //   padding: 0 15px;
   }
 
   .cinemas-tags {
-    margin: 0 auto;
-    display: flex;
-    width: fit-content;
-    padding: 5px 0 15px;
+    
     span {
-      border: 1px solid #ffb232;
-      padding: 0 6px;
-      margin: 0 2.5px;
-      font-size: 10px;
-      color: #ffb232;
-      overflow: hidden;
-      position: relative;
+     
     }
   }
 
@@ -124,13 +106,10 @@
   }
 
   .schedule-items {
-    position: relative;
-    background: #fff;
+  
 
     .schedule-item {
-      height: 74px;
-      padding: 15px 15px;
-      box-sizing: border-box;
+      
       &.disabled {
         * {
           color: #d2d6dc !important;
@@ -144,8 +123,7 @@
         flex-direction: column;
         justify-content: space-between;
       }
-      display: flex;
-      align-items: center;
+     
       .schedule-at {
         width: 60px;
         > :first-child {
@@ -173,22 +151,11 @@
         }
       }
       .schedule-price {
-        // padding: 10px 0;
-        padding-right: 20px;
-        line-height: 25px;
-        color: #ff5f16;
-        font-size: 15px;
+       
       }
 
       > :last-child {
-        height: 25px;
-        width: 50px;
-        border-radius: 2px;
-        position: relative;
-        text-align: center;
-        border: 1px solid #ff5f16;
-        line-height: 25px;
-        color: #ff5f16;
+    
       }
     }
   }
