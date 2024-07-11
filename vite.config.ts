@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => {
   return {
     base: config.VITE_APP_BASE_URL,
     server: {
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      port: '5177'
     },
     plugins: [
       react(),

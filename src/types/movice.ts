@@ -57,6 +57,20 @@ export interface filmTypeInf {
   value: number;
 }
 
+/**
+ * @description: 电影详情
+ * @param {string} director 主演
+ * @param {filmTypeInf}  filmType 电影类型
+ * @param {boolean} isPresale 是否预售
+ * @param {boolean} isSale 是否在售
+ * @param {itemInf} item
+ * @param {Array<string>} 电影海报
+ * @param {number} premiereAt 上家时间
+ * @param {number} runtime 播放时长
+ * @param {number} timeType
+ * @param {string} videoId
+ * @param {Array<string>} showDate 上映时间
+ */
 export interface detailsInf extends moviceInf {
   director: string;
   filmType: filmTypeInf;
@@ -121,6 +135,12 @@ export interface moviceDetailsResponseInf {
  */
 export type rateDetailsResponseImg = Array<number>;
 
+/**
+ * @description: 评分分页详情
+ * @param {number} pageSize 每页大小
+ * @param {number} pageNo 第几页
+ * @param {Array<rateDetailsResponseImg>} 评分列表
+ */
 export type rateListDetailsPaginInf = {
   pageSize: number;
   pageNo: number;
@@ -133,5 +153,3 @@ export type rateListDetailsResponseImg = {
   estimation: string;
   like: number;
 };
-
-export interface cinemaRequestInf {}

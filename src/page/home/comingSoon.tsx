@@ -69,7 +69,7 @@ function ComingSoon() {
 
   return (
     <>
-      <div style={{ backgroundColor: '#fff' }}>
+      <div bg-white>
         {movice.map((item, index) => {
           return <MovieItems item={item} type={2} key={index} />;
         })}
